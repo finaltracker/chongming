@@ -8,10 +8,10 @@ public class UserDAOImpl extends HibernateDaoSupport implements UserDAO
   public boolean isValidUser(String username, String password) 
   { 
     // 验证用户  
-    List userList = this.getHibernateTemplate().find(hql, username); 
-    if (userList.size() > 0) 
+   // List userList = this.getHibernateTemplate().find(hql, username); 
+    //if (userList.size() > 0) 
     { 
       return true; 
-    }  return false; 
+    } // return false; 
  } 
 }

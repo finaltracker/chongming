@@ -7,7 +7,7 @@
 
 
 	<bean name="/home/target" class="com.san.chengxin.action.TargetAction">
-		<property name="userDAO" ref="userDAO" />
+		<!--  property name="userDAO" ref="userDAO" /-->
 
 	</bean>
 	
@@ -21,11 +21,11 @@
 			<ref bean="dataSource" />
 		</property>
 		
-		<property name="mappingResources">
+		<!-- property name="mappingResources">
 			<list>
 				<value>com/login/User.hbm.xml</value>
 			</list>
-		</property>
+		</property-->
 
 		<property name="hibernateProperties">
 			<props>
@@ -44,7 +44,7 @@
 	</bean>
 
 
-	<bean id="userDAO" class="com.login.UserDAOImpl">
+	<!-- bean id="userDAO" class="com.login.UserDAOImpl">
 		<property name="sessionFactory">
 			<ref local="sessionFactory" />
 		</property>
@@ -64,7 +64,7 @@
 				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
 			</props>
 		</property>
-	</bean>
+	</bean-->
 
 
 </beans>

@@ -6,12 +6,15 @@
 	<head>
 		<title>JSP for LoginForm form</title>
 	</head>
+	
 	<body>
-		<html:form action="/login">
+		<html:form action="/home/target">
 			username : <html:text property="username"/><html:errors property="username"/><br/>
 			password : <html:text property="password"/><html:errors property="password"/><br/>
 			<html:submit/><html:cancel/>
 		</html:form>
+		
+		
 	</body>
 </html>
 

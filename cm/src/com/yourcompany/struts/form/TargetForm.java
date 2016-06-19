@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
  * XDoclet definition:
  * @struts.form name="loginForm"
  */
-public class LoginForm extends ActionForm {
+public class TargetForm extends ActionForm {
 	/*
 	 * Generated fields
 	 */

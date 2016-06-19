@@ -10,10 +10,10 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import com.yourcompany.struts.form.LoginForm;
+import com.yourcompany.struts.form.TargetForm;
 import com.login.UserDAO;
 
-public class LoginAction extends Action {
+public class TargetAction extends Action {
 	private UserDAO userDAO;
 	
 	public UserDAO getUserDAO() {
@@ -29,7 +29,7 @@ public class LoginAction extends Action {
 		
 		//return mapping.findForward( "indexForword" );
 		
-		LoginForm loginForm = (LoginForm) form;
+		TargetForm loginForm = (TargetForm) form;
 		String username=loginForm.getUsername();
 		String password=loginForm.getPassword();
 		

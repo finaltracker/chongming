@@ -1,0 +1,14 @@
+body { margin:0; padding:0; font-size:12px;font-family:"Î¢ÈíÑÅºÚ","Microsoft YaHei","ËÎÌå";}
+
+a.title { font-size:24px; color:#1b1b1b; text-decoration:none; }
+a.title:hover { color:#c90000;}
+
+.page_title {font-size:36px; color:#823c3c; line-height:60px;}
+.page_title_little {font-size:18px; line-height:60px;}
+
+.img_border {border:3px solid #FFFFFF; width:171px; height:124px;}
+.list_title2 {font-size:14px; font-weight:bold; text-align:center; width:175px; line-height:30px;}
+
+#bottomdiv {z-index: 999;bottom: 0px;width: 100%;position: fixed;_position: absolute;_top: expression(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight);overflow: visible;}
+.footer { width:1000px; margin:0 auto; height:50px; line-height:20px; text-align:center; color:#0c86f0;}
+.login_top { margin-top:190px;}

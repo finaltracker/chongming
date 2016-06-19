@@ -1,0 +1,27 @@
+a:link {
+	font-family: "Verdana", "宋体";
+	color: #ffffff;
+	text-decoration: none;
+}
+a:visited {
+	font-family: "Verdana", "宋体";
+	color: #ffffff;
+	text-decoration: none;
+}
+a:hover {
+	font-family: "Verdana", "宋体";
+	color: #ffffff;
+	text-decoration: none;
+}
+table{
+	font-family: "Verdana", "宋体";
+	color: #ffffff;
+	text-decoration: none;
+    font-size: 12px;
+}
+.titleFontStyle{
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	color: #800000;
+	text-decoration: none;
+}

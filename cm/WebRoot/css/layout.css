@@ -1,0 +1,14 @@
+
+body { font-family:Verdana; font-size:14px; margin:0;}
+
+#container {margin:0 auto; width:100%;}
+#header { height:40px; background: url(../images/topbg.jpg); margin-bottom:5px;}
+#mainContent { height:520px; margin-bottom:5px;}
+#sidebar { float:left;border:#709EB8 1px solid; width:200px; height:520px; background:#F1FAFF;}
+#content { margin-left:205px !important; margin-left:202px; height:510px; border:#709EB8 1px solid; padding:5px; background:#F1FAFF;}
+#footer { height:30px; background:#DDEFFB; border:#709EB8 1px solid;}
+#header h2{ margin:0; padding:0; line-height:2; padding-left:15px; font-size:20px; color:#FFFFFF;}
+#sidebar ul{ list-style:none; margin:0; padding:0;}
+#sidebar ul li{ display:block; background:url(../images/leftsbg.jpg);  line-height:2; text-align:center; border:#709EB8 1px solid; border-top:0; border-right:0;}
+#sidebar ul li a{color:#396477; text-decoration:none;}
+#sidebar ul li a:hover{color: #3399CC; text-decoration:none;}img{border:0;}

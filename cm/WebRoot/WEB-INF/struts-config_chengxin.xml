@@ -30,7 +30,7 @@
   <message-resources parameter="com.yourcompany.struts.ApplicationResources" />
   
   <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
-    <set-property property="contextConfigLocation" value="/WEB-INF/applicationContext.xml"/>
+    <set-property property="contextConfigLocation" value="/WEB-INF/applicationContextChengxin.xml"/>
   </plug-in>
 
 </struts-config>

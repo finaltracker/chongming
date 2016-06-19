@@ -10,14 +10,8 @@
 		<property name="userDAO" ref="userDAO" />
 
 	</bean>
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver">
-		</property>
-		<property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl">
-		</property>
-		<property name="username" value="empty"></property>
-		<property name="password" value="empty"></property>
-	</bean>
+	<import resource="applicationContext-resources.xml"/>
+	
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">

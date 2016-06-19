@@ -7,8 +7,8 @@
 
 
 	<bean name="/home/target" class="com.san.chengxin.action.TargetAction">
-		<!--  property name="userDAO" ref="userDAO" /-->
-
+		<property name="cmTargetDAO" ref="cmTargetDAO" />
+		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
 
@@ -21,11 +21,13 @@
 			<ref bean="dataSource" />
 		</property>
 		
-		<!-- property name="mappingResources">
+		<property name="mappingResources">
 			<list>
-				<value>com/login/User.hbm.xml</value>
+				<!--<value>com/login/User.hbm.xml</value>-->
+				<value>com/san/chengxin/model/target/CmTarget.hbm.xml</value>
+				<value>com/san/chengxin/model/part/CmPart.hbm.xml</value>
 			</list>
-		</property-->
+		</property>
 
 		<property name="hibernateProperties">
 			<props>
@@ -67,4 +69,50 @@
 	</bean-->
 
 
+
+	<bean id="cmTargetDAO"
+		class="com.san.chengxin.model.target.CmTargetDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="cmTargetDAOProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="cmTargetDAO" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>		
+
+	<bean id="cmPartDAO"
+		class="com.san.chengxin.model.part.CmPartDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="cmPartDAOProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="cmPartDAO" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>		
 </beans>

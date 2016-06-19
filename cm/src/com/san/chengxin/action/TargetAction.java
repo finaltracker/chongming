@@ -27,8 +27,9 @@ public class TargetAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 		HttpServletRequest request, HttpServletResponse response) {
 		
-		//return mapping.findForward( "indexForword" );
 		
+		return mapping.findForward( "targetForword" );
+		/*
 		TargetForm loginForm = (TargetForm) form;
 		String username=loginForm.getUsername();
 		String password=loginForm.getPassword();
@@ -38,6 +39,7 @@ public class TargetAction extends Action {
 		}else{
 			return mapping.getInputForward();
 		}
+		*/
 		
 	}
 }

@@ -1,3 +1,5 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
+
 <extend name="Common/base" />
 <block name="title">指标管理</block>
 <block name="body">

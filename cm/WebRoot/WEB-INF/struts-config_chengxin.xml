@@ -23,6 +23,7 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
       <set-property property="cancellable" value="true" />
+      <forward name="targetForword" path="/page/san/target.jsp" />
     </action>
 	
    

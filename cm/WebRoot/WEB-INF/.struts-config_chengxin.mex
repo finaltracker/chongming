@@ -6,10 +6,18 @@
   <StrutsActivity path="/target" location="650,150" dimension="72,53" />
   <StrutsActivity path="/.jsp" location="950,150" dimension="57,53" />
   <StrutsActivity path="/t" location="950,350" dimension="41,53" />
-  <StrutsActivity path="/home/target.do" />
+  <StrutsActivity path="/home/target.do" location="350,350" dimension="362,104" />
+  <StrutsActivity path="/page/san/target.jsp" />
   <StrutsTransition id="/login.jsp,null,/home/target.do,2" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="181,26" />
+      <AbsolutePoint location="224,26" />
+      <AbsolutePoint location="531,26" />
+      <AbsolutePoint location="531,350" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
+  <StrutsTransition id="/home/target.do,targetForword,/page/san/target.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="531,402" />
       <AbsolutePoint location="0,0" />
     </AutomaticBendpoints>
   </StrutsTransition>

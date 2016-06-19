@@ -12,7 +12,6 @@ import org.apache.struts.action.ActionMapping;
 
 import com.san.chengxin.model.part.CmPart;
 import com.san.chengxin.model.part.CmPartDAO;
-import com.san.chengxin.model.target.CmTarget;
 import com.san.chengxin.model.target.CmTargetDAO;
 
 
@@ -32,7 +31,7 @@ public class TargetAction extends Action {
 		return cmPartDAO;
 	}
 	
-	public void setCmPartDAO(CmPartDAO cmTargetDAO) {
+	public void setCmPartDAO(CmPartDAO cmPartDAO) {
 		this.cmPartDAO = cmPartDAO;
 	}
 	
@@ -45,11 +44,17 @@ public class TargetAction extends Action {
 			System.out.println("name: "+cc.getTargetName());
 		}*/
 		List<CmPart> ccs = cmPartDAO.findAll();
+		StringBuffer sb = new StringBuffer();
 		for(int i=0;i<ccs.size();i++) {
 			CmPart cc = (CmPart)ccs.get(i);
-			System.out.println("name: "+cc.getPartName());
-		}		
-		request.setAttribute("partListSel", ccs);
+			System.out.println("name: "+cc.getPartName()+cc.getId());
+			String s = String.format("<option value='%d'>%s</option>", cc.getId(),cc.getPartName());
+			sb.append(s);
+		}
+		//<option value='12' selected>乡镇</option><option value='13' >村</option><option value='15' >
+		System.out.println("result: "+sb.toString());
+		String partListSel = sb.toString();
+		request.setAttribute("partListSel", partListSel);
 		return mapping.findForward( "targetForword" );
 	}
 }

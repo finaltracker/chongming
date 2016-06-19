@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
+<%@ taglib uri="/WEB-INF/c.tld" prefix="c"%>
 
 <jsp:include page="Common/base.jsp" flush="true"/>
 <block name="title">指标管理</block>
@@ -25,7 +26,7 @@
                                 <label class="control-label"> 所属部门 </label>
                                 <select class="select2 form-control" name="part_id">
                                     <option value="0">所有可见</option>
-                                    {$partListSel}
+                                    "${partListSel}"
                                 </select>&nbsp;&nbsp;
                                 <button type="submit" class="btn btn-primary">搜索</button>
                                 <button class="btn btn-default back" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}">查看所有</button>

@@ -1,14 +1,16 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
+
 <!DOCTYPE html><html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <title><block name="title">标题</block></title>
-    <link href="/css/css.css" rel="stylesheet" type="text/css"/>
-    <link href="/page/san/new/css/font-awesome.css" rel="stylesheet">
-    <link href="/page/san/new/css/bootstrap.css" rel="stylesheet" media="screen">
-    <link href="/page/san/new/css/main.css" rel="stylesheet" media="screen">
-    <link href="/page/san/new/css/select2.min.css" rel="stylesheet" media="screen">
+    <link href="../css/css.css" rel="stylesheet" type="text/css"/>
+    <link href="../page/san/new/css/font-awesome.css" rel="stylesheet">
+    <link href="../page/san/new/css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="../page/san/new/css/main.css" rel="stylesheet" media="screen">
+    <link href="../page/san/new/css/select2.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
         body {
             margin:0;
@@ -90,12 +92,12 @@
     <!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
    
-    <!--<script src="/page/san/new/js/html5.min.js"></script>
-    <script src="/page/san/new/js/respond.min.js"></script>-->
+    <!--<script src="../page/san/new/js/html5.min.js"></script>
+    <script src="../page/san/new/js/respond.min.js"></script>-->
     <![endif]-->
-    <script src="/page/san/new/js/jquery.js"></script>
+    <script src="../page/san/new/js/jquery.js"></script>
     <script language="Javascript" src="/js/My97DatePicker/WdatePicker.js"></script>
-    <script src="/page/san/new/layer/layer.js"></script>
+    <script src="../page/san/new/layer/layer.js"></script>
     <style>
         .table1 {
             width: 100%;
@@ -123,14 +125,14 @@
 <body>
 <div class="hide"><iframe src="http://<?php echo $_SERVER["SERVER_NAME"]?>:{$JAVA_PORT}/web/checklogin.jsp"></iframe></div>
 <block name="body">  </block>
-<script src="/page/san/new/js/bootstrap.min.js"></script>
+<script src="../page/san/new/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap Hover JS -->
-<script src="/page/san/new/js/bootstrap.hover.js"></script>
-<script src="/page/san/new/js/select2.min.js"></script>
-<script src="/page/san/new/js/bootstrap-datetimepicker.min.js"></script>
-<script src="/page/san/new/js/bsvalidator/bootstrapValidator.js"></script>
-<script src="/page/san/new/js/jquery.form.js"></script>
+<script src="../page/san/new/js/bootstrap.hover.js"></script>
+<script src="../page/san/new/js/select2.min.js"></script>
+<script src="../page/san/new/js/bootstrap-datetimepicker.min.js"></script>
+<script src="../page/san/new/js/bsvalidator/bootstrapValidator.js"></script>
+<script src="../page/san/new/js/jquery.form.js"></script>
 <script>
     $(function(){
         $("input.date").datetimepicker({format: 'yyyy-mm-dd',minView:'month',autoclose:true,language: 'zh-CN'});

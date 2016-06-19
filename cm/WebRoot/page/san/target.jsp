@@ -1,6 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
 
-<extend name="Common/base" />
+<jsp:include page="Common/base.jsp" flush="true"/>
 <block name="title">指标管理</block>
 <block name="body">
     <div class="title_1">

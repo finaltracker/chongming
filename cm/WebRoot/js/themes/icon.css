@@ -1,0 +1,161 @@
+.icon-add{
+	background:url('icons/add.png') no-repeat;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat;
+}
+.icon-reset{
+   background:url('icons/reset.gif') no-repeat;
+}
+
+
+.icon-cs{
+   background:url('icons/I109.png') no-repeat;
+}
+.icon-sf{
+   background:url('icons/I158.png') no-repeat;
+}
+
+.icon-sb{
+   background:url('icons/I111.png') no-repeat;
+}
+.icon-yy{
+   background:url('icons/I123.png') no-repeat;
+}
+
+.icon-chid{
+   background:url('icons/11023.png') no-repeat;
+}
+.icon-cog{
+   background:url('icons/cog.png') no-repeat;
+}
+.icon-dep{
+   background:url('icons/dep.png') no-repeat;
+}
+.icon-user{
+   background:url('icons/user.png') no-repeat;
+}
+.icon-saveuser{
+   background:url('icons/saveuser.png') no-repeat;
+}
+.icon-savedep{
+   background:url('icons/savedep.png') no-repeat;
+}
+.icon-editdep{
+   background:url('icons/editdep.png') no-repeat;
+}
+.icon-deldep{
+   background:url('icons/deldep.png') no-repeat;
+}
+.icon-pro{
+   background:url('icons/pro.png') no-repeat;
+}
+.icon-fun{
+   background:url('icons/tabs.png') no-repeat;
+}
+.icon-tab{
+   background:url('icons/table.png') no-repeat;
+}
+.icon-funs{
+   background:url('icons/tabs.png') no-repeat;
+}
+.icon-reload1{
+	background:url('icons/reload1.png') no-repeat;
+}
+.icon-reload2{
+	background:url('icons/reload2.png') no-repeat;
+}
+.icon-daochu{
+   background:url('icons/daochu.png') no-repeat;
+}
+.icon-daoru{
+   background:url('icons/daoru.png') no-repeat;
+}
+.icon-supadd{
+	background:url('icons/user_add.png') no-repeat;
+}
+
+.icon-slj{
+	background:url('icons/paintbrush.png') no-repeat;
+}
+.icon-xmjc{
+	background:url('icons/zoom_in.png') no-repeat;
+}
+.icon-xmys{
+	background:url('icons/clock_play.png') no-repeat;
+}
+.icon-xmjg{
+	background:url('icons/clock_stop.png') no-repeat;
+}
+.icon-xmzp{
+	background:url('icons/clock_edit.png') no-repeat;
+}
+.icon-qyhmd{
+	background:url('icons/application_osx_terminal.png') no-repeat;
+}
+.icon-book{
+	background:url('icons/book.png') no-repeat;
+}
+.icon-stop{
+	background:url('icons/stop.png') no-repeat;
+}
+.icon-cailiao{
+	background:url('icons/cailiao.png') no-repeat;
+}
+.icon-sh{
+	background:url('icons/sh.png') no-repeat;
+}
+.icon-money{
+	background:url('icons/money.png') no-repeat;
+}
+.icon-jc{
+	background:url('icons/table_multiple.png') no-repeat;
+}
+.icon-cjjc{
+	background:url('icons/clock.png') no-repeat;
+}
+.icon-wcjc{
+	background:url('icons/clock_red.png') no-repeat;
+}
+.icon-out{
+	background:url('icons/out.png') no-repeat;
+}

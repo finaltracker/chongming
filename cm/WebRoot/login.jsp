@@ -8,7 +8,7 @@
 	</head>
 	
 	<body>
-		<html:form action="/home/target">
+		<html:form action="/login">
 			username : <html:text property="username"/><html:errors property="username"/><br/>
 			password : <html:text property="password"/><html:errors property="password"/><br/>
 			<html:submit/><html:cancel/>

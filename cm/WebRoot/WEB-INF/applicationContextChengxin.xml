@@ -11,7 +11,10 @@
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
+	<bean name="/login" class="com.yourcompany.struts.action.LoginAction">
 
+	</bean>
+	
 	<import resource="applicationContext-resources.xml"/>
 	
 

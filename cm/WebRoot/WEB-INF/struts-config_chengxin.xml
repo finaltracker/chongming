@@ -4,7 +4,8 @@
 <struts-config>
   <data-sources />
   <form-beans >
-    <form-bean name="targetForm" type="com.yourcompany.struts.form.TargetForm" />
+    <form-bean name="loginForm" type="com.yourcompany.struts.form.loginForm" />
+    <form-bean name="targetForm" type="com.san.chengxin.form.TargetForm" />
 
   </form-beans>
 
@@ -13,11 +14,11 @@
     <forward name="indexForword" path="/index.jsp" />
 
   </global-forwards>
-
+  <!-- path:  action 的路径 -->
   <action-mappings >
     <action
       attribute="targetForm"
-      input="/login.jsp"
+      input="/page/san/target.jsp"
       name="targetForm"
       path="/home/target"
       scope="request"
@@ -27,6 +28,17 @@
     </action>
 	
    
+    <action
+      attribute="loginForm"
+      input="/login.jsp"
+      name="loginForm"
+      path="/login"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <set-property property="cancellable" value="true" />
+      <forward name="targetForword" path="/home/target.do" />
+    </action>
+    
   </action-mappings>
 
   <message-resources parameter="com.yourcompany.struts.ApplicationResources" />

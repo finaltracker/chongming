@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
-<%@ taglib uri="/WEB-INF/c.tld" prefix="c"%>
 
 <jsp:include page="Common/base.jsp" flush="true"/>
 <block name="title">指标管理</block>
@@ -19,7 +18,7 @@
             <div class="col-xs-12">
                 <div class="widget">
                     <div class="widget-body">
-                        <form action="" method="get" class="form-inline">
+                        <form action="" method="post" class="form-inline">
                             <div class="form-group">
                                 <label class="control-label"> 名称 </label>
                                 <input type="text" class="form-control" name="target_name" value="{$searchMap.target_name}"/>

@@ -12,7 +12,8 @@
   <global-exceptions />
   <global-forwards >
     <forward name="indexForword" path="/index.jsp" />
-
+    <forward name="targetForword" path="/page/san/target.jsp" />
+	<forward name="addForword" path="/page/san/add.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
@@ -26,7 +27,17 @@
       <set-property property="cancellable" value="true" />
       <forward name="targetForword" path="/page/san/target.jsp" />
     </action>
-	
+
+    <action
+      attribute="addForm"
+      input="/page/san/add.jsp"
+      name="addForm"
+      path="/home/target/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <set-property property="cancellable" value="true" />
+      <forward name="addForword" path="/page/san/add.jsp" />
+    </action>	
    
     <action
       attribute="loginForm"

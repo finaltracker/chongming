@@ -11,6 +11,10 @@
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
+	<bean name="/home/target/add" class="com.san.chengxin.action.AddAction">
+		<property name="cmTargetDAO" ref="cmTargetDAO" />
+	</bean>
+	
 	<bean name="/login" class="com.yourcompany.struts.action.LoginAction">
 
 	</bean>

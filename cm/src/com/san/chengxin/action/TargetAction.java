@@ -1,5 +1,7 @@
 package com.san.chengxin.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,11 +11,15 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.hibernate.mapping.Map;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import com.san.chengxin.form.TargetForm;
 import com.san.chengxin.model.part.CmPart;
 import com.san.chengxin.model.part.CmPartDAO;
+import com.san.chengxin.model.target.CmTarget;
 import com.san.chengxin.model.target.CmTargetDAO;
+import com.san.chengxin.model.target.CmTargetEnhance;
 
 
 public class TargetAction extends Action {
@@ -40,31 +46,78 @@ public class TargetAction extends Action {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		Integer pardId = 0 ;
-		String  targetName = "";
+		String  target_name = "";
+		//传到 jsp中的数据列表
+		List<CmTargetEnhance> targetEnhanceList = new ArrayList<CmTargetEnhance>(); 
 		
-		if( form instanceof TargetForm  )
+		TargetForm targetForm = (TargetForm) form;
+		pardId		=    targetForm.getPart_id();
+		target_name  = targetForm.getTarget_name();
+		
+		//查询 part表
+		List<CmPart> partList = cmPartDAO.findAll();
+		HashMap<Integer , String > partMap = new HashMap<Integer , String>();
+		for (CmPart cmPart : partList) {
+			partMap.put( new Integer(cmPart.getId()) , cmPart.getPartName() );
+		}		
+		
+		
+		/* 设置查询target表条件 */
+		CmTarget searchInstance = new CmTarget();
+		if( pardId == null ) 
 		{
-			TargetForm targetForm = (TargetForm) form;
-			pardId		=    targetForm.getPart_id();
-			targetName  = targetForm.getTarget_name();
+			pardId = 0;
 		}
-/*		List<CmTarget> ccs = cmTargetDAO.findAll();
-		for(int i=0;i<ccs.size();i++) {
-			CmTarget cc = (CmTarget)ccs.get(i);
-			System.out.println("name: "+cc.getTargetName());
-		}*/
-		List<CmPart> ccs = cmPartDAO.findAll();
+		else if( pardId != 0 ) 
+		{
+			searchInstance.setPartId(pardId.shortValue() );
+		}
+		
+		if( target_name != null && ( !target_name.isEmpty() ))
+		{
+			searchInstance.setTargetName( target_name );
+		}
+		//search by condition in target table
+		List<CmTarget> targetList = cmTargetDAO.findByExample(searchInstance);
+		
+		for(int i=0;i<targetList.size();i++) {
+			CmTarget target = (CmTarget)targetList.get(i);
+			CmTargetEnhance  targetEnhance = new CmTargetEnhance( target );
+			targetEnhance.setPartName( partMap.get( new Integer(target.getPartId() )) );
+			targetEnhanceList.add( targetEnhance );
+			
+			//System.out.println("name: "+cc.getTargetName());
+		}
+		
 		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<ccs.size();i++) {
-			CmPart cc = (CmPart)ccs.get(i);
+		
+		/*
+		 * <option value='12' selected>乡镇</option>
+		 * <option value='13' >村</option>
+		*/
+		for(int i=0;i<partList.size();i++) {
+			CmPart cc = (CmPart)partList.get(i);
 			//System.out.println("name: "+cc.getPartName()+cc.getId());
-			String s = String.format("<option value='%d'>%s</option>", cc.getId(),cc.getPartName());
+			String s;
+			if( cc.getId() == pardId.shortValue() )
+			{
+				s = String.format("<option value='%d' selected>%s</option>", cc.getId(),cc.getPartName());
+			}
+			else
+			{
+				s = String.format("<option value='%d'>%s</option>", cc.getId(),cc.getPartName());
+				
+			}
 			sb.append(s);
+			
 		}
 		//<option value='12' selected>涔￠晣</option><option value='13' >鏉�/option><option value='15' >
 		System.out.println("result: "+sb.toString());
 		String partListSel = sb.toString();
 		request.setAttribute("partListSel", partListSel);
+		request.setAttribute("target_name", target_name);
+		request.setAttribute("list", targetEnhanceList);
+		
 		
 		return mapping.findForward( "targetForword" );
 	}

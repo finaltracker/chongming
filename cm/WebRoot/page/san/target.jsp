@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="Common/base.jsp" flush="true"/>
 <block name="title">指标管理</block>
@@ -21,7 +22,7 @@
                         <form action="" method="post" class="form-inline">
                             <div class="form-group">
                                 <label class="control-label"> 名称 </label>
-                                <input type="text" class="form-control" name="target_name" value="{$searchMap.target_name}"/>
+                                <input type="text" class="form-control" name="target_name" value="${target_name}"/>
                                 <label class="control-label"> 所属部门 </label>
                                 <select class="select2 form-control" name="part_id">
                                     <option value="0">所有可见</option>
@@ -56,19 +57,22 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <foreach name="list" item="item" key="k" >
-                                    <tr>
-                                        <td>{$k+1}</td>
-                                        <td>{$item.target_name}</td>
-                                        <td>{$item.target_score}</td>
-                                        <td>{$item.part_name}</td>
-                                        <td>{$item.author}</td>
-                                        <td>{$item.pubdate|date="Y-m-d H:i:s",###}</td>
-                                        <td><a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
-                                            <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/del?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
-                                        </td>
-                                    </tr>
-                                </foreach>
+                                
+                                <c:set var="index" value="0" />
+                                <c:forEach var="targetEnhance" items="${list}">
+                               
+                                  <c:set var="index" value="${index+1}" />
+                                  <tr>
+                                        <td>${index}</td>
+                                        <td>${targetEnhance.targetName}</td>
+                                        <td>${targetEnhance.targetScore}</td>
+                                        <td>${targetEnhance.partName}</td>
+                                        <td>${targetEnhance.author}</td>
+                                       
+                                  
+                                  </tr>
+                                </c:forEach>
+                                 
                                 </tbody>
                             </table>
                         </div>

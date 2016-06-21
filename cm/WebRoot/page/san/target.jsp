@@ -29,7 +29,7 @@
                                     "${partListSel}"
                                 </select>&nbsp;&nbsp;
                                 <button type="submit" class="btn btn-primary">搜索</button>
-                                <button class="btn btn-default back" data-url="/home/target">查看所有</button>
+                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/target.do">查看所有</button>
                             </div>
                         </form>
                     </div>

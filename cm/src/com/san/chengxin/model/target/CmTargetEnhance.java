@@ -1,8 +1,14 @@
 package com.san.chengxin.model.target;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import com.san.chengxin.utils.util;
+
 public class CmTargetEnhance extends CmTarget {
 	String partName;
-
+	String stringPubData;
+	
 	public CmTargetEnhance( CmTarget in )
 	{
 		this.setId( in.getId() );
@@ -14,6 +20,7 @@ public class CmTargetEnhance extends CmTarget {
 		this.setPartId( in.getPartId());
 	}
 	
+	
 	public String getPartName() {
 		return partName;
 	}
@@ -21,6 +28,13 @@ public class CmTargetEnhance extends CmTarget {
 	public void setPartName(String partName) {
 		this.partName = partName;
 	}
-	
-	
+
+	public String getstringPubData() {
+		return util.dateLongToString( this.getPubdate());
+	}
+
+	public void setstringPubData(String stringPubData) {
+		this.stringPubData = stringPubData;
+	}
+
 }

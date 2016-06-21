@@ -1,5 +1,7 @@
 package com.san.chengxin.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,16 +39,53 @@ public class AddAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
+		if(request.getParameter("id") != null) {
+			Short targetId = Short.valueOf(request.getParameter("id"));
+			System.out.println("[update] id : "+targetId);
+			request.setAttribute("pageInfo_action", "更新");
+			
+			CmTarget updateCT = cmTargetDAO.findById(targetId);
+			
+			request.setAttribute("target_name", updateCT.getTargetName());
+			request.setAttribute("target_score", updateCT.getTargetScore());
+			
+			List<CmPart> partList = cmPartDAO.findAll();
+
+			StringBuffer sb = new StringBuffer();
+			
+			for(int i=0;i<partList.size();i++) {
+				CmPart cc = (CmPart)partList.get(i);
+				//System.out.println("name: "+cc.getPartName()+cc.getId());
+				String s;
+				if( cc.getId() == updateCT.getPartId().shortValue() )
+				{
+					s = String.format("<option value='%d' selected>%s</option>", cc.getId(),cc.getPartName());
+				}
+				else
+				{
+					s = String.format("<option value='%d'>%s</option>", cc.getId(),cc.getPartName());
+					
+				}
+				sb.append(s);
+				
+			}
+			String partListSel = sb.toString();
+			request.setAttribute("partListSel", partListSel);
+			request.setAttribute("target_id", targetId);
+			request.setAttribute("dateline", updateCT.getDateline());
+			
+			return mapping.findForward("addForword");
+		}
+		
 		AddForm addF = (AddForm)form;
 		String name = addF.getTarget_name();
 		Short score = addF.getTarget_score();
 		Short part = addF.getPart_id();
 		Long dateline = addF.getDateline();
 		
-		System.out.println("who come here??+name: "+name+" part: "+part);
 		
 		if (name != null && score != null && part != null && dateline !=null) {
-			System.out.println("there are not null!!");
+			System.out.println("[save]");
 			CmTarget ct = new CmTarget();
 			ct.setTargetName(name);
 			ct.setDateline(dateline);
@@ -54,25 +93,29 @@ public class AddAction extends Action {
 			ct.setTargetScore(score);
 			//for test
 			ct.setAuthor("cm");
-			java.util.Date date = new java.util.Date();
-			ct.setPubdate((long)date.getDate());
-			//Short forkId = new Short(15);
-			//ct.setId(forkId);
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+			Date now = new Date();
+			System.out.println(df.format(now));// new Date()为获取当前系统时间
+			ct.setPubdate(now.getTime()/1000);
 			
-			cmTargetDAO.save(ct);
+			if(!request.getParameter("xid").isEmpty()) {
+				Short xId = Short.valueOf(request.getParameter("xid"));
+				System.out.println("[update item] : "+xId);
+				ct.setId(xId);
+				cmTargetDAO.update(ct);
+			} else {
+				cmTargetDAO.save(ct);
+			}
 			
 			return mapping.findForward("addForword");
 		}
 		
-		//��ѯ part��
+		request.setAttribute("pageInfo_action", "增加");
+		
 		List<CmPart> partList = cmPartDAO.findAll();
 
 		StringBuffer sb = new StringBuffer();
 		
-		/*
-		 * <option value='12' selected>����</option>
-		 * <option value='13' >��</option>
-		*/
 		for(int i=0;i<partList.size();i++) {
 			CmPart cc = (CmPart)partList.get(i);
 			//System.out.println("name: "+cc.getPartName()+cc.getId());

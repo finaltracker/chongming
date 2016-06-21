@@ -32,6 +32,10 @@ public class AddForm extends ActionForm {
 
 	/** selected_part property */
 	private Short part_id;
+	
+	private Short target_id;
+	
+	private String pageInfo_action;
 
 	/*
 	 * Generated Methods
@@ -120,5 +124,25 @@ public class AddForm extends ActionForm {
 	 */
 	public void setPart_id(Short part_id) {
 		this.part_id = part_id;
+	}
+	
+	public Short getTarget_id() {
+		return target_id;
+	}
+
+	/** 
+	 * Set the selected_part.
+	 * @param selected_part The selected_part to set
+	 */
+	public void setTarget_id(Short target_id) {
+		this.target_id = target_id;
+	}
+	
+	public String getPageInfo_action() {
+		return pageInfo_action;
+	}
+
+	public void setPageInfo_action(String pageInfo_action) {
+		this.pageInfo_action = pageInfo_action;
 	}
 }

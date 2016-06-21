@@ -71,7 +71,7 @@
                                         <td>${targetEnhance.partName}</td>
                                         <td>${targetEnhance.author}</td>
                                         <td>${targetEnhance.stringPubData}</td>
-                                        <td><a href="${pageContext.request.contextPath}/home/target/edit?id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
+                                        <td><a href="${pageContext.request.contextPath}/home/target/add.do?id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
                                             <a href="${pageContext.request.contextPath}/home/target/del?id=${targetEnhance.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
                                         </td>                         
                                   

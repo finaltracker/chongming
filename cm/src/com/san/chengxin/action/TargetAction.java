@@ -118,7 +118,7 @@ public class TargetAction extends Action {
 			sb.append(s);
 			
 		}
-		//<option value='12' selected>涔￠晣</option><option value='13' >鏉�/option><option value='15' >
+		
 		System.out.println("result: "+sb.toString());
 		String partListSel = sb.toString();
 		request.setAttribute("partListSel", partListSel);

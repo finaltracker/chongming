@@ -43,6 +43,17 @@ public class CmTargetDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
+	
+	public void update(CmTarget transientInstance) {
+		log.debug("updating CmTarget instance");
+		try {
+			getHibernateTemplate().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 
 	public void delete(CmTarget persistentInstance) {
 		log.debug("deleting CmTarget instance");

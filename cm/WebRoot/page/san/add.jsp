@@ -2,16 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="Common/base.jsp" flush="true"/>
-<% 
-	String actionTitle = "增加";
-	//actionTitle = new String(request.getParameter("actionTitle").getBytes("ISO8859_1")); 
-%> 
-<block name="title"><%=actionTitle %>指标</block>
+
+<block name="title">${pageInfo_action}指标</block>
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/home/target/add" class="btn btn-danger pull-right">增加指标</a>
-            <strong>当前位置：</strong>指标管理&nbsp;>&nbsp;<%=actionTitle %>指标
+            <a role="button" href="/home/target/add" class="btn btn-danger pull-right">${pageInfo_action}指标</a>
+            <strong>当前位置：</strong>指标管理&nbsp;>&nbsp;${pageInfo_action}指标
         </p>
     </div>
     <div class="dashboard-container">
@@ -26,7 +23,7 @@
                         <div class="widget-body">
                             <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/target/add.do" class="form-horizontal bv-form">
                                 <fieldset>
-                                    <legend><%=actionTitle %>指标</legend><input type="hidden" name="action" value="{$pageInfo.action}"/><input type="hidden" name="id" value="{$target.id}"/>
+                                    <legend>${pageInfo_action}指标</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${target_id}"/>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">名称</label>
                                         <div class="col-lg-7">
@@ -81,7 +78,7 @@
                         data:$form.serialize(),
                         success:function(data){
                             //console.log(data);
-                            layer.confirm('<%=actionTitle %>成功', {
+                            layer.confirm('${pageInfo_action}成功', {
                                 btn: ['继续录入','返回列表'] //按钮
                             }, function(){
                                 window.location.href='${pageContext.request.contextPath}/home/target/add.do';

@@ -84,9 +84,9 @@
                             layer.confirm('<%=actionTitle %>成功', {
                                 btn: ['继续录入','返回列表'] //按钮
                             }, function(){
-                                window.location.href='/home/target/add';
+                                window.location.href='${pageContext.request.contextPath}/home/target/add.do';
                             }, function(){
-                                window.location.href='/home/target';
+                                window.location.href='${pageContext.request.contextPath}/home/target.do';
                             });
                             //$(e.currentTarget).get(0).reset();//resetForm();
                         }

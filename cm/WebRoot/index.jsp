@@ -1,11 +1,12 @@
 <%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
+<html:html>
   <head>
     <base href="<%=basePath%>">
     
@@ -23,5 +24,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   <a href="login.jsp">Login</a>
     This is my JSP page. <br>
+    <form id="defaultForm" method="post" action="/login/home/target/add.do" class="form-horizontal bv-form">
+    	<div class="col-lg-7 col-lg-offset-3">
+    		<button type="submit" class="btn btn-success">submit</button> 
+    		<!-- <button class="btn btn-default back" data-url="/home/target">·µ»Ø</button> -->
+		</div>
+    </form>
   </body>
-</html>
+</html:html>

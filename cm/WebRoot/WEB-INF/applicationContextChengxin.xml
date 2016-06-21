@@ -13,6 +13,7 @@
 	
 	<bean name="/home/target/add" class="com.san.chengxin.action.AddAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
+		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
 	<bean name="/login" class="com.yourcompany.struts.action.LoginAction">
@@ -39,7 +40,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">
-					org.hibernate.dialect.Oracle9Dialect
+					org.hibernate.dialect.OracleDialect
 				</prop>
 			</props>
 		</property>

@@ -6,7 +6,7 @@
   <form-beans >
     <form-bean name="loginForm" type="com.yourcompany.struts.form.loginForm" />
     <form-bean name="targetForm" type="com.san.chengxin.form.TargetForm" />
-
+    <form-bean name="addForm" type="com.san.chengxin.form.AddForm" />
   </form-beans>
 
   <global-exceptions />

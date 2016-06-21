@@ -8,7 +8,8 @@
     <class name="com.san.chengxin.model.target.CmTarget" table="CM_TARGET" schema="EMPTY">
         <id name="id" type="java.lang.Short">
             <column name="ID" precision="4" scale="0" />
-            <generator class="native" />
+            <generator class="identity">
+			</generator>
         </id>
         <property name="targetName" type="java.lang.String">
             <column name="TARGET_NAME" length="50" not-null="true" />

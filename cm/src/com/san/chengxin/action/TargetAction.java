@@ -11,6 +11,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.mapping.Map;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -63,22 +66,26 @@ public class TargetAction extends Action {
 		
 		
 		/* 设置查询target表条件 */
-		CmTarget searchInstance = new CmTarget();
+		
+		DetachedCriteria searDc =	DetachedCriteria.forClass( CmTarget.class);
+		
 		if( pardId == null ) 
 		{
 			pardId = 0;
 		}
 		else if( pardId != 0 ) 
 		{
-			searchInstance.setPartId(pardId.shortValue() );
+			searDc.add(Restrictions.eq("partId", pardId.shortValue() )); 
 		}
 		
 		if( target_name != null && ( !target_name.isEmpty() ))
 		{
-			searchInstance.setTargetName( target_name );
+			searDc.add(Restrictions.like("targetName", target_name,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		//search by condition in target table
-		List<CmTarget> targetList = cmTargetDAO.findByExample(searchInstance);
+
+		List<CmTarget> targetList = cmPartDAO.getHibernateTemplate ().findByCriteria( searDc );
+		
 		
 		for(int i=0;i<targetList.size();i++) {
 			CmTarget target = (CmTarget)targetList.get(i);

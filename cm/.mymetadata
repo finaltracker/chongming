@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-module
   type="WEB"
-  name="login_step2"
+  name="login"
   id="myeclipse.1466056729580"
   context-root="/login"
   j2ee-spec="6.0"
-  archive="login_step2.war">
+  archive="login.war">
   <attributes>
     <attribute name="webrootdir" value="WebRoot" />
   </attributes>

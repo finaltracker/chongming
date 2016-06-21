@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/login/page/san/add.jsp" class="btn btn-danger pull-right">增加指标</a>
+            <a role="button" href="/login/page/san/add.jsp?actionTitle=<%=java.net.URLEncoder.encode("增加")%>" class="btn btn-danger pull-right">增加指标</a>
             <strong>当前位置：</strong>指标管理&nbsp;>&nbsp;指标列表
         </p>
     </div>

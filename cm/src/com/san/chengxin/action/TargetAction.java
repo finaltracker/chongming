@@ -53,8 +53,9 @@ public class TargetAction extends Action {
 			Short targetId = Short.valueOf(request.getParameter("id"));
 			System.out.println("[delete] id : "+targetId);
 			cmTargetDAO.delete(cmTargetDAO.findById(targetId));
-			return mapping.findForward( "targetForword" );
+
 		}
+		
 		Integer pardId = 0 ;
 		String  target_name = "";
 		//传到 jsp中的数据列表

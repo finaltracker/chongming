@@ -1,5 +1,4 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
-<%@ taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="Common/base.jsp" flush="true"/>
@@ -7,8 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <%-- <a role="button" href="/login/page/san/add.do?actionTitle=<%=java.net.URLEncoder.encode("增加")%>" class="btn btn-danger pull-right">增加指标</a> --%>
-            <html:link page="/home/target/add.do" styleClass="btn btn-danger pull-right">增加指标</html:link>
+            <a role="button" href="${pageContext.request.contextPath}/home/target/add.do" class="btn btn-danger pull-right">增加指标</a>
             <strong>当前位置：</strong>指标管理&nbsp;>&nbsp;指标列表
         </p>
     </div>

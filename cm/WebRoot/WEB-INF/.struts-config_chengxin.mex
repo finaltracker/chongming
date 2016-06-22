@@ -35,6 +35,13 @@
       <AbsolutePoint location="202,176" />
     </AutomaticBendpoints>
   </StrutsTransition>
+  <StrutsTransition id="/home/target.do,deleteForword,/page/san/target.jsp,1" routingType="0">
+    <AutomaticBendpoints>
+      <AbsolutePoint location="350,374" />
+      <AbsolutePoint location="178,374" />
+      <AbsolutePoint location="178,203" />
+    </AutomaticBendpoints>
+  </StrutsTransition>
   <StrutsTransition id="addForword;6,null,/page/san/add.jsp,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="201,893" />

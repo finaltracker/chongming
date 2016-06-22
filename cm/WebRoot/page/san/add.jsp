@@ -21,9 +21,9 @@
                     <div class="widget widget-info">
 
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/target/add.do" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/target/add.do?method=${action_method}" class="form-horizontal bv-form">
                                 <fieldset>
-                                    <legend>${pageInfo_action}指标</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${target_id}"/>
+                                    <legend>${pageInfo_action}指标</legend><input type="hidden" name="action" value="${action_method}"/><input type="hidden" name="xid" value="${target_id}"/>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">名称</label>
                                         <div class="col-lg-7">
@@ -81,7 +81,7 @@
                             layer.confirm('${pageInfo_action}成功', {
                                 btn: ['继续录入','返回列表'] //按钮
                             }, function(){
-                                window.location.href='${pageContext.request.contextPath}/home/target/add.do';
+                                window.location.href='${pageContext.request.contextPath}/home/target/add.do?method=1';
                             }, function(){
                                 window.location.href='${pageContext.request.contextPath}/home/target.do';
                             });

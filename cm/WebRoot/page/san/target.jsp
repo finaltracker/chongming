@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="${pageContext.request.contextPath}/home/target/add.do" class="btn btn-danger pull-right">增加指标</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/target/add.do?method=1" class="btn btn-danger pull-right">增加指标</a>
             <strong>当前位置：</strong>指标管理&nbsp;>&nbsp;指标列表
         </p>
     </div>
@@ -69,7 +69,7 @@
                                         <td>${targetEnhance.partName}</td>
                                         <td>${targetEnhance.author}</td>
                                         <td>${targetEnhance.stringPubData}</td>
-                                        <td><a href="${pageContext.request.contextPath}/home/target/add.do?id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
+                                        <td><a href="${pageContext.request.contextPath}/home/target/add.do?method=3&id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
                                             <a href="${pageContext.request.contextPath}/home/target.do?id=${targetEnhance.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
                                         </td>                         
                                   

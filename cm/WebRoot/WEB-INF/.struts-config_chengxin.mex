@@ -4,6 +4,8 @@
   <StrutsActivity path="/home/target/add.do" location="950,750" dimension="362,104" />
   <StrutsActivity path="/login.do" location="350,550" dimension="362,104" />
   <StrutsActivity path="indexForword;6" location="0,302" dimension="129,87" />
+  <StrutsActivity path="targetForword;6" location="350,150" dimension="200,96" />
+  <StrutsActivity path="addForword;6" location="50,850" dimension="151,87" />
   <StrutsActivity path="/page/san/target.jsp" location="50,150" dimension="152,53" />
   <StrutsActivity path="/page/san/add.jsp" location="650,750" dimension="140,53" />
   <StrutsActivity path="/login.jsp" location="138,0" dimension="86,53" />
@@ -14,8 +16,6 @@
   <StrutsActivity path="/home/target" location="950,550" dimension="110,53" />
   <StrutsActivity path="./home/target" location="50,650" dimension="113,53" />
   <StrutsActivity path="home/target" location="350,750" dimension="105,53" />
-  <StrutsActivity path="addForword;6" location="50,850" dimension="151,87" />
-  <StrutsActivity path="targetForword;6" />
   <StrutsTransition id="/login.do,targetForword,/home/target.do,1" routingType="0">
     <AutomaticBendpoints>
       <AbsolutePoint location="531,550" />

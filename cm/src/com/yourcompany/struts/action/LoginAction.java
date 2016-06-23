@@ -10,6 +10,9 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+
+import com.san.share.pmi.dto.LoginUserInfo;
+import com.san.share.pmi.service.LoginUserInfoDelegate;
 import com.yourcompany.struts.form.loginForm;
 
 /** 
@@ -39,6 +42,7 @@ public class LoginAction extends Action {
 		String name = loginForm.getUsername();
 		String passWord = loginForm.getPassword();
 		
+		LoginUserInfoDelegate.setLui( new LoginUserInfo(name) );
 		
 		return  mapping.findForward( "targetForword" );
 	}

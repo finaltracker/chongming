@@ -56,15 +56,18 @@ public class AddAction extends Action {
 			ct.setPartId(part);
 			ct.setTargetScore(score);
 			//for test
-			ct.setAuthor("cm");
-			/*
+			//ct.setAuthor("cm");
+			
 			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-			userInfo.getCn();//获得用户登录名
+			/*
+			 userInfo.getCn();//获得用户登录名
+			 
 			userInfo.getOuid();//获得用户所属部门ID
 			userInfo.getOuname();//获得用户所属部门名称
 			userInfo.getSn();//获得用户姓名
-			ct.setAuthor(userInfo.getCn());
 			*/
+			ct.setAuthor(userInfo.getCn());
+			
 			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			Date now = new Date();

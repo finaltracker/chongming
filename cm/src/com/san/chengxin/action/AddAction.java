@@ -18,6 +18,8 @@ import com.san.chengxin.model.part.CmPartDAO;
 import com.san.chengxin.model.target.CmTarget;
 import com.san.chengxin.model.target.CmTargetDAO;
 import com.san.chengxin.utils.Constants;
+import com.san.share.pmi.dto.LoginUserInfo; 
+import com.san.share.pmi.service.LoginUserInfoDelegate;
 
 public class AddAction extends Action {
 	private CmTargetDAO cmTargetDAO;
@@ -55,6 +57,15 @@ public class AddAction extends Action {
 			ct.setTargetScore(score);
 			//for test
 			ct.setAuthor("cm");
+			/*
+			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
+			userInfo.getCn();//获得用户登录名
+			userInfo.getOuid();//获得用户所属部门ID
+			userInfo.getOuname();//获得用户所属部门名称
+			userInfo.getSn();//获得用户姓名
+			ct.setAuthor(userInfo.getCn());
+			*/
+			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			Date now = new Date();
 			System.out.println(df.format(now));// new Date()为获取当前系统时间
@@ -131,8 +142,7 @@ public class AddAction extends Action {
 				ct.setDateline(dateline);
 				ct.setPartId(part);
 				ct.setTargetScore(score);
-				//for test
-				ct.setAuthor("cm");
+
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 				Date now = new Date();
 				System.out.println(df.format(now));// new Date()为获取当前系统时间
@@ -140,7 +150,7 @@ public class AddAction extends Action {
 				Short xId = Short.valueOf(request.getParameter("xid"));
 				System.out.println("[update item] : "+xId);
 				ct.setId(xId);
-				
+				ct.setAuthor(cmTargetDAO.findById(xId).getAuthor());
 				cmTargetDAO.update(ct);
 			}
 		}

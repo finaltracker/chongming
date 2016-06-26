@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="myPointcutAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+	<property name="advice">
+		<ref local="MyInterceptor" />
+	</property>
+	<property name="patterns">
+			<list>
+				<value>.*list.*</value>
+				<value>.*do.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean name="/t20101GsBaseinfo/t20101GsBaseinfoAction" class="com.san.mhcx.data.t20101.struts.action.T20101GsBaseinfoAction">
+  	</bean>
+	
+	
+	
+	<bean id="myAOPProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+	    <property name="beanNames">
+	      	<value>/t20101GsBaseinfo/t20101GsBaseinfoAction"</value>
+	    </property>
+	    <property name="interceptorNames">
+	      	<value>myPointcutAdvisor</value>
+	    </property>
+ 	</bean>
+  	<bean id="impl" class="com.san.mhcx.data.t20101.struts.action.T20101GsBaseinfoAction"/>
+  	<bean id="MyInterceptor" class="com.san.itsm.log.LogInterceptor"/>
+
+</beans>

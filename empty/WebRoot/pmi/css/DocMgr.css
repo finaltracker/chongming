@@ -1,0 +1,48 @@
+.12pt        { font-size: 12pt }
+.10pt        { font-size: 10.5pt }
+.9pt         { font-size: 9pt    }
+
+
+
+select       { font-size: 9pt    }
+
+table        { font-size: 9pt ;cursor: default}
+.normal      { border: 0 solid }
+.over        { border-left: 1 solid #FFFFFF; border-right: 1 solid #808080; 
+               border-top: 1 solid #FFFFFF; border-bottom: 1 solid #808080 }
+.out         { border: 0 solid }
+.down        { border-left: 1 solid #808080; border-right: 1 solid #FFFFFF; 
+               border-top: 1 solid #808080; border-bottom: 1 solid #FFFFFF;
+               padding-left: 2; padding-top: 2; }
+.up          { border: 0 solid }
+
+
+form         { margin-top:0;margin-bottom:0 }
+input	     { font-size: 9pt    }
+
+A:link {COLOR: blue; TEXT-DECORATION: none}
+A:visited {COLOR: #666666; TEXT-DECORATION: none}
+A:active {COLOR: #999999; TEXT-DECORATION: none}
+A:hover {COLOR: #FF6633; FONT-WEIGHT: normal; TEXT-DECORATION: underline}
+
+A.write:link {COLOR: #ffffff; TEXT-DECORATION: none}
+A.write:visited {COLOR: #ffffff; TEXT-DECORATION: none}
+A.write:hover {COLOR: #ffffff; TEXT-DECORATION: none}
+
+.block{background-color:#6487dc;}
+.block_left{background-color:#6487dc;}
+.black{background-color:#000000;}
+
+.input2{BACKGROUND: #ff7f2c; BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-RIGHT: white 1px solid; BORDER-TOP: white 1px solid; COLOR: #ffffff; FONT-SIZE: 9pt; FONT-STYLE: normal; FONT-VARIANT: normal; FONT-WEIGHT: normal; HEIGHT: 18px;}
+.input3{BACKGROUND: #ff7f2c; BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-RIGHT: white 1px solid; BORDER-TOP: white 1px solid; COLOR: #ffffff; FONT-SIZE: 9pt;}
+.input {BACKGROUND-COLOR: #ffefdf; BORDER-BOTTOM: #ff9933 1px solid; BORDER-LEFT: #ff9933 1px solid; BORDER-RIGHT: #ff9933 1px solid; BORDER-TOP: #ff9933 1px solid; FONT-SIZE: 9pt}
+
+.disp {  border-style: inset; background-color: #fff8eb}
+.nodisp {  border-style: none; background-color: #000000}
+.12pt {FONT-SIZE: 12pt}
+.10pt {FONT-SIZE: 10.5pt}
+.9pt {FONT-SIZE: 9pt}
+.bk {  background-repeat: no-repeat; background-position: right top}
+p{FONT-SIZE: 9pt}
+font{FONT-SIZE: 9pt}
+

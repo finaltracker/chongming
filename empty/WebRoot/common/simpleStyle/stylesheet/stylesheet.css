@@ -1,0 +1,156 @@
+/*基本控件样式定义*/
+/*按钮*/
+.button
+{
+}
+/*输入框*/
+.text
+{
+}
+/*文本域*/
+.textarea
+{
+}
+/*选择框*/
+.select
+{
+}
+/*单选框*/
+.radio
+{
+}
+
+/*多选框*/
+.checkbox
+{
+}
+/*菜单*/
+.menu
+{
+}
+
+/*鼠标移动到链接上时*/
+.anchor_hover
+{
+}
+/*访问链接时*/
+.anchor_visited
+{
+}
+/*链接原始样式*/
+.anchor_link
+{
+}
+/*功能标题*/
+.title
+{
+    background-color : #000088;
+    color : #000000;
+    font-size : large;
+    text-align : left;
+}
+.label
+{
+    background-color : #000088;
+    color : #000000;
+    font-size : large;
+	font-weight : bold;
+	text-align : right;
+}
+
+/**/
+.table_style
+{
+	text-align : center;
+	padding : 1pt;
+	border : 1px;
+	background-color : #d1d1d1;
+}
+/*表头样式*/
+.table_header
+{
+	background-color : #e8ecf4;
+	color : black;
+	font-size : large;
+	font-weight : bolder;
+	text-align : right;
+}
+/*表格主题栏样式*/
+.table_title
+{
+	background-color : #e8ecf4;
+	color : #000000;
+	font-size : large;
+	font-weight : bold;
+	text-align : center;
+}
+
+/*表项样式*/
+.table_row
+{
+	background-color : #ffffff;
+}
+
+/*表列样式*/
+.table_column
+{
+	background-color : #ffffff;
+	font-size : 12px;
+	text-indent: 6px;
+}
+
+/*分页导航条样式*/
+.pager_row
+{
+	background-color : #ffffff;
+	font-size : 12px;
+	text-indent: 6px;	
+}
+
+/**/
+.button_row
+{
+	background-color : #ffffff;
+	font-size : 12px;
+	text-indent: 6px;
+}
+
+a:link {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #000000;
+	text-decoration: none;
+}
+a:visited {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #000000;
+	text-decoration: none;
+}
+a:hover {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	color: #FF3300;
+	text-decoration: none;
+}
+.c3 {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #000000;
+	text-decoration: none;
+}
+body {  font-size: 12px}
+table {  font-size: 12px}
+/**/
+table_row_hover
+{
+}
+/**/
+cursor
+{
+}
+/**/
+

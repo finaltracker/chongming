@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/simpleTreeAction" parameter="dispatch" type="com.san.simpleTree.web.SimpleTreeAction">
+			<forward name="simpleTree" path="/zxcx2/specialQuery_index.jsp"></forward>
+		</action>
+	</action-mappings>
+</struts-config>

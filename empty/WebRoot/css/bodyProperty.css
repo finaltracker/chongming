@@ -1,0 +1,25 @@
+body {SCROLLBAR-FACE-COLOR:#EEEEEE;
+SCROLLBAR-HIGHLIGHT-COLOR:#FFFFFF;
+SCROLLBAR-SHADOW-COLOR:#CCCCCC;
+SCROLLBAR-ARROW-COLOR:#666666;
+SCROLLBAR-BASE-COLOR:#333333; 
+SCROLLBAR-DARK-SHADOW-COLOR:#999999} 
+
+a:hover {
+	color: #666666;
+	text-decoration: underline;
+}
+a:visited {
+	color: #5C76BA;
+	text-decoration: none;
+}
+a:link {
+	text-decoration: none;
+	color: #5C76BA;
+}
+
+.centerBackground {
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-position: center center;
+}

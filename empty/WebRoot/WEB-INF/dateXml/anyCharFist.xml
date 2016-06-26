@@ -1,0 +1,32 @@
+<anychart>
+<charts>         
+	<chart>
+		<chart_settings>
+			<title>
+				<text>
+					<![CDATA[Product sales by Month]]></text>
+			</title>
+				<axes>
+					<x_axis>
+						<title>
+							<text><![CDATA[Months]]></text>
+						</title>
+					</x_axis>
+					<y_axis>
+						<title>
+							<text><![CDATA[Sales]]></text>
+						</title>
+					</y_axis>
+				</axes>
+			</chart_settings>
+			<data>                 
+				<series>
+					<point name="Jan" y="21" />
+					<point name="Feb" y="32" />
+					<point name="Mar" y="43" />
+					<point name="Apr" y="54" />
+				</series>             
+			</data>
+		</chart>
+	</charts>
+</anychart> 

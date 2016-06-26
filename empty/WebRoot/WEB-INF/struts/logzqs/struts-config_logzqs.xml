@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="serverForm" type="com.logServices.zqs.form.ServiceLogForm" />
+	</form-beans>
+	<global-exceptions/>
+	<action-mappings>
+		<action path="/queryLogAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="queryLogSuccess"  path="/newLog/LogAll.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+		
+		<!-- 明细查询 -->
+		<action path="/queryPerAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="queryPerSuccess"  path="/newLog/perInfoAll.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+		
+		<!-- 总数统计 -->
+		<action path="/detailPerAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="queryDetailSuccess"  path="/newLog/perInfoDetail.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+		
+		<action path="/conditionPerAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="queryConditionSuccess"  path="/newLog/perInfoDetail.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+		
+		<!-- 首页展示(绩效统计) -->
+		<action path="/crentPerAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="querycrentSuccess"  path="/newLog/crent_perInfo.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+		
+		<!-- anyChar显示 -->
+		<action path="/anCharAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="queryAnyCharSuccess"  path="/newLog/TestAnyChar.jsp" redirect="false"/>
+			<forward name="fistWebSuccess"  path="/newLog/firstAnyChar.jsp" redirect="false"/>
+			<forward name="piewebSuccess"  path="/newLog/ThirdAnyChar.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+		
+		<!-- 详细查询 -->
+		<action path="/detailAction" name="serverForm" parameter="dispatch"
+			type="com.logServices.zqs.action.ServiceLogQueryAction" scope="request" validate="false">
+			<forward name="detailSuccess"  path="/newLog/detailPerinfo.jsp" redirect="false"/>
+			<forward name="error"  path="/error.jsp" redirect="false"/>
+		</action>
+	</action-mappings>
+</struts-config>

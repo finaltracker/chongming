@@ -1,0 +1,64 @@
+@charset "utf-8";
+/* CSS Document */
+*{margin:0;padding:0;list-style-type:none;}
+body{font-size:12px;font-family: "microsoft yahei",Arial;margin:0;padding:0;}
+a img{border:0;}
+ul,li,h1,h2,h3,h4,h5{margin:0;padding:0;}
+a{color:#000;text-decoration:none;}
+a:hover{color:#008beb;text-decoration:underline;}
+::selection {background: #ffc435; color: #fff; }
+::-moz-selection {background: #ffc435; color: #fff; }
+/* 头部 */
+.admin_span,.admin_span a{margin:0;padding:0;color:#ffffff;white-space:nowrap;}
+.home{padding:0;margin:0 10px 0 0;height:30px;float:right;}
+.home li{float:left;width:94px;height:30px;}
+
+/* 头部 */
+.title{height:39px;line-height:39px;width:100%;position:fixed;padding-left:40px;border-bottom:1px solid #a6a6a6;background:url(/web/hzcx/images/1_20.gif) 20px 11px no-repeat #f4f4f4;}
+
+/*right*/
+.text_size{margin-left:10px;padding-left:3px;width:185px;height:22px;line-height:22px;border:1px solid #ccc;}
+.text_size2{margin-left:10px;padding-left:3px;height:22px;line-height:22px;border:1px solid #ccc;}
+.query_icon{margin-left:10px;background:url(../images/icon_1.png);border:0;width:68px;height:25px;line-height:25px;color:#fff; cursor:pointer;}
+.page{width:50px;height:18px;line-height:18px;}
+
+/*qyxyjlcx*/
+.cx_icon{margin-left:10px;background:url(../images/icon_cx.png) no-repeat;border:0;width:60px;height:60px;line-height:60px;color:#fff; cursor:pointer;}
+
+/*年、月、日、代码*/
+.date_1{width:170px;height:25px;line-height:25px;margin:1px 0 0 10px;padding:0 0 0 10px;border:1px solid #ccc;background:url(../images/date.png) no-repeat 157px 3px #ffffff;}
+.bottom{position:absolute;height:60px;line-height:30px;color:#fff;width:100%;bottom:0;background:#03416c;text-align:center;}
+.down_input{
+	width:88px;
+	margin-left:10px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 2px;
+	line-height: 15px;
+	display: inline;
+	border:1px solid #ccc;
+	
+}
+.down_input2{
+	width:88px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 2px;
+	line-height: 15px;
+	display: inline;
+	border:1px solid #ccc;
+}
+
+.down_input3{
+	width:63px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	border-radius: 3px;
+	padding: 2px;
+	line-height: 15px;
+	display: inline;
+	border:1px solid #ccc;
+	
+}

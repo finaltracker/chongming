@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<!-- <form-bean name="indexForm" type="com.san.index.web.IndexForm" /> -->
+		<form-bean name="fromtemp" type="com.hzcx.xyjl.action.FromTemp" />
+	</form-beans>
+	<global-exceptions/>
+	
+	<action-mappings>
+		<action path="/hzcx/xyjl/xydaction" parameter="dispatch"
+			type="com.hzcx.xyjl.action.XydaAction" scope="request">
+			<forward name="grxyjlcx"  path="/hzcx/xyjl/tab/grxyjlcxList.jsp" redirect="false"/>
+			<forward name="qyxyjlcx"  path="/hzcx/xyjl/tab/qyxyjlcxlist.jsp" redirect="false"/>
+		</action>
+	</action-mappings>
+</struts-config>

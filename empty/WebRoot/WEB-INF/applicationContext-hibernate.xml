@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+    <!-- Hibernate SessionFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mappingResources">
+            <list>
+                <value>hbm/sys/LdapApplication.hbm</value>
+                <value>hbm/sys/SysAppauthorize.hbm</value>
+                <value>hbm/sys/SysDomain.hbm</value>
+		        <value>hbm/sys/SysDomainapplication.hbm</value>
+		        <value>hbm/sys/SysDyncrecordrights.hbm</value>
+		        <value>hbm/sys/SysGroup.hbm</value>
+				<value>hbm/sys/SysGroupmember.hbm</value>
+				<value>hbm/sys/SysOrglist.hbm</value>
+				<value>hbm/sys/SysOulist.hbm</value>
+				<value>hbm/sys/SysUser.hbm</value>
+				<value>hbm/sys/Sys_certuser.hbm.xml</value>
+				
+				<value>hbm/uploadlogs/TUploadErrorLogs.hbm.xml</value>
+				<value>hbm/uploadlogs/TUploadLogs.hbm.xml</value>
+				<value>hbm/uploadlogs/VUploadLogs.hbm.xml</value>
+				
+				<value>hbm/mkdz/TMkdz.hbm.xml</value>
+				<!-- 新增 -->
+				<value>hbm/jingtai/JingTaiLogInfo.hbm.xml</value>
+				<value>hbm/perform/zqs/PerformaceStatisInfo.hbm.xml</value>
+				<value>hbm/perform/zqs/TotleRuleInfo.hbm.xml</value>
+				
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+                <prop key="hibernate.query.substitutions">true 'Y', false 'N'</prop>
+                <prop key="hibernate.jdbc.batch_size">0</prop>
+                <prop key="hibernate.show_sql">true</prop>
+				<!--prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop-->
+            </props>
+        </property>
+    </bean>
+    <!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.san.zxcx.model.SysouList2" table="sys_oulist">
+        <id name="ouid" type="java.lang.String">
+            <column name="OUID" length="50" />
+            <generator class="assigned"/>
+        </id>
+        <property name="ouname" type="java.lang.String">
+            <column name="ouname" length="200" />
+        </property>
+        <property name="orgid" type="java.lang.String">
+            <column name="orgid" length="500" />
+        </property>  
+        <property name="parentouid" type="java.lang.String">
+            <column name="parentouid" length="500" />
+        </property> 
+        <property name="status" type="java.lang.String">
+            <column name="status" length="500" />
+        </property> 
+        <property name="oucharger" type="java.lang.String">
+            <column name="oucharger" length="500" />
+        </property> 
+        <property name="syscharger" type="java.lang.String">
+            <column name="syscharger" length="500" />
+        </property> 
+        <property name="displayorder" type="java.lang.String">
+            <column name="displayorder" length="500" />
+        </property> 
+        <property name="createdate" type="java.lang.String">
+            <column name="createdate" length="500" />
+        </property>           
+    </class>
+</hibernate-mapping>

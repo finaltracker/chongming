@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="modelForm" type="com.san.model.web.ModelForm" />
+		<form-bean name="perionForm" type="com.period.action.PerionForm"></form-bean>
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/modelAction" name="modelForm" parameter="dispatch"
+			type="com.san.model.web.ModelAction" scope="request"
+			validate="false">
+			<forward name="toAddModelPage" path="/model/modelAdd.jsp" />
+			<forward name="saveok" path="/model/tiaozhuan.jsp" />
+			<forward name="modelInfo" path="/model/modelInfo.jsp" />
+			<forward name="modelShow" path="/model/xypjShow.jsp" />
+			<forward name="fzmxShow" path="/model/fzmx.jsp" />
+			<forward name="creditLevelShow" path="/model/creditLevel.jsp" />
+			<forward name="modelShowTj" path="/model/xypjShowTj.jsp" />
+			<forward name="djShow" path="/model/sjbzcx.jsp" />
+			<forward name="djTj" path="/model/sjbztj.jsp" />
+			<forward name="djTjHz" path="/model/sjbztjmx.jsp" />
+			
+		</action>
+		
+		<!-- 上传周期管理 -->
+		<action path="/perionAction" name="perionForm" parameter="dispatch"
+			type="com.period.action.PeriodAction" scope="request"
+			validate="false">
+			 <forward name="query" path="/perion/perionInfo.jsp"></forward>
+			 <forward name="save" path="/perion/emptyPage.jsp"></forward>
+			 <forward name="toupdate" path="/perion/update.jsp"></forward>
+			 <forward name="toindex" path="/perion/pageindex.jsp"></forward>
+			 <forward name="totxinfo" path="/perion/txinfo.jsp"></forward>
+		</action>
+	</action-mappings>
+</struts-config>

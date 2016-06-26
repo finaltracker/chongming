@@ -1,0 +1,1043 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+
+<struts-config>
+
+
+  <data-sources/>
+  <form-beans>
+    <form-bean name="t0101Form" type="com.san.ywcx.data.newbusiness.t0101.struts.form.T0101EnterpriseBaseForm"/>
+    <form-bean name="systable_form" type="com.san.ysjgl.action.YsjglForm"/>
+    <form-bean name="T620XxhbForm" type="com.san.ywcx.data.newbusiness.xxbh.struts.form.T620XxhbForm"/>
+    <form-bean name="loginActionForm" type="com.san.share.pmi.struts.LoginActionForm"/>
+    <form-bean name="/pmi/sysUserForm" type="com.san.share.pmi.struts.form.SysUserForm"/>
+    <form-bean name="/pmi/sysOrglistForm" type="com.san.share.pmi.struts.form.SysOrglistForm"/>
+    <form-bean name="/pmi/sysOulistForm" type="com.san.share.pmi.struts.form.SysOulistForm"/>
+    <form-bean name="/pmi/ldapApplicationForm" type="com.san.share.pmi.struts.form.LdapApplicationForm"/>
+    <form-bean name="/pmi/sysAppauthorizeForm" type="com.san.share.pmi.struts.form.SysAppauthorizeForm"/>
+    <form-bean name="/pmi/sysDomainForm" type="com.san.share.pmi.struts.form.SysDomainForm"/>
+    <form-bean name="/pmi/sysDomainapplicationForm" type="com.san.share.pmi.struts.form.SysDomainapplicationForm"/>
+    <form-bean name="/pmi/sysGroupForm" type="com.san.share.pmi.struts.form.SysGroupForm"/>
+    <form-bean name="/pmi/sysGroupmemberForm" type="com.san.share.pmi.struts.form.SysGroupmemberForm"/>
+    <form-bean name="/pmi/sysDyncrecordrightsForm" type="com.san.share.pmi.struts.form.SysDyncrecordrightsForm"/>
+    <form-bean name="/sysUser/sysUserForm" type="com.san.share.pmi.struts.form.SysUserForm"/>
+    <form-bean name="/logDataRecv/logDataRecvForm" type="com.san.chengxin.log.struts.form.LogDataRecvForm"/>
+    <form-bean name="/log/queryConditionForm" type="com.san.chengxin.statistic.struts.form.LogQueryForm">
+      <form-property name="userId" type="java.lang.String"/>
+      <form-property name="deptId" type="java.lang.String"/>
+      <form-property name="startDate" type="java.lang.String"/>
+      <form-property name="endDate" type="java.lang.String"/>
+      <form-property name="userOrDept" type="java.lang.Integer"/>
+    </form-bean>
+    <form-bean name="newsInfoForm" type="com.san.chengxin.news.struts.form.NewsInfoForm"/>
+    <form-bean name="/t10103EnterpriseBasicinfo/t10103EnterpriseBasicinfoForm" type="com.san.ywcx.data.t10103.struts.form.T10103EnterpriseBasicinfoForm"/>
+    <form-bean name="/t10406DeptPunishinfo/t10406DeptPunishinfoForm" type="com.san.ywcx.data.t10406.struts.form.T10406DeptPunishinfoForm"/>
+    <form-bean name="/t10407GetcreditInfo/t10407GetcreditInfoForm" type="com.san.ywcx.data.t10407.struts.form.T10407GetcreditInfoForm"/>
+    <form-bean name="/t10101CodeType/t10101CodeTypeForm" type="com.san.ywcx.data.t10101.struts.form.T10101CodeTypeForm"/>
+    <form-bean name="/t10102PersonBasicinfo/t10102PersonBasicinfoForm" type="com.san.ywcx.data.t10102.struts.form.T10102PersonBasicinfoForm"/>
+    <form-bean name="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoForm" type="com.san.ywcx.data.t10201.struts.form.T10201EnterpriseBookinInfoForm"/>
+    <form-bean name="/t10202DirectorInfo/t10202DirectorInfoForm" type="com.san.ywcx.data.t10202.struts.form.T10202DirectorInfoForm"/>
+    <form-bean name="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoForm" type="com.san.ywcx.data.t10203.struts.form.T10203DignityPersonnelinfoForm"/>
+    <form-bean name="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoForm" type="com.san.ywcx.data.t10204.struts.form.T10204EnterpriseInvestorinfoForm"/>
+    <form-bean name="/t10205ChildDeptinfo/t10205ChildDeptinfoForm" type="com.san.ywcx.data.t10205.struts.form.T10205ChildDeptinfoForm"/>
+    <form-bean name="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoForm" type="com.san.ywcx.data.t10206.struts.form.T10206EnterpriseChangeinfoForm"/>
+    <form-bean name="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoForm" type="com.san.ywcx.data.t10207.struts.form.T10207EnterpriseLogoutinfoForm"/>
+    <form-bean name="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoForm" type="com.san.ywcx.data.t10208.struts.form.T10208EnterpriseRelationinfoForm"/>
+    <form-bean name="/t10301AuthorizeInfo/t10301AuthorizeInfoForm" type="com.san.ywcx.data.t10301.struts.form.T10301AuthorizeInfoForm"/>
+    <form-bean name="/t10302LeaveInfo/t10302LeaveInfoForm" type="com.san.ywcx.data.t10302.struts.form.T10302LeaveInfoForm"/>
+    <form-bean name="/t10303CompetencyInfo/t10303CompetencyInfoForm" type="com.san.ywcx.data.t10303.struts.form.T10303CompetencyInfoForm"/>
+    <form-bean name="/t10304PatentInfo/t10304PatentInfoForm" type="hbm.struts.form.T10304PatentInfoForm"/>
+    <form-bean name="/t10305MarkRegistra/t10305MarkRegistraForm" type="com.san.ywcx.data.t10305.struts.form.T10305MarkRegistraForm"/>
+    <form-bean name="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoForm" type="com.san.ywcx.data.t10306.struts.form.T10306ManagesystemAttestationinfoForm"/>
+    <form-bean name="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraForm" type="com.san.ywcx.data.t10307.struts.form.T10307ChattelimpawnRegistraForm"/>
+    <form-bean name="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoForm" type="com.san.ywcx.data.t10401.struts.form.T10401YearcheckGradeinfoForm"/>
+    <form-bean name="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeForm" type="com.san.ywcx.data.t10402.struts.form.T10402AdministrationCreditegradeForm"/>
+    <form-bean name="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoForm" type="com.san.ywcx.data.t10405.struts.form.T10405WorkingandsocialsecurityInfoForm"/>
+    <form-bean name="/t10408CaseManageinfo/t10408CaseManageinfoForm" type="com.san.ywcx.data.t10408.struts.form.T10408CaseManageinfoForm"/>
+    <form-bean name="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoForm" type="com.san.ywcx.data.t10409.struts.form.T10409ProductQuakityDrawoutinfoForm"/>
+    <form-bean name="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoForm" type="com.san.ywcx.data.t10501.struts.form.T10501EnterpriseBusinessinfoForm"/>
+    <form-bean name="/t10502MonthRatepainginfo/t10502MonthRatepainginfoForm" type="com.san.ywcx.data.t10502.struts.form.T10502MonthRatepainginfoForm"/>
+    <form-bean name="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyForm" type="com.san.ywcx.data.t10503.struts.form.T10503EnterpriseyearSimplenotyfyForm"/>
+    <form-bean name="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoForm" type="com.san.ywcx.data.t10601.struts.form.T10601EnterpriseborrowGivebackinfoForm"/>
+    <form-bean name="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoForm" type="com.san.ywcx.data.t10602.struts.form.T10602EnterpriseOutrunabolishinfoForm"/>
+    <form-bean name="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoForm" type="com.san.ywcx.data.t10403.struts.form.T10403TaxnotcommonconsumerInfoForm"/>
+    <form-bean name="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoForm" type="com.san.ywcx.data.t10404.struts.form.T10404DefaulttaxAfficheinfoForm"/>
+    <form-bean name="/test1/test1Form" type="com.san.chengxin.test1.struts.form.Test1Form"/>
+    <form-bean name="/test2/test2Form" type="com.san.chengxin.test2.struts.form.Test2Form"/>
+    <form-bean name="appriaseIndexForm" type="com.san.chengxin.creditIndex.webapp.form.IndexActionForm"/>
+    <form-bean name="DataWordbookTableinfoForm" type="com.san.chengxin.wordbook.webapp.form.DataWordbookTableinfoForm"/>
+    <form-bean name="DataWordbookFieldinfoForm" type="com.san.chengxin.wordbook.webapp.form.DataWordbookFieldinfoForm"/>
+    <form-bean name="t0101EnterpriseBaseForm" type="com.san.ywcx.data.newbusiness.t0101.struts.form.T0101EnterpriseBaseForm"/>
+    <form-bean name="/t650/t650CommunicateForm" type="com.san.ywcx.data.t650.struts.form.T650CommunicateForm"/>
+    <form-bean name="/t650Unite/t650CommunicateUniteForm" type="com.san.ywcx.data.t650Unite.struts.form.T650CommunicateUniteForm"/>
+    <form-bean name="sendMessage" type="com.san.chengxin.checkMessage.CHECK_ACCEPT_MESSAGE.webapp.form.CheckMsgForm"/>
+    <form-bean name="/t0100OperationCode/t0100OperationCodeForm" type="com.san.ywcx.data.t0100.struts.form.T0100OperationCodeForm"/>
+    <form-bean name="/t490Invbat/t490InvbatForm" type="com.san.ywcx.data.newbusiness.spotcheck.t490.struts.form.T490InvbatForm"/>
+    <form-bean name="/t491Invdata/t491InvdataForm" type="com.san.ywcx.data.newbusiness.spotcheck.t491.struts.form.T491InvdataForm"/>
+    <form-bean name="/t492Invconf/t492InvconfForm" type="com.san.ywcx.data.newbusiness.spotcheck.t492Invconf.struts.form.T492InvconfForm"/>
+    <form-bean name="/t492Invstat/t492InvstatForm" type="com.san.ywcx.data.newbusiness.spotcheck.t492Invstat.struts.form.T492InvstatForm"/>
+    <form-bean name="/t493Societyinvdata/t493SocietyinvdataForm" type="com.san.ywcx.data.newbusiness.spotcheck.t493.struts.form.T493SocietyinvdataForm"/>
+  </form-beans>
+  <global-exceptions/>
+  <global-forwards>
+    <forward name="newlogin" path="/Newlogin.do"/>
+  </global-forwards>
+  <action-mappings>
+  	<action path="/getUserMenuAction" 
+				parameter="dispatch" 
+				type="com.san.pdwm.appInit.usermenuinit.web.AppInitAction">
+			      <forward name="goMenuPage" path="/main_left.jsp" redirect="false"/>
+		   </action>
+  
+    <action path="/pubsqlaction" type="org.springframework.web.struts.DelegatingActionProxy" scope="request">
+      <forward name="pubsql" path="/pub/Pub_Sql.jsp"/>
+    </action>
+     <action path="/szloginAction"  type="com.san.share.pmi.struts.LoginRegist"  validate="true" parameter="dispatch">
+      <forward name="inUser" path="/home.jsp" redirect="true"/>   
+      <forward name="userTojsp" path="/smkcx.jsp" redirect="true"/>   
+      <forward name="outUser" path="/login_svserror.jsp"/>
+      <forward name="loginError" path="/login_svserror.jsp"/>
+      <forward name="success" path="/login2.jsp"/>
+      <forward name="flae" path="/registerfale.jsp"/>
+    </action>
+    
+    <action path="/loginAction" name="loginActionForm" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="true" input="/logerr.jsp">
+      <forward name="inUser" redirect="true" path="/index.jsp"/>
+      <forward name="outUser" redirect="true" path="/index.jsp"/>
+      <forward name="loginError" path="/logerr.jsp"/>
+    </action>
+    
+     <action path="/newloginAction" name="loginActionForm" type="org.springframework.web.struts.DelegatingActionProxy" scope="request" validate="true" input="/logerr.jsp">
+      <forward name="inUser" redirect="true" path="/home.jsp"/>
+      <forward name="outUser" redirect="true" path="/home.jsp"/>
+      <forward name="loginError" path="/logerr.jsp"/>
+    </action>
+    <action path="/Newlogin" type="com.san.chengxin.newslogin.Newloginer" scope="request">
+      <forward name="success" path="/main.jsp"/>
+    </action>
+    <action path="/logoutAction" type="com.san.share.pmi.struts.LogoutAction">
+      <forward name="success" redirect="true" path="/login.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doFullOrgFindAllAction" name="/pmi/sysOrglistForm" type="com.san.share.pmi.struts.DoFullOrgFindAllAction" scope="request" validate="false">
+      <forward name="toOrg" path="/pmi/orgmgt/index.htm"/>
+      <forward name="selectOu" path="/pmi/usertools/outree.jsp"/>
+      <forward name="toAuthor" contextRelative="true" redirect="true" path="/pmi/authorize/index.htm"/>
+      <forward name="selectUser" path="/pmi/usertools/orgtree.jsp"/>
+      <forward name="notAdmin" contextRelative="true" path="/pmi/usertools/error.jsp"/>
+      <forward name="queryServiceLog" path="/newLog/LogAll.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysUserFindAllAction" name="/pmi/sysUserForm" type="com.san.share.pmi.struts.DoSysUserFindAllAction" scope="request" validate="false">
+      <forward name="sysUserFinderResultsList" path="/pmi/orgmgt/index.htm"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysUserFindByPrimaryKeyAction" name="/pmi/sysUserForm" type="com.san.share.pmi.struts.DoSysUserFindByPrimaryKeyAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/orgmgt/usermain.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysUserEditAction" name="/pmi/sysUserForm" type="com.san.share.pmi.struts.DoSysUserEditAction" scope="request" validate="true" input="/pmi/usertools/passchange.jsp" parameter="dispatch">
+      <forward name="SysUserPassChangeSuccess" path="/pmi/usertools/success.htm"/>
+      <forward name="catched-error" path="/pmi/usertools/error.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysUserEditAction" name="/pmi/sysUserForm" type="com.san.share.pmi.struts.DoSysUserEditAction" scope="request" validate="true" input="/pmi/orgmgt/usermain.jsp" parameter="dispatch">
+      <forward name="addsuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="editsuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="removesuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="movesuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="catched-error" path="/pmi/orgmgt/error.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysOrglistFindByPrimaryKeyAction" name="/pmi/sysOrglistForm" type="com.san.share.pmi.struts.DoSysOrglistFindByPrimaryKeyAction" scope="request" validate="false">
+      <forward name="sysOrglistFinderResultsList" path="/pmi/orgmgt/sysOrglistFinderResultsList.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysOulistFindByPrimaryKeyAction" name="/pmi/sysOulistForm" type="com.san.share.pmi.struts.DoSysOulistFindByPrimaryKeyAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/orgmgt/oumain.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/xxhb/YchbJchbAction" parameter="dispatch" type="org.springframework.web.struts.DelegatingActionProxy" name="T620XxhbForm">
+      <forward name="enterYchb" path="/xxhb/YchbJchb/listYchb.jsp" redirect="false"/>
+      <forward name="listYchb" path="/xxhb/YchbJchb/listFrame.jsp" redirect="false"/>
+      <forward name="goYchb" path="/sjhb/T620XxhbAction.do?dispatch=list" redirect="true"/>
+      <forward name="hbclIndex" path="/sjhb/T620XxhbAction.do?dispatch=bb_list" redirect="true"/>
+    </action>
+    <action path="/xxhb/YchbSphbAction" parameter="dispatch" type="org.springframework.web.struts.DelegatingActionProxy" name="T620XxhbForm">
+      <forward name="enterYchb" path="/xxhb/YchbJchb/listYchb_dsphb.jsp" redirect="false"/>
+      <forward name="listYchb" path="/xxhb/YchbJchb/listFrame_dsphb.jsp" redirect="false"/>
+      <forward name="goYchb" path="/sjhb/T620XxhbAction.do?dispatch=sp_list" redirect="true"/>
+    </action>
+    <action path="/xxhb/YchbSpbhbAction" parameter="dispatch" type="org.springframework.web.struts.DelegatingActionProxy" name="T620XxhbForm">
+      <forward name="enterYchb" path="/xxhb/YchbJchb/listYchb_dspbhb.jsp" redirect="false"/>
+      <forward name="listYchb" path="/xxhb/YchbJchb/listFrame_dspbhb.jsp" redirect="false"/>
+      <forward name="goYchb" path="/sjhb/T620XxhbAction.do?dispatch=sp_list" redirect="true"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysOulistEditAction" name="/pmi/sysOulistForm" type="com.san.share.pmi.struts.DoSysOulistEditAction" scope="request" validate="true" input="/pmi/orgmgt/oumain.jsp" parameter="dispatch">
+      <forward name="SysOulistAddSuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="SysOulistEditSuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="SysOulistRemoveSuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="unknown-error" redirect="false" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysOrglistFindByPrimaryKeyAction" name="/pmi/sysOrglistForm" type="com.san.share.pmi.struts.DoSysOrglistFindByPrimaryKeyAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/orgmgt/orgmain.jsp"/>
+      <forward name="unknown-error" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/orgmgt/doSysOrglistEditAction" name="/pmi/sysOrglistForm" type="com.san.share.pmi.struts.DoSysOrglistEditAction" scope="request" validate="true" input="/pmi/orgmgt/orgmain.jsp" parameter="dispatch">
+      <forward name="SysOrglistAddSuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="SysOrglistEditSuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="SysOrglistRemoveSuccess" path="/pmi/orgmgt/userSetSuccess.htm"/>
+      <forward name="unknown-error" redirect="false" path="/error.jsp"/>
+    </action>
+    <action path="/pmi/authorize/doSysAppauthorizeFindByUserAction" name="/pmi/sysAppauthorizeForm" type="com.san.share.pmi.struts.DoSysAppauthorizeFindByUserAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/authorize/apptree.jsp"/>
+      <forward name="unknown-error" path="/pmi/authorize/error.jsp"/>
+      <forward name="notDomainAdmin" redirect="true" path="/index.jsp"/>
+    </action>
+    <action path="/pmi/authorize/doSysAppauthorizeEditAction" name="/pmi/sysAppauthorizeForm" type="com.san.share.pmi.struts.DoSysAppauthorizeEditAction" scope="request" input="/pmi/authorize/apptree.jsp" parameter="dispatch">
+      <forward name="success" path="/pmi/authorize/doSysAppauthorizeFindByUserAction.do"/>
+      <forward name="unknown-error" path="/pmi/authorize/error.jsp"/>
+    </action>
+    <action path="/pmi/domain/doSysDomainFindAllAction" name="/pmi/sysDomainForm" type="com.san.share.pmi.struts.DoSysDomainFindAllAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/domain/index.htm"/>
+      <forward name="unknown-error" path="/pmi/domain/error.jsp"/>
+      <forward name="notAdmin" redirect="true" path="/index.jsp"/>
+    </action>
+    <action path="/pmi/domain/doSysDomainFindByPrimaryKeyAction" name="/pmi/sysDomainForm" type="com.san.share.pmi.struts.DoSysDomainFindByPrimaryKeyAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/domain/domainapptree.jsp"/>
+      <forward name="unknown-error" path="/pmi/domain/error.jsp"/>
+    </action>
+    <action path="/pmi/domain/doSysDomainEditAction" name="/pmi/sysDomainForm" type="com.san.share.pmi.struts.DoSysDomainEditAction" scope="request" validate="true" input="/pmi/domain/domainapptree.jsp" parameter="dispatch">
+      <forward name="SysDomainAddSuccess" path="/pmi/domain/success.htm"/>
+      <forward name="SysDomainEditSuccess" path="/pmi/domain/success.htm"/>
+      <forward name="SysDomainRemoveSuccess" path="/pmi/domain/success.htm"/>
+      <forward name="unknown-error" path="/pmi/domain/error.jsp"/>
+    </action>
+    <action path="/pmi/domain/doSysDomainapplicationEditAction" name="/pmi/sysDomainapplicationForm" type="com.san.share.pmi.struts.DoSysDomainapplicationEditAction" scope="request" input="/pmi/domain/domainapptree.jsp" parameter="dispatch1">
+      <forward name="success" path="/pmi/domain/doSysDomainFindByPrimaryKeyAction.do"/>
+      <forward name="unknown-error" path="/pmi/domain/error.jsp"/>
+    </action>
+    <action path="/pmi/group/doSysGroupFindByGroupLevelAction" name="/pmi/sysGroupForm" type="com.san.share.pmi.struts.DoSysGroupFindByGroupLevelAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/group/index.htm"/>
+      <forward name="unknown-error" path="/pmi/group/error.jsp"/>
+    </action>
+    <action path="/pmi/group/doSysGroupFindByPrimaryKeyAction" name="/pmi/sysGroupForm" type="com.san.share.pmi.struts.DoSysGroupFindByPrimaryKeyAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/group/grouporgtree.jsp"/>
+      <forward name="unknown-error" path="/pmi/group/error.jsp"/>
+    </action>
+    <action path="/pmi/group/doSysGroupEditAction" name="/pmi/sysGroupForm" type="com.san.share.pmi.struts.DoSysGroupEditAction" scope="request" validate="true" input="/pmi/group/grouporgtree.jsp" parameter="dispatch">
+      <forward name="SysGroupAddSuccess" path="/pmi/group/success.htm"/>
+      <forward name="SysGroupEditSuccess" path="/pmi/group/success.htm"/>
+      <forward name="SysGroupRemoveSuccess" path="/pmi/group/success.htm"/>
+      <forward name="unknown-error" path="/pmi/group/error.jsp"/>
+    </action>
+    <action path="/pmi/group/doSysGroupmemberEditAction" name="/pmi/sysGroupmemberForm" type="com.san.share.pmi.struts.DoSysGroupmemberEditAction" scope="request" input="/pmi/group/grouporgtree.jsp" parameter="dispatch1">
+      <forward name="success" path="/pmi/group/doSysGroupFindByPrimaryKeyAction.do"/>
+      <forward name="unknown-error" path="/pmi/group/error.jsp"/>
+    </action>
+    <action path="/pmi/select/doSysGroupFindByUserAction" name="/pmi/sysGroupForm" type="com.san.share.pmi.struts.DoSysGroupFindByUserAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/select/index.htm"/>
+      <forward name="unknown-error" path="/pmi/select/error.jsp"/>
+    </action>
+    <action path="/pmi/select/doSysDyncrecordrightsEditAction" name="/pmi/sysDyncrecordrightsForm" type="com.san.share.pmi.struts.DoSysDyncrecordrightsEditAction" scope="request" input="/pmi/select/selectresult.jsp">
+      <forward name="success" path="/pmi/select/success.htm"/>
+      <forward name="toGroup" path="/pmi/select/success.htm"/>
+      <forward name="unknown-error" path="/pmi/select/error.jsp"/>
+    </action>
+    <action path="/pmi/select/doSysDyncrecordrightsFindByTableRecordAction" name="/pmi/SysDyncrecordrightsForm" type="com.san.share.pmi.struts.DoSysDyncrecordrightsFindByTableRecordAction" scope="request" validate="false">
+      <forward name="success" path="/pmi/select/resultview.jsp"/>
+      <forward name="unknown-error" path="/pmi/select/error.jsp"/>
+    </action>
+    <action path="/pmi/select/doSysDyncrecordrightsFindByRecordUserAction" name="/pmi/sysDyncrecordrightsForm" type="com.san.share.pmi.struts.DoSysDyncrecordrightsFindByRecordUserAction" scope="request" validate="false" input="/pmi/select/testright.jsp">
+      <forward name="success" path="/pmi/select/testright.jsp"/>
+      <forward name="unknown-error" path="/pmi/select/error.jsp"/>
+    </action>
+    <action path="/pmi/select/doSysDyncrecordrightsFindByTableRecordAction" name="/pmi/sysDyncrecordrightsForm" type="com.san.share.pmi.struts.DoSysDyncrecordrightsFindByTableRecordAction" scope="session" validate="false">
+      <forward name="sysDyncrecordrightsFinderResultsList" path="/pmi/select/sysDyncrecordrightsFinderResultsList.jsp"/>
+      <forward name="unknown-error" path="/pmi/select/error.jsp"/>
+    </action>
+    <action path="/pmi/ldapApplication/ldapApplicationAction" name="/pmi/ldapApplicationForm" type="com.san.share.pmi.struts.action.LdapApplicationAction" parameter="dispatch">
+      <forward name="list" redirect="false" path="/pmi/ldapApplication/ldapApplicationFormList.jsp"/>
+      <forward name="view" redirect="false" path="/pmi/ldapApplication/ldapApplicationFormView.jsp?dispatch=view"/>
+      <forward name="input" redirect="false" path="/pmi/ldapApplication/ldapApplicationForm.jsp?dispatch=add"/>
+      <forward name="modify" redirect="false" path="/pmi/ldapApplication/ldapApplicationForm.jsp?dispatch=moidify"/>
+      <forward name="success" redirect="false" path="/success.jsp"/>
+      <forward name="failure" redirect="false" path="/error.jsp"/>
+    </action>
+    <action path="/statistic/logList" name="/log/queryConditionForm" type="com.san.chengxin.statistic.struts.action.LogListAction">
+      <forward name="success" redirect="false" path="/log/accesslog.jsp"/>
+      <forward name="error" redirect="false" path="/error.jsp"/>
+    </action>
+    <action path="/sysUser/sysUserAction" parameter="dispatch" name="/sysUser/sysUserForm" type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="list" path="/sysUser/sysUserFormList.jsp" redirect="false"/>
+      <forward name="view" path="/sysUser/sysUserFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/sysUser/sysUserForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/sysUser/sysUserForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/communionAction" parameter="dispatch" name="/pmi/sysOulistForm" type="com.san.chengxin.instantcommunion.InstantCommunionAction">
+      <forward name="list" path="/instantcommunion/deptDeputyList.jsp" redirect="false"/>
+      <forward name="savesuccess" path="/instantcommunion/logout.jsp" redirect="false"/>
+    </action>
+	
+	
+    <action path="/newsInfo/newsInfoAction" name="newsInfoForm" type="com.san.chengxin.news.struts.action.NewsInfoAction" parameter="dispatch">
+      <forward name="listTop8" redirect="false" path="/newsInfo/newsInfoFormSearch.jsp"/>
+      <forward name="listMore" redirect="false" path="/newsInfo/newsInfoFormList.jsp"/>
+      <forward name="listManager" redirect="false" path="/newsInfo/newsInfoManager.jsp"/>
+      <forward name="updateList" redirect="false" path="/newsInfo/newsInfoForm.jsp"/>
+      <forward name="listAgain" redirect="true" path="/newsInfo/newsInfoSeleManager.jsp"/>
+      <forward name="listSortId" redirect="false" path="/newsInfo/newsInfoFormAdd.jsp"/>
+      <forward name="allList" redirect="false" path="/newsInfo/newsInfoFormView.jsp"/>
+      <forward name="failure" redirect="false" path="/newsInfo/newsInfoFormAdd.jsp"/>
+      <forward name="nextNewsInfo" redirect="false" path="/newsInfo/newsInfoFormAddnext.jsp"/>
+      <forward name="t0100" redirect="false" path="/newsInfo/hangye.jsp"/>
+      <forward name="enpriseInfoPageModelExec" path="/newsInfo/enterpriseQuery_exec.jsp" redirect="false"/>
+      <forward name="enpriseInfoPage" path="/ColligetQuery/enterpriseQuery.jsp" redirect="false"/>
+      <forward name="enpriseInfoPage1" path="/ColligetQuery/enterpriseQuery1.jsp" redirect="false"/>
+      <forward name="list_modelexec" path="/newsInfo/listFrame_exec.jsp" redirect="false"/>
+      <forward name="list" path="/newsInfo/listFrame.jsp" redirect="false"/>
+      <forward name="list1" path="/newsInfo/listFrame1.jsp" redirect="false"/>
+      <forward name="search" path="/newsInfo/newsInfoManager.jsp" redirect="false"/>
+    </action>
+	
+	
+    <action path="/t0101EnterpriseBase/t0101EnterpriseBaseAction" parameter="dispatch" name="t0101EnterpriseBaseForm" type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="list" path="/ColligetQuery/listFrame.jsp" redirect="false"/>
+      <forward name="list1" path="/ColligetQuery/listFrame1.jsp" redirect="false"/>
+      <forward name="list_modelexec" path="/execAccount/listFrame_exec.jsp" redirect="false"/>
+      <forward name="enpriseInfoPage" path="/ColligetQuery/enterpriseQuery.jsp" redirect="false"/>
+      <forward name="enpriseInfoPage1" path="/ColligetQuery/enterpriseQuery1.jsp" redirect="false"/>
+      <forward name="enpriseInfoPageModelExec" path="/execAccount/enterpriseQuery_exec.jsp" redirect="false"/>
+      <forward name="listwhite" path="/creditAlarm/warnWhite/listFrame.jsp" redirect="false"/>
+      <forward name="enpriseInfoPageWhite" path="/creditAlarm/warnWhite/enterpriseQuery.jsp" redirect="false"/>
+      <forward name="repeaterror" path="/creditAlarm/warnWhite/duplicateInfo.jsp" redirect="false"/>
+      <forward name="repeatok" path="/creditAlarm/warnWhite/duplicateInfook.jsp" redirect="false"/>
+    </action>
+    <action path="/t10406DeptPunishinfo/t10406DeptPunishinfoAction" parameter="dispatch" name="/t10406DeptPunishinfo/t10406DeptPunishinfoForm" type="com.san.ywcx.data.t10406.struts.action.T10406DeptPunishinfoAction">
+      <forward name="list" path="/t10406DeptPunishinfo/t10406DeptPunishinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10406DeptPunishinfo/t10406DeptPunishinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10406DeptPunishinfo/t10406DeptPunishinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10406DeptPunishinfo/t10406DeptPunishinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10407GetcreditInfo/t10407GetcreditInfoAction" parameter="dispatch" name="/t10407GetcreditInfo/t10407GetcreditInfoForm" type="com.san.ywcx.data.t10407.struts.action.T10407GetcreditInfoAction">
+      <forward name="list" path="/t10407GetcreditInfo/t10407GetcreditInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10407GetcreditInfo/t10407GetcreditInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10407GetcreditInfo/t10407GetcreditInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10407GetcreditInfo/t10407GetcreditInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/punisAndguerdonQuery/punisAndguerdonAction" parameter="dispatch" type="com.san.chengxin.punisAndguerdonQuery.struts.PunisAndGuerdonByAction">
+      <forward name="success" path="/guerdonAndpunishQuery/main.jsp" redirect="false"/>
+    </action>
+    <action path="/colligetQuery/Query" parameter="dispatch" type="com.san.chengxin.colligetQuery.struts.Query">
+      <forward name="success" path="/ColligetQuery/main.jsp" redirect="false"/>
+      <forward name="getAllDeptTableRsCount" path="/ColligetQuery/getAllDeptTableRsCount.jsp" redirect="false"/>
+      <forward name="successprint" path="/ColligetQuery/mainprint.jsp" redirect="false"/>
+    </action>
+    <action path="/t10101CodeType/t10101CodeTypeAction" parameter="dispatch" name="/t10101CodeType/t10101CodeTypeForm" type="com.san.ywcx.data.t10101.struts.action.T10101CodeTypeAction">
+      <forward name="list" path="/t10101CodeType/t10101CodeTypeFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10101CodeType/t10101CodeTypeFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10101CodeType/t10101CodeTypeForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10101CodeType/t10101CodeTypeForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10102PersonBasicinfo/t10102PersonBasicinfoAction" parameter="dispatch" name="/t10102PersonBasicinfo/t10102PersonBasicinfoForm" type="com.san.ywcx.data.t10102.struts.action.T10102PersonBasicinfoAction">
+      <forward name="list" path="/t10102PersonBasicinfo/t10102PersonBasicinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10102PersonBasicinfo/t10102PersonBasicinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10102PersonBasicinfo/t10102PersonBasicinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10102PersonBasicinfo/t10102PersonBasicinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoAction" parameter="dispatch" name="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoForm" type="com.san.ywcx.data.t10201.struts.action.T10201EnterpriseBookinInfoAction">
+      <forward name="list" path="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10201EnterpriseBookinInfo/t10201EnterpriseBookinInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10202DirectorInfo/t10202DirectorInfoAction" parameter="dispatch" name="/t10202DirectorInfo/t10202DirectorInfoForm" type="com.san.ywcx.data.t10202.struts.action.T10202DirectorInfoAction">
+      <forward name="list" path="/t10202DirectorInfo/t10202DirectorInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10202DirectorInfo/t10202DirectorInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10202DirectorInfo/t10202DirectorInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10202DirectorInfo/t10202DirectorInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoAction" parameter="dispatch" name="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoForm" type="com.san.ywcx.data.t10203.struts.action.T10203DignityPersonnelinfoAction">
+      <forward name="list" path="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10203DignityPersonnelinfo/t10203DignityPersonnelinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoAction" parameter="dispatch" name="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoForm" type="com.san.ywcx.data.t10204.struts.action.T10204EnterpriseInvestorinfoAction">
+      <forward name="list" path="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10204EnterpriseInvestorinfo/t10204EnterpriseInvestorinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10205ChildDeptinfo/t10205ChildDeptinfoAction" parameter="dispatch" name="/t10205ChildDeptinfo/t10205ChildDeptinfoForm" type="com.san.ywcx.data.t10205.struts.action.T10205ChildDeptinfoAction">
+      <forward name="list" path="/t10205ChildDeptinfo/t10205ChildDeptinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10205ChildDeptinfo/t10205ChildDeptinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10205ChildDeptinfo/t10205ChildDeptinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10205ChildDeptinfo/t10205ChildDeptinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoAction" parameter="dispatch" name="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoForm" type="com.san.ywcx.data.t10206.struts.action.T10206EnterpriseChangeinfoAction">
+      <forward name="list" path="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10206EnterpriseChangeinfo/t10206EnterpriseChangeinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoAction" parameter="dispatch" name="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoForm" type="com.san.ywcx.data.t10207.struts.action.T10207EnterpriseLogoutinfoAction">
+      <forward name="list" path="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10207EnterpriseLogoutinfo/t10207EnterpriseLogoutinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoAction" parameter="dispatch" name="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoForm" type="com.san.ywcx.data.t10208.struts.action.T10208EnterpriseRelationinfoAction">
+      <forward name="list" path="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10208EnterpriseRelationinfo/t10208EnterpriseRelationinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10301AuthorizeInfo/t10301AuthorizeInfoAction" parameter="dispatch" name="/t10301AuthorizeInfo/t10301AuthorizeInfoForm" type="com.san.ywcx.data.t10301.struts.action.T10301AuthorizeInfoAction">
+      <forward name="list" path="/t10301AuthorizeInfo/t10301AuthorizeInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10301AuthorizeInfo/t10301AuthorizeInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10301AuthorizeInfo/t10301AuthorizeInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10301AuthorizeInfo/t10301AuthorizeInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10302LeaveInfo/t10302LeaveInfoAction" parameter="dispatch" name="/t10302LeaveInfo/t10302LeaveInfoForm" type="com.san.ywcx.data.t10302.struts.action.T10302LeaveInfoAction">
+      <forward name="list" path="/t10302LeaveInfo/t10302LeaveInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10302LeaveInfo/t10302LeaveInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10302LeaveInfo/t10302LeaveInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10302LeaveInfo/t10302LeaveInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10303CompetencyInfo/t10303CompetencyInfoAction" parameter="dispatch" name="/t10303CompetencyInfo/t10303CompetencyInfoForm" type="com.san.ywcx.data.t10303.struts.action.T10303CompetencyInfoAction">
+      <forward name="list" path="/t10303CompetencyInfo/t10303CompetencyInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10303CompetencyInfo/t10303CompetencyInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10303CompetencyInfo/t10303CompetencyInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10303CompetencyInfo/t10303CompetencyInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10304PatentInfo/t10304PatentInfoAction" parameter="dispatch" name="/t10304PatentInfo/t10304PatentInfoForm" type="hbm.struts.action.T10304PatentInfoAction">
+      <forward name="list" path="/t10304PatentInfo/t10304PatentInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10304PatentInfo/t10304PatentInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10304PatentInfo/t10304PatentInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10304PatentInfo/t10304PatentInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10305MarkRegistra/t10305MarkRegistraAction" parameter="dispatch" name="/t10305MarkRegistra/t10305MarkRegistraForm" type="com.san.ywcx.data.t10305.struts.action.T10305MarkRegistraAction">
+      <forward name="list" path="/t10305MarkRegistra/t10305MarkRegistraFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10305MarkRegistra/t10305MarkRegistraFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10305MarkRegistra/t10305MarkRegistraForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10305MarkRegistra/t10305MarkRegistraForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoAction" parameter="dispatch" name="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoForm" type="com.san.ywcx.data.t10306.struts.action.T10306ManagesystemAttestationinfoAction">
+      <forward name="list" path="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10306ManagesystemAttestationinfo/t10306ManagesystemAttestationinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraAction" parameter="dispatch" name="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraForm" type="com.san.ywcx.data.t10307.struts.action.T10307ChattelimpawnRegistraAction">
+      <forward name="list" path="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10307ChattelimpawnRegistra/t10307ChattelimpawnRegistraForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoAction" parameter="dispatch" name="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoForm" type="com.san.ywcx.data.t10401.struts.action.T10401YearcheckGradeinfoAction">
+      <forward name="list" path="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10401YearcheckGradeinfo/t10401YearcheckGradeinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeAction" parameter="dispatch" name="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeForm" type="com.san.ywcx.data.t10402.struts.action.T10402AdministrationCreditegradeAction">
+      <forward name="list" path="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10402AdministrationCreditegrade/t10402AdministrationCreditegradeForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoAction" parameter="dispatch" name="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoForm" type="com.san.ywcx.data.t10405.struts.action.T10405WorkingandsocialsecurityInfoAction">
+      <forward name="list" path="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10405WorkingandsocialsecurityInfo/t10405WorkingandsocialsecurityInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10408CaseManageinfo/t10408CaseManageinfoAction" parameter="dispatch" name="/t10408CaseManageinfo/t10408CaseManageinfoForm" type="com.san.ywcx.data.t10408.struts.action.T10408CaseManageinfoAction">
+      <forward name="list" path="/t10408CaseManageinfo/t10408CaseManageinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10408CaseManageinfo/t10408CaseManageinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10408CaseManageinfo/t10408CaseManageinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10408CaseManageinfo/t10408CaseManageinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoAction" parameter="dispatch" name="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoForm" type="com.san.ywcx.data.t10409.struts.action.T10409ProductQuakityDrawoutinfoAction">
+      <forward name="list" path="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10409ProductQuakityDrawoutinfo/t10409ProductQuakityDrawoutinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoAction" parameter="dispatch" name="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoForm" type="com.san.ywcx.data.t10501.struts.action.T10501EnterpriseBusinessinfoAction">
+      <forward name="list" path="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10501EnterpriseBusinessinfo/t10501EnterpriseBusinessinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10502MonthRatepainginfo/t10502MonthRatepainginfoAction" parameter="dispatch" name="/t10502MonthRatepainginfo/t10502MonthRatepainginfoForm" type="com.san.ywcx.data.t10502.struts.action.T10502MonthRatepainginfoAction">
+      <forward name="list" path="/t10502MonthRatepainginfo/t10502MonthRatepainginfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10502MonthRatepainginfo/t10502MonthRatepainginfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10502MonthRatepainginfo/t10502MonthRatepainginfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10502MonthRatepainginfo/t10502MonthRatepainginfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyAction" parameter="dispatch" name="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyForm" type="com.san.ywcx.data.t10503.struts.action.T10503EnterpriseyearSimplenotyfyAction">
+      <forward name="list" path="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10503EnterpriseyearSimplenotyfy/t10503EnterpriseyearSimplenotyfyForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoAction" parameter="dispatch" name="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoForm" type="com.san.ywcx.data.t10601.struts.action.T10601EnterpriseborrowGivebackinfoAction">
+      <forward name="list" path="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10601EnterpriseborrowGivebackinfo/t10601EnterpriseborrowGivebackinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoAction" parameter="dispatch" name="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoForm" type="com.san.ywcx.data.t10602.struts.action.T10602EnterpriseOutrunabolishinfoAction">
+      <forward name="list" path="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10602EnterpriseOutrunabolishinfo/t10602EnterpriseOutrunabolishinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoAction" parameter="dispatch" name="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoForm" type="com.san.ywcx.data.t10403.struts.action.T10403TaxnotcommonconsumerInfoAction">
+      <forward name="list" path="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10403TaxnotcommonconsumerInfo/t10403TaxnotcommonconsumerInfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoAction" parameter="dispatch" name="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoForm" type="com.san.ywcx.data.t10404.struts.action.T10404DefaulttaxAfficheinfoAction">
+      <forward name="list" path="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoFormList.jsp" redirect="false"/>
+      <forward name="view" path="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t10404DefaulttaxAfficheinfo/t10404DefaulttaxAfficheinfoForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/StatByGSCodeAndSWCode/GsswImgAction" parameter="dispatch" type="com.san.chengxin.StatByGSCodeAndSWCode.action.GsswImgAction">
+      <forward name="info" path="/StatGsCodeAndSwCode/StatGsCodeAndSwCodeByInfo.jsp" redirect="false"/>
+      <forward name="list" path="/StatGsCodeAndSwCode/showInfo.jsp" redirect="false"/>
+    </action>
+    <action path="/102" parameter="dispatch" type="com.san.chengxin.unite.struts.action.T102EnterpriseUniteAction">
+      <forward name="add" path="/mistakeQuey/uniteName.jsp" redirect="false"/>
+    </action>
+    <action path="/StatPunishInfo/StatPunishInfoAction" parameter="dispatch" type="com.san.chengxin.StatPunishInfo.action.StatPunishInfoAction"/>
+    <action path="/StatGetcreditInfo/StatGetcreditInfoAction" parameter="dispatch" type="com.san.chengxin.StatGetcreditInfo.action.StatGetcreditInfoAction"/>
+    <action path="/test1/test1Action" parameter="dispatch" name="/test1/test1Form" type="com.san.chengxin.test1.struts.action.Test1Action">
+      <forward name="list" path="/Test/SInfo.jsp" redirect="false"/>
+      <forward name="view" path="/test1/test1FormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/test1/test1Form.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/test1/test1Form.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/test2/test2Action" parameter="dispatch" name="/test2/test2Form" type="com.san.chengxin.test2.struts.action.Test2Action">
+      <forward name="list" path="/Test/CInfo.jsp" redirect="false"/>
+      <forward name="view" path="/test2/test2FormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/test2/test2Form.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/test2/test2Form.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/treeDemoAction" parameter="dispatch" name="/TreeDemoForm" type="com.san.ywcx.treeDemo.struts.action.TreeDemoAction">
+      <forward name="list" path="/treeDemo/son.jsp" redirect="false"/>
+      <forward name="childlist" path="/treeDemo/son2.jsp" redirect="false"/>
+    </action>
+    <action path="/codeManage" parameter="dispatch" type="com.san.chengxin.configure.web.struts.action.CodeManageAction">
+      <forward name="list" path="/CodeManage/main.jsp" redirect="false"/>
+      <forward name="delete" path="/CodeManage/main.jsp" redirect="false"/>
+    </action>
+    <!--?<???????-->
+    <action path="/appriaseIndex" name="appriaseIndexForm" parameter="dispatch" type="com.san.chengxin.creditIndex.webapp.action.CreditIndexAction">
+      <forward name="list" path="/appriase_index/main.jsp" redirect="false"/>
+      <forward name="load" path="/appriase_index/edit.jsp" redirect="false"/>
+      <forward name="logout" path="/appriase_index/logot.jsp" redirect="false"/>
+      <forward name="modify" path="/appriase_index/appriase_Index.jsp" redirect="false"/>
+      <forward name="insert" path="/appriase_index/add.jsp" redirect="false"/>
+      <forward name="showObjectInfo" path="/appriase_index/showRsInfo.jsp" redirect="false"/>
+      <forward name="loadSystemIndex" path="/appriase_index/systemIndex.jsp" redirect="false"/>
+      <forward name="loadDefineIndex" path="/creditModel/DefineIndex.jsp" redirect="false"/>
+    </action>
+    <!--?<??????????-->
+    <action path="/appriase_Level" parameter="dispatch" type="com.san.chengxin.appraiselevel.webapp.action.AppraiseLevelAction">
+      <forward name="insert" path="/appriase_Level/add.jsp" redirect="false"/>
+      <forward name="list" path="/appriase_Level/main.jsp" redirect="false"/>
+      <forward name="loadAppriaseLevel" path="/creditModel/appriaseLevel.jsp" redirect="false"/>
+      <forward name="load" path="/appriase_Level/showRsInfo.jsp" redirect="false"/>
+      <forward name="logo" path="/log/queryCondition.jsp" redirect="false"/>
+      <forward name="logout" path="/appriase_Level/logot.jsp" redirect="false"/>
+      <forward name="getDeptListForModel" path="/creditModel/credit_Model.jsp" redirect="false"/>
+      <forward name="getDeptListForLevel" path="/appriase_Level/appriaseLevel.jsp" redirect="false"/>
+      <forward name="getModelResult" path="/modelResult/credit_Model2.jsp" redirect="false"/>
+      <forward name="getDeptListForModelIndustry" path="/queryModelInfo/credit_Model1.jsp" redirect="false"/>
+	  <forward name="exec_index" path="/execIndex/execIndex.jsp" redirect="false"/>
+	   <forward name="toEpf" path="/execIndex/showEpf.jsp" redirect="false"/>
+    </action>
+    <!--???-->
+    <action path="/model" parameter="dispatch" type="com.san.chengxin.model.webapp.action.ModelAction">
+      <forward name="uploadstat" path="/updatastat/upStat.jsp" redirect="false"/>
+      <forward name="initPage" path="/creditModel/add.jsp" redirect="false"/>
+      <forward name="childList" path="/treeDemo/son2.jsp" redirect="false"/>
+      <forward name="treeList" path="/treeDemo/son.jsp" redirect="false"/>
+      <forward name="insert" path="/creditModel/add.jsp" redirect="false"/>
+      <forward name="list" path="/creditModel/main.jsp" redirect="false"/>
+      <forward name="load" path="/creditModel/showRsInfo.jsp" redirect="false"/>
+      <forward name="modify" path="/creditModel/modify.jsp" redirect="false"/>
+      <forward name="copy" path="/creditModel/copy.jsp" redirect="false"/>
+      <forward name="logout" path="/creditModel/logot.jsp" redirect="false"/>
+      <forward name="exec" path="/execAccount/execAccount.jsp" redirect="false"/>
+      <forward name="industryList" path="/queryModelInfo/IndustryList.jsp" redirect="false"/>
+      <forward name="loadOnecMoDel" path="/execAccount/execAccount.jsp" redirect="false"/>
+      <forward name="EnterpriseByIndustry" path="/queryModelInfo/enterpriseListByIndustry.jsp" redirect="false"/>
+      <forward name="list_" path="/queryModelInfo/main.jsp" redirect="false"/>
+      <forward name="_list" path="/modelResult/main.jsp" redirect="false"/>
+      <forward name="indexInfo" path="/queryModelInfo/indexInfo.jsp" redirect="false"/>
+      <forward name="indexInfo_simple" path="/queryModelInfo/indexInfo_simple.jsp" redirect="false"/>
+      <forward name="execedModelCount" path="/modelResult/getExecModelCount.jsp" redirect="false"/>
+      <forward name="getExceptionReport" path="/modelResult/getExceptionReport.jsp" redirect="false"/>
+      <forward name="simpleList" path="/rightc/simpleModelList.jsp" redirect="false"/>
+      <forward name="simpleResultList" path="/rightc/simpleModelResultList.jsp" redirect="false"/>
+      <forward name="firstModelPage" path="/rightc/firstModel.jsp" redirect="false"/>
+      <forward name="simpleResultImg" path="/rightc/simpleModelResultListImg.jsp" redirect="false"/>
+      <forward name="modelscorestat" path="/appriaseLevelByEnterprise/modelScoreStat.jsp" redirect="false"/>
+      <forward name="phscorestat" path="/appriaseLevelByEnterprise/modelScore.jsp" redirect="false"/>
+      <forward name="indexValue" path="/creditModel/indexValue.jsp" redirect="false"/>
+      <forward name="simulationExec" path="/execAccount/closePage.jsp" redirect="false"/>
+      <forward name="selectIndustry" path="/creditModel/SelectIndustry.jsp" redirect="false"/>
+      <forward name="list_exec" path="/newExecModel/newExecModel_List.jsp" redirect="false"/>
+      <forward name="newExec" path="/newExecModel/msg.jsp" redirect="false"/>
+	  <forward name="execIndexList" path="/execIndex/main.jsp" redirect="false"/>
+	 <forward name="execIndex" path="/execIndex/execIndex.jsp" redirect="false"/>
+	 <forward name="initModelQuery" path="/creditModel/modelQueryList.jsp" redirect="false"/>
+	 <forward name="initModelPh" path="/creditModel/modelPhList.jsp" redirect="false"/>
+	 <forward name="modelQueryList" path="/ColligetQuery/listFrame1.jsp" redirect="false"/>
+	 <forward name="modelQueryList1" path="/ColligetQuery/listFrame2.jsp" redirect="false"/>
+	 <forward name="warnAttation" path="/creditModel/warnAttationInfo.jsp" redirect="false"/>
+    </action>
+    <action path="/wordbook_table" parameter="dispatch" name="DataWordbookTableinfoForm" type="com.san.chengxin.wordbook.webapp.action.DataWordbookTableinfoAction">
+      <forward name="list" path="/wordbook/leftSource.jsp" redirect="false"/>
+      <forward name="load" path="/wordbook/editTable.jsp" redirect="false"/>
+      <forward name="modify" path="/wordbook/editSuccess.jsp" redirect="false"/>
+      <forward name="loadTableName" path="/wordbook/tableNameList.jsp" redirect="false"/>
+      <forward name="add" path="/wordbook/addSuccess.jsp" redirect="false"/>
+      <forward name="tableObjectList" path="/wordbook/tableObjectList.jsp" redirect="false"/>
+      <forward name="delete" path="/wordbook/deleteSuccess.jsp" redirect="false"/>
+      <forward name="error" path="/wordbook/error.jsp" redirect="false"/>
+    </action>
+    <action path="/wordbook_filed" parameter="dispatch" name="DataWordbookFieldinfoForm" type="com.san.chengxin.wordbook.webapp.action.DataWordbookFieldinfoAction">
+      <forward name="list" path="/wordbook/leftSource.jsp" redirect="false"/>
+      <forward name="load" path="/wordbook/editFeild.jsp" redirect="false"/>
+      <forward name="modify" path="/wordbook/editSuccess.jsp" redirect="false"/>
+      <forward name="add" path="/wordbook/addSuccess.jsp" redirect="false"/>
+      <forward name="delete" path="/wordbook/deleteSuccess.jsp" redirect="false"/>
+    </action>
+    <action path="/t20301AlmTemAction" parameter="dispatch" type="com.san.chengxin.creditAlarm.T20301.webapp.action.T20301AlmTemAction">
+      <forward name="list" path="/creditAlarm/alarmSetting/alarmSettingList.jsp" redirect="false"/>
+      <forward name="successlist" path="/creditAlarm/alarmSetting/alarmSetting.jsp" redirect="false"/>
+      <forward name="attentionlist" path="/creditAttention/attentionSetting/attentionSettingList.jsp" redirect="false"/>
+      <forward name="add" path="/t20301AlmTemAction.do?dispatch=refurbishList" redirect="false"/>
+      <forward name="attentionadd" path="/t20301AlmTemAction.do?dispatch=attentionlist" redirect="false"/>
+      <forward name="edit" path="/t20301AlmTemAction.do?dispatch=refurbishList" redirect="false"/>
+      <forward name="attentionedit" path="/t20301AlmTemAction.do?dispatch=attentionList" redirect="false"/>
+      <forward name="modiview" path="/creditAlarm/alarmSetting/alarmModi.jsp" redirect="false"/>
+      <forward name="attentionmodiview" path="/creditAttention/attentionSetting/attentionModi.jsp" redirect="false"/>
+      <forward name="modistate" path="/t20301AlmTemAction.do?dispatch=list" redirect="false"/>
+      <forward name="deptuserlist" path="/creditAlarm/alarmSetting/deptDeputyList.jsp" redirect="false"/>
+      <forward name="savesuccess" path="/creditAlarm/alarmSetting/deptDeputyList.jsp" redirect="false"/>
+      <forward name="targetlist" path="/creditAlarm/alarmSetting/targetType/targetTypeSele.jsp" redirect="false"/>
+      <forward name="targetsave" path="/creditAlarm/alarmSetting/targetType/targetTypeSele.jsp" redirect="false"/>
+      <forward name="createManSele" path="/creditAlarm/alarmSetting/deptDeputySeleList.jsp" redirect="false"/>
+    </action>
+    <action path="/t20302AlmSedAction" parameter="dispatch" type="com.san.chengxin.creditAlarm.T20302.webapp.action.T20302AlmSedAction">
+      <forward name="list" path="/creditAlarm/alarmSele/alarmSeleList.jsp" redirect="false"/>
+      <forward name="attentionlist" path="/creditAttention/attentionSele/attentionSeleList.jsp" redirect="false"/>
+      <forward name="add" path="/creditAlarm/alarmSetting/alarmAdd.jsp" redirect="false"/>
+      <forward name="edit" path="/creditAlarm/alarmSetting/alarmModi.jsp" redirect="false"/>
+      <forward name="modiview" path="/creditAlarm/alarmSetting/alarmModi.jsp" redirect="false"/>
+      <forward name="newAlarmList" path="/creditAlarm/alarmView/newsAlarmSearch.jsp" redirect="false"/>
+      <forward name="modistate" path="/creditAlarm/alarmView/alarmInfo.jsp" redirect="false"/>
+    </action>
+    <action path="/scheduleAction" parameter="dispatch" type="com.san.chengxin.schedule.webapp.action.ScheduleAction">
+      <forward name="list" path="/schedule/scheduleList.jsp" redirect="false"/>
+      <forward name="search" path="/schedule/scheduleList.jsp" redirect="false"/>
+      <forward name="editview" path="/schedule/scheduleModi.jsp" redirect="false"/>
+      <forward name="edit" path="/schedule/schedule.jsp" redirect="false"/>
+      <forward name="pause" path="/scheduleAction.do?dispatch=list" redirect="false"/>
+      <forward name="resume" path="/scheduleAction.do?dispatch=list" redirect="false"/>
+      <forward name="test" redirect="true" path="/index.jsp"/>
+    </action>
+    <action path="/sjhb/t0101EnterpriseBaseAction" parameter="dispatch" type="com.san.ywcx.data.newbusiness.t0101.struts.action.T0101EnterpriseBaseAction" name="t0101Form">
+      <forward name="list" path="/sjhb/main.jsp" redirect="false"/>
+      <forward name="jclist" path="/sjhb/mainjc.jsp" redirect="false"/>
+      <forward name="managelist" path="/sjhb/mainmanage.jsp" redirect="false"/>
+      <forward name="jcsuccess" path="/sjhb/t0101EnterpriseBaseAction.do?dispatch=listmanage" redirect="true"/>
+    </action>
+    <action path="/sjhb/T620XxhbAction" parameter="dispatch" type="org.springframework.web.struts.DelegatingActionProxy" name="T620XxhbForm">
+      <forward name="list" path="/sjhb/confirm.jsp" redirect="false"/>
+      <forward name="bb_list" path="/sjhb/hbmanage.jsp" redirect="false"/>
+      <forward name="splist" path="/sjhb/compatyUnion.jsp" redirect="false"/>
+      <forward name="success" path="/sjhb/T620XxhbAction.do?dispatch=sp_list" redirect="true"/>
+      <forward name="hbsuccess" path="/sjhb/success.jsp" redirect="false"/>
+      <forward name="hbsuccess1" path="/sjhb/compaysuccess.jsp" redirect="false"/>
+    </action>
+    <action path="/m9906LogDatarecvAction" parameter="dispatch" type="com.san.chengxin.M9906.webapp.action.M9906LogDatarecvAction">
+      <forward name="list" path="/M9906/logSearch.jsp" redirect="false"/>
+    </action>
+    <action path="/warnDefineAction" parameter="dispatch" type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="list" path="/creditAlarm/alarmSetting/alarmSettingList.jsp" redirect="false"/>
+      <forward name="takelist" path="/creditAlarm/warnTake/alarmSettingList.jsp" redirect="false"/>
+      <forward name="targetlist" path="/creditAlarm/alarmSetting/targetType/targetTypeSele.jsp" redirect="false"/>
+      <forward name="savesuccess" path="/creditAlarm/logout.jsp" redirect="false"/>
+      <forward name="add" path="/creditAlarm/alarmSetting/alarmSetting.jsp" redirect="false"/>
+      <forward name="areainfo" path="/creditAlarm/alarmSetting/alarmAdd.jsp" redirect="false"/>
+      <forward name="deptuserlist" path="/creditAlarm/alarmSetting/deptDeputyList.jsp" redirect="false"/>
+      <forward name="createManSele" path="/creditAlarm/alarmSetting/deptDeputySeleList.jsp" redirect="false"/>
+      <forward name="modistate" path="/creditAlarm/alarmSetting/alarmSettingList.jsp" redirect="false"/>
+      <forward name="takemodistate" path="/creditAlarm/warnTake/alarmSettingList.jsp" redirect="false"/>
+      <forward name="loadDefineIndex" path="/creditAlarm/alarmSetting/DefineIndex.jsp" redirect="false"/>
+      <forward name="execedList" path="/newsInfo/warnDefineEcexedTop4.jsp" redirect="false"/>
+      <forward name="execedListAll" path="/rightc/moreWarnList.jsp" redirect="false"/>
+      <forward name="seleok" path="/creditAlarm/alarmSetting/alarmSele.jsp" redirect="false"/>
+      <forward name="t0100" redirect="false" path="/creditAlarm/alarmSetting/hangye.jsp"/>
+	  <!--cxp-->
+      <forward name="searchmaxmin" path="/creditAlarm/alarmSetting/maxmin.jsp" redirect="false"/>
+	  <!--cxp-->
+    </action>
+    <action path="/warnWhiteListAction" parameter="dispatch" type="com.san.chengxin.creditAlarm.WARN_WHITE.webapp.action.WarnWhiteListAction">
+      <forward name="addlist" path="/creditAlarm/warnWhite/alarmSettingList.jsp" redirect="false"/>
+      <forward name="list" path="/creditAlarm/warnWhitesele/alarmSettingList.jsp" redirect="false"/>
+      <forward name="search" path="/creditAlarm/warnWhitesele/alarmSettingList.jsp" redirect="false"/>
+      <forward name="addsearch" path="/creditAlarm/logout.jsp" redirect="false"/>
+      <forward name="delete" path="/warnWhiteListAction.do?dispatch=addlist" redirect="false"/>
+    
+      <forward name="addview" path="/creditAlarm/warnWhite/alarmAdd.jsp" redirect="false"/>
+      <forward name="modelExec" path="/execAccount/enterprise_query.jsp" redirect="false"/>
+    </action>
+    <action path="/t650CommunicateAction" parameter="dispatch" name="/t650/t650CommunicateForm" type="com.san.ywcx.data.t650.struts.action.T650CommunicateAction">
+      <forward name="savesucceed" path="/transfer/addtransferInfo.jsp" redirect="false"/>
+      <forward name="dynamicRefurbish" path="/listLastAction.jsp" redirect="false"/>
+      <forward name="altersuccess" path="/transfer/answerTransferInfo.jsp" redirect="false"/>
+      <forward name="alterStatesend" path="/transfer/answerTransferInfo2.jsp" redirect="false"/>
+      <forward name="inceptlist" path="/historymessage/historyMessageList.jsp" redirect="false"/>
+      <forward name="failure" path="/transfer/addtransferInfo.jsp" redirect="false"/>
+    </action>
+    <action path="/m0105QryresultUsersetAction" parameter="dispatch" type="com.san.chengxin.colligateFreedomQuery.M0105_QRYRESULT_USERSET.webapp.action.M0105QryresultUsersetAction">
+      <forward name="querylist" path="/colligateFreedomQuery/queryResultSetting/queryViewSetting.jsp" redirect="false"/>
+      <forward name="fieldviewlist" path="/colligateFreedomQuery/queryResultSetting/queryResult.jsp" redirect="false"/>
+      <forward name="save" path="/m0105QryresultUsersetAction.do?dispatch=viewlist" redirect="false"/>
+      <forward name="jccx" path="/ColligetQuery/listFrame.jsp" redirect="false"/>
+      <forward name="jccxbc" path="/t0101EnterpriseBase/t0101EnterpriseBaseAction.do?dispatch=getCodeList" redirect="false"/>
+    </action>
+    <action path="/queryTermSettingtree" parameter="dispatch" type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="pageInit" path="/colligateFreedomQuery/queryTermSetting/m106tree.jsp" redirect="false"/>
+      <forward name="fieldviewlist" path="/m0105QryresultUsersetAction.do?dispatch=viewlist" redirect="false"/>
+    </action>
+	
+	<!---wuwh-->
+    <action path="/queryTermSetting" parameter="dispatch" type="com.san.chengxin.colligateFreedomQuery.M0106_QRYWHERE_USERSET.webapp.action.M106Action">
+      <forward name="pageInit" path="/colligateFreedomQuery/queryTermSetting/m106query.jsp" redirect="false"/>
+      <forward name="fieldviewlist" path="/m0105QryresultUsersetAction.do?dispatch=viewlist" redirect="false"/>
+    </action>
+    <action path="/communionUniteAction" parameter="dispatch" name="/pmi/sysOulistForm" type="com.san.chengxin.instantcommunionUnite.InstantCommunionUniteAction">
+      <forward name="list" path="/instantcommunionUnite2/deptDeputyListUnite.jsp" redirect="false"/>
+      <forward name="savesuccess" path="/instantcommunionUnite2/logout.jsp" redirect="false"/>
+    </action>
+    <action path="/t650CommunicateUniteAction" parameter="dispatch" name="/t650/t650CommunicateUniteForm" type="com.san.ywcx.data.t650Unite.struts.action.T650CommunicateUniteAction">
+      <forward name="savesucceedunite" path="/transferUnite/addtransferInfoUnite.jsp" redirect="false"/>
+      <forward name="dynamicRefurbish" path="/listLastActionUnite.jsp" redirect="false"/>
+      <forward name="altersuccesunite" path="/transferUnite/answerTransferInfoUnite.jsp" redirect="false"/>
+      <forward name="alterStatesend" path="/transferUnite/answerTransferInfoUnite2.jsp" redirect="false"/>
+      <forward name="inceptlistunite" path="/historymessageUnite/historyMessageListUnite.jsp" redirect="false"/>
+      <forward name="failureunite" path="/transferUnite/addtransferInfoUnite.jsp" redirect="false"/>
+    </action>
+    <!--lin-->
+    <action path="/checkMsg" name="sendMessage" parameter="dispatch" type="com.san.chengxin.checkMessage.CHECK_ACCEPT_MESSAGE.webapp.action.CheckMsgAction">
+      <forward name="index" path="/checkMsg/showindex.jsp" redirect="false"/>
+      <forward name="pageInitSend" path="/checkMsg/sendMsgframe.jsp" redirect="false"/>
+      <forward name="pageInitAccept" path="/checkMsg/acceptMsgframe.jsp" redirect="false"/>
+      <forward name="pageInitSendInit" path="/checkMsg/sendMsg.jsp" redirect="false"/>
+      <forward name="pageInitAcceptInit" path="/checkMsg/acceptMsg.jsp" redirect="false"/>
+      <forward name="selectDeptInit" path="/checkMsg/selectDept.jsp" redirect="false"/>
+      <forward name="showMsg" path="/checkMsg/showMsg.jsp" redirect="false"/>
+      <forward name="returnMsg" path="/checkMsg/returnMsg.jsp"/>
+      <forward name="acceptMessageInit" path="/checkMsg/acceptMseeage.jsp"/>
+    </action>
+    <!-- unRegisterCorp -->
+    <action path="/stat/unreg" parameter="dispatch" type="com.san.chengxin.statistics.unregister.webapp.action.UnRegisterAction">
+      <forward name="loaddefine" path="/stat/unRegCorp/confiUDStatView.jsp" redirect="false"/>
+      <forward name="statdefine" path="/stat/unRegCorp/confiStatForm.jsp" redirect="false"/>
+      <forward name="deptList" path="/stat/unRegCorp/deptList.jsp" redirect="false"/>
+    </action>
+    <action path="/stat/indApp" parameter="dispatch" type="com.san.chengxin.statistics.industryAppraise.webapp.action.IndustryAppraiseAction">
+      <forward name="loaddefine" path="/stat/industryAppraise/confiUDStatView.jsp" redirect="false"/>
+      <forward name="statdefine" path="/stat/industryAppraise/confiStatForm.jsp" redirect="false"/>
+      <forward name="deptListCredit" path="/stat/industryAppraise/deptListCredit.jsp" redirect="false"/>
+      <forward name="deptListPunish" path="/stat/industryAppraise/deptListPunish.jsp" redirect="false"/>
+      <forward name="deptListTotal" path="/stat/industryAppraise/deptListTotal.jsp" redirect="false"/>
+    </action>
+    <action path="/stat/foreignStat" parameter="dispatch" type="com.san.chengxin.statistics.foreignStat.webapp.action.ForeignStatAction">
+      <forward name="loaddefine" path="/stat/foreignStat/confiUDStatView.jsp" redirect="false"/>
+      <forward name="statdefine" path="/stat/foreignStat/confiStatForm.jsp" redirect="false"/>
+      <forward name="deptListCredit" path="/stat/industryAppraise/deptListCredit.jsp" redirect="false"/>
+      <forward name="deptListPunish" path="/stat/industryAppraise/deptListPunish.jsp" redirect="false"/>
+      <forward name="deptListTotal" path="/stat/foreignStat/deptListTotal.jsp" redirect="false"/>
+    </action>
+    <action path="/getExcel" parameter="dispatch" type="com.san.chengxin.downloadExcel.DownloadExcel">
+      <forward name="pageInit" path="/checkMsg/sendMsg.jsp" redirect="false"/>
+    </action>
+    <action path="/evaluateAction" parameter="dispatch" type="com.san.chengxin.evaluate.webapp.action.EvaluateAction">
+      <forward name="saleInit" path="/evaluate/sale.jsp" redirect="false"/>
+      <forward name="buyInit" path="/evaluate/buy.jsp" redirect="false"/>
+      <forward name="enterpriseInfo" path="/evaluate/info.jsp" redirect="false"/>
+      <forward name="mark" path="/evaluate/pingjia.jsp" redirect="false"/>
+    </action>
+    <!--lin-->
+    <!--Wuwh-->
+    <action path="/t0100OperationCode/t0100OperationCodeAction" parameter="dispatch" name="/t0100OperationCode/t0100OperationCodeForm" type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="list" path="/basicCode/middle.jsp" redirect="false"/>
+      <forward name="view" path="/basicCode/add.jsp" redirect="false"/>
+      <forward name="input" path="/basicCode/modinf.jsp" redirect="false"/>
+      <forward name="modify" path="/basicCode/main.jsp" redirect="false"/>
+    </action>
+    <action path="/logDataRecv/logDataRecvAction" parameter="dispatch" name="/logDataRecv/logDataRecvForm" type="com.san.chengxin.log.struts.action.LogDataRecvAction">
+      <forward name="list" path="/logDataRecv/logDataRecvFormList.jsp" redirect="false"/>
+      <forward name="view" path="/logDataRecv/logDataRecvFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/logDataRecv/logDataRecvForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/logDataRecv/logDataRecvForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/log/queryCondition" parameter="dispatch" type="com.san.chengxin.statistic.struts.action.LogAction" name="/log/queryConditionForm">
+      <forward name="condition" redirect="false" path="/log/queryCondition.jsp"/>
+      <forward name="statistic" redirect="false" path="/statistic/queryCondition.jsp"/>
+      <forward name="error" redirect="false" path="/returnMessage/error.jsp"/>
+    </action>
+    <!--wuwh-->
+
+    <!--2009-10-21wuwh-->
+	<action path="/reportdeptin/reportdeptinActionDept" parameter="dispatch" type="com.san.ywcx.data.newbusiness.reportdeptin.PersonGsInfoActionDept">
+	</action>
+
+	<!--2009-7-17-->
+	<action path="/qxInfo/qxInfoAction" parameter="dispatch" type="com.san.ywcx.sqx.QxInfoAction">
+      <forward name="deptList" redirect="false" path="/sysJbInfo/sysview.jsp"/>
+	  <forward name="list" redirect="false" path="/sysJbInfo/sysviewList.jsp"/>
+	  <forward name="modlist" redirect="false" path="/sysJbInfo/qxview.jsp"/>
+    </action>
+
+     <action path="/partRegsele/partsele" parameter="dispatch" type="com.san.chengxin.partRegsele.PartRegSeleAction">
+      <forward name="index" path="/partSele/partSele.jsp"></forward>
+      <forward name="list" redirect="false" path="/partSele/partList.jsp"/>
+    </action>
+    
+     <action path="/reportdeptin/reportdeptinAction" parameter="dispatch" type="com.san.ywcx.data.newbusiness.reportdeptin.PesonGsInfoAction">
+      <forward name="list" redirect="false" path="/reportdeptin/personInfo.jsp"/>
+	  <forward name="list_info" redirect="false" path="/reportdeptin/personIndexInfo.jsp"/>
+	  <forward name="ajax_code" path="/reportdeptin/ajax_code.jsp"></forward>
+    </action>
+    
+	 <action path="/ExcelDown/excelUpload" parameter="dispatch" type="com.san.ywcx.data.newbusiness.ExcelDown.ExcelAction">
+	    <forward name="excel" redirect="false" path="/web/reportdeptin/uploadexcel.jsp"/> 
+    </action>
+	
+	
+    <action path="/t490Invbat/t490InvbatAction" parameter="dispatch" name="/t490Invbat/t490InvbatForm" type="com.san.ywcx.data.newbusiness.spotcheck.t490.struts.action.T490InvbatAction">
+      <forward name="sportlist" path="/spotcheck/spotset.jsp" redirect="false"/>
+      <forward name="list" path="/spotcheck/spotmiddle.jsp" redirect="false"/>
+       <forward name="list1" path="/spotcheck/select.jsp" redirect="false"/>
+       <forward name="list2" path="/spotcheck/sportinputList.jsp" redirect="false"/>
+      <forward name="view" path="/spotcheck/spotcheck.jsp" redirect="false"/>
+      <forward name="input" path="/spotcheck/t490InvbatForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/spotcheck/t490InvbatForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t491Invdata/t491InvdataAction" parameter="dispatch" name="/t491Invdata/t491InvdataForm" type="com.san.ywcx.data.newbusiness.spotcheck.t491.struts.action.T491InvdataAction">
+      <forward name="ok" path="/spotcheck/spotinfo.jsp" redirect="false"/>
+       <forward name="ok1" path="/spotcheck/tonjtp.jsp" redirect="false"/>
+      <forward name="view" path="/spotcheck/sportinput.jsp" redirect="false"/>
+      <forward name="input" path="/spotcheck/sportYtj.jsp" redirect="false"/>
+      <forward name="modify" path="/t491Invdata/t491InvdataForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/spotcheck/sportinfo.jsp" redirect="false"/>
+       <forward name="success1" path="/spotcheck/tongjiinfo.jsp" redirect="false"/>
+       <forward name="succes2" path="/spotcheck/sportsele.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    <action path="/t492Invconf/t492InvconfAction" parameter="dispatch" name="/t492Invconf/t492InvconfForm" type="com.san.ywcx.data.newbusiness.spotcheck.t492Invconf.struts.action.T492InvconfAction">
+      <forward name="list" path="/spotcheck/ajax.jsp" redirect="false"/>
+      <forward name="view" path="/spotcheck/sportnewInfo.jsp" redirect="false"/>
+       <forward name="view1" path="/spotcheck/sportmodinf.jsp" redirect="false"/>
+      <forward name="input" path="/t492Invconf/t492InvconfForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t492Invconf/t492InvconfForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+       <forward name="jycflist" path="/reportdeptin/showList.jsp" redirect="false"/>
+	   <forward name="alist" path="/reportdeptin/sportInfo.jsp" redirect="false"/>
+	   <forward name="hylist" path="/reportdeptin/hyList.jsp" redirect="false"/>
+    </action>
+    <action path="/t492Invstat/t492InvstatAction" parameter="dispatch" name="/t492Invstat/t492InvstatForm" type="com.san.ywcx.data.newbusiness.spotcheck.t492Invstat.struts.action.T492InvstatAction">
+      <forward name="list" path="/spotcheck/spotTj.jsp" redirect="false"/>
+      
+      <forward name="view" path="/t492Invstat/t492InvstatFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t492Invstat/t492InvstatForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t492Invstat/t492InvstatForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    
+   <action path="/t493Societyinvdata/t493SocietyinvdataAction" parameter="dispatch" name="/t493Societyinvdata/t493SocietyinvdataForm" type="com.san.ywcx.data.newbusiness.spotcheck.t493.struts.action.T493SocietyinvdataAction">
+	  <forward name="addagin" path="/t493SocietyInv/t493newInfo.jsp" redirect="false"/>
+	  <forward name="list" path="/t493SocietyInv/showRsInfo.jsp" redirect="false"/>
+      <forward name="view" path="/t493Societyinvdata/t493SocietyinvdataFormView.jsp?dispatch=view" redirect="false"/>
+      <forward name="input" path="/t493Societyinvdata/t493SocietyinvdataForm.jsp?dispatch=add" redirect="false"/>
+      <forward name="modify" path="/t493Societyinvdata/t493SocietyinvdataForm.jsp?dispatch=moidify" redirect="false"/>
+      <forward name="success" path="/t493SocietyInv/success.jsp" redirect="false"/>
+      <forward name="failure" path="/error.jsp" redirect="false"/>
+    </action>
+    
+    <action path="/creditIndexsAction" parameter="dispatch" type="com.san.chengxin.CREDIT_INDEXS.webapp.action.CreditIndexsAction">
+		<forward name="t0100" path="/creditIndex/hangye.jsp" redirect="false"></forward>
+		<forward name="list" path="/creditIndex/creditIndex_querylist.jsp" redirect="false"></forward>
+		<forward name="explainList" path="/creditIndex/explainlist.jsp" redirect="false"></forward>
+		<forward name="accountExponent" redirect="false" path="/creditIndex/xyzs.jsp"/>
+		<forward name="beforlist" redirect="false" path="/creditIndex/creditIndex_query.jsp"/>
+		<forward name="beforexplainlist" redirect="false" path="/creditIndex/creditIndex_explain.jsp"/>
+		<forward name="listtop" path="/creditIndex/creditIndex_querylisttop.jsp" redirect="false"></forward>
+		<forward name="beforlisttop" redirect="false" path="/creditIndex/creditIndex_querytop.jsp"/>
+	</action>
+	
+    <action path="/effectSettingAction" parameter="dispatch" type="com.san.chengxin.effectSetting.webapp.action.EffectSettingAction">
+		<forward name="list" path="/effectSetting/effectSettingList.jsp" redirect="false"></forward>
+		<forward name="add" path="/effectSetting/effectSettingAdd.jsp" redirect="false"></forward>
+		<forward name="search" path="/effectSetting/effectSettingManager.jsp" redirect="false"></forward>
+		<forward name="modiview" path="/effectSetting/effectSettingModi.jsp" redirect="false"></forward>
+		<forward name="qyview" path="/effectSetting/listFrame.jsp" redirect="false"></forward>
+		<forward name="hangyview" path="/effectSetting/hangye.jsp" redirect="false"></forward>
+	</action>
+	<action path="/m105DownloadExcel" parameter="dispatch" type="com.san.chengxin.colligateFreedomQuery.M0105_QRYRESULT_USERSET.webapp.action.M105ExcelDownload">
+	</action>
+
+	<action path="/exceptionDataDisposeInfoShow" parameter="dispatch" type="com.exceptionDataDispose.webapp.ExceptionDataDisposeInfoShowAction">
+		<forward name="listFrame" path="/exceptionData/listFrame.jsp" redirect="false"></forward>
+		<forward name="erpInit" path="/exceptionData/selerpframe.jsp" redirect="false"></forward>
+		
+		<forward name="erpUnitePageInit" path="/exceptionData/erpUnitePageInit.jsp" redirect="false"></forward>
+		<forward name="exceptionDataQuery" path="/exceptionData/exceptionDataQuery.jsp" redirect="false"></forward>
+		<forward name="exceptionDataQueryInit" path="/exceptionData/exceptionDataQueryInit.jsp" redirect="false"></forward>
+	</action>
+
+       <action path="/ryQueryAction" parameter="dispatch" type="com.san.chengxin.ryQuery.action.RyQueryAction">
+	    <forward name="ryInfo" path="/ryQuery/ryInfo.jsp" redirect="false"></forward>
+	    <forward name="error" path="/ryQuery/error.jsp" redirect="false"></forward>
+      </action>
+<action path="/yjCxAction" parameter="dispatch" type="com.san.chengxin.abyjchaxun.webapp.action.YjCxAction">
+      <forward name="getWanName" path="/aYjChaxun/getName.jsp"/>
+	  <forward name="getPc" path="/aYjChaxun/getPc.jsp"/>
+	  <forward name="list" path="/aYjChaxun/listFrameYj.jsp"/>
+    </action>
+    
+    
+    <!-- 元数据管理 -->
+	<action path="/ysjgl" parameter="dispatch" type="com.san.ysjgl.action.YsjglAction"  name="systable_form" >
+      <forward name="ysjgl" path="/page/ysjgl/ysjgl.jsp"/>
+      <forward name="bm_jsp" path="/page/ysjgl/bm.jsp"/>
+      <forward name="table_jsp" path="/page/ysjgl/addb.jsp"/>
+      <forward name="uptable" path="/page/ysjgl/upb.jsp"/>
+      <forward name="bzdwh" path="/page/ysjgl/bzdwh.jsp"/>
+      <forward name="stzdwh" path="/page/ysjgl/stzdwh.jsp"/>
+      <forward name="mltree" path="/page/sjml/mltree.jsp"/>
+      <forward name="tabinfo" path="/page/sjml/table.jsp"/>
+      <forward name="fiedinfo" path="/page/sjml/field.jsp"/>
+      <forward name="xyjlmb" path="/page/xyjl/xyjl.jsp"/>
+      <forward name="update_xyjl" path="/page/xyjl/addxyjl.jsp"/>
+      <forward name="zsgllist" path="/page/zsgl/zsgl.jsp"/>
+      <forward name="zsgl" path="/page/zsgl/addzsgl.jsp"/>
+      <forward name="ypfj" path="/page/ypfj/ypfj.jsp"/>
+      <forward name="addUpdypfj" path="/page/ypfj/addUpdypfj.jsp"/>
+      <forward name="hisypfj" path="/page/ypfj/hisypfj.jsp"/>
+      <forward name="sjdr" path="/page/ypfj/ypfjImpro.jsp"/>
+      <forward name="qycx" path="/page/ypfj/qycx.jsp"/>
+      <forward name="improList" path="/page/improTable/improList.jsp"/>
+      <forward name="log_list" path="/page/log_list.jsp"/>
+      <forward name="qy_list" path="/page/qy_list.jsp"/>
+      <forward name="gr_list" path="/page/gr_list.jsp"/>
+      <forward name="zdlist" path="/page/zd/zdlist.jsp"/>
+      <forward name="addzd" path="/page/zd/addzd.jsp"/>
+    </action>
+    
+    
+   
+    
+  </action-mappings>
+  <controller/>
+  <message-resources parameter="ApplicationResources"/>
+  <plug-in className="com.san.tools.PlugIn.SessionPlugIn">
+    <set-property property="beanName" value="sessionFactory"/>
+  </plug-in>
+  <plug-in className="org.apache.struts.tiles.TilesPlugin">
+    <set-property property="definitions-config" value="/WEB-INF/tiles-defs.xml"/>
+  </plug-in>
+  <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+    <set-property property="pathnames" value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
+  </plug-in>
+  <plug-in className="org.springframework.web.struts.ContextLoaderPlugIn">
+    <set-property property="contextConfigLocation" value="/WEB-INF/beans.xml,/WEB-INF/applicationContextChengxin.xml"/>
+
+  </plug-in>
+</struts-config>

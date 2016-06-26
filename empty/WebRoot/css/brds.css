@@ -1,0 +1,133 @@
+.trTitle {
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	background-color: #DDDDDD
+}
+.tdContent {
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000
+}
+.flat {  
+	border-color: black black #000000; 
+	border-style: solid; 
+	border-top-width: 0px; 
+	border-right-width: 0px; 
+	border-bottom-width: 1px; 
+	border-left-width: 0px
+}
+.LeftTitle {
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	text-align: right; 
+	background-color: #DDDDDD; 
+}
+.tdTitle { 
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	background-color: #DDDDDD; 
+	text-align: right; 
+	text-indent: 10pt
+}
+.indicator { 
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	font-weight: bold
+}
+.button {  
+	cursor:hand;
+	background-color: #EEEEEE; 
+	border-bottom: #000000 1px solid;
+	border-left: #666666 1px solid;
+	border-right: #000000 1px solid;
+	border-top: #666666 1px solid;
+}
+.HeadTitle { 
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	text-align: center; 
+	background-color: #DDDDDD; 
+}
+.tdRightContent { 
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000 ; 
+	background-color: #EEEEEE
+}
+.trMouseOut {
+	background-color: #EEEEEE;
+	cursor: hand
+}
+.trMouseOver { 
+	background-color: #FFCC66; 
+	cursor: hand
+}
+.ShowUser {  color: #000099}
+.ShowPosi {  color: #990000}
+.ShowDept {  color: #009900}
+.buttonText {
+	background-color: #FFFFFF;
+	border-top: 0px solid;
+	border-right: 0px solid;
+	border-bottom: 1px solid;
+	border-left: 0px solid;
+	text-align: left;
+}
+.btnYellow {
+	cursor:hand;
+	background-color: #ffcc00;
+	border-bottom: #ff9a00 1px solid;
+	border-left: #ffff00 1px solid;
+	border-right: #ff9a00 1px solid;
+	border-top: #ffff00 1px solid;
+	font-size: 12px; 
+	height: 18px;
+}
+.tdBgColor {
+	background-color: #333333
+}
+p.Gray{
+	border-style:1px solid #333333;
+	background-color:#ffffff;
+	font-size: 12px;
+	color: #009966;
+	text-decoration: none;
+}
+.rstTableHead { 
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	text-align: center; 
+	background-color: #DDDDDD; 
+	cursor: hand;
+}
+.sumValue { 
+	font-family: "新宋体", "宋体"; 
+	font-size: 12px; 
+	color: #000000; 
+	text-align: right; 
+	background-color: #DDDDDD; 
+}
+.HeadLeftTitle {
+	font-family: "新宋体", "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-align: left;
+	background-color: #FFFFFF;
+	text-decoration: underline;
+	text-indent: 10pt;
+}
+.HeadRightTitle {
+	font-family: "新宋体", "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-align: right;
+	background-color: #FFFFFF;
+	text-decoration: underline;
+	text-indent: 10pt;
+}

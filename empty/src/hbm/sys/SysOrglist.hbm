@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysOrglist"
+		table="SYS_ORGLIST"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="OrgID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="OrgName"
+			column="OrgName"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="Status"
+			column="status"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="Tel"
+			column="Tel"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="Fax"
+			column="Fax"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="Address"
+			column="Address"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="Web"
+			column="Web"
+			type="string"
+			not-null="false"
+			length="160"
+		/>
+		<property
+			name="Mail"
+			column="Mail"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="Des"
+			column="Des"
+			type="string"
+			not-null="false"
+			length="200"
+		/>
+		<property
+			name="DisplayOrder"
+			column="DisplayOrder"
+			type="integer"
+			not-null="false"
+			length="18"
+		/>
+		<property
+			name="CreateDate"
+			column="CreateDate"
+			type="timestamp"
+			not-null="false"
+			length="23"
+		/>
+
+		<bag name="sysOulist"
+			inverse="true"
+			lazy="false"
+			cascade="all"
+			order-by="DisplayOrder"
+			>
+			<key column="OrgID"/>
+			<one-to-many class="SysOulist"/>
+		</bag>
+		<!--
+		-->
+	</class>
+</hibernate-mapping>

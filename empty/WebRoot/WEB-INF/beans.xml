@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+"http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+ 
+	<bean name="loggingAutoProxy" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+	    <property name="beanNames">	
+	    <list>	  
+		       <value>/loginAction</value>
+		       <value>/newloginAction</value>
+		      
+	    </list>
+	    </property>
+	    <property name="proxyTargetClass" value="true"/>
+	    <property name="interceptorNames">
+			<list>
+				
+			</list>
+	    </property>
+ 	</bean>
+	
+    <bean name="/loginAction"  class="com.san.share.pmi.struts.LoginAction"/>
+    <bean name="/newloginAction"  class="com.san.share.pmi.struts.NewLoginAction"/>
+</beans>

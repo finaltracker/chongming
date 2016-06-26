@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysGroupmember"
+		table="SYS_GROUPMEMBER"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="GroupMember_ID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="GroupId"
+			column="Group_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="MemberId"
+			column="Member_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="MemberType"
+			column="MemberType"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<many-to-one 
+			name="sysGroup" 
+			class="SysGroup"
+			column="Group_ID"
+			insert="false"
+			update="false"
+			cascade="none"
+			outer-join="auto"
+		/>
+<!--
+		<any name="memberEntity" meta-type="integer" id-type="string">
+                  <meta-value value="1" class="SysOulist"/>
+                  <meta-value value="2" class="SysUser"/>
+            <column name="MemberType"/>
+            <column name="MemberId"/>
+        </any>
+-->
+	</class>	
+</hibernate-mapping>

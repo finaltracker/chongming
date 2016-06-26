@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysOulist"
+		table="SYS_OULIST"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="OuID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="OuName"
+			column="OuName"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="OrgID"
+			column="OrgID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="ParentOuID"
+			column="parentOuID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="Status"
+			column="status"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="OuCharger"
+			column="OuCharger"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="SysCharger"
+			column="SysCharger"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="DisplayOrder"
+			column="DisplayOrder"
+			type="integer"
+			not-null="false"
+			length="18"
+		/>
+		<property
+			name="CreateDate"
+			column="CreateDate"
+			type="timestamp"
+			not-null="false"
+			length="23"
+		/>
+
+		<bag name="sysUser"
+			inverse="true"
+			lazy="false"
+			cascade="all"
+			order-by="DisplayOrder"
+			>
+			<key column="ou"/>
+			<one-to-many class="SysUser"/>
+		</bag>
+		<!--
+		-->
+
+		<many-to-one 
+			name="sysOrglist" 
+			class="SysOrglist"
+			column="orgID"
+			insert="false"
+			update="false"
+			cascade="none"
+			outer-join="auto"
+		/>
+		<!--
+		-->
+	</class>
+</hibernate-mapping>

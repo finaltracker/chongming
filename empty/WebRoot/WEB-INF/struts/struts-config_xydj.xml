@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="xydjForm" type="com.san.xydj.web.XydjForm" />
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/xydjAction" name="xydjForm" parameter="dispatch"
+			type="com.san.xydj.web.XydjAction" scope="request"
+			validate="false">
+			<forward name="toAddXydjPage" path="/xydj/levelAdd.jsp" />
+			<forward name="saveok" path="/xydj/tiaozhuan.jsp" />
+			<forward name="levelInfo" path="/xydj/levelInfo.jsp" />
+			<forward name="deleteLevel" path="/xydj/levelInfo.jsp" />
+			<forward name="toUpdateLevelPage" path="/xydj/LevelUpdate.jsp" />
+			<forward name="levelMx" path="/xydj/levelMx.jsp" />
+			<forward name="toAddLevelMxPage" path="/xydj/levelMxAdd.jsp" />
+			<forward name="deleteLevelMx" path="/xydj/levelMx.jsp" />
+			<forward name="toUpdateLevelMxPage" path="/xydj/levelMxUpdate.jsp" />
+		</action>
+	</action-mappings>
+</struts-config>

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysAppauthorize"
+		table="SYS_APPAUTHORIZE"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="AppAuth_ID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="ApplicationId"
+			column="Application_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="AuthtoId"
+			column="AuthTo_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="AuthToType"
+			column="AuthToType"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<many-to-one 
+			name="ldapApplication" 
+			class="LdapApplication"
+			column="Application_ID"
+			insert="false"
+			update="false"
+			cascade="none"
+			outer-join="auto"
+		/>
+
+	</class>	
+</hibernate-mapping>

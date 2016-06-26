@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+<struts-config>
+  <data-sources />
+  <form-beans >
+    <form-bean name="targetForm" type="com.san.mxchengxin.form.TargetForm" />
+    <form-bean name="addForm" type="com.san.mxchengxin.form.AddForm" />
+  </form-beans>
+
+  <global-exceptions />
+  <global-forwards >
+    <forward name="targetForword" path="/page/san/target.jsp" />
+	<forward name="addForword" path="/page/san/add.jsp" />
+  </global-forwards>
+  <!-- path:  action 的路径 -->
+  <action-mappings >
+  		
+		
+    <action
+      attribute="targetForm"
+      input="/page/san/target.jsp"
+      name="targetForm"
+      path="/home/target"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="targetForword" path="/page/san/target.jsp" />
+    </action>
+
+    <action
+      attribute="addForm"
+      input="/page/san/add.jsp"
+      name="addForm"
+      path="/home/target/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="addForword" path="/page/san/add.jsp" />
+    </action>	
+   
+    
+  </action-mappings>
+
+</struts-config>
+

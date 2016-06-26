@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="warnForm" type="com.san.warn.web.WarnForm" />
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/warnAction" name="warnForm" parameter="dispatch"
+			type="com.san.warn.web.WarnAction" scope="request"
+			validate="false">
+			<forward name="toAddWarnPage" path="/warn/warnAdd.jsp" />
+			<forward name="saveok" path="/warn/tiaozhuan.jsp" />
+			<forward name="warnInfo" path="/warn/warnInfo.jsp" />
+			<forward name="toUpdateWarnPage" path="/warn/warnUpdate.jsp" />
+			<forward name="warnSubscribeInfo" path="/warn/warnSubscribeInfo.jsp" />
+			<forward name="warnShow" path="/warn/warnShow.jsp" />
+			<forward name="warnEnterpriseInfo" path="/warn/warnEnterprise.jsp" />
+			<forward name="warnShowSy" path="/warn/warnShowForSy.jsp" />
+			<forward name="warnHisInfo" path="/warn/warnHisInfo.jsp" />
+			<forward name="qyjbxx" path="/warn/qyjbxx.jsp" />
+			<forward name="newDataTx" path="/warn/newDataTx.jsp" />
+			<forward name="right" path="/right1.jsp" />
+			<forward name="zxXwqy" path="/zxcx/xwqylist.jsp" />
+			<forward name="zxXwqyDA" path="/zxcx/xwqyDA.jsp" />
+			<forward name="mxXzcf" path="/zxcx/mx_xzcf.jsp" />
+			<forward name="mxRyxx" path="/zxcx/mx_ryxx.jsp" />
+			<forward name="mxZzxx" path="/zxcx/mx_zzxx.jsp" />
+			<forward name="mxQsxx" path="/zxcx/mx_qsxx.jsp" />
+			<forward name="zxJzzj" path="/zxcx/jzzjlist.jsp" />
+			<forward name="jzzjDA" path="/zxcx/jzzjDA.jsp" />
+			
+			<forward name="warnShowXw" path="/zxcx/xwqyyjlist.jsp" />
+			<forward name="warnShowJzzj" path="/zxcx/jzzjyjlist.jsp" />
+			
+		</action>
+	</action-mappings>
+</struts-config>

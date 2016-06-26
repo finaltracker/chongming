@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="mkdzForm" type="com.san.mhcx.mkdz.web.MkdzForm" />
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/mkdzAction" name="mkdzForm" parameter="dispatch"
+			type="com.san.mhcx.mkdz.web.MkdzAction" scope="request"
+				  
+			validate="false">
+			<forward name="mkdzInfo" path="/mkdz/mkdzInfo.jsp" />
+			<forward name="toListPage" path="/mkdz/emptyPage.jsp" />
+			<forward name="toUpdatePage" path="/mkdz/updateMkdz.jsp" />
+			
+		</action>
+	</action-mappings>
+</struts-config>

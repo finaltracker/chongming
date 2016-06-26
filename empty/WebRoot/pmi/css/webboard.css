@@ -1,0 +1,189 @@
+ {
+	box-sizing: border-box
+}
+BODY {
+	HEIGHT: 100%; WIDTH: 100%
+}
+.toolBarBody {
+	BACKGROUND: buttonface; BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px; CURSOR: wait; MARGIN: 0px
+}
+.coolButton {
+	FONT: menu; PADDING-LEFT: 20px; PADDING-RIGHT: 20px
+}
+.toolBarBody .separator {
+	BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: buttonhighlight 1px solid; HEIGHT: 22px; WIDTH: 2px
+}
+.toolBarBody TD {
+	TEXT-ALIGN: center
+}
+.toolBarBody IMG {
+	HEIGHT: 20px; WIDTH: 20px
+}
+.messageTreeBody {
+	BACKGROUND: url(images/treeback.gif); BORDER-BOTTOM: window 2px inset; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px; CURSOR: default; MARGIN: 0px
+}
+.messageTreeBody INPUT {
+	HEIGHT: 15px; LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px; POSITION: relative; TOP: -4px; WIDTH: 16px
+}
+.treeView {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px; COLOR: windowtext; FONT: menu; OVERFLOW: visible; WIDTH: 550px
+}
+.treeView .item {
+	WIDTH: 573px
+}
+.treeView .icon {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px; HEIGHT: 16px; MARGIN: 0px; WIDTH: 16px
+}
+.treeView .plus {
+	HEIGHT: 16px; TEXT-ALIGN: right; WIDTH: 18px
+}
+.treeView .subject {
+	HEIGHT: 16px; OVERFLOW: hidden; WIDTH: 50px
+}
+.treeView .name {
+	HEIGHT: 16px; OVERFLOW: hidden; PADDING-LEFT: 5px; POSITION: relative; TOP: 2px; WIDTH: 150px
+}
+.treeView .date {
+	HEIGHT: 16px; OVERFLOW: hidden; PADDING-LEFT: 5px; POSITION: relative; TOP: 2px; WIDTH: 120px
+}
+.treeView .item .item {
+	DISPLAY: none
+}
+.treeView A {
+	COLOR: windowtext; CURSOR: hand; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+.treeView A:visited {
+	COLOR: windowtext; FONT-WEIGHT: normal; TEXT-DECORATION: none
+}
+.treeView A:active {
+	BACKGROUND: highlight; COLOR: highlighttext
+}
+.headerTable {
+	BACKGROUND: threeddarkshadow; BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: threedlightshadow 1px solid; BORDER-TOP: buttonshadow 1px solid; COLOR: buttontext; FONT: icon; TABLE-LAYOUT: fixed; WIDTH: 100%
+}
+.headerTable TD {
+	BACKGROUND: buttonface; BORDER-BOTTOM: buttonshadow 1px solid; BORDER-LEFT: buttonhighlight 1px solid; BORDER-RIGHT: buttonshadow 1px solid; BORDER-TOP: buttonhighlight 1px solid; PADDING-LEFT: 5px; PADDING-RIGHT: 5px
+}
+.headerTable #subjectHeader {
+	WIDTH: 300px
+}
+.headerTable #fromHeader {
+	WIDTH: 150px
+}
+.headerTable #sentHeader {
+	WIDTH: 120px
+}
+#scrollDiv {
+	BORDER-BOTTOM: window 0px inset; BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: threedlightshadow 1px solid; HEIGHT: 93%; OVERFLOW: auto; WIDTH: 100%
+}
+.messageBody {
+	BACKGROUND: buttonface; BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px; CURSOR: default; MARGIN: 0px
+}
+.dark {
+	BACKGROUND: buttonshadow; COLOR: white; FONT: icon; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 3px; PADDING-TOP: 0px; TEXT-ALIGN: right; WIDTH: 70px
+}
+.bright {
+	BACKGROUND: buttonface; COLOR: windowtext; FONT: icon; PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 3px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+.bright A {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+.bright A:hover {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+.bright A:visited {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+.bright A:active {
+	COLOR: blue; TEXT-DECORATION: underline
+}
+#top {
+	BACKGROUND: buttonface; FONT-SIZE: 1px; HEIGHT: 0px; MARGIN: 0px; OVERFLOW: hidden; WIDTH: 100%
+}
+#middle {
+	BACKGROUND: buttonface; HEIGHT: 5px; MARGIN: 0px; OVERFLOW: hidden; WIDTH: 100%
+}
+#contentArea {
+	BORDER-BOTTOM: buttonface 0px inset; BORDER-LEFT: buttonface 0px inset; BORDER-RIGHT: buttonface 0px inset; BORDER-TOP: buttonface 0px inset; HEIGHT: 100%; POSITION: relative; TOP: 2px; WIDTH: 100%
+}
+.editorBody {
+	BACKGROUND: buttonface; BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-RIGHT: 0px; BORDER-TOP: 0px; CURSOR: default; MARGIN: 0px
+}
+#topToolBar {
+	BACKGROUND: buttonface; WIDTH: 100%
+}
+#headerTable {
+	BACKGROUND: window; BORDER-BOTTOM: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; WIDTH: 100%
+}
+.dark {
+	BACKGROUND: buttonshadow; COLOR: white; FONT: icon; PADDING-RIGHT: 3px; TEXT-ALIGN: right; WIDTH: 70px
+}
+INPUT {
+	BORDER-BOTTOM: window 1px solid; BORDER-LEFT: window 1px solid; BORDER-RIGHT: window 1px solid; BORDER-TOP: window 1px solid; COLOR: buttonshadow; CURSOR: hand; FONT: icon; WIDTH: 100%
+}
+.inputBlock {
+	PADDING-BOTTOM: 1px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px
+}
+.toBlock {
+	COLOR: windowtext; FONT: icon; PADDING-BOTTOM: 2px; PADDING-LEFT: 4px; PADDING-RIGHT: 2px; PADDING-TOP: 2px
+}
+#middle {
+	BACKGROUND: buttonface; HEIGHT: 2px; MARGIN: 0px; OVERFLOW: hidden; WIDTH: 100%
+}
+#visibleText {
+	BORDER-BOTTOM: buttonface 2px inset; BORDER-LEFT: buttonface 2px inset; BORDER-RIGHT: buttonface 2px inset; BORDER-TOP: buttonface 2px inset; HEIGHT: 100%; POSITION: relative; TOP: -1px; WIDTH: 100%
+}
+#editbar {
+	BORDER-BOTTOM: buttonface 3px solid; BORDER-LEFT: buttonface 3px solid; BORDER-RIGHT: buttonface 3px solid; BORDER-TOP: buttonface 3px solid; FONT-WEIGHT: bold; WIDTH: 100%
+}
+#editBar TD {
+	HEIGHT: 22px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; WIDTH: 22px
+}
+#editbar IMG {
+	HEIGHT: 16px; MARGIN-LEFT: 2px; MARGIN-RIGHT: 2px; WIDTH: 16px
+}
+.richTextEditorBody {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; BORDER-RIGHT: medium none; BORDER-TOP: medium none; MARGIN: 0pt; PADDING-BOTTOM: 0pt; PADDING-LEFT: 0pt; PADDING-RIGHT: 0pt; PADDING-TOP: 0pt
+}
+#textEdit {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; BORDER-RIGHT: medium none; BORDER-TOP: medium none; HEIGHT: 100%; WIDTH: 100%
+}
+.editorBody SELECT {
+	FONT: icon; WIDTH: 80px
+}
+#palette {
+	DISPLAY: none; HEIGHT: 186px; MARGIN-LEFT: 2px; MARGIN-TOP: 11px; POSITION: absolute; WIDTH: 172px
+}
+.editorBody .separator {
+	BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: buttonhighlight 1px solid; HEIGHT: 18px; WIDTH: 2px
+}
+.editorBody #switchDiv {
+	FONT: icon; PADDING-BOTTOM: 3px; PADDING-LEFT: 5px; PADDING-RIGHT: 3px; PADDING-TOP: 3px
+}
+.editorBody A {
+	COLOR: blue
+}
+.oeBar {
+	BACKGROUND: buttonshadow; BORDER-BOTTOM: 2px inset; BORDER-LEFT: 2px inset; BORDER-RIGHT: 2px inset; BORDER-TOP: 2px inset; COLOR: window; CURSOR: default; FONT: menu; MARGIN: 0px; OVERFLOW: hidden
+}
+.scrollButton {
+	BACKGROUND: buttonface; BORDER-BOTTOM: buttonface 1px solid; BORDER-LEFT: buttonface 1px solid; BORDER-RIGHT: buttonface 1px solid; BORDER-TOP: buttonface 1px solid; COLOR: buttontext; CURSOR: default; DISPLAY: none; FONT-FAMILY: webdings; FONT-SIZE: 10px; HEIGHT: 16px; OVERFLOW: hidden; POSITION: absolute; TEXT-ALIGN: center; WIDTH: 100%
+}
+.oeBarButton {
+	BORDER-BOTTOM: buttonshadow 1px solid; BORDER-LEFT: buttonshadow 1px solid; BORDER-RIGHT: buttonshadow 1px solid; BORDER-TOP: buttonshadow 1px solid; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px; TEXT-ALIGN: center; WIDTH: 100%
+}
+#oeBarContainer {
+	LEFT: 0px; OVERFLOW: hidden; POSITION: absolute; TOP: 0px
+}
+.arrow {
+	COLOR: black; FONT-FAMILY: webdings; FONT-SIZE: 10px; HEIGHT: 11px; MARGIN-BOTTOM: 2px; MARGIN-TOP: -3px; OVERFLOW: hidden; PADDING-BOTTOM: 2px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px; WIDTH: 10px
+}
+.coolBar {
+	BACKGROUND: buttonface; BORDER-BOTTOM: buttonshadow 1px solid; BORDER-LEFT: buttonhighlight 1px solid; BORDER-RIGHT: buttonshadow 1px solid; BORDER-TOP: buttonhighlight 1px solid; FONT: menu; PADDING-BOTTOM: 2px; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px
+}
+.coolButton {
+	BORDER-BOTTOM: buttonface 1px solid; BORDER-LEFT: buttonface 1px solid; BORDER-RIGHT: buttonface 1px solid; BORDER-TOP: buttonface 1px solid; CURSOR: default; PADDING-BOTTOM: 1px; PADDING-LEFT: 1px; PADDING-RIGHT: 1px; PADDING-TOP: 1px; TEXT-ALIGN: center
+}
+.coolButton IMG {
+	FILTER: gray()
+}

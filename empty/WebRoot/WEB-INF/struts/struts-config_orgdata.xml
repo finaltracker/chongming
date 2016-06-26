@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="orgDataForm" type="com.san.orgdata.action.OrgDataForm" />
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/orgDataAction" name="orgDataForm" parameter="dispatch"
+			type="com.san.orgdata.action.OrgDataAction" scope="request"
+			validate="false">
+			<forward name="queryOrgData" path="/page/orgdata/orgdatalist.jsp" />
+			<forward name="loadConfigOrgData" path="/page/orgdata/orgdataconfig.jsp" />
+			<forward name="saveok" path="/warn/tiaozhuan.jsp" />			
+			
+		</action>
+	</action-mappings>
+</struts-config>

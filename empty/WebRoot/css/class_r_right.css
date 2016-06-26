@@ -1,0 +1,88 @@
+/* CSS Document */
+html,body{
+margin:0px;
+padding:0px;
+padding-right:3px;
+height:100%;
+font-size:12px;
+}
+.biaoti{
+border-collapse:collapse;
+border-top:1px solid #86c0e1;
+font-family:"ËÎÌו";
+font-size:12px;
+
+}
+.rongqi_right{
+border:1px solid #86c0e1;
+border-left:0px;
+border-top:0px;
+}
+.biaoqian_yixuan_left{
+background-image:url(../img/bg_yixuan_biaoqian.gif);
+background-repeat:repeat-x;
+border-collapse:collapse;
+border:1px solid #91a7b4;
+border-bottom:0px;
+border-left:0px;
+border-top:1px solid #86c0e1;
+font-size:12px;
+}
+.biaoqian_yixuan_center{
+background-image:url(../img/bg_yixuan_biaoqian.gif);
+background-repeat:repeat-x;
+border-collapse:collapse;
+border:1px solid #91a7b4;
+border-bottom:0px;
+border-top:1px solid #86c0e1;
+font-size:12px;
+}
+.bianqian_weixuan_center{
+background-image:url(../img/bg_weixuan_biaoqian.gif);
+background-repeat:repeat-x;
+border-collapse:collapse;
+border:1px solid #91a7b4;
+border-left:1px solid #ffffff;
+border-bottom:0px;
+font-size:12px;
+border-top:1px solid #86c0e1;
+}
+.bianqian_weixuan_right{
+background-image:url(../img/bg_weixuan_biaoqian.gif);
+background-repeat:repeat-x;
+border-collapse:collapse;
+border:1px solid #91a7b4;
+border-left:1px solid #ffffff;
+border-bottom:0px;
+border-right:0px;
+font-size:12px;
+border-top:1px solid #86c0e1;
+}
+.xianshilie_left{
+background-image:url(../img/xianshilie.gif);
+font-size:12px;
+background-image:url(../img/xianshilie.gif);
+border-right:1px solid #86c0e1;
+}
+.xianshilie_center{
+background-image:url(../img/xianshilie.gif);
+font-size:12px;
+background-image:url(../img/xianshilie.gif);
+border-right:1px solid #86c0e1;
+border-left:1px solid #ffffff;
+}
+.xianshilie_right{
+background-image:url(../img/xianshilie.gif);
+font-size:12px;
+background-image:url(../img/xianshilie.gif);
+border-left:1px solid #ffffff;
+}
+.xiangxixinxi td{
+border-right:1px solid #e7ebef;
+border-left:1px solid #ffffff;
+border-bottom:1px solid #e7ebef;
+}
+.gengduo td{
+color:#0376c5;
+font-weight:bolder;
+}

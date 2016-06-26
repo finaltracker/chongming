@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysGroup"
+		table="SYS_GROUP"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="Group_ID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="GroupName"
+			column="GroupName"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="GroupDesc"
+			column="GroupDesc"
+			type="string"
+			not-null="false"
+			length="200"
+		/>
+		<property
+			name="GroupLevel"
+			column="GroupLevel"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="GroupUseType"
+			column="GroupUseType"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="ParentgroupId"
+			column="ParentGroup_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="GroupStatus"
+			column="GroupStatus"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="OuID"
+			column="OuID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="CreateBy"
+			column="CreateBy"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="CreateDate"
+			column="CreateDate"
+			type="timestamp"
+			not-null="false"
+			length="23"
+		/>
+		<bag name="sysGroupmember"
+			inverse="false"
+			lazy="false"
+			cascade="all"
+			>
+			<key column="Group_ID"/>
+			<one-to-many class="SysGroupmember"/>
+		</bag>
+
+	</class>	
+</hibernate-mapping>

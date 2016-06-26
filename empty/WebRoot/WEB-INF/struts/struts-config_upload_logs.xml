@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="upLoadLogsForm" type="com.san.mhcx.uploadlogs.web.UpLoadLogsForm" />
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/logsAction" name="upLoadLogsForm" parameter="dispatch"
+			type="com.san.mhcx.uploadlogs.web.UpLoadLogsAction" scope="request"
+			validate="false">
+			<forward name="logsList" path="/uploadlogs/querylogsList.jsp" />
+			<forward name="openErrorInfo" path="/xlsimport/openError.jsp" />
+			<forward name="logsErrorList" path="/uploadlogs/errorList.jsp" />
+			<forward name="getTjLogsList" path="/uploadlogs/logTjList.jsp" />
+			<forward name="getAnychartTjXml" path="/uploadlogs/AnychartlogTj.jsp" />
+			<forward name="getAnychartTjyXml" path="/uploadlogs/AnychartlogTjy.jsp" />
+			<forward name="anyNewSuccess" path="/uploadlogs/AnyChar_new.jsp" />
+		</action>
+	</action-mappings>
+</struts-config>

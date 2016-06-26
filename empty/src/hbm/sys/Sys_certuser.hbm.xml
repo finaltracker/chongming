@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+    
+<hibernate-mapping package="com.san.share.pmi">
+<!-- 
+    Created by the 30wish hibernate tools
+    author wuwh
+    http://www.30wish.net
+-->
+
+<class 
+    name="SysCertuser" 
+    table="SYS_CERTUSER"
+>
+
+    <id
+        name="id"
+        type="java.lang.String"
+        column="ID"
+    >
+        <generator class="assigned" />
+    </id>
+
+    <property
+        name="certsn"
+        type="java.lang.String"
+        column="CERTSN"
+        length="50"
+    />
+    <property
+        name="userId"
+        type="java.lang.String"
+        column="USERID"
+        length="50"
+    />
+    
+      <property
+        name="updateTime"
+        type="timestamp"
+        column="UPDATETIME"
+        length="32"
+    />
+    
+      <property
+        name="registerTime"
+        type="timestamp"
+        column="REGISTERTIME"
+        length="32"
+    />
+    
+      <property
+        name="pop1"
+        type="java.lang.String"
+        column="POP1"
+        length="50"
+    />
+
+	  <property
+        name="pop2"
+        type="java.lang.String"
+        column="POP2"
+        length="50"
+    />
+      <property
+        name="pop3"
+        type="java.lang.String"
+        column="POP3"
+        length="50"
+    />
+    <property
+        name="dwmc"
+        type="java.lang.String"
+        column="DWMC"
+        length="500"
+    />
+    <property
+        name="name"
+        type="java.lang.String"
+        column="NAME"
+        length="100"
+    />
+    <property
+        name="lxdh"
+        type="java.lang.String"
+        column="LXDH"
+        length="50"
+    />
+     <property
+        name="cszw"
+        type="java.lang.String"
+        column="CSZW"
+        length="100"
+    />
+    <!-- Associations -->
+  
+
+</class>
+</hibernate-mapping>

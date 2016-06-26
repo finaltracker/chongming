@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="LdapApplication"
+		table="LADP_APPLICATION"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="APPLICATION_ID"
+		>
+		
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="ApplicationName"
+			column="APPLICATIONNAME"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="SubsystemName"
+			column="SUBSYSTEMNAME"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="WorkflowName"
+			column="WORKFLOWNAME"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="StepName"
+			column="STEPNAME"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="StepPage"
+			column="STEPPAGE"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="StepDesc"
+			column="STEPDESC"
+			type="string"
+			not-null="false"
+			length="200"
+		/>
+		<property
+			name="CreateBy"
+			column="CREATEBY"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="CreateDate"
+			column="CREATEDATE"
+			type="timestamp"
+			not-null="false"
+			length="23"
+		/>
+		<bag name="sysDomain" table="SYS_DomainApplication" lazy="false" cascade="none">
+	        <key column="APPLICATION_ID"/>
+	        <many-to-many class="SysDomain" column="Domain_ID"/>
+	    </bag>
+		<bag name="sysDomainapplication" table="SYS_DomainApplication" lazy="false" inverse="false" cascade="delete">
+	        <key column="APPLICATION_ID"/>
+	        <one-to-many class="SysDomainapplication"/>
+	    </bag>
+		<bag name="sysAppauthorize" table="SYS_AppAuthorize" lazy="false" inverse="false" cascade="delete">
+	        <key column="APPLICATION_ID"/>
+	        <one-to-many class="SysAppauthorize"/>
+	    </bag>
+
+	</class>	
+</hibernate-mapping>

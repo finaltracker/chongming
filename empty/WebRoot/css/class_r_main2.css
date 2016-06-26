@@ -1,0 +1,40 @@
+/* CSS Document */
+
+html,body{
+margin:0px;
+padding:0px;
+padding-right:3px;
+height:100%;
+font-size:12px;
+}
+/*业务首页样式*/
+.yewu_fenjiexian{
+border-bottom:2px solid #f9b704;
+height:2px;
+}
+.yewu_neirong{
+border-collapse:collapse;
+}
+.yewu_neirong a{
+color:#000000;
+}
+.yewu_neirong td{
+font-size:10pt;
+color:#000000;
+border:1px solid #000000;
+}
+
+/*admin首页样式*/
+.admin_neirong{
+font-weight:bold;
+font-family:"宋体";
+font-size:11pt;
+}
+
+/*页面详细信息解释*/
+#yemianjieshi{
+padding-bottom:0px;
+height:78px;
+background-color:#edf6fd;
+border-top:1px solid #069bef;
+}

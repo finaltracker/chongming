@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysDomain"
+		table="SYS_DOMAIN"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="Domain_ID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="DomainadminId"
+			column="DomainAdmin_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="DomainName"
+			column="DomainName"
+			type="string"
+			not-null="false"
+			length="100"
+		/>
+		<property
+			name="DomainDesc"
+			column="DomainDesc"
+			type="string"
+			not-null="false"
+			length="200"
+		/>
+		<property
+			name="DomainStatus"
+			column="DomainStatus"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="CreateBy"
+			column="CreateBy"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="CreateDate"
+			column="CreateDate"
+			type="timestamp"
+			not-null="false"
+			length="23"
+		/>
+		<bag name="ldapApplication" table="SYS_DOMAINAPPLICATION" lazy="false" >
+	        <key column="Domain_ID"/>
+	        <many-to-many class="LdapApplication" column="Application_ID"/>
+	    </bag>
+		<many-to-one name="sysUser" class="SysUser" column="DomainAdmin_ID" unique="true" insert="false" update="false"/>
+		<bag name="sysDomainapplication" table="T_SYS_DomainApplication" lazy="false" inverse="false">
+	        <key column="Domain_ID"/>
+	        <one-to-many class="SysDomainapplication"/>
+	    </bag>
+
+	</class>	
+</hibernate-mapping>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+	<data-sources />
+	<form-beans>
+		<form-bean name="indexform" type="com.san.zhibiao.action.SysindexFrom" />
+	</form-beans>
+	<global-exceptions />
+	<action-mappings>
+		<action path="/sysindex" name="indexform" parameter="dispatch"
+			type="com.san.zhibiao.action.SysindexAction" scope="request"
+			validate="false">
+			<forward name="zhibiaolist" path="/page/zhibiao/zhibiao.jsp" />
+			<forward name="updateinfo" path="/page/zhibiao/addzhibiao.jsp" />
+			<forward name="adduserTozhib" path="/page/userTozhib/adduserTozhib.jsp" />
+			<forward name="userTozhiblist" path="/page/userTozhib/userTozhiblist.jsp" />
+		</action>
+	</action-mappings>
+	
+</struts-config>

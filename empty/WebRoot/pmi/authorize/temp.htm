@@ -1,0 +1,154 @@
+
+
+
+
+<html>
+<head>
+<title>
+用户授权
+</title>
+<script
+ type="text/javascript"
+ language="javascript"
+ src="../javascripts/alai_tree_user.js">
+</script>
+<script
+ type="text/javascript"
+ language="javascript"
+ src="../javascripts/alai_tree.js">
+</script>
+<script
+ type="text/javascript"
+ language="javascript"
+ src="../javascripts/alai_tree_check.js">
+</script>
+<script language="javaScript">
+function selectWindowLoad(theCn){
+//	var theUrl = "/shiwei/pmi/orgmgt/doSysUserFinderByPrimaryKeyAction.do?cn=" + theCn + "&dispatch=update";
+//	window.open(theUrl,"m_iFrameSetUser");
+}
+</script>
+<!-- Modify this file to change the way the tree looks -->
+<link type="text/css" rel="stylesheet" href="../css/xtree.css">
+<style>
+	body { background: white; color: black; }
+	</style>
+<base target="sysright">
+</head>
+<body >
+<!-- js file containing the tree content, edit this file to alter the menu,
+     the menu will be inserted where this tag is located in the document -->
+<table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="border-left: 1 solid #D4D0C8; border-top: 1 solid #D4D0C8" width="100%" height="100%">
+  <tr>
+    <td height="22" style="border-left: 1 solid #FFFFFF; border-right: 1 solid #808080; border-top: 1 solid #FFFFFF; border-bottom: 1 solid #808080" valign="top">
+      <table cellpadding="0" cellspacing="0" height="30" style="border-bottom: 1 solid #FFFFFF" width="100%">
+        <tr>
+          <td bgcolor="#FFFFFF" style="border-left: 1 solid #D4D0C8; border-right: 1 solid #D4D0C8; border-top: 1 solid #D4D0C8; border-bottom: 1 solid #808080" valign="middle">
+            <p style="margin-left: 10; margin-top: 5; margin-bottom: 5"><b><font color="#000000"></font></b>
+              <img src="../images/DocWorkNew.gif" width="32" height="32" align="absmiddle"><b><font color="#000000" size="2">用户授权</font></b>
+          </td>
+        </tr>
+      </table><br><br>
+      <div align="center">
+        <table width="60%" border="0" cellpadding="0" cellspacing="0" style="margin-top:15">
+          <tr>
+            <td width="100%" align="center">
+              <fieldset><legend>&nbsp;&nbsp;<font size="2"><b>用户授权</b></font>&nbsp;&nbsp;</legend><br>
+<div
+        nowrap="true"
+        style="width:50%; height:100%; overflow:auto; font-family: &quot;新宋体;&quot;, &quot;宋体;&quot;; font-size: 9px;"
+        id="divTree1">
+</div>
+<form name="/pmi/sysAppauthorizeDtoActionForm" method="POST" action="/shiwei/pmi/authorize/doSysAppauthorizeEditAction.do">
+	<input type="hidden" id="appauthId" name="appauthId"/>
+	<input type="hidden" name="authtoId" value="fzr">
+	<input type="hidden" name="authtotype" value="0">
+	<input type="hidden" id="applicationId" name="applicationId"/>
+	<input type="hidden" id="dispatch" name="dispatch">
+</form>
+	
+		<script language="javascript">
+			var tree1=new alai_tree_user(divTree1);
+			var root=tree1.root;
+			
+			
+            		
+				
+					var n0=root.add('办公网站');
+						var n00=tree1.add(n0,'','目督办系统');
+				
+                                tree1.addChkNode(n00,'批示件管理','SYS0000000000000000000006','','','',false);
+			
+			
+            		
+				
+						var n01=tree1.add(n0,'','系统管理');
+				
+                                tree1.addChkNode(n01,'用户管理','SYS0000000000000000000008','','','',false);
+			
+			
+            		
+				
+                                tree1.addChkNode(n01,'用户授权管理','SYS0000000000000000000009','','','',false);
+			
+			
+            		
+				
+						var n02=tree1.add(n0,'','协同办公');
+				
+                                tree1.addChkNode(n02,'待办事项','SYS0000000000000000000001','','','',false);
+			
+			
+            		
+				
+                                tree1.addChkNode(n02,'已办事项','SYS0000000000000000000002','','','',false);
+			
+			
+            		
+				
+						var n03=tree1.add(n0,'','信息处应用系统');
+				
+                                tree1.addChkNode(n03,'处理上报信息','SYS0000000000000000000003','','','',false);
+			
+			
+            		
+				
+                                tree1.addChkNode(n03,'发布信息','SYS0000000000000000000005','','','',false);
+			
+			
+            		
+				
+                                tree1.addChkNode(n03,'刊物编辑','SYS0000000000000000000009','','','',true);
+			
+			
+            		
+				
+					var n1=root.add('内网网站');
+						var n14=tree1.add(n1,'','内网网站');
+				
+                                tree1.addChkNode(n14,'信息报送管理','SYS0000000000000000000007','','','',false);
+			
+			
+			tree1.oncheck=function(srcNode){
+				if(srcNode.checkBox.checked) { //添加
+					document.all.dispatch.value="add";
+					document.all.applicationId.value=srcNode.getKey();
+				}else {   //取消
+					document.all.dispatch.value="remove";
+					document.all.appauthId.value=srcNode.getKey();
+				}
+				document.forms[0].submit();
+				//window.parent.location.href="/oa/pmi/userAdmin/doLdapOulistFindAllAction.do";
+			}
+			tree1.expandAll(true);
+		</script>
+               </fieldset>
+                </td>
+              </tr>
+           </table>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

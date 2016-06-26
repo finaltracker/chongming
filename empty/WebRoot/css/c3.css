@@ -1,0 +1,29 @@
+a:link {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #000000;
+	text-decoration: none;
+}
+a:visited {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #000000;
+	text-decoration: none;
+}
+a:hover {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	color: #FF3300;
+	text-decoration: none;
+}
+.c3 {
+	font-family: "Verdana", "宋体";
+	font-size: 12px;
+	line-height: 18px;
+	color: #000000;
+	text-decoration: none;
+}
+body {  font-size: 12px}
+table {  font-size: 12px}

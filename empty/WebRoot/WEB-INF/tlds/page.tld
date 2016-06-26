@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglib_1_1.dtd">
+
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>page</shortname>
+
+  <info>
+    The tag library of Pager
+    author:starboy
+    web:http://www.xdevelop.net/
+    email:starboy@xdevelop.net
+    OICQ:2957451
+  </info>
+
+  <!--====================page:pager begin=====================-->
+  <tag>
+    <name>pager</name>
+    <tagclass>com.san.share.pageconf.xpage.taglib.page.PagerTag</tagclass>
+    <teiclass>com.san.share.pageconf.xpage.taglib.page.tei.PageTEI</teiclass>
+    <bodycontent>JSP</bodycontent>
+    <info>
+      pager tag provide the frame of the page divider
+    </info>
+
+    <attribute>
+      <name>total</name>
+      <required>true</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>defaultPageSize</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <!--======================page:pager end=========================-->
+
+  <!--====================page:navigator begin=====================-->
+  <tag>
+    <name>navigator</name>
+    <tagclass>com.san.share.pageconf.xpage.taglib.page.NavigatorTag</tagclass>
+    <bodycontent>JSP</bodycontent>
+    <info>
+      navigator tag output the Navigator bar which pre-designed
+    </info>
+    <attribute>
+      <name>type</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  <!--======================page:navigator end=========================-->
+</taglib>

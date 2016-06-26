@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"  >
+
+<hibernate-mapping default-lazy="false" package="com.san.share.pmi">
+	<class
+		name="SysDyncrecordrights"
+		table="SYS_DYNCRECORDRIGHTS"
+	>
+		<id
+			name="Id"
+			type="string"
+			column="DyncRecordRights_ID"
+		>
+			<generator class="assigned"/>
+		</id>
+
+		<property
+			name="UserCN"
+			column="UserCN"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="OuID"
+			column="OuID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="TableName"
+			column="TableName"
+			type="string"
+			not-null="false"
+			length="80"
+		/>
+		<property
+			name="RecordId"
+			column="Record_ID"
+			type="string"
+			not-null="false"
+			length="25"
+		/>
+		<property
+			name="RecordType"
+			column="RecordType"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+		<property
+			name="UserType"
+			column="UserType"
+			type="integer"
+			not-null="false"
+			length="2"
+		/>
+
+	</class>	
+</hibernate-mapping>

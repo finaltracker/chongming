@@ -1791,7 +1791,7 @@ values ('_App_pdcx_20150324', '崇明信用', '功能权限', '绩效考核', '�
 insert into LADP_APPLICATION (APPLICATION_ID, APPLICATIONNAME, SUBSYSTEMNAME, WORKFLOWNAME, STEPNAME, STEPPAGE, STEPDESC, CREATEBY, CREATEDATE, ORDER_ID)
 values ('_App_pdcx_20150326', '崇明信用', '功能权限', '绩效考核', '绩效统计', '/web/detailPerAction.do?dispatch=queryDetailAllForm', null, 'admin', to_date('16-03-2015', 'dd-mm-yyyy'), 31);
 insert into LADP_APPLICATION (APPLICATION_ID, APPLICATIONNAME, SUBSYSTEMNAME, WORKFLOWNAME, STEPNAME, STEPPAGE, STEPDESC, CREATEBY, CREATEDATE, ORDER_ID)
-values ('_App_pdcx_20160406', '崇明信用', '功能权限', '诚信考核', '考核指标', '/web/homt/target.do', null, 'admin', to_date('04-06-2016', 'dd-mm-yyyy'), 39);
+values ('_App_pdcx_20160406', '崇明信用', '功能权限', '诚信考核', '考核指标', '/web/home/target.do', null, 'admin', to_date('04-06-2016', 'dd-mm-yyyy'), 39);
 insert into LADP_APPLICATION (APPLICATION_ID, APPLICATIONNAME, SUBSYSTEMNAME, WORKFLOWNAME, STEPNAME, STEPPAGE, STEPDESC, CREATEBY, CREATEDATE, ORDER_ID)
 values ('_App_pdcx_20160400', '崇明信用', '功能权限', '诚信考核', '村镇管理', '/web/home/country.do?1=1', null, 'admin', to_date('04-06-2016', 'dd-mm-yyyy'), 40);
 insert into LADP_APPLICATION (APPLICATION_ID, APPLICATIONNAME, SUBSYSTEMNAME, WORKFLOWNAME, STEPNAME, STEPPAGE, STEPDESC, CREATEBY, CREATEDATE, ORDER_ID)

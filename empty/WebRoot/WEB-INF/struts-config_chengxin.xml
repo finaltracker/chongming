@@ -15,7 +15,6 @@
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
-  		
 		
     <action
       attribute="targetForm"
@@ -24,7 +23,6 @@
       path="/home/target"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
-
       <forward name="targetForword" path="/page/san/target.jsp" />
     </action>
 
@@ -35,10 +33,18 @@
       path="/home/target/add"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
-
       <forward name="addForword" path="/page/san/add.jsp" />
     </action>	
-   
+
+    <action
+      attribute="countryForm"
+      input="/page/san/country/country.jsp"
+      name="countryForm"
+      path="/home/country"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="countryForword" path="/page/san/country/country.jsp" />
+    </action>	   
     
   </action-mappings>
 

@@ -1,4 +1,7 @@
+#Sun Jun 26 17:21:00 CST 2016
 eclipse.preferences.version=1
+encoding//WebRoot/page/san/country/add.jsp=UTF-8
+encoding//WebRoot/page/san/country/country.jsp=UTF-8
 encoding//src/com/san/pdwm/appInit/usermenuinit/dao/impl/AppInitDaoImpl.java=GBK
 encoding//src/com/san/pdwm/appInit/usermenuinit/service/impl/AppInitServiceImpl.java=UTF-8
 encoding//src/com/san/pdwm/appInit/usermenuinit/web/AppInitAction.java=GBK

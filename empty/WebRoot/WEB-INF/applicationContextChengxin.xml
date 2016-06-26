@@ -16,6 +16,9 @@
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
+	<bean name="/home/country" class="com.san.mxchengxin.action.country.CountryAction">
+	</bean>
+	
 	<import resource="applicationContext-resources.xml"/>
 	
 	<bean id="sessionFactory"

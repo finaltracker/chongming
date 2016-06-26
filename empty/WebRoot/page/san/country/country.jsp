@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add" class="btn btn-danger pull-right">增加乡镇</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/country/add.do" class="btn btn-danger pull-right">增加乡镇</a>
             <strong>当前位置：</strong>乡镇&nbsp;>&nbsp;乡镇列表
         </p>
     </div>
@@ -27,11 +27,11 @@
 
                                 <div class="form-group">
                                     <label class="control-label"> 名称 </label>
-                                    <input type="text" class="form-control" name="name" value="{$condition.name}"/>
+                                    <input type="text" class="form-control" name="name" value="${condition.name}"/>
                                     <label class="control-label"> 所属 </label>
                                     <select class="select2 form-control" name="country_id">
                                         <option value="">请选择</option>
-                                        {$countrySelect}
+                                        "${countrySelect}"
                                     </select>&nbsp;&nbsp;
                                     <button type="submit" class="btn btn-primary"> 搜索</button>
                                 </div>
@@ -70,15 +70,15 @@
                                     <td>{$item.name}</td>
                                     <td>{$item.parentName}</td>
 
-                                    <td><a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
-                                        <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/del?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
+                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
                                     </td>
                                 </tr>
                                 </foreach>
                                 </tbody>
                             </table>
                         </div>
-                        {$pageShow}
+                        "${pageShow}"
                         <div class="clearfix"></div>
                     </div>
                 </div>

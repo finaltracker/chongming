@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add" class="btn btn-danger pull-right">增加乡镇</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/country/add" class="btn btn-danger pull-right">增加乡镇</a>
             <strong>当前位置：</strong>乡镇&nbsp;>&nbsp;{$pageInfo.actionTitle}乡镇
         </p>
     </div>
@@ -17,7 +17,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="widget widget-info">
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/save" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/country/save" class="form-horizontal bv-form">
                                 <fieldset>
                                     <legend>{$pageInfo.actionTitle}乡镇</legend><input type="hidden" name="action" value="{$pageInfo.action}"/><input type="hidden" name="id" value="{$country.id}"/>
                                     <div class="form-group">
@@ -81,7 +81,7 @@
 
                                 <div class="form-group">
                                     <div class="col-lg-7 col-lg-offset-3">
-                                        <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}">返回</button>
+                                        <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/country">返回</button>
                                     </div>
                                 </div>
                             </form>
@@ -106,9 +106,9 @@
                             layer.confirm('{$pageInfo.actionTitle}成功', {
                                 btn: ['继续录入','返回列表'] //按钮
                             }, function(){
-                                window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add';
+                                window.location.href='${pageContext.request.contextPath}/home/country/add';
                             }, function(){
-                                window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}';
+                                window.location.href='${pageContext.request.contextPath}/home/country';
                             });
                         }
                     });

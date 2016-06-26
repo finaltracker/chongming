@@ -6,6 +6,7 @@
   <form-beans >
     <form-bean name="targetForm" type="com.san.mxchengxin.form.TargetForm" />
     <form-bean name="addForm" type="com.san.mxchengxin.form.AddForm" />
+    <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
   </form-beans>
 
   <global-exceptions />

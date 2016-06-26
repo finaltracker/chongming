@@ -5,7 +5,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
 
-
+	<bean name="/login" class="com.yourcompany.struts.action.LoginAction">
+	</bean>
+	
 	<bean name="/home/target" class="com.san.chengxin.action.TargetAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
@@ -16,8 +18,8 @@
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
-	<bean name="/login" class="com.yourcompany.struts.action.LoginAction">
-
+	<bean name="/home/country" class="com.san.mxchengxin.action.country.CountryAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
 	</bean>
 	
 	<import resource="applicationContext-resources.xml"/>
@@ -34,6 +36,7 @@
 				<!--<value>com/login/User.hbm.xml</value>-->
 				<value>com/san/chengxin/model/target/CmTarget.hbm.xml</value>
 				<value>com/san/chengxin/model/part/CmPart.hbm.xml</value>
+				<value>com/san/mxchengxin/model/country/CmCountry.hbm.xml</value>
 			</list>
 		</property>
 
@@ -123,4 +126,31 @@
 			</props>
 		</property>
 	</bean>		
-</beans>
+	<bean id="cmCountryDAO"
+		class="com.san.mxchengxin.model.country.CmCountryDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<bean id="cmCountryDAOProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="cmCountryDAO" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>	
+	<bean id="CmCountryDAO"
+		class="com.san.mxchengxin.model.country.CmCountryDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>

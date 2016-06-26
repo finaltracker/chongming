@@ -7,16 +7,28 @@
     <form-bean name="loginForm" type="com.yourcompany.struts.form.loginForm" />
     <form-bean name="targetForm" type="com.san.chengxin.form.TargetForm" />
     <form-bean name="addForm" type="com.san.chengxin.form.AddForm" />
+    <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
   </form-beans>
 
   <global-exceptions />
   <global-forwards >
     <forward name="indexForword" path="/index.jsp" />
     <forward name="targetForword" path="/page/san/target.jsp" />
-	<forward name="addForword" path="/page/san/add.jsp" />
+	<forward name="countryForword" path="/page/san/country/country.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
+    <action
+      attribute="loginForm"
+      input="/login.jsp"
+      name="loginForm"
+      path="/login"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <set-property property="cancellable" value="true" />
+      <forward name="targetForword" path="/home/target.do" />
+    </action>
+      
     <action
       attribute="targetForm"
       input="/page/san/target.jsp"
@@ -38,18 +50,16 @@
       <set-property property="cancellable" value="true" />
       <forward name="addForword" path="/page/san/add.jsp" />
     </action>	
-   
-    <action
-      attribute="loginForm"
-      input="/login.jsp"
-      name="loginForm"
-      path="/login"
+      
+	<action
+      attribute="countryForm"
+      input="/page/san/country/country.jsp"
+      name="countryForm"
+      path="/home/country"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
-      <set-property property="cancellable" value="true" />
-      <forward name="targetForword" path="/home/target.do" />
-    </action>
-    
+      <forward name="countryForword" path="/page/san/country/country.jsp" />
+    </action>	   
   </action-mappings>
 
   <message-resources parameter="com.yourcompany.struts.ApplicationResources" />

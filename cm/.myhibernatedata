@@ -1,9 +1,9 @@
 #MyEclipse Hibernate Properties
-#Fri Jun 17 15:49:45 CST 2016
+#Mon Jun 27 00:14:34 CST 2016
 sessionFactoryName=com.login.Hibernate.HibernateSessionFactory
 genBasicCompId=false
 profile=
-daoSFId=
+daoSFId=sessionFactory
 version=3.1
 jndiPath=
 detectM2M=false
@@ -11,14 +11,14 @@ reStrategyClass=
 detectO2O=false
 springDaoFile=WebRoot/WEB-INF/applicationContextChengxin.xml
 useJavaTypes=true
-keyGenerator=native
+keyGenerator=identity
 libInstallFolder=/WebRoot/WEB-INF/lib
 addLibs2Project=true
 genVersionTag=false
 sessionFactoryId=sessionFactory
 basePersistenceClass=
 genAnnotations=false
-reSettingsFile=/login_step2/hibernate.reveng.xml
+reSettingsFile=/login/hibernate.reveng.xml
 configFile=/login_step2/WebRoot/WEB-INF/applicationContext2.xml
 createConfigFile=false
 addLibs2Classpath=true

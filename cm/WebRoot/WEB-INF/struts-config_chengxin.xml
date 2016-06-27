@@ -27,6 +27,7 @@
       type="org.springframework.web.struts.DelegatingActionProxy">
       <set-property property="cancellable" value="true" />
       <forward name="targetForword" path="/home/target.do" />
+      <forward name="countryForword" path="/home/country.do" />
     </action>
       
     <action

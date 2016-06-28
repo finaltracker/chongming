@@ -1,9 +1,13 @@
 package com.san.mxchengxin.model.country;
 
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.LockMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -44,6 +48,29 @@ public class CmCountryDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
+	
+	public void update(CmCountry transientInstance) {
+		log.debug("updating CmCountry instance");
+		try {
+			getHibernateTemplate().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
+
+	public List queryParentZero() {
+		log.debug("query parent condition equal zero");
+		Short parentId = 0;
+		List ccs = getSession().createCriteria(CmCountry.class) 
+				.add( Restrictions.eq("parentid", parentId) )
+				.addOrder( Order.asc("displayOrder") ) 
+				.addOrder( Order.desc("id") ) 
+				.list(); 
+		
+		return ccs;
+	}
 
 	public void delete(CmCountry persistentInstance) {
 		log.debug("deleting CmCountry instance");
@@ -60,7 +87,7 @@ public class CmCountryDAO extends HibernateDaoSupport {
 		log.debug("getting CmCountry instance with id: " + id);
 		try {
 			CmCountry instance = (CmCountry) getHibernateTemplate().get(
-					"com.san.chengxin.model.part.CmCountry", id);
+					"com.san.mxchengxin.model.country.CmCountry", id);
 			return instance;
 		} catch (RuntimeException re) {
 			log.error("get failed", re);

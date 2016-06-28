@@ -7,15 +7,18 @@
     <form-bean name="targetForm" type="com.san.mxchengxin.form.TargetForm" />
     <form-bean name="addForm" type="com.san.mxchengxin.form.AddForm" />
     <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
+    <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
   </form-beans>
 
   <global-exceptions />
   <global-forwards >
     <forward name="targetForword" path="/page/san/target.jsp" />
 	<forward name="addForword" path="/page/san/add.jsp" />
+    <forward name="countryForword" path="/page/san/country/country.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
+  		
 		
     <action
       attribute="targetForm"
@@ -24,6 +27,7 @@
       path="/home/target"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
+
       <forward name="targetForword" path="/page/san/target.jsp" />
     </action>
 
@@ -34,10 +38,11 @@
       path="/home/target/add"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
+
       <forward name="addForword" path="/page/san/add.jsp" />
     </action>	
-
-    <action
+   
+	<action
       attribute="countryForm"
       input="/page/san/country/country.jsp"
       name="countryForm"
@@ -45,7 +50,17 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="countryForword" path="/page/san/country/country.jsp" />
-    </action>	   
+    </action>
+    
+	<action
+      attribute="ctyaddForm"
+      input="/page/san/country/add.jsp"
+      name="ctyAddForm"
+      path="/home/country/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="ctyaddForword" path="/page/san/country/add.jsp" />
+    </action>	  
     
   </action-mappings>
 

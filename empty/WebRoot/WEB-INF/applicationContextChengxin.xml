@@ -18,8 +18,12 @@
 	
 	<bean name="/home/country" class="com.san.mxchengxin.action.country.CountryAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />
 	</bean>
-	
+	<bean name="/home/country/add" class="com.san.mxchengxin.action.country.CtyAddAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+	</bean>
+		
 	<import resource="applicationContext-resources.xml"/>
 	
 	<bean id="sessionFactory"
@@ -34,6 +38,7 @@
 				<value>com/san/mxchengxin/model/target/CmTarget.hbm.xml</value>
 				<value>com/san/mxchengxin/model/part/CmPart.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmCountry.hbm.xml</value>
+				<value>com/san/mxchengxin/model/country/CmPerson.hbm.xml</value>
 			</list>
 		</property>
 
@@ -98,8 +103,7 @@
 				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
 			</props>
 		</property>
-	</bean>
-	
+	</bean>		
 	<bean id="cmCountryDAO"
 		class="com.san.mxchengxin.model.country.CmCountryDAO">
 		<property name="sessionFactory">
@@ -121,5 +125,12 @@
 				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
 			</props>
 		</property>
-	</bean>			
+	</bean>	
+	<bean id="cmPersonDAO"
+		class="com.san.mxchengxin.model.country.CmPersonDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
 </beans>

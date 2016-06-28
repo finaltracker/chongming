@@ -1,5 +1,6 @@
 package com.san.mxchengxin.action.country;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +14,9 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-import com.san.chengxin.model.target.CmTarget;
-import com.san.chengxin.model.target.CmTargetEnhance;
 import com.san.mxchengxin.form.country.CountryForm;
 import com.san.mxchengxin.model.country.CmCountry;
+import com.san.mxchengxin.model.country.CmCountryAd;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 
 public class CountryAction extends Action {
@@ -90,10 +90,17 @@ public class CountryAction extends Action {
 		
 		List<CmCountry> targetList = cmCountryDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
-		
+		List<CmCountryAd> cadList = new ArrayList<CmCountryAd>();
 		for(int i=0;i<targetList.size();i++) {
 			CmCountry target = (CmCountry)targetList.get(i);
+			CmCountryAd cca = new CmCountryAd(target);
+			if (target.getParentid().shortValue() == 0) {
+				cca.setParentName("崇明县");
+			}else {
+				cca.setParentName(cmCountryDAO.findById(target.getParentid()).getName());
+			}
 			System.out.println("name: "+target.getName());
+			cadList.add(cca);
 		}
 		
 		
@@ -102,7 +109,7 @@ public class CountryAction extends Action {
 		System.out.println("country select result: "+countrySelect);
 		request.setAttribute("countrySelect", countrySelect);
 		request.setAttribute("country_name", countryName);
-		request.setAttribute("clist", targetList);
+		request.setAttribute("clist", cadList);
 		
 		return mapping.findForward( "countryForword" );
 	}

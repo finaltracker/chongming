@@ -70,7 +70,7 @@
 	                                 <tr>
 	                                 	<td>${index}</td>
 	                                 	<td>${citem.name}</td>
-	                                 	<td>${citem.parentid}</td>
+	                                 	<td>${citem.parentName}</td>
 	
 	                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
 	                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>

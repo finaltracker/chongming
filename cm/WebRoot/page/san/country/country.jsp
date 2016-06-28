@@ -23,11 +23,11 @@
             <div class="col-xs-12">
                 <div class="widget">
                     <div class="widget-body">
-                        <form action="" method="get" class="form-inline">
+                        <form action="${pageContext.request.contextPath}/home/country.do" method="post" class="form-inline">
 
                                 <div class="form-group">
                                     <label class="control-label"> 名称 </label>
-                                    <input type="text" class="form-control" name="name" value="${condition.name}"/>
+                                    <input type="text" class="form-control" name="country_name" value="${country_name}"/>
                                     <label class="control-label"> 所属 </label>
                                     <select class="select2 form-control" name="country_id">
                                         <option value="">请选择</option>
@@ -64,17 +64,19 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <foreach name="list" item="item" key="k" >
-                                <tr>
-                                    <td>{$k+1}</td>
-                                    <td>{$item.name}</td>
-                                    <td>{$item.parentName}</td>
-
-                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
-                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
-                                    </td>
-                                </tr>
-                                </foreach>
+                                <c:set var="index" value="0" />
+                                <c:forEach var="citem" items="${clist}">
+	                                <c:set var="index" value="${index+1}" />
+	                                 <tr>
+	                                 	<td>${index}</td>
+	                                 	<td>${citem.name}</td>
+	                                 	<td>${citem.parentid}</td>
+	
+	                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
+	                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+	                                    </td>
+	                                </tr>
+                                </c:forEach>
                                 </tbody>
                             </table>
                         </div>

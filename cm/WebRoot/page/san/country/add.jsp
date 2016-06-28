@@ -51,11 +51,16 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">上级单位</label>
                                         <div class="col-lg-7">
-                                            <select class="form-control" name="parentid" required>
+                                            <select class="form-control" name="parent_id" required>
                                                 <option value="0">崇明县</option>
-                                                <foreach name="parentList" item="item" key="k" >
-                                                    <option value="{$item.id}" {$item["id"]==$country["parentid"]?"selected":""}>--{$item.name}</option>
-                                                </foreach>
+                                                <c:forEach var="pitem" items="${parentlist}">
+													<c:if test="${pitem.id == ppid}"> 
+														<option value="${pitem.id}" selected="selected">--${pitem.name}</option>
+													</c:if>
+													<c:if test="${pitem.id != ppid}">
+														<option value="${pitem.id}">--${pitem.name}</option>
+													</c:if>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                     </div>

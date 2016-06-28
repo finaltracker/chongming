@@ -1,6 +1,7 @@
 package com.san.mxchengxin.action.country;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -65,18 +66,13 @@ public class CtyAddAction extends Action {
 			cmCountryDAO.save(ct);
 		} else {
 			List<CmCountry> partList = cmCountryDAO.findAll();
-			
-			StringBuffer sb = new StringBuffer();
+			List<CmCountry> afterList = new ArrayList<CmCountry>();
 			for(int i=0;i<partList.size();i++) {
 				CmCountry cc = (CmCountry)partList.get(i);
-				//System.out.println("name: "+cc.getPartName()+cc.getId());
-				String s;
-				s = String.format("<option value='%d'>%s</option>", cc.getId(),cc.getName());
-				sb.append(s);
-				
+				if(cc.getParentid().shortValue() == 0)
+					afterList.add(cc);
 			}
-			String partListSel = sb.toString();
-			request.setAttribute("partListSel", partListSel);
+			request.setAttribute("parentlist", afterList);
 		}
 			
 		return mapping.findForward("ctyaddForword");
@@ -95,6 +91,19 @@ public class CtyAddAction extends Action {
 			request.setAttribute("country_contact", updateCc.getContact());
 			request.setAttribute("country_phone", updateCc.getPhone());
 			request.setAttribute("country_display_order", updateCc.getDisplayOrder());
+			
+			List<CmCountry> partList = cmCountryDAO.findAll();
+			List<CmCountry> afterList = new ArrayList<CmCountry>();
+			for(int i=0;i<partList.size();i++) {
+				CmCountry cc = (CmCountry)partList.get(i);
+				if(cc.getParentid().shortValue() == 0) {
+					System.out.println("pitem id: "+cc.getId());
+					afterList.add(cc);
+				}
+			}
+			request.setAttribute("parentlist", afterList);
+			request.setAttribute("country_id", countryId);
+			request.setAttribute("ppid", updateCc.getParentid());
 			
 		}
 		
@@ -122,13 +131,6 @@ public class CtyAddAction extends Action {
 				System.out.println("[update item] : "+xId);
 				ct.setId(xId);
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-				/*
-				 userInfo.getCn();//获得用户登录名
-				 
-				userInfo.getOuid();//获得用户所属部门ID
-				userInfo.getOuname();//获得用户所属部门名称
-				userInfo.getSn();//获得用户姓名
-				*/
 				ct.setAuthor(userInfo.getCn());
 				cmCountryDAO.update(ct);
 			}
@@ -156,6 +158,16 @@ public class CtyAddAction extends Action {
 				System.out.println("others action");
 			}
 		}
+		
+		List<CmCountry> partList = cmCountryDAO.findAll();
+		List<CmCountry> afterList = new ArrayList<CmCountry>();
+		for(int i=0;i<partList.size();i++) {
+			CmCountry cc = (CmCountry)partList.get(i);
+			if(cc.getParentid().shortValue() == 0)
+				afterList.add(cc);
+		}
+		request.setAttribute("parentlist", afterList);
+		
 		return mapping.findForward( "ctyaddForword" );
 	}
 

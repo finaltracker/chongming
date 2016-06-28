@@ -97,7 +97,7 @@ public class CountryAction extends Action {
 			if (target.getParentid().shortValue() == 0) {
 				cca.setParentName("崇明县");
 			}else {
-				cca.setParentName(cmCountryDAO.findById(target.getParentid()).getName());
+				cca.setParentName("崇明县>"+cmCountryDAO.findById(target.getParentid()).getName());
 			}
 			System.out.println("name: "+target.getName());
 			cadList.add(cca);

@@ -80,7 +80,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        "${pageShow}"
+
                         <div class="clearfix"></div>
                     </div>
                 </div>

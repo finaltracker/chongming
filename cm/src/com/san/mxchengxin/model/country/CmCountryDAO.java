@@ -1,15 +1,15 @@
 package com.san.mxchengxin.model.country;
 
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.LockMode;
-import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-
-import com.san.chengxin.model.target.CmTarget;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -62,14 +62,14 @@ public class CmCountryDAO extends HibernateDaoSupport {
 
 	public List queryParentZero() {
 		log.debug("query parent condition equal zero");
-		try {
-			String queryString = "from CmCountry as model where model."
-					+ "parentid = 0";
-			return getHibernateTemplate().find(queryString);
-		} catch (RuntimeException re) {
-			log.error("find by property name failed", re);
-			throw re;
-		}
+		Short parentId = 0;
+		List ccs = getSession().createCriteria(CmCountry.class) 
+				.add( Restrictions.eq("parentid", parentId) )
+				.addOrder( Order.asc("displayOrder") ) 
+				.addOrder( Order.desc("id") ) 
+				.list(); 
+		
+		return ccs;
 	}
 
 	public void delete(CmCountry persistentInstance) {

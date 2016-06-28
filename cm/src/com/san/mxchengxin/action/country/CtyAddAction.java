@@ -48,13 +48,6 @@ public class CtyAddAction extends Action {
 			ct.setDisplayOrder(Short.valueOf(displayOrder));
 			
 			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-			/*
-			 userInfo.getCn();//获得用户登录名
-			 
-			userInfo.getOuid();//获得用户所属部门ID
-			userInfo.getOuname();//获得用户所属部门名称
-			userInfo.getSn();//获得用户姓名
-			*/
 			ct.setAuthor(userInfo.getCn());
 			
 			
@@ -65,15 +58,7 @@ public class CtyAddAction extends Action {
 			
 			cmCountryDAO.save(ct);
 		} else {
-			/*
-			List<CmCountry> partList = cmCountryDAO.findAll();
-			List<CmCountry> afterList = new ArrayList<CmCountry>();
-			for(int i=0;i<partList.size();i++) {
-				CmCountry cc = (CmCountry)partList.get(i);
-				if(cc.getParentid().shortValue() == 0)
-					afterList.add(cc);
-			}
-			*/
+			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
 		}
@@ -95,15 +80,7 @@ public class CtyAddAction extends Action {
 			request.setAttribute("country_phone", updateCc.getPhone());
 			request.setAttribute("country_display_order", updateCc.getDisplayOrder());
 			
-			List<CmCountry> partList = cmCountryDAO.findAll();
-			List<CmCountry> afterList = new ArrayList<CmCountry>();
-			for(int i=0;i<partList.size();i++) {
-				CmCountry cc = (CmCountry)partList.get(i);
-				if(cc.getParentid().shortValue() == 0) {
-					System.out.println("pitem id: "+cc.getId());
-					afterList.add(cc);
-				}
-			}
+			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
 			request.setAttribute("country_id", countryId);
 			request.setAttribute("ppid", updateCc.getParentid());
@@ -162,13 +139,7 @@ public class CtyAddAction extends Action {
 			}
 		}
 		
-		List<CmCountry> partList = cmCountryDAO.findAll();
-		List<CmCountry> afterList = new ArrayList<CmCountry>();
-		for(int i=0;i<partList.size();i++) {
-			CmCountry cc = (CmCountry)partList.get(i);
-			if(cc.getParentid().shortValue() == 0)
-				afterList.add(cc);
-		}
+		List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 		request.setAttribute("parentlist", afterList);
 		
 		return mapping.findForward( "ctyaddForword" );

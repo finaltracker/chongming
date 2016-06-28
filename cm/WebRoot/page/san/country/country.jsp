@@ -93,5 +93,10 @@
 </div>
 </block>
 <block name="bottom">
-
+	<script>
+		var msg="${requestScope.tipMessage}";
+		if(msg!=""){
+			alert(msg);
+		}
+	</script>
 </block>

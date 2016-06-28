@@ -7,6 +7,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.san.chengxin.model.target.CmTarget;
+
 /**
  * A data access object (DAO) providing persistence and search support for
  * CmCountry entities. Transaction control of the save(), update() and delete()
@@ -44,6 +46,18 @@ public class CmCountryDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
+	
+	public void update(CmCountry transientInstance) {
+		log.debug("updating CmCountry instance");
+		try {
+			getHibernateTemplate().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
+
 
 	public void delete(CmCountry persistentInstance) {
 		log.debug("deleting CmCountry instance");

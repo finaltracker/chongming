@@ -8,6 +8,7 @@
     <form-bean name="targetForm" type="com.san.chengxin.form.TargetForm" />
     <form-bean name="addForm" type="com.san.chengxin.form.AddForm" />
     <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
+    <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
   </form-beans>
 
   <global-exceptions />
@@ -60,7 +61,17 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="countryForword" path="/page/san/country/country.jsp" />
-    </action>	   
+    </action>
+    
+	<action
+      attribute="ctyaddForm"
+      input="/page/san/country/add.jsp"
+      name="ctyAddForm"
+      path="/home/country/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="ctyaddForword" path="/page/san/country/add.jsp" />
+    </action>	       
   </action-mappings>
 
   <message-resources parameter="com.yourcompany.struts.ApplicationResources" />

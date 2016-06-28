@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="${pageContext.request.contextPath}/home/country/add.do" class="btn btn-danger pull-right">增加乡镇</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/country/add.do?method=1" class="btn btn-danger pull-right">增加乡镇</a>
             <strong>当前位置：</strong>乡镇&nbsp;>&nbsp;乡镇列表
         </p>
     </div>
@@ -72,8 +72,8 @@
 	                                 	<td>${citem.name}</td>
 	                                 	<td>${citem.parentName}</td>
 	
-	                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
-	                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+	                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?method=3&id=${citem.id}"><i class="fa fa-edit"></i> 修改</a>
+	                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id=${citem.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
 	                                    </td>
 	                                </tr>
                                 </c:forEach>

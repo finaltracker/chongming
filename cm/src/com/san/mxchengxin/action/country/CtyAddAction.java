@@ -65,6 +65,7 @@ public class CtyAddAction extends Action {
 			
 			cmCountryDAO.save(ct);
 		} else {
+			/*
 			List<CmCountry> partList = cmCountryDAO.findAll();
 			List<CmCountry> afterList = new ArrayList<CmCountry>();
 			for(int i=0;i<partList.size();i++) {
@@ -72,6 +73,8 @@ public class CtyAddAction extends Action {
 				if(cc.getParentid().shortValue() == 0)
 					afterList.add(cc);
 			}
+			*/
+			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
 		}
 			

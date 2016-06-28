@@ -4,6 +4,8 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -58,6 +60,17 @@ public class CmCountryDAO extends HibernateDaoSupport {
 		}
 	}
 
+	public List queryParentZero() {
+		log.debug("query parent condition equal zero");
+		try {
+			String queryString = "from CmCountry as model where model."
+					+ "parentid = 0";
+			return getHibernateTemplate().find(queryString);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
+	}
 
 	public void delete(CmCountry persistentInstance) {
 		log.debug("deleting CmCountry instance");

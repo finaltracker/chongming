@@ -73,7 +73,7 @@
 	                                 	<td>${citem.parentName}</td>
 	
 	                                    <td><a href="${pageContext.request.contextPath}/home/country/add.do?method=3&id=${citem.id}"><i class="fa fa-edit"></i> 修改</a>
-	                                        <a href="${pageContext.request.contextPath}/home/country/add.do?id=${citem.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+	                                        <a href="${pageContext.request.contextPath}/home/country.do?id=${citem.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
 	                                    </td>
 	                                </tr>
                                 </c:forEach>

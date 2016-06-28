@@ -65,6 +65,29 @@ public class CountryAction extends Action {
 	}
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		if(request.getParameter("id") != null) {
+			Short countryId = Short.valueOf(request.getParameter("id"));
+			System.out.println("[country delete] id : "+countryId);
+			CmCountry cc = cmCountryDAO.findById(countryId);
+			boolean canDelete = true;
+			
+			List<CmCountry> beforeList = cmCountryDAO.findAll();
+			for(int i=0;i<beforeList.size();i++) {
+				CmCountry item = beforeList.get(i);
+				if(countryId == item.getParentid().shortValue()) {
+					System.out.println("has child, so not delete ");
+					canDelete = false;
+				}
+			}
+			
+			if(canDelete) {
+				System.out.println("we can delete ");
+				cmCountryDAO.delete(cmCountryDAO.findById(countryId));
+			}
+
+		}
+		
 		String countryName = "";
 		Short countryId = 0 ;
 		CountryForm countryForm = (CountryForm)form;
@@ -99,7 +122,6 @@ public class CountryAction extends Action {
 			}else {
 				cca.setParentName("崇明县>"+cmCountryDAO.findById(target.getParentid()).getName());
 			}
-			System.out.println("name: "+target.getName());
 			cadList.add(cca);
 		}
 		

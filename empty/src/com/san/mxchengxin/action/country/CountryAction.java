@@ -129,7 +129,7 @@ public class CountryAction extends Action {
 			countryId = 0;
 		} else if( countryId != 0 ) 
 		{
-			searDc.add(Restrictions.eq("id", countryId.shortValue() )); 
+			searDc.add(Restrictions.eq("parentid", countryId.shortValue() )); 
 		}
 		
 		if( countryName != null && ( !countryName.isEmpty() ))
@@ -137,7 +137,7 @@ public class CountryAction extends Action {
 			searDc.add(Restrictions.like("name", countryName,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		
-		searDc.addOrder( Order.asc("displayOrder") ).addOrder( Order.desc("id") );
+		searDc.addOrder( Order.asc("displayOrder") ).addOrder( Order.asc("id") );
 		List<CmCountry> targetList = cmCountryDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
 		List<CmCountryAd> cadList = new ArrayList<CmCountryAd>();

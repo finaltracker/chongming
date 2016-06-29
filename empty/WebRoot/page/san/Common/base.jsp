@@ -123,6 +123,20 @@
 </head>
 
 <body>
+<script type="text/javascript">
+	function adjustHeight(iframeId, height) {
+		var iframes = window.parent.document.getElementsByTagName("iframe");
+		var iframe;
+		for(var i=0;i<iframes.length;i++) {
+			if(iframes[i].name===iframeId) {
+				iframe = iframes[i];
+			}
+		}
+		iframe.style.height = window.innerHeight + 70 + 'px';
+		//iframe.style.height = height + "px";
+	}
+	adjustHeight('I2', 680);
+</script>
 <div class="hide"><iframe src="http://<?php echo $_SERVER["SERVER_NAME"]?>:{$JAVA_PORT}/web/checklogin.jsp"></iframe></div>
 <block name="body">  </block>
 <script src="${pageContext.request.contextPath}/page/san/new/js/bootstrap.min.js"></script>

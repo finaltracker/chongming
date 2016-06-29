@@ -66,7 +66,7 @@ public class CmCountryDAO extends HibernateDaoSupport {
 		List ccs = getSession().createCriteria(CmCountry.class) 
 				.add( Restrictions.eq("parentid", parentId) )
 				.addOrder( Order.asc("displayOrder") ) 
-				.addOrder( Order.desc("id") ) 
+				.addOrder( Order.asc("id") ) 
 				.list(); 
 		
 		return ccs;

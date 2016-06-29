@@ -3,7 +3,7 @@
 <!DOCTYPE html><html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11,IE=10,IE=9,IE=8,chrome=1" />
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <title><block name="title">标题</block></title>
     <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet" type="text/css"/>

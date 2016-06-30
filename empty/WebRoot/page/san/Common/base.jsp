@@ -125,6 +125,9 @@
 <body>
 <script type="text/javascript">
 	function adjustHeight(iframeId, height) {
+		if(navigator.userAgent.indexOf("Chrome") != -1) {
+			return;
+		}
 		var iframes = window.parent.document.getElementsByTagName("iframe");
 		var iframe;
 		for(var i=0;i<iframes.length;i++) {

@@ -70,33 +70,38 @@ public class ReportAction extends ChengxinBaseAction {
 		
 		/*  */
 		Integer[] countryList = getVisiableCountryForInteger( this.cmCountryDAO );
-		//产生jsp 对应的对象
-		List<levelCatigoryObj> lcoList = new ArrayList<levelCatigoryObj>();
 		
-		for( int i = 0 ; i < levelList.size() ; i++ )
+		
+		List<levelCatigoryObj> lcoList = null;
+		if( countryList != null )
 		{
-			// 遍历所有的level 列表
-			DetachedCriteria searDcForRecord =	DetachedCriteria.forClass( CmRecord.class);
+			//产生jsp 对应的对象
+			lcoList = new ArrayList<levelCatigoryObj>();
 			
-			if( i != 0 )
+			for( int i = 0 ; i < levelList.size() ; i++ )
 			{
-				//< 
-				searDcForRecord.add(Restrictions.lt("score", new Short(levelList.get(i-1).levelScore ) ) );
+				// 遍历所有的level 列表
+				DetachedCriteria searDcForRecord =	DetachedCriteria.forClass( CmRecord.class);
+				
+				if( i != 0 )
+				{
+					//< 
+					searDcForRecord.add(Restrictions.lt("score", new Short(levelList.get(i-1).levelScore ) ) );
+				}
+				//>= 
+				searDcForRecord.add(Restrictions.ge("score", new Short(levelList.get(i).levelScore ) ) );
+				
+				searDcForRecord.add(Restrictions.in("targetId", countryList ));
+				
+				List<CmLevel> recordList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDcForRecord );
+				
+				levelCatigoryObj lco = new levelCatigoryObj();
+				lco.setLevelId( levelList.get(i).getId().toString() );
+				lco.setLevelName( levelList.get(i).getLevelName() );
+				lco.setHowmanyPeople( String.valueOf(recordList.size()) );
+				lcoList.add( lco );
 			}
-			//>= 
-			searDcForRecord.add(Restrictions.ge("score", new Short(levelList.get(i).levelScore ) ) );
-			
-			searDcForRecord.add(Restrictions.in("targetId", countryList ));
-			
-			List<CmLevel> recordList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDcForRecord );
-			
-			levelCatigoryObj lco = new levelCatigoryObj();
-			lco.setLevelId( levelList.get(i).getId().toString() );
-			lco.setLevelName( levelList.get(i).getLevelName() );
-			lco.setHowmanyPeople( String.valueOf(recordList.size()) );
-			lcoList.add( lco );
 		}
-		
 		
 		request.setAttribute("Level_List", lcoList );
 		request.setAttribute("part_name", ouName );

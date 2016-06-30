@@ -25,7 +25,7 @@
                 <div class="col-lg-8">
                     <div class="widget widget-info widget-stack">
                         <div class="widget-header">
-                            <h4><i class="fa fa-calendar"></i> ${part_name}A级及以上诚信人数波动图</h4>
+                            <h4><i class="fa fa-calendar"></i> ${part_name}诚信人数波动图</h4>
                         </div>
                         <div class="widget-body">
                             <div id="line-chart" class="chart-height"></div>
@@ -83,7 +83,7 @@
         		};
         donut_chart.setOption(option);
         donut_chart.on("click", function(e){
-            window.location.href='/Home/Statistics?level_id='+e.data.keyId;
+            window.location.href='/home/statistics?level_id='+e.data.keyId;
         });
 
 
@@ -115,7 +115,7 @@
                     	'${item.levelName }', 
                    		</c:forEach>
                     ]
-                }
+                }         
             ],
             yAxis : [
                 {
@@ -124,12 +124,12 @@
             ],
             series : [
                 {
-                    name:'A及以上人数',
+                    name:'级以上人数',
                     type:'bar',
                     data:[
                     
                     	<c:forEach var="item" items="${Level_List}">       
-                    		'${item.howmanyPeople}', 
+                    		${item.howmanyPeople}, 
                    		</c:forEach>
                    	],
                     markPoint : {

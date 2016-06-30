@@ -50,7 +50,11 @@ public class ChengxinBaseAction extends Action {
 		ouName = userInfo.getOuname();//获得用户所属部门名称
 		
 		//for test 
-		if( ouName == "" ) ouName = "系统管理部";
+		if( ouName == "" ) 
+		{
+			System.out.println("找不到用户所属部门 ouName = " + ouName );
+		}
+			
 		sn = userInfo.getSn();//获得用户姓名
 
 		return ret ;
@@ -70,6 +74,10 @@ public class ChengxinBaseAction extends Action {
 	}
 	public List<CmCountry> getVisiableCountry( CmCountryDAO cmCountryDAO )
 	{
+		if( ouName == null || ouName.isEmpty() )
+		{
+			return null;
+		}
 		List<CmCountry> countryList = null;
 		
 		if( isAllVisiable() )
@@ -100,6 +108,11 @@ public class ChengxinBaseAction extends Action {
 	{
 		
 		List<CmCountry> countryList = getVisiableCountry(cmCountryDAO);
+		
+		if( countryList == null ) 
+		{
+			return null;
+		}
 		String[] names = new String[countryList.size()];
 		
 		for( int i = 0 ; i < countryList.size() ; i++ )
@@ -114,6 +127,10 @@ public class ChengxinBaseAction extends Action {
 	{
 		
 		List<CmCountry> countryList = getVisiableCountry(cmCountryDAO);
+		if( countryList == null ) 
+		{
+			return null;
+		}
 		Integer[] names = new Integer[countryList.size()];
 		
 		for( int i = 0 ; i < countryList.size() ; i++ )

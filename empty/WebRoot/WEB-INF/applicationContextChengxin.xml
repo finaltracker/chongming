@@ -15,15 +15,30 @@
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
-	
 	<bean name="/home/country" class="com.san.mxchengxin.action.country.CountryAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />
 	</bean>
+	
+	<bean name="/home/level" class="com.san.mxchengxin.action.LevelAction">
+		<property name="cmLevelDAO" ref="cmLevelDAO" />
+
+	</bean>
+	
+	<bean name="/home/level/add" class="com.san.mxchengxin.action.LevelAddAction">
+		<property name="cmLevelDAO" ref="cmLevelDAO" />
+	</bean>
+	
+	<bean name="/home/report" class="com.san.mxchengxin.action.ReportAction">
+		<property name="cmLevelDAO" ref="cmLevelDAO" />
+		<property name="cmRecordDAO" ref="cmRecordDAO" />
+		<property name="cmCountryDAO" ref="cmCountryDAO"/>
+	</bean>
+	
 	<bean name="/home/country/add" class="com.san.mxchengxin.action.country.CtyAddAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 	</bean>
-		
+	
 	<import resource="applicationContext-resources.xml"/>
 	
 	<bean id="sessionFactory"
@@ -37,8 +52,11 @@
 				<!--<value>com/login/User.hbm.xml</value>-->
 				<value>com/san/mxchengxin/model/target/CmTarget.hbm.xml</value>
 				<value>com/san/mxchengxin/model/part/CmPart.hbm.xml</value>
+				<value>com/san/mxchengxin/model/level/CmLevel.hbm.xml</value>
+				<value>com/san/mxchengxin/model/record/CmRecord.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmCountry.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmPerson.hbm.xml</value>
+
 			</list>
 		</property>
 
@@ -59,6 +77,37 @@
 	</bean>
 
 
+	<bean id = "cmLevelDAO"
+		class="com.san.mxchengxin.model.level.CmLevelDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	
+	</bean>
+	
+	<bean id="cmLevelDAOProxy"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager">
+			<ref bean="transactionManager" />
+		</property>
+		<property name="target">
+			<ref local="cmLevelDAO" />
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="cmRecordDAO" class="com.san.mxchengxin.model.record.CmRecordDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	
 	<bean id="cmTargetDAO"
 		class="com.san.mxchengxin.model.target.CmTargetDAO">
 		<property name="sessionFactory">
@@ -132,5 +181,4 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	
 </beans>

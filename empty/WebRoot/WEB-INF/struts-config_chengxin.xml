@@ -6,6 +6,8 @@
   <form-beans >
     <form-bean name="targetForm" type="com.san.mxchengxin.form.TargetForm" />
     <form-bean name="addForm" type="com.san.mxchengxin.form.AddForm" />
+    <form-bean name="levelForm" type="com.san.mxchengxin.form.LevelForm" />
+    <form-bean name="levelAddForm" type="com.san.mxchengxin.form.LevelAddForm" />
     <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
     <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
   </form-beans>
@@ -14,7 +16,9 @@
   <global-forwards >
     <forward name="targetForword" path="/page/san/target.jsp" />
 	<forward name="addForword" path="/page/san/add.jsp" />
+	<forward name="levelForword" path="/page/san/level.jsp" />
     <forward name="countryForword" path="/page/san/country/country.jsp" />
+	<forward name="levelAddForword" path="/page/san/levelAdd.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
@@ -30,7 +34,6 @@
 
       <forward name="targetForword" path="/page/san/target.jsp" />
     </action>
-
     <action
       attribute="addForm"
       input="/page/san/add.jsp"
@@ -61,7 +64,39 @@
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="ctyaddForword" path="/page/san/country/add.jsp" />
     </action>	  
+
+     <action
+      attribute="levelForm"
+      input="/page/san/level.jsp"
+      name="levelForm"
+      path="/home/level"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="targetForword" path="/page/san/level.jsp" />
+    </action>
     
+    <action
+      attribute="levelAddForm"
+      input="/page/san/levelAdd.jsp"
+      name="levelAddForm"
+      path="/home/level/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="levelAddForword" path="/page/san/levelAdd.jsp" />
+    </action>	
+   
+   <action
+      path="/home/report"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="reportForword" path="/page/san/report.jsp" />
+    </action>	
+   
+   
+   
   </action-mappings>
 
 </struts-config>

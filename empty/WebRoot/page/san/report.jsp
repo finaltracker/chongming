@@ -93,7 +93,7 @@
                 trigger: 'axis'
             },
             legend: {
-                data:['级以上人数']
+                data:['人数']
             },
             toolbox: {
                 show : true,

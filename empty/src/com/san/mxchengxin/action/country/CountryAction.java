@@ -47,7 +47,7 @@ public class CountryAction extends Action {
 		{
 			CmCountry cc = (CmCountry)countryList.get(0);
 			String isSelected = "";
-			if(cc.getId() == selectedId) {
+			if(cc.getId().shortValue() == selectedId) {
 				isSelected = " selected";
 			}
 			
@@ -64,7 +64,7 @@ public class CountryAction extends Action {
 				empty +="&nbsp;&nbsp;";
 			
 			String isSelected = "";
-			if(cc.getId() == selectedId) {
+			if(cc.getId().shortValue() == selectedId) {
 				isSelected = " selected";
 			}
 			
@@ -154,7 +154,7 @@ public class CountryAction extends Action {
 		
 		
 		Short parentId = 0;
-		String countrySelect = getCountrySelect(countryId,parentId,1);
+		String countrySelect = getCountrySelect(countryId.shortValue(),parentId,1);
 		System.out.println("country select result: "+countrySelect);
 		request.setAttribute("countrySelect", countrySelect);
 		request.setAttribute("country_name", countryName);

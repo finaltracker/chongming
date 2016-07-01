@@ -195,7 +195,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 ,MAX_PAGE_SIZE_9999);
 		 }
 		 else if(catSelectInt == MACRO_PEOPLE_VALID )
-		 { 
+		 {  
 			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , statForm.getPerson_truename() , statForm.getPerson_ssid() , 1 , MAX_PAGE_SIZE_9999 );
 		 }
 		 //else
@@ -242,8 +242,6 @@ public class StatisticsAction extends ChengxinBaseAction {
 						doDumpToExcel = false;
 					}
 				}
-				//for test
-				doDumpToExcel = false;
 				if( doDumpToExcel )
 				{ // do export to excel
 					try {
@@ -257,7 +255,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 				else
 				{
 					Map failReason  = new HashMap<String, String>();
-					failReason.put("failcause", "只允许导一个记录");
+					failReason.put("failCause","只允许导出一个记录");
 					JSONArray jsonObject = JSONArray.fromObject( failReason );//装换json
 					
 					ajaxResponse( response , jsonObject );

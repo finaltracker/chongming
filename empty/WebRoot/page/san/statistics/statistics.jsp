@@ -20,7 +20,7 @@
 
                     <div class="widget-body">
                         <form action="" method="post" class="form-inline">
-                            <button type="button" id= export class="btn btn-primary pull-right form-action" data-action="form" >导出</button>
+                            <button type="button" id= export class="btn btn-primary pull-right form-action"  >导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 考核对象</label>
                                 <select id =IdcatSelect class="select2 form-control" name="catSelect">
@@ -145,20 +145,36 @@
 	  			$(".show-enabel").attr("disabled", true )
 	  		}
   		});
+  		 
   		
-  		$(function(){
+  		$(function(){ 
 		    $('#export').click(function(){
 		         $.ajax({
-		             type: "post",
+		             type: "POST",
 		             url: "${pageContext.request.contextPath}/home/statistics.do",
 		             data: {opt:21},
 		             dataType: "json",
-		             complete: function(data){
-		                         console.log(data);
+		             complete: function(XMLHttpRequest, textStatus) {
+		                         console.log(XMLHttpRequest);
+		                         var ret = eval(XMLHttpRequest.responseText);
+		                         failCause = ret[0].failCause;
+		                         
+		                         //询问框
+
+		                         layer.confirm(failCause,
+									function(){ 
+									layer.closeAll();
+									},
+									function(){ 
+									layer.closeAll();
+									});
+								
 		                      }
 		         });
+		         
 		    });
 		});
+		
 });
     </script>
 </block>

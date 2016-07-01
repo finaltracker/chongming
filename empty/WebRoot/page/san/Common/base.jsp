@@ -135,7 +135,15 @@
 				iframe = iframes[i];
 			}
 		}
-		iframe.style.height = window.innerHeight + 70 + 'px';
+		
+		try {
+			var bHeight = iframe.contentWindow.document.body.scrollHeight;
+			var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+			var xHeight = Math.max(bHeight, dHeight);
+			iframe.height = xHeight;
+		} catch(ex) {}
+		
+		//iframe.style.height = window.innerHeight + 70 + 'px';
 		//iframe.style.height = height + "px";
 	}
 	adjustHeight('I2', 680);

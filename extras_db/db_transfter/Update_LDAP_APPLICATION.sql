@@ -6,3 +6,4 @@ update LADP_APPLICATION set steppage='/web/home/person.do' where stepname='人�
 update LADP_APPLICATION set steppage='/web/home/record.do' where stepname='考核管理';
 update LADP_APPLICATION set steppage='/web/home/statistics.do' where stepname='诚信统计';
 update LADP_APPLICATION set steppage='/web/home/log.do' where stepname='日志';
+update LADP_APPLICATION set steppage='/web/home/target.do' where stepname='考核指标';

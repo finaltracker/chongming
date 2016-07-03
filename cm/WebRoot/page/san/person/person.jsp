@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add" class="btn btn-danger pull-right">增加人员</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/person/add" class="btn btn-danger pull-right">增加人员</a>
             <strong>当前位置：</strong>人员&nbsp;>&nbsp;人员列表
         </p>
     </div>
@@ -22,21 +22,21 @@
 
                     <div class="widget-body">
                         <form action="" method="get" class="form-inline">
-                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/export">导出</button>
+                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/person/export">导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 姓名 </label>
-                                <input type="text" class="form-control input-sm" name="truename" value="{$searchMap.truename}"/>
+                                <input type="text" class="form-control input-sm" name="person_truename" value="${person_truename}"/>
                                 <label class="control-label"> 身份证号 </label>
-                                <input type="text" class="form-control input-sm" name="ssid" value="{$searchMap.ssid}"/>
+                                <input type="text" class="form-control input-sm" name="person_ssid" value="${person_ssid}"/>
 								<if condition="$userInfo.role_id neq 3">
                                 <label class="control-label"> 所属乡镇 </label>
                                 <select class="select2 form-control" name="country_id">
                                     <option value="">请选择</option>
-                                    {$countrySelect}
+                                    "${countrySelect}"
                                 </select>
 								</if>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary" data-action="form" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}">搜索</button>
-                                <button class="btn btn-default back" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}">查看所有</button>
+                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/person">搜索</button>
+                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/person">查看所有</button>
                             </div>
 
                         </form>
@@ -77,10 +77,10 @@
                                         <td>{$item.pubdate|date="Y-m-d H:i:s",###}</td>
                                         <td>
                                             <if condition="$isadmin eq 1 or $item.stat eq 0">
-                                            <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
-                                            <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/del?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+                                            <a href="${pageContext.request.contextPath}/home/person/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
+                                            <a href="${pageContext.request.contextPath}/home/person/del?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
                                             <else/>
-                                                  <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/info?id={$item.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
+                                                  <a href="${pageContext.request.contextPath}/home/person/info?id={$item.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
                                             </if>
                                         </td>
                                     </tr>
@@ -88,7 +88,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {$pageShow}
+                        "${pageShow}"
                     </div>
                 </div>
             </div>

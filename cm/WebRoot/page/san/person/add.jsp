@@ -2,12 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="../Common/base.jsp" flush="true"/>
-<block name="title">人员{$pageInfo.actionTitle}</block>
+<block name="title">人员${pageInfo_actionTitle}</block>
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add" class="btn btn-danger pull-right">增加人员</a>
-            <strong>当前位置：</strong>人员&nbsp;>&nbsp;{$pageInfo.actionTitle}人员
+            <a role="button" href="${pageContext.request.contextPath}/home/person/add" class="btn btn-danger pull-right">增加人员</a>
+            <strong>当前位置：</strong>人员&nbsp;>&nbsp;${pageInfo_actionTitle}人员
         </p>
     </div>
     <div class="dashboard-container">
@@ -20,20 +20,20 @@
                     <div class="widget widget-info">
 
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/save" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/save" class="form-horizontal bv-form">
                                 <fieldset>
-                                    <legend>人员{$pageInfo.actionTitle}</legend><input type="hidden" name="action" value="{$pageInfo.action}"/><input type="hidden" name="id" value="{$person.id}"/>
+                                    <legend>人员${pageInfo_actionTitle}</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${person_id}"/>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">姓名</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="truename" value="{$person.truename}" required/>
+                                            <input type="text" class="form-control" name="truename" value="${person_truename}" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">身份证号</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="ssid" value="{$person.ssid}" required pattern="(^[1-9]\d{16}[0-9xX]$)|(^[1-9]\d{14}$)"/>
+                                            <input type="text" class="form-control" name="ssid" value="${person_ssid}" required pattern="(^[1-9]\d{16}[0-9xX]$)|(^[1-9]\d{14}$)"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -49,13 +49,13 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">政治面貌</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="zzmm" value="{$person.zzmm}" required/>
+                                            <input type="text" class="form-control" name="zzmm" value="${person_zzmm}" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">文化程度</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="whcd" value="{$person.whcd}" required/>
+                                            <input type="text" class="form-control" name="whcd" value="${person_whcd}" required/>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -63,20 +63,20 @@
                                         <div class="col-lg-7">
                                             <select class="select2 form-control" name="country_id" required>
                                                 <option value="">请选择</option>
-                                                {$countrySelect}
+                                                "${countrySelect}"
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">手机号码</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="phone" required value="{$person.phone}" pattern="^1[0-9]{10}$"/>
+                                            <input type="text" class="form-control" name="phone" required value="${person_phone}" pattern="^1[0-9]{10}$"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label" for="birthday">出生日期</label>
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control date" name="birthday" value="{$person.birthday}" id="birthday"/>
+                                            <input type="text" class="form-control date" name="birthday" value="${person_birthday}" id="birthday"/>
                                         </div>
                                     </div>
 
@@ -84,14 +84,14 @@
                                         <label class="col-lg-3 control-label">户籍地址</label>
 
                                         <div class="col-lg-7">
-                                            <input type="text" class="form-control" name="address" value="{$person.address}"/>
+                                            <input type="text" class="form-control" name="address" value="${person_address}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">其它信息</label>
 
                                         <div class="col-lg-7">
-                                            <textarea class="form-control" name="remark" row="10">{$person.remark}</textarea>
+                                            <textarea class="form-control" name="remark" row="10">${person_remark}</textarea>
                                         </div>
                                     </div>
 
@@ -127,7 +127,7 @@
                                     </div>-->
                                     <div class="form-group">
                                         <div class="col-lg-7 col-lg-offset-3">
-                                            <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}">返回</button>
+                                            <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/person">返回</button>
                                         </div>
                                     </div>
 
@@ -161,7 +161,7 @@
                                     layer.closeAll();
                                     layer.load();
                                     $.ajax({
-                                        url:'/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/save2',
+                                        url:'${pageContext.request.contextPath}/home/person/save2',
                                         type:"post",
                                         cache:false,
                                         data:{id:data.id},
@@ -169,23 +169,23 @@
                                             layer.confirm('提交成功', {
                                                 btn: ['继续录入','返回列表'] //按钮
                                             }, function(){
-                                                window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add';
+                                                window.location.href='${pageContext.request.contextPath}/home/person/add';
                                             }, function(){
-                                                window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}';
+                                                window.location.href='${pageContext.request.contextPath}/home/person';
                                             });
                                         }
                                     })
                                 }, function(){
-                                    window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id='+data.id;
+                                    window.location.href='${pageContext.request.contextPath}/home/person/edit?id='+data.id;
                                     layer.closeAll();
                                 });
                             }else{
                                 layer.confirm('{$pageInfo.actionTitle}成功', {
                                     btn: ['继续录入','返回列表'] //按钮
                                 }, function(){
-                                    window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add';
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add';
                                 }, function(){
-                                    window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}';
+                                    window.location.href='${pageContext.request.contextPath}/home/person';
                                 });
                             }
                         }

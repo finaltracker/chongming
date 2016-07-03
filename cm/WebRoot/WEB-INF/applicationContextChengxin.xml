@@ -24,9 +24,9 @@
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 	</bean>
 	
-	<bean name="/home/part" class="com.san.mxchengxin.action.part.PartAction">
+	<bean name="/home/person" class="com.san.mxchengxin.action.person.PersonAction">
 	</bean>
-	<bean name="/home/part/add" class="com.san.mxchengxin.action.part.PartAddAction">
+	<bean name="/home/person/add" class="com.san.mxchengxin.action.person.PersonAddAction">
 	</bean>	
 		
 	<import resource="applicationContext-resources.xml"/>

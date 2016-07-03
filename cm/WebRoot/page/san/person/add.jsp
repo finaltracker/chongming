@@ -1,0 +1,198 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<jsp:include page="../Common/base.jsp" flush="true"/>
+<block name="title">人员{$pageInfo.actionTitle}</block>
+<block name="body">
+    <div class="title_1">
+        <p class="position">
+            <a role="button" href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add" class="btn btn-danger pull-right">增加人员</a>
+            <strong>当前位置：</strong>人员&nbsp;>&nbsp;{$pageInfo.actionTitle}人员
+        </p>
+    </div>
+    <div class="dashboard-container">
+        <!-- Container starts -->
+        <div class="container">
+
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="widget widget-info">
+
+                        <div class="widget-body">
+                            <form id="defaultForm" method="post" action="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/save" class="form-horizontal bv-form">
+                                <fieldset>
+                                    <legend>人员{$pageInfo.actionTitle}</legend><input type="hidden" name="action" value="{$pageInfo.action}"/><input type="hidden" name="id" value="{$person.id}"/>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">姓名</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="truename" value="{$person.truename}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">身份证号</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="ssid" value="{$person.ssid}" required pattern="(^[1-9]\d{16}[0-9xX]$)|(^[1-9]\d{14}$)"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">性别</label>
+                                        <div class="col-lg-7">
+                                            <select class="select2 form-control" name="sex" required>
+                                                <option value="">请选择</option>
+                                                <option value="男" {$person["sex"]=="男"?"selected":""}>男</option>
+                                                <option value="女" {$person["sex"]=="女"?"selected":""}>女</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">政治面貌</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="zzmm" value="{$person.zzmm}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">文化程度</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="whcd" value="{$person.whcd}" required/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">所属村镇</label>
+                                        <div class="col-lg-7">
+                                            <select class="select2 form-control" name="country_id" required>
+                                                <option value="">请选择</option>
+                                                {$countrySelect}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">手机号码</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="phone" required value="{$person.phone}" pattern="^1[0-9]{10}$"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label" for="birthday">出生日期</label>
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control date" name="birthday" value="{$person.birthday}" id="birthday"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">户籍地址</label>
+
+                                        <div class="col-lg-7">
+                                            <input type="text" class="form-control" name="address" value="{$person.address}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">其它信息</label>
+
+                                        <div class="col-lg-7">
+                                            <textarea class="form-control" name="remark" row="10">{$person.remark}</textarea>
+                                        </div>
+                                    </div>
+
+                                   <!-- <div class="form-group">
+                                        <label class="col-lg-3 control-label">诚信记录 <div><a role="button" class="btn btn-primary btn-sm">增加</a></div></label>
+
+                                        <div class="col-lg-7">
+                                            <ul>
+                                                <table class="table table-bordered table-striped">
+                                                    <tr>
+                                                        <th>名称</th>
+                                                        <th>时间</th>
+                                                        <th>得分</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>义务献血</td>
+                                                        <td>2015-06-15</td>
+                                                        <td>加10分</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>义务献血</td>
+                                                        <td>2015-06-15</td>
+                                                        <td>加10分</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>义务献血</td>
+                                                        <td>2015-06-15</td>
+                                                        <td>加10分</td>
+                                                    </tr>
+                                                </table>
+                                            </ul>
+                                        </div>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <div class="col-lg-7 col-lg-offset-3">
+                                            <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}">返回</button>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="bottom">
+    <script>
+        $(function(){
+            $('.bv-form').bootstrapValidator({
+                submitHandler: function(validator, form, submitButton) {
+                    $form=$(form);
+                    $.ajax({
+                        url:$form.attr("action"),
+                        type:$form.attr("method"),
+                        dataType:"json",
+                        data:$form.serialize(),
+                        success:function(data){
+                            if(data.stat==0){
+                                layer.confirm('{$pageInfo.actionTitle}成功 是否继续提交', {
+                                    btn: ['提交','返回修改'] //按钮
+                                }, function(){
+                                    layer.closeAll();
+                                    layer.load();
+                                    $.ajax({
+                                        url:'/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/save2',
+                                        type:"post",
+                                        cache:false,
+                                        data:{id:data.id},
+                                        success:function(){
+                                            layer.confirm('提交成功', {
+                                                btn: ['继续录入','返回列表'] //按钮
+                                            }, function(){
+                                                window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add';
+                                            }, function(){
+                                                window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}';
+                                            });
+                                        }
+                                    })
+                                }, function(){
+                                    window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id='+data.id;
+                                    layer.closeAll();
+                                });
+                            }else{
+                                layer.confirm('{$pageInfo.actionTitle}成功', {
+                                    btn: ['继续录入','返回列表'] //按钮
+                                }, function(){
+                                    window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/add';
+                                }, function(){
+                                    window.location.href='/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}';
+                                });
+                            }
+                        }
+                    });
+                    return false;
+                }
+            })
+        });
+    </script>
+</block>

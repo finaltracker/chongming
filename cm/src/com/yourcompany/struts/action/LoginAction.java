@@ -44,7 +44,7 @@ public class LoginAction extends Action {
 		
 		LoginUserInfoDelegate.setLui( new LoginUserInfo(name) );
 		
-		return  mapping.findForward( "partForword" );
+		return  mapping.findForward( "personForword" );
 		//return  mapping.findForward( "targetForword" );
 	}
 }

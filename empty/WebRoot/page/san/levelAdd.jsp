@@ -7,8 +7,8 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="/home/level/add" class="btn btn-danger pull-right">增加等级</a>
-            <strong>当前位置：</strong>等级&nbsp;>&nbsp;${pageInfo_actionTitle}等级
+            <a role="button" href="${pageContext.request.contextPath}/home/level/add" class="btn btn-danger pull-right">增加等级</a>
+            <strong>当前位置：</strong>等级&nbsp;>&nbsp;${pageInfo_action}等级
         </p>
     </div>
     <div class="dashboard-container">
@@ -25,7 +25,7 @@
                         <div class="widget-body">
                             <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/level/add.do?method=${action_method}" class="form-horizontal bv-form">
                                 <fieldset>
-                                    <legend>${pageInfo_actionTitle}等级</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${level_id}"/>
+                                    <legend>${pageInfo_action}等级</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${level_id}"/>
 
 
                                     <div class="form-group">
@@ -67,7 +67,7 @@
                         type:$form.attr("method"),
                         data:$form.serialize(),
                         success:function(){
-                            layer.confirm('${pageInfo_actionTitle}成功', {
+                            layer.confirm('${pageInfo_action}成功', {
                                 btn: ['继续录入','返回列表'] //按钮
                             }, function(){
                                 window.location.href='${pageContext.request.contextPath}/home/level/add.do?method=1';

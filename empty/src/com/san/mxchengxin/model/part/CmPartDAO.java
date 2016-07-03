@@ -141,4 +141,16 @@ public class CmPartDAO extends HibernateDaoSupport {
 	public static CmPartDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (CmPartDAO) ctx.getBean("CmPartDAO");
 	}
+
+	public void update(CmPart transientInstance ) {
+		log.debug("updating CmLevel instance");
+		try {
+			getHibernateTemplate().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+		
+	}
 }

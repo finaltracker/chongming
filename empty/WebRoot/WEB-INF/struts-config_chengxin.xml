@@ -10,6 +10,7 @@
     <form-bean name="levelAddForm" type="com.san.mxchengxin.form.LevelAddForm" />
     <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
     <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
+    <form-bean name="partAddForm" type="com.san.mxchengxin.form.part.PartAddForm" />
   </form-beans>
 
   <global-exceptions />
@@ -95,8 +96,25 @@
       <forward name="reportForword" path="/page/san/report.jsp" />
     </action>	
    
+   <action
+      path="/home/part"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="partForword" path="/page/san/part/part.jsp" />
+    </action>	
    
-   
+   <action
+      attribute="partAddForm"
+      input="/page/san/part/add.jsp"
+      name="partAddForm"
+      path="/home/part/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="partAddForword" path="/page/san/part/add.jsp" />
+    </action>	
+    
   </action-mappings>
 
 </struts-config>

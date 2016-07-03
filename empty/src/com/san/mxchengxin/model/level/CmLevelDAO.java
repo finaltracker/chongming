@@ -19,7 +19,11 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class CmLevelDAO extends HibernateDaoSupport  {
 		 private static final Log log = LogFactory.getLog(CmLevelDAO.class);
-	
+	// property constants
+	public static final String LEVEL_SCORE = "levelScore";
+	public static final String LEVEL_NAME = "levelName";
+	public static final String AUTHOR = "author";
+	public static final String PUBDATE = "pubdate";
 
 	protected void initDao() {
 		//do nothing
@@ -88,14 +92,29 @@ public class CmLevelDAO extends HibernateDaoSupport  {
             + ", value: " + value);
       try {
          String queryString = "from CmLevel as model where model." 
-         						+ propertyName + "= ?";
-		 return getHibernateTemplate().find(queryString, value);
-      } catch (RuntimeException re) {
-         log.error("find by property name failed", re);
-         throw re;
-      }
+					+ propertyName + "= ?";
+			return getHibernateTemplate().find(queryString, value);
+		} catch (RuntimeException re) {
+			log.error("find by property name failed", re);
+			throw re;
+		}
 	}
 
+	public List findByLevelScore(Object levelScore) {
+		return findByProperty(LEVEL_SCORE, levelScore);
+	}
+
+	public List findByLevelName(Object levelName) {
+		return findByProperty(LEVEL_NAME, levelName);
+	}
+
+	public List findByAuthor(Object author) {
+		return findByProperty(AUTHOR, author);
+	}
+
+	public List findByPubdate(Object pubdate) {
+		return findByProperty(PUBDATE, pubdate);
+	}
 
 	public List findAll() {
 		log.debug("finding all CmLevel instances");

@@ -23,6 +23,11 @@
 	<bean name="/home/country/add" class="com.san.mxchengxin.action.country.CtyAddAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 	</bean>
+	
+	<bean name="/home/part" class="com.san.mxchengxin.action.part.PartAction">
+	</bean>
+	<bean name="/home/part/add" class="com.san.mxchengxin.action.part.PartAddAction">
+	</bean>	
 		
 	<import resource="applicationContext-resources.xml"/>
 	

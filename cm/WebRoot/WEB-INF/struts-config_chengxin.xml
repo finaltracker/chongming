@@ -16,6 +16,7 @@
     <forward name="indexForword" path="/index.jsp" />
     <forward name="targetForword" path="/page/san/target.jsp" />
 	<forward name="countryForword" path="/page/san/country/country.jsp" />
+	<forward name="partForword" path="/page/san/part/part.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
@@ -71,7 +72,28 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="ctyaddForword" path="/page/san/country/add.jsp" />
-    </action>	       
+    </action>
+    
+	<action
+      attribute="partForm"
+      input="/page/san/part/part.jsp"
+      name="partForm"
+      path="/home/part"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="partForword" path="/page/san/part/part.jsp" />
+    </action>
+    
+	<action
+      attribute="partaddForm"
+      input="/page/san/part/add.jsp"
+      name="partaddForm"
+      path="/home/part/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="partaddForword" path="/page/san/part/add.jsp" />
+    </action>
+              
   </action-mappings>
 
   <message-resources parameter="com.yourcompany.struts.ApplicationResources" />

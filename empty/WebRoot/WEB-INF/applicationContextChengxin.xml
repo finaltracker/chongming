@@ -41,6 +41,14 @@
 	
 	<import resource="applicationContext-resources.xml"/>
 	
+	<bean name="/home/part" class="com.san.mxchengxin.action.PartAction">
+		<property name="cmPartDAO" ref="cmPartDAO" />
+	</bean>
+	
+	<bean name="/home/part/add" class="com.san.mxchengxin.action.PartAddAction">
+		<property name="cmPartDAO" ref="cmPartDAO" />
+	</bean>
+	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">
@@ -181,20 +189,4 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
-	<bean id="cmPersonDAOProxy"
-		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-		<property name="transactionManager">
-			<ref bean="transactionManager" />
-		</property>
-		<property name="target">
-			<ref local="cmPersonDAO" />
-		</property>
-		<property name="transactionAttributes">
-			<props>
-				<prop key="insert*">PROPAGATION_REQUIRED</prop>
-				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
-				<prop key="is*">PROPAGATION_REQUIRED,readOnly</prop>
-			</props>
-		</property>
-	</bean>		
 </beans>

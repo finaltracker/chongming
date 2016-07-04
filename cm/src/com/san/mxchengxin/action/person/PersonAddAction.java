@@ -12,9 +12,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.san.mxchengxin.form.country.CtyAddForm;
+import com.san.mxchengxin.form.person.PersonAddForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
+import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
@@ -41,48 +42,63 @@ public class PersonAddAction extends Action {
 	private ActionForward add(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		CtyAddForm addF = (CtyAddForm)form;
-		String name = addF.getCountry_name();
-		Short parentid = addF.getParent_id();
-		String contact = addF.getCountry_contact();
-		String phone = addF.getCountry_phone();
-		String displayOrder = addF.getCountry_display_order();
+		PersonAddForm addF = (PersonAddForm)form;
+		String trueName = addF.getTruename();
+		String personSsid = addF.getSsid();
+		String sex = addF.getSex();
+		String personZzmm = addF.getZzmm();
+		String personWhcd = addF.getWhcd();
+		Short countryId = addF.getCountry_id();
+		String phone = addF.getPhone();
+		String birthDay = addF.getBirthday();
+		String address = addF.getAddress();
+		String remark = addF.getRemark();
 		
-		if (name != null && parentid != null && contact != null && phone !=null && displayOrder !=null) {
-			CmCountry ct = new CmCountry();
-			ct.setName(name);
-			ct.setParentid(parentid);
-			ct.setContact(contact);
-			ct.setPhone(phone);
-			ct.setDisplayOrder(Short.valueOf(displayOrder));
+		if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
+				&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
+			CmPerson cp = new CmPerson();
+			cp.setTruename(trueName);
+			cp.setAddress(address);
+			cp.setBirthday(birthDay);
+			cp.setCountryId(countryId);
+			cp.setPhone(phone);
+			cp.setRemark(remark);
+			cp.setScore(score);
+			cp.setSex(sex);
+			cp.setSsid(personSsid);
+			cp.setPartId(partId);
+			cp.setStat(stat);
+			cp.setWhcd(personWhcd);
+			cp.setZzmm(personZzmm);
 			
+		
 			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-			ct.setAuthor(userInfo.getCn());
+			cp.setAuthor(userInfo.getCn());
 			
 			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			Date now = new Date();
 			System.out.println(df.format(now));// new Date()为获取当前系统时间
-			ct.setPubdate(now.getTime()/1000);
+			cp.setPubdate(now.getTime()/1000);
 			
-			cmCountryDAO.save(ct);
+			cmPersonDAO.save(cp);
 		} else {
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
 		}
 			
-		return mapping.findForward("ctyaddForword");
+		return mapping.findForward("personaddForword");
 	}
 	
 	private ActionForward update(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		if(request.getParameter("id")!=null &&!request.getParameter("id").isEmpty()) {
-			Short countryId = Short.valueOf(request.getParameter("id"));
-			System.out.println("[update] id : "+ countryId);
+			Integer personId = Integer.valueOf(request.getParameter("id"));
+			System.out.println("[update] id : "+ personId);
 			
-			CmCountry updateCc = cmCountryDAO.findById(countryId);
+			CmPerson updateCc = cmPersonDAO.findById(personId);
 			
 			request.setAttribute("country_name", updateCc.getName());
 			request.setAttribute("country_contact", updateCc.getContact());
@@ -91,40 +107,53 @@ public class PersonAddAction extends Action {
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
-			request.setAttribute("country_id", countryId);
-			request.setAttribute("ppid", updateCc.getParentid());
+			request.setAttribute("person_id", personId);
 			
 		}
 		
 		if(request.getParameter("xid")!=null &&!request.getParameter("xid").isEmpty()) {
-			CtyAddForm addF = (CtyAddForm)form;
-			String name = addF.getCountry_name();
-			Short parentid = addF.getParent_id();
-			String contact = addF.getCountry_contact();
-			String phone = addF.getCountry_phone();
-			String displayOrder = addF.getCountry_display_order();
+			PersonAddForm addF = (PersonAddForm)form;
+			String trueName = addF.getTruename();
+			String personSsid = addF.getSsid();
+			String sex = addF.getSex();
+			String personZzmm = addF.getZzmm();
+			String personWhcd = addF.getWhcd();
+			Short countryId = addF.getCountry_id();
+			String phone = addF.getPhone();
+			String birthDay = addF.getBirthday();
+			String address = addF.getAddress();
+			String remark = addF.getRemark();
 			
-			if (name != null && parentid != null && contact != null && phone !=null && displayOrder !=null) {
-				CmCountry ct = new CmCountry();
-				ct.setName(name);
-				ct.setParentid(parentid);
-				ct.setContact(contact);
-				ct.setPhone(phone);
-				ct.setDisplayOrder(Short.valueOf(displayOrder));
+			if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
+					&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
+				CmPerson cp = new CmPerson();
+				cp.setTruename(trueName);
+				cp.setAddress(address);
+				cp.setBirthday(birthDay);
+				cp.setCountryId(countryId);
+				cp.setPhone(phone);
+				cp.setRemark(remark);
+				cp.setScore(score);
+				cp.setSex(sex);
+				cp.setSsid(personSsid);
+				cp.setPartId(partId);
+				cp.setStat(stat);
+				cp.setWhcd(personWhcd);
+				cp.setZzmm(personZzmm);
 
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 				Date now = new Date();
 				System.out.println(df.format(now));// new Date()为获取当前系统时间
-				ct.setPubdate(now.getTime()/1000);
-				Short xId = Short.valueOf(request.getParameter("xid"));
+				cp.setPubdate(now.getTime()/1000);
+				Integer xId = Integer.valueOf(request.getParameter("xid"));
 				System.out.println("[update item] : "+xId);
-				ct.setId(xId);
+				cp.setId(xId);
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-				ct.setAuthor(userInfo.getCn());
-				cmCountryDAO.update(ct);
+				cp.setAuthor(userInfo.getCn());
+				cmPersonDAO.update(cp);
 			}
 		}
-		return mapping.findForward("ctyaddForword");
+		return mapping.findForward("personaddForword");
 	}
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -135,13 +164,13 @@ public class PersonAddAction extends Action {
 			System.out.println("op action : "+actionMethod);
 			if(actionMethod == 1) {
 				System.out.println("add action");
-				request.setAttribute("pageInfo_action", "增加");
-				request.setAttribute("action_method", 1);
+				request.setAttribute("pageInfo_actionTitle", "增加");
+				request.setAttribute("pageInfo_action", 1);
 				return add(mapping,form,request,response);
 			} else if (actionMethod == 3) {
 				System.out.println("modify action");
-				request.setAttribute("pageInfo_action", "更新");
-				request.setAttribute("action_method", 3);
+				request.setAttribute("pageInfo_actionTitle", "更新");
+				request.setAttribute("pageInfo_action", 3);
 				return update(mapping,form,request,response);
 			} else {
 				System.out.println("others action");
@@ -151,6 +180,6 @@ public class PersonAddAction extends Action {
 		List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 		request.setAttribute("parentlist", afterList);
 		
-		return mapping.findForward( "ctyaddForword" );
+		return mapping.findForward( "personaddForword" );
 	}
 }

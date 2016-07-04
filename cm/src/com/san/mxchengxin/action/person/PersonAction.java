@@ -154,7 +154,13 @@ public class PersonAction extends ChengxinBaseAction {
 		for(int i=0;i<targetList.size();i++) {
 			CmPerson target = (CmPerson)targetList.get(i);
 			CmPersonAd cpa = new CmPersonAd(target);
-			cpa.setCountryName(cmCountryDAO.findById(target.getCountryId()).getName());
+			if (cmCountryDAO.findById(target.getCountryId()) != null) {
+				String countryName = cmCountryDAO.findById(target.getCountryId()).getName();
+				cpa.setCountryName(countryName);
+			} else {
+				cpa.setCountryName("");
+			}
+			
 			cpdList.add(cpa);
 		}
 		

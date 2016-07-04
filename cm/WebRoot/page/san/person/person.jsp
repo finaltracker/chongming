@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="${pageContext.request.contextPath}/home/person/add.do" class="btn btn-danger pull-right">增加人员</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/person/add.do?method=1" class="btn btn-danger pull-right">增加人员</a>
             <strong>当前位置：</strong>人员&nbsp;>&nbsp;人员列表
         </p>
     </div>
@@ -80,10 +80,10 @@
                                         <td>${targetEnhance.stringPubData}</td>
                                         <td>
                                             <if condition="$isadmin eq 1 or $item.stat eq 0">
-                                            <a href="${pageContext.request.contextPath}/home/person/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
-                                            <a href="${pageContext.request.contextPath}/home/person/del?id={$item.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+                                            <a href="${pageContext.request.contextPath}/home/person/add.do?method=3&id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
+                                            <a href="${pageContext.request.contextPath}/home/person.do?id=${targetEnhance.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
                                             <else/>
-                                                  <a href="${pageContext.request.contextPath}/home/person/info?id={$item.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
+                                                  <a href="${pageContext.request.contextPath}/home/person.add.do??method=3&id=${targetEnhance.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
                                             </if>
                                         </td>                       
                                   

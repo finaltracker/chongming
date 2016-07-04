@@ -20,7 +20,7 @@
                     <div class="widget widget-info">
 
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/save" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}" class="form-horizontal bv-form">
                                 <fieldset>
                                     <legend>人员${pageInfo_actionTitle}</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${person_id}"/>
 
@@ -127,7 +127,7 @@
                                     </div>-->
                                     <div class="form-group">
                                         <div class="col-lg-7 col-lg-offset-3">
-                                            <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/person">返回</button>
+                                            <button type="submit" class="btn btn-success">提交</button> <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/person.do">返回</button>
                                         </div>
                                     </div>
 
@@ -155,7 +155,7 @@
                         data:$form.serialize(),
                         success:function(data){
                             if(data.stat==0){
-                                layer.confirm('{$pageInfo.actionTitle}成功 是否继续提交', {
+                                layer.confirm('${pageInfo_actionTitle}成功 是否继续提交', {
                                     btn: ['提交','返回修改'] //按钮
                                 }, function(){
                                     layer.closeAll();
@@ -180,7 +180,7 @@
                                     layer.closeAll();
                                 });
                             }else{
-                                layer.confirm('{$pageInfo.actionTitle}成功', {
+                                layer.confirm('${pageInfo_actionTitle}成功', {
                                     btn: ['继续录入','返回列表'] //按钮
                                 }, function(){
                                     window.location.href='${pageContext.request.contextPath}/home/person/add';

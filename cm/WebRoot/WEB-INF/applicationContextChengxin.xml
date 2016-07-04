@@ -25,8 +25,12 @@
 	</bean>
 	
 	<bean name="/home/person" class="com.san.mxchengxin.action.person.PersonAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />
 	</bean>
 	<bean name="/home/person/add" class="com.san.mxchengxin.action.person.PersonAddAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />	
 	</bean>	
 		
 	<import resource="applicationContext-resources.xml"/>
@@ -163,4 +167,4 @@
 		</property>
 	</bean>
 	
-	</beans>
+</beans>

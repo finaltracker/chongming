@@ -8,8 +8,8 @@
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
 		  <property name="url" value="jdbc:oracle:thin:@localhost:1521:orcl"/> <!--本机-->
-        <property name="username" value="empty"/>
-        <property name="password" value="empty"/>
+        <property name="username" value="cmcxpt"/>
+        <property name="password" value="cmcxpt"/>
         <property name="maxActive" value="100000"/>
         <property name="maxIdle" value="10"/>
         <property name="maxWait" value="-1"/>

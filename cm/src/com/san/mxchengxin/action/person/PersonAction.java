@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -15,14 +14,16 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import com.san.mxchengxin.action.ChengxinBaseAction;
 import com.san.mxchengxin.form.person.PersonForm;
 import com.san.mxchengxin.model.country.CmCountry;
-import com.san.mxchengxin.model.country.CmCountryAd;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
+import com.san.mxchengxin.model.country.CmPersonAd;
 import com.san.mxchengxin.model.country.CmPersonDAO;
 
-public class PersonAction extends Action {
+public class PersonAction extends ChengxinBaseAction {
+	
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO	cmPersonDAO;
 	List<CmCountry> countryList;
@@ -78,6 +79,8 @@ public class PersonAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
+		super.execute(mapping, form, request, response);
+		
 		if(request.getParameter("id") != null) {
 			Short countryId = Short.valueOf(request.getParameter("id"));
 			System.out.println("[person delete] id : "+countryId);
@@ -122,37 +125,37 @@ public class PersonAction extends Action {
 		personTrueName = personForm.getPerson_truename();
 		countryId = personForm.getCountry_id();
 		
-		
-		countryList = cmCountryDAO.findAll();
-		
-		DetachedCriteria searDc =	DetachedCriteria.forClass( CmCountry.class);
-		
 		if( countryId == null ) 
 		{
 			countryId = 0;
-		} else if( countryId != 0 ) 
+		}
+		
+		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
+		
+		//countryList = getVisiableCountry(cmCountryDAO);
+		countryList = cmCountryDAO.findAll();
+		
+		DetachedCriteria searDc =	DetachedCriteria.forClass( CmPerson.class);
+		
+		if( personSsid != null && ( !personSsid.isEmpty() )) 
 		{
-			searDc.add(Restrictions.eq("parentid", countryId.shortValue() )); 
+			searDc.add(Restrictions.eq("ssid", personSsid )); 
 		}
 		
 		if( personTrueName != null && ( !personTrueName.isEmpty() ))
 		{
-			searDc.add(Restrictions.like("name", personTrueName,MatchMode.ANYWHERE).ignoreCase()); 
+			searDc.add(Restrictions.like("truename", personTrueName,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		
-		searDc.addOrder( Order.asc("displayOrder") ).addOrder( Order.asc("id") );
-		List<CmCountry> targetList = cmCountryDAO.getHibernateTemplate ().findByCriteria( searDc );
+		searDc.addOrder( Order.asc("id") );
+		List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
-		List<CmCountryAd> cadList = new ArrayList<CmCountryAd>();
+		List<CmPersonAd> cpdList = new ArrayList<CmPersonAd>();
 		for(int i=0;i<targetList.size();i++) {
-			CmCountry target = (CmCountry)targetList.get(i);
-			CmCountryAd cca = new CmCountryAd(target);
-			if (target.getParentid().shortValue() == 0) {
-				cca.setParentName("崇明县");
-			}else {
-				cca.setParentName("崇明县>"+cmCountryDAO.findById(target.getParentid()).getName());
-			}
-			cadList.add(cca);
+			CmPerson target = (CmPerson)targetList.get(i);
+			CmPersonAd cpa = new CmPersonAd(target);
+			cpa.setCountryName(cmCountryDAO.findById(target.getCountryId()).getName());
+			cpdList.add(cpa);
 		}
 		
 		
@@ -162,7 +165,7 @@ public class PersonAction extends Action {
 		request.setAttribute("countrySelect", countrySelect);
 		request.setAttribute("person_truename", personTrueName);
 		request.setAttribute("ssid", personSsid);
-		request.setAttribute("clist", cadList);
+		request.setAttribute("plist", cpdList);
 		
 		return mapping.findForward( "personForword" );
 	}

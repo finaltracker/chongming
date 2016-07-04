@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="${pageContext.request.contextPath}/home/person/add" class="btn btn-danger pull-right">增加人员</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/person/add.do" class="btn btn-danger pull-right">增加人员</a>
             <strong>当前位置：</strong>人员&nbsp;>&nbsp;人员列表
         </p>
     </div>
@@ -21,7 +21,7 @@
                 <div class="widget">
 
                     <div class="widget-body">
-                        <form action="" method="get" class="form-inline">
+                        <form action="" method="post" class="form-inline">
                             <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/person/export">导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 姓名 </label>
@@ -35,8 +35,8 @@
                                     "${countrySelect}"
                                 </select>
 								</if>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/person">搜索</button>
-                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/person">查看所有</button>
+                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/person.do">搜索</button>
+                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/person.do">查看所有</button>
                             </div>
 
                         </form>
@@ -66,15 +66,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <foreach name="list" item="item" key="k" >
-                                    <tr>
-                                        <td>{$k+1}</td>
-                                        <td>{$item.truename}</td>
-                                        <td>{$item.ssid}</td>
-                                        <td>{$item.countryName}</td>
-                                        <td>{$item.phone}</td>                                        
-                                        <td>{$item.author}</td>
-                                        <td>{$item.pubdate|date="Y-m-d H:i:s",###}</td>
+                                <c:set var="index" value="0" />
+                                <c:forEach var="targetEnhance" items="${plist}">
+                               
+                                  <c:set var="index" value="${index+1}" />
+                                  <tr>
+                                        <td>${index}</td>
+                                        <td>${targetEnhance.truename}</td>
+                                        <td>${targetEnhance.ssid}</td>
+                                        <td>${targetEnhance.countryName}</td>
+										<td>${targetEnhance.phone}</td>
+                                        <td>${targetEnhance.author}</td>
+                                        <td>${targetEnhance.stringPubData}</td>
                                         <td>
                                             <if condition="$isadmin eq 1 or $item.stat eq 0">
                                             <a href="${pageContext.request.contextPath}/home/person/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>
@@ -82,9 +85,10 @@
                                             <else/>
                                                   <a href="${pageContext.request.contextPath}/home/person/info?id={$item.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
                                             </if>
-                                        </td>
-                                    </tr>
-                                </foreach>
+                                        </td>                       
+                                  
+                                  </tr>
+                                </c:forEach>								
                                 </tbody>
                             </table>
                         </div>

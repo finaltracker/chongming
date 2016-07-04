@@ -115,6 +115,14 @@
       <forward name="partAddForword" path="/page/san/part/add.jsp" />
     </action>	
     
+    <action
+      path="/home/record"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+
+      <forward name="recordForword" path="/page/san/record/record.jsp" />
+    </action>	
+    
   </action-mappings>
 
 </struts-config>

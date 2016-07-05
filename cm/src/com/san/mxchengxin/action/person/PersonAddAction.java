@@ -17,6 +17,7 @@ import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
+import com.san.mxchengxin.utils.Utils;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
@@ -63,11 +64,13 @@ public class PersonAddAction extends Action {
 			cp.setCountryId(countryId);
 			cp.setPhone(phone);
 			cp.setRemark(remark);
-			cp.setScore(score);
+			//TODO:score
+			//cp.setScore(score);
 			cp.setSex(sex);
 			cp.setSsid(personSsid);
-			cp.setPartId(partId);
-			cp.setStat(stat);
+			//TODO: partId
+			//cp.setPartId(partId);
+	
 			cp.setWhcd(personWhcd);
 			cp.setZzmm(personZzmm);
 			
@@ -75,6 +78,12 @@ public class PersonAddAction extends Action {
 			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 			cp.setAuthor(userInfo.getCn());
 			
+			/*
+			boolean isAdmin = Utils.isAdmin(userInfo.getOuname());
+			cp.setStat(isAdmin);
+			*/
+			//TODO: for test
+			cp.setStat(true);
 			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			Date now = new Date();
@@ -100,10 +109,16 @@ public class PersonAddAction extends Action {
 			
 			CmPerson updateCc = cmPersonDAO.findById(personId);
 			
-			request.setAttribute("country_name", updateCc.getName());
-			request.setAttribute("country_contact", updateCc.getContact());
-			request.setAttribute("country_phone", updateCc.getPhone());
-			request.setAttribute("country_display_order", updateCc.getDisplayOrder());
+			request.setAttribute("person_truename", updateCc.getTruename());
+			request.setAttribute("person_ssid", updateCc.getSsid());
+			//TODO: sex
+			request.setAttribute("person_zzmm", updateCc.getZzmm());
+			request.setAttribute("person_whcd", updateCc.getWhcd());
+			request.setAttribute("country_id", updateCc.getCountryId());
+			request.setAttribute("person_phone", updateCc.getPhone());
+			request.setAttribute("person_birthday", updateCc.getBirthday());
+			request.setAttribute("person_address", updateCc.getAddress());
+			request.setAttribute("person_remark", updateCc.getRemark());
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
@@ -133,11 +148,12 @@ public class PersonAddAction extends Action {
 				cp.setCountryId(countryId);
 				cp.setPhone(phone);
 				cp.setRemark(remark);
-				cp.setScore(score);
+				//TODO:score
+				//cp.setScore(score);
 				cp.setSex(sex);
 				cp.setSsid(personSsid);
-				cp.setPartId(partId);
-				cp.setStat(stat);
+				//TODO: partId
+				//cp.setPartId(partId);
 				cp.setWhcd(personWhcd);
 				cp.setZzmm(personZzmm);
 
@@ -150,6 +166,13 @@ public class PersonAddAction extends Action {
 				cp.setId(xId);
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 				cp.setAuthor(userInfo.getCn());
+				
+				/*
+				boolean isAdmin = Utils.isAdmin(userInfo.getOuname());
+				cp.setStat(isAdmin);
+				*/
+				//TODO: for test
+				cp.setStat(true);
 				cmPersonDAO.update(cp);
 			}
 		}

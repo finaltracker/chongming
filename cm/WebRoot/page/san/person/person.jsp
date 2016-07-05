@@ -95,7 +95,7 @@
 						<span class="pull-right" style="margin-top:20px">共 ${noOfRecords} 条记录</span>
 						<ul class="pagination">
 							<c:if test="${currentPage != 1}">
-								<li><a href="${pageContext.request.contextPath}/home/person.do?page=${currentPage - 1}" class="prev">Previous</a></li>
+								<li><a href="${pageContext.request.contextPath}/home/person.do?page=${currentPage - 1}" class="prev"><<</a></li>
 							</c:if>
 
 							<c:forEach begin="1" end="${noOfPages}" var="i">
@@ -110,7 +110,7 @@
 							</c:forEach>
 
 							<c:if test="${currentPage lt noOfPages}">
-								<li><a href="${pageContext.request.contextPath}/home/person.do?page=${currentPage +1}" class="next">Next</a></li>
+								<li><a href="${pageContext.request.contextPath}/home/person.do?page=${currentPage +1}" class="next">>></a></li>
 							</c:if>
 						</ul>
                     </div>

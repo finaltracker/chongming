@@ -2,7 +2,9 @@ package com.san.mxchengxin.action.person;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +36,9 @@ public class PersonAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO	cmPersonDAO;
 	List<CmCountry> countryList;
+	//for pagination
+	int page = 1;
+	int recordsPerPage = 15;
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
 	}
@@ -124,9 +129,7 @@ public class PersonAction extends ChengxinBaseAction {
 
 		}
 		
-		//for pagination
-		int page = 1;
-		int recordsPerPage = 10;
+
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		}
@@ -194,7 +197,9 @@ public class PersonAction extends ChengxinBaseAction {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				return null;
 			}
+			
 		}
 		
 		request.setAttribute("noOfPages", noOfPages);
@@ -217,13 +222,14 @@ public class PersonAction extends ChengxinBaseAction {
 
 		String[] excelHeader = { "序号", "姓名", "身份证号","所属村镇","手机号","录入人","录入时间"};    
         HSSFWorkbook wb = new HSSFWorkbook();    
-        HSSFSheet sheet = wb.createSheet("Campaign");    
-        HSSFRow row = sheet.createRow((int) 0);    
+        HSSFSheet sheet = wb.createSheet("Person");    
+        HSSFRow row = sheet.createRow(0);    
         HSSFCellStyle style = wb.createCellStyle();    
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
     
-        for (int i = 0; i < excelHeader.length; i++) {    
-            HSSFCell cell = row.createCell((short) i);    
+        for (short i = 0; i < excelHeader.length; i++) {    
+            HSSFCell cell = row.createCell(i);  
+            cell.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell.setCellValue(excelHeader[i]);    
             cell.setCellStyle(style);    
             //sheet.autoSizeColumn(i);    
@@ -232,12 +238,38 @@ public class PersonAction extends ChengxinBaseAction {
         for (int i = 0; i < list.size(); i++) {    
             row = sheet.createRow(i + 1);    
             CmPersonAd cp = list.get(i);    
-            row.createCell((short)0).setCellValue(cp.getId());    
-            row.createCell((short)1).setCellValue(cp.getTruename());    
-            row.createCell((short)2).setCellValue(cp.getSsid());    
+            //csCell.setEncoding(HSSFCell.ENCODING_UTF_16);
+            HSSFCell cell0 = row.createCell((short)0);
+            cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell0.setCellValue(i+1);  
+            HSSFCell cell1 = row.createCell((short)1);
+            cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell1.setCellValue(cp.getTruename());  
+            HSSFCell cell2 = row.createCell((short)2);
+            cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell2.setCellValue(cp.getSsid());  
+            
+            HSSFCell cell3 = row.createCell((short)3);
+            cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell3.setCellValue(cp.getCountryName());  
+            HSSFCell cell4 = row.createCell((short)4);
+            cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell4.setCellValue(cp.getPhone());  
+            HSSFCell cell5 = row.createCell((short)5);
+            cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell5.setCellValue(cp.getAuthor());  
+            HSSFCell cell6 = row.createCell((short)6);
+            cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell6.setCellValue(cp.getstringPubData());  
+            
         }        
-        response.setContentType("application/vnd.ms-excel");    
-        response.setHeader("Content-disposition", "attachment;filename=person.xls");    
+        response.setContentType("application/octet-stream;charset=ISO8859-1");
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
+        String date = df.format(new Date());
+        String fileName =  "person"+date+".xls";  
+        response.setHeader("Content-disposition", "attachment;filename="+fileName); 
+        response.addHeader("Pargam", "no-cache");  
+        response.addHeader("Cache-Control", "no-cache");  
         OutputStream ouputStream = response.getOutputStream();    
         wb.write(ouputStream);    
         ouputStream.flush();    

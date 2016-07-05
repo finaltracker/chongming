@@ -117,6 +117,12 @@ public class PersonAction extends ChengxinBaseAction {
 
 		}
 		
+		//for pagenation
+		int page = 1;
+		int recordsPerPage = 10;
+		if(request.getParameter("page") != null) {
+			page = Integer.valueOf(request.getParameter("page"));
+		}
 		String personTrueName = "";
 		String personSsid = "";
 		Short countryId = 0 ;
@@ -148,10 +154,16 @@ public class PersonAction extends ChengxinBaseAction {
 		}
 		
 		searDc.addOrder( Order.asc("id") );
+		
 		List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
 		List<CmPersonAd> cpdList = new ArrayList<CmPersonAd>();
-		for(int i=0;i<targetList.size();i++) {
+		//for pagenation
+		int noOfRecords = targetList.size();
+		int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
+		int startPos = (page-1)*recordsPerPage;
+		int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
+		for(int i=startPos;i<endPos;i++) {
 			CmPerson target = (CmPerson)targetList.get(i);
 			CmPersonAd cpa = new CmPersonAd(target);
 			if (cmCountryDAO.findById(target.getCountryId()) != null) {
@@ -163,8 +175,10 @@ public class PersonAction extends ChengxinBaseAction {
 			
 			cpdList.add(cpa);
 		}
-		
-		
+		request.setAttribute("noOfPages", noOfPages);
+		request.setAttribute("currentPage", page);
+		request.setAttribute("noOfRecords", noOfRecords);
+
 		Short parentId = 0;
 		String countrySelect = getCountrySelect(countryId.shortValue(),parentId,1);
 		System.out.println("country select result: "+countrySelect);

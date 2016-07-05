@@ -1,11 +1,18 @@
 package com.san.mxchengxin.action.person;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -117,12 +124,13 @@ public class PersonAction extends ChengxinBaseAction {
 
 		}
 		
-		//for pagenation
+		//for pagination
 		int page = 1;
 		int recordsPerPage = 10;
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		}
+		
 		String personTrueName = "";
 		String personSsid = "";
 		Short countryId = 0 ;
@@ -158,7 +166,7 @@ public class PersonAction extends ChengxinBaseAction {
 		List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
 		List<CmPersonAd> cpdList = new ArrayList<CmPersonAd>();
-		//for pagenation
+		//for pagination
 		int noOfRecords = targetList.size();
 		int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
 		int startPos = (page-1)*recordsPerPage;
@@ -175,6 +183,20 @@ public class PersonAction extends ChengxinBaseAction {
 			
 			cpdList.add(cpa);
 		}
+		
+		//export excel
+		if(request.getParameter("opt") != null) {
+			int opt = Integer.valueOf(request.getParameter("opt"));
+			if(opt==21) {
+				try {
+					dumpToExcel(request, response, cpdList);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		
 		request.setAttribute("noOfPages", noOfPages);
 		request.setAttribute("currentPage", page);
 		request.setAttribute("noOfRecords", noOfRecords);
@@ -188,5 +210,39 @@ public class PersonAction extends ChengxinBaseAction {
 		request.setAttribute("plist", cpdList);
 		
 		return mapping.findForward( "personForword" );
+	}
+	
+	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<CmPersonAd> list) throws IOException
+	{
+
+		String[] excelHeader = { "序号", "姓名", "身份证号","所属村镇","手机号","录入人","录入时间"};    
+        HSSFWorkbook wb = new HSSFWorkbook();    
+        HSSFSheet sheet = wb.createSheet("Campaign");    
+        HSSFRow row = sheet.createRow((int) 0);    
+        HSSFCellStyle style = wb.createCellStyle();    
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
+    
+        for (int i = 0; i < excelHeader.length; i++) {    
+            HSSFCell cell = row.createCell((short) i);    
+            cell.setCellValue(excelHeader[i]);    
+            cell.setCellStyle(style);    
+            //sheet.autoSizeColumn(i);    
+        }    
+    
+        for (int i = 0; i < list.size(); i++) {    
+            row = sheet.createRow(i + 1);    
+            CmPersonAd cp = list.get(i);    
+            row.createCell((short)0).setCellValue(cp.getId());    
+            row.createCell((short)1).setCellValue(cp.getTruename());    
+            row.createCell((short)2).setCellValue(cp.getSsid());    
+        }        
+        response.setContentType("application/vnd.ms-excel");    
+        response.setHeader("Content-disposition", "attachment;filename=person.xls");    
+        OutputStream ouputStream = response.getOutputStream();    
+        wb.write(ouputStream);    
+        ouputStream.flush();    
+        ouputStream.close(); 
+		
+		
 	}
 }

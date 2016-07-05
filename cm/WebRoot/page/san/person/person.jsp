@@ -22,7 +22,7 @@
 
                     <div class="widget-body">
                         <form action="" method="post" class="form-inline">
-                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/person/export">导出</button>
+                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/person.do?opt=21">导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 姓名 </label>
                                 <input type="text" class="form-control input-sm" name="person_truename" value="${person_truename}"/>

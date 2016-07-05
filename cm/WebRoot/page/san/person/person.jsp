@@ -79,12 +79,13 @@
                                         <td>${targetEnhance.author}</td>
                                         <td>${targetEnhance.stringPubData}</td>
                                         <td>
-                                            <if condition="$isadmin eq 1 or $item.stat eq 0">
-                                            <a href="${pageContext.request.contextPath}/home/person/add.do?method=3&id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
-                                            <a href="${pageContext.request.contextPath}/home/person.do?id=${targetEnhance.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
-                                            <else/>
-                                                  <a href="${pageContext.request.contextPath}/home/person.add.do??method=3&id=${targetEnhance.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
-                                            </if>
+                                            <c:if test="${isadmin eq 1 || item.stat eq 0}">
+												<a href="${pageContext.request.contextPath}/home/person/add.do?method=3&id=${targetEnhance.id}"><i class="fa fa-edit"></i> 修改</a>
+												<a href="${pageContext.request.contextPath}/home/person.do?id=${targetEnhance.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
+                                            </c:if>
+											<c:if test="${isadmin ne 1 && item.stat ne 0}">
+												<a href="${pageContext.request.contextPath}/home/person.add.do??method=3&id=${targetEnhance.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
+                                            </c:if>
                                         </td>                       
                                   
                                   </tr>

@@ -39,6 +39,15 @@
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 	</bean>
 	
+	<bean name="/home/person" class="com.san.mxchengxin.action.person.PersonAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />
+	</bean>
+	<bean name="/home/person/add" class="com.san.mxchengxin.action.person.PersonAddAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />	
+	</bean>	
+	
 	<import resource="applicationContext-resources.xml"/>
 	
 	<bean name="/home/part" class="com.san.mxchengxin.action.PartAction">

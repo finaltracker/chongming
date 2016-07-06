@@ -12,6 +12,8 @@
     <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
     <form-bean name="partAddForm" type="com.san.mxchengxin.form.part.PartAddForm" />
     <form-bean name="recordForm" type="com.san.mxchengxin.form.record.RecordForm" />
+	<form-bean name="personForm" type="com.san.mxchengxin.form.person.PersonForm" />
+    <form-bean name="personAddForm" type="com.san.mxchengxin.form.person.PersonAddForm" />
   </form-beans>
 
   <global-exceptions />
@@ -21,6 +23,7 @@
 	<forward name="levelForword" path="/page/san/level.jsp" />
     <forward name="countryForword" path="/page/san/country/country.jsp" />
 	<forward name="levelAddForword" path="/page/san/levelAdd.jsp" />
+	<forward name="personForword" path="/page/san/person/person.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
   <action-mappings >
@@ -126,6 +129,27 @@
 
       <forward name="recordForword" path="/page/san/record/record.jsp" />
     </action>	
+    
+	<action
+      attribute="personForm"
+      input="/page/san/person/person.jsp"
+      name="personForm"
+      path="/home/person"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="personForword" path="/page/san/person/person.jsp" />
+    </action>
+    
+	<action
+      attribute="personaddForm"
+      input="/page/san/person/add.jsp"
+      name="personAddForm"
+      path="/home/person/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="personaddForword" path="/page/san/person/add.jsp" />
+      <forward name="personinfoForword" path="/page/san/person/info.jsp" />
+    </action>    
     
   </action-mappings>
 

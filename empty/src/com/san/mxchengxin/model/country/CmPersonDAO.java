@@ -52,7 +52,17 @@ public class CmPersonDAO extends HibernateDaoSupport {
 			throw re;
 		}
 	}
-
+	public void update(CmPerson transientInstance) {
+		log.debug("updating CmPerson instance");
+		try {
+			getHibernateTemplate().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
+	
 	public void delete(CmPerson persistentInstance) {
 		log.debug("deleting CmPerson instance");
 		try {

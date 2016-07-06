@@ -65,6 +65,10 @@
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
+	<bean name="/home/record/add" class="com.san.mxchengxin.action.RecordAddAction">
+		<property name="cmTargetDAO" ref="cmTargetDAO" />
+	</bean>
+	
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">

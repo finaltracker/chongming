@@ -25,20 +25,14 @@ public class RecordAddForm extends ActionForm {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/** country_phone property */
-	private String country_phone;
+	/** person id : ssid */
+	private String person_id;
 
-	/** country_contact property */
-	private String country_contact;
+	/** target_id */
+	private String target_id;
 
-	/** country_display_order property */
-	private String country_display_order;
-
-	/** country_name property */
-	private String country_name;
-
-	/** parent_id property */
-	private Short parent_id;
+	/** score */
+	private String score;
 
 	/*
 	 * Generated Methods
@@ -65,83 +59,29 @@ public class RecordAddForm extends ActionForm {
 		// TODO Auto-generated method stub
 	}
 
-	/** 
-	 * Returns the country_phone.
-	 * @return String
-	 */
-	public String getCountry_phone() {
-		return country_phone;
+	public String getPerson_id() {
+		return person_id;
 	}
 
-	/** 
-	 * Set the country_phone.
-	 * @param country_phone The country_phone to set
-	 */
-	public void setCountry_phone(String country_phone) {
-		this.country_phone = country_phone;
+	public void setPerson_id(String person_id) {
+		this.person_id = person_id;
 	}
 
-	/** 
-	 * Returns the country_contact.
-	 * @return String
-	 */
-	public String getCountry_contact() {
-		return country_contact;
+	public String getTarget_id() {
+		return target_id;
 	}
 
-	/** 
-	 * Set the country_contact.
-	 * @param country_contact The country_contact to set
-	 */
-	public void setCountry_contact(String country_contact) {
-		this.country_contact = country_contact;
+	public void setTarget_id(String target_id) {
+		this.target_id = target_id;
 	}
 
-	/** 
-	 * Returns the country_display_order.
-	 * @return String
-	 */
-	public String getCountry_display_order() {
-		return country_display_order;
+	public String getScore() {
+		return score;
 	}
 
-	/** 
-	 * Set the country_display_order.
-	 * @param country_display_order The country_display_order to set
-	 */
-	public void setCountry_display_order(String country_display_order) {
-		this.country_display_order = country_display_order;
+	public void setScore(String score) {
+		this.score = score;
 	}
-
-	/** 
-	 * Returns the country_name.
-	 * @return String
-	 */
-	public String getCountry_name() {
-		return country_name;
-	}
-
-	/** 
-	 * Set the country_name.
-	 * @param country_name The country_name to set
-	 */
-	public void setCountry_name(String country_name) {
-		this.country_name = country_name;
-	}
-
-	/** 
-	 * Returns the parent_id.
-	 * @return Short
-	 */
-	public Short getParent_id() {
-		return parent_id;
-	}
-
-	/** 
-	 * Set the parent_id.
-	 * @param parent_id The parent_id to set
-	 */
-	public void setParent_id(Short parent_id) {
-		this.parent_id = parent_id;
-	}
+	
+	
 }

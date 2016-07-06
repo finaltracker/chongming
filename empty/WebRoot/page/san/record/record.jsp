@@ -25,7 +25,7 @@
 							<button type="button"
 								class="btn btn-primary pull-right form-action"
 								data-action="form"
-								data-url="/${pageContext.request.contextPath}/home/record/export">导出</button>
+								data-url="${pageContext.request.contextPath}/home/record.do?opt=21">导出</button>
 							<div class="form-group">
 								<label class="control-label"> 姓名 </label> <input type="text"
 									class="form-control" name="truename"

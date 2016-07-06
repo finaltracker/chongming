@@ -1,6 +1,10 @@
 package com.san.mxchengxin.action;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +12,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -21,6 +30,7 @@ import com.san.mxchengxin.form.TargetForm;
 import com.san.mxchengxin.form.record.RecordForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
+import com.san.mxchengxin.model.country.CmPersonAd;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
@@ -129,6 +139,22 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		List<RecordListObj> enhanceRecordList = recordToRecordListObj( list );
 		
+		
+		//export excel
+		if(request.getParameter("opt") != null) {
+			int opt = Integer.valueOf(request.getParameter("opt"));
+			if(opt==21) {
+				try {
+					dumpToExcel(request, response, enhanceRecordList);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			}
+			
+		}
+				
 		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("targetSelect", targetSelectStr );
 		request.setAttribute("truename", recordForm.getTruename() );
@@ -193,6 +219,85 @@ public class RecordAction extends ChengxinBaseAction {
 		}
 		
 		return rloList;
+	}
+	
+	
+	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<RecordListObj> list) throws IOException
+	{
+
+		String[] excelHeader = { "序号" ,"姓名" , "身份证号" ,"所属乡镇" ,"考核指标" ,"分数" ,"考核人" ,"考核单位" ,"考核时间" ,"有效期" };    
+        HSSFWorkbook wb = new HSSFWorkbook();    
+        HSSFSheet sheet = wb.createSheet("record");    
+        HSSFRow row = sheet.createRow(0);    
+        HSSFCellStyle style = wb.createCellStyle();    
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
+    
+        for (short i = 0; i < excelHeader.length; i++) {    
+            HSSFCell cell = row.createCell(i);  
+            cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell.setCellValue(excelHeader[i]);    
+            cell.setCellStyle(style);    
+            //sheet.autoSizeColumn(i);    
+        }    
+    
+        for (int i = 0; i < list.size(); i++) {    
+            row = sheet.createRow(i + 1);    
+            RecordListObj cp = list.get(i);    
+            //csCell.setEncoding(HSSFCell.ENCODING_UTF_16);
+            HSSFCell cell0 = row.createCell((short)0);
+            cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell0.setCellValue(i+1);  
+            
+            HSSFCell cell1 = row.createCell((short)1);
+            cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell1.setCellValue(cp.getTruename());  
+            
+            HSSFCell cell2 = row.createCell((short)2);
+            cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell2.setCellValue(cp.getSsid());  
+            
+            HSSFCell cell3 = row.createCell((short)3);
+            cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell3.setCellValue(cp.getCountryName());  
+            
+            HSSFCell cell4 = row.createCell((short)4);
+            cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell4.setCellValue(cp.getTarget_name());  
+            
+            HSSFCell cell5 = row.createCell((short)5);
+            cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell5.setCellValue(cp.getScore());  
+            
+            HSSFCell cell6 = row.createCell((short)6);
+            cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell6.setCellValue(cp.getAuthor()); 
+            
+            HSSFCell cell7 = row.createCell((short)7);
+            cell7.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell7.setCellValue(cp.getPart_name());  
+            
+            HSSFCell cell8 = row.createCell((short)8);
+            cell8.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell8.setCellValue(cp.getPubdate());  
+            
+            HSSFCell cell9 = row.createCell((short)9);
+            cell9.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell9.setCellValue(cp.getDateline());  
+            
+        }        
+        response.setContentType("application/octet-stream;charset=ISO8859-1");
+        SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
+        String date = df.format(new Date());
+        String fileName =  "record"+date+".xls";  
+        response.setHeader("Content-disposition", "attachment;filename="+fileName); 
+        response.addHeader("Pargam", "no-cache");  
+        response.addHeader("Cache-Control", "no-cache");  
+        OutputStream ouputStream = response.getOutputStream();    
+        wb.write(ouputStream);    
+        ouputStream.flush();    
+        ouputStream.close(); 
+		
+		
 	}
 	
 }

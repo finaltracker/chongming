@@ -20,8 +20,8 @@
                         <div class="widget-body">
                             <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/record/save.do" class="form-horizontal bv-form">
                                 <fieldset>
-                                    <legend>考核对像${pageInfo_action}</legend>
-                                    <input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="id" value="{$record.id}"/>
+                                    <legend>考核对象${pageInfo_action}</legend>
+                                    <input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="id" value="${record.id}"/>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">身份证号</label>
@@ -144,7 +144,7 @@
                     data:$form.serialize(),
                     success: function (data) {
                         if (data.stat == 0) {
-                            layer.confirm('${pageInfo.actionTitle}成功 是否继续提交', {
+                            layer.confirm('${pageInfo_actionTitle}成功 是否继续提交', {
                                 btn: ['提交', '返回'] //按钮
                             }, function () {
                                 $.ajax({
@@ -167,7 +167,7 @@
                                 layer.closeAll();
                             });
                         } else {
-                            layer.confirm('{$pageInfo.actionTitle}成功', {
+                            layer.confirm('{$pageInfo_actionTitle}成功', {
                                 btn: ['继续录入', '返回列表'] //按钮
                             }, function () {
                                 window.location.href = '/${pageContext.request.contextPath}/home/record//add';

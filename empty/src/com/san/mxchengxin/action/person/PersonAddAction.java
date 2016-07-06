@@ -159,6 +159,9 @@ public class PersonAddAction extends ChengxinBaseAction {
 			request.setAttribute("countrySelect", countrySelect);
 			request.setAttribute("person_id", personId);
 			
+			//for ajax
+			request.setAttribute("person_stat", updateCc.getStat());
+			
 		}
 		
 		if(request.getParameter("xid")!=null &&!request.getParameter("xid").isEmpty()) {
@@ -207,7 +210,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 			request.setAttribute("person_remark", updateCc.getRemark());
 			
 			request.setAttribute("person_id", personId);
-			
+
 		}
 		
 		return mapping.findForward("personinfoForword");

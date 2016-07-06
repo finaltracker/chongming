@@ -161,7 +161,7 @@
                     $.ajax({
                         url:$form.attr("action"),
                         type:$form.attr("method"),
-                        dataType:"json",
+         
                         data:$form.serialize(),
                         success:function(data){
                             if(data.stat==0){

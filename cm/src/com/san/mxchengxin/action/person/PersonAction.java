@@ -94,39 +94,9 @@ public class PersonAction extends ChengxinBaseAction {
 		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("id") != null) {
-			Short countryId = Short.valueOf(request.getParameter("id"));
-			System.out.println("[person delete] id : "+countryId);
-			CmCountry cc = cmCountryDAO.findById(countryId);
-			boolean canDelete = true;
-			String tipMessage ="";
-			
-			List<CmCountry> beforeList = cmCountryDAO.findAll();
-			for(int i=0;i<beforeList.size();i++) {
-				CmCountry item = beforeList.get(i);
-				if(countryId == item.getParentid().shortValue()) {
-					System.out.println("has other country, so not delete ");
-					tipMessage = "该村镇下存在其它村不能直接删除";
-					canDelete = false;
-				}
-			}
-			//todo: add person restriction
-			List<CmPerson> beforeList2 = cmPersonDAO.findAll();
-			for(int i=0;i<beforeList.size();i++) {
-				CmPerson item = beforeList2.get(i);
-				if(countryId == item.getCountryId().shortValue()) {
-					System.out.println("has people, so not delete ");
-					tipMessage = "该村镇下存在相关人员不能直接删除";
-					canDelete = false;
-				}
-			}
-			
-			if(canDelete) {
-				System.out.println("we can delete ");
-				cmCountryDAO.delete(cmCountryDAO.findById(countryId));
-			} else {
-				request.setAttribute("tipMessage", tipMessage);
-			}
-
+			Integer personId = Integer.valueOf(request.getParameter("id"));
+			System.out.println("[person delete] id : "+personId);
+			cmPersonDAO.delete(cmPersonDAO.findById(personId));
 		}
 		
 

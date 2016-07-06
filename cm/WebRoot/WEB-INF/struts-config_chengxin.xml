@@ -11,6 +11,7 @@
     <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
     <form-bean name="personForm" type="com.san.mxchengxin.form.person.PersonForm" />
     <form-bean name="personAddForm" type="com.san.mxchengxin.form.person.PersonAddForm" />
+    <form-bean name="personInfoForm" type="com.san.mxchengxin.form.person.PersonAddForm" />
   </form-beans>
 
   <global-exceptions />
@@ -96,6 +97,16 @@
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="personaddForword" path="/page/san/person/add.jsp" />
     </action>
+    
+	<action
+      attribute="personinfoForm"
+      input="/page/san/person/info.jsp"
+      name="personInfoForm"
+      path="/home/person/add"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="personinfoForword" path="/page/san/person/info.jsp" />
+    </action>    
               
   </action-mappings>
 

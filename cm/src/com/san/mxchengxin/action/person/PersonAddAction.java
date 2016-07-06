@@ -68,8 +68,6 @@ public class PersonAddAction extends Action {
 			//cp.setScore(score);
 			cp.setSex(sex);
 			cp.setSsid(personSsid);
-			//TODO: partId
-			//cp.setPartId(partId);
 	
 			cp.setWhcd(personWhcd);
 			cp.setZzmm(personZzmm);
@@ -81,6 +79,8 @@ public class PersonAddAction extends Action {
 			/*
 			boolean isAdmin = Utils.isAdmin(userInfo.getOuname());
 			cp.setStat(isAdmin);
+			
+			cp.setPartId(userInfo.getOuid());
 			*/
 			//TODO: for test
 			cp.setStat(true);
@@ -152,8 +152,7 @@ public class PersonAddAction extends Action {
 				//cp.setScore(score);
 				cp.setSex(sex);
 				cp.setSsid(personSsid);
-				//TODO: partId
-				//cp.setPartId(partId);
+
 				cp.setWhcd(personWhcd);
 				cp.setZzmm(personZzmm);
 
@@ -170,6 +169,8 @@ public class PersonAddAction extends Action {
 				/*
 				boolean isAdmin = Utils.isAdmin(userInfo.getOuname());
 				cp.setStat(isAdmin);
+				
+				cp.setPartId(userInfo.getOuid());
 				*/
 				//TODO: for test
 				cp.setStat(true);
@@ -177,6 +178,42 @@ public class PersonAddAction extends Action {
 			}
 		}
 		return mapping.findForward("personaddForword");
+	}
+	
+	private ActionForward query(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response) {
+		
+		if(request.getParameter("id")!=null &&!request.getParameter("id").isEmpty()) {
+			Integer personId = Integer.valueOf(request.getParameter("id"));
+			System.out.println("[query] id : "+ personId);
+			
+			CmPerson updateCc = cmPersonDAO.findById(personId);
+			
+			request.setAttribute("person_truename", updateCc.getTruename());
+			request.setAttribute("person_ssid", updateCc.getSsid());
+			//TODO: sex
+			request.setAttribute("sex", updateCc.getSex());
+			request.setAttribute("person_zzmm", updateCc.getZzmm());
+			request.setAttribute("person_whcd", updateCc.getWhcd());
+			request.setAttribute("country_id", updateCc.getCountryId());
+			if (cmCountryDAO.findById(updateCc.getCountryId()) != null) {
+				String countryName = cmCountryDAO.findById(updateCc.getCountryId()).getName();
+				request.setAttribute("countryName", countryName);
+			} else {
+				request.setAttribute("countryName", "");
+			}
+			request.setAttribute("person_phone", updateCc.getPhone());
+			request.setAttribute("person_birthday", updateCc.getBirthday());
+			request.setAttribute("person_address", updateCc.getAddress());
+			request.setAttribute("person_remark", updateCc.getRemark());
+			
+			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
+			request.setAttribute("parentlist", afterList);
+			request.setAttribute("person_id", personId);
+			
+		}
+		
+		return mapping.findForward("personinfoForword");
 	}
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -195,6 +232,11 @@ public class PersonAddAction extends Action {
 				request.setAttribute("pageInfo_actionTitle", "更新");
 				request.setAttribute("pageInfo_action", 3);
 				return update(mapping,form,request,response);
+			} else if (actionMethod == 4) {
+				System.out.println("query action");
+				request.setAttribute("pageInfo_actionTitle", "查看");
+				request.setAttribute("pageInfo_action", 4);
+				return query(mapping,form,request,response);
 			} else {
 				System.out.println("others action");
 			}

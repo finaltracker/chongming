@@ -1,4 +1,4 @@
-#Sun Jul 03 21:26:29 CST 2016
+#Wed Jul 06 10:20:00 CST 2016
 eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/page/san=UTF-8
@@ -10,6 +10,7 @@ encoding//WebRoot/page/san/Common/list.jsp=UTF-8
 encoding//WebRoot/page/san/Common/top.jsp=UTF-8
 encoding//WebRoot/page/san/add.jsp=UTF-8
 encoding//WebRoot/page/san/person/add.jsp=UTF-8
+encoding//WebRoot/page/san/person/info.jsp=UTF-8
 encoding//WebRoot/page/san/person/person.jsp=UTF-8
 encoding//WebRoot/page/san/target.jsp=UTF-8
 encoding//src/com/san/chengxin/action/AddAction.java=UTF-8

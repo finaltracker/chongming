@@ -43,11 +43,15 @@
                                                 <option value="">请选择</option>
                                                 	<c:if test="${sex == '男'}">
 														<option value="男" selected="selected"}>男</option>
-														<option value="女" }>女</option>
 													</c:if>
 													<c:if test="${sex != '男'}">
 														<option value="男" }>男</option>
+													</c:if>
+													<c:if test="${sex == '女'}">
 														<option value="女" selected="selected"}>女</option>
+													</c:if>
+													<c:if test="${sex != '女'}">
+														<option value="女" }>女</option>
 													</c:if>
                                             </select>
                                         </div>

@@ -94,10 +94,9 @@ public class PersonAddAction extends Action {
 		} else {
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-			request.setAttribute("parentlist", afterList);
+			request.setAttribute("countrySelect", afterList);
 		}
 			
-		System.out.println("jump to add jsp");
 		return mapping.findForward("personaddForword");
 	}
 	
@@ -122,7 +121,7 @@ public class PersonAddAction extends Action {
 			request.setAttribute("person_remark", updateCc.getRemark());
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-			request.setAttribute("parentlist", afterList);
+			request.setAttribute("countrySelect", afterList);
 			request.setAttribute("person_id", personId);
 			
 		}
@@ -209,7 +208,7 @@ public class PersonAddAction extends Action {
 			request.setAttribute("person_remark", updateCc.getRemark());
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-			request.setAttribute("parentlist", afterList);
+			request.setAttribute("countrySelect", afterList);
 			request.setAttribute("person_id", personId);
 			
 		}
@@ -244,7 +243,7 @@ public class PersonAddAction extends Action {
 		}
 		
 		List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-		request.setAttribute("parentlist", afterList);
+		request.setAttribute("countrySelect", afterList);
 		
 		return mapping.findForward( "personaddForword" );
 	}

@@ -89,27 +89,31 @@ public class RecordAction extends ChengxinBaseAction {
 		searDc.setFetchMode("person", FetchMode.JOIN); 
 		searDc.createAlias("person", "person");  
 		
-		
-		if( recordForm.getCountry_id() == null )
+		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO );;
+		if( ( recordForm.getCountry_id() == null) || (recordForm.getCountry_id() == 0 ) )
 		{//根据登陆的用户名来确定
-			countryList = getVisiableCountryForShort( this.cmCountryDAO );
+			countryList = userSeenCountryList;
 		}
 		else
-		{//用户指定
-			countryList = new Short[1];
-			countryList[0] = recordForm.getCountry_id();
+		{//用户指定(村或帧)
+			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , recordForm.getCountry_id() );
 		}
+		//country
 		searDc.add(Restrictions.in("person.countryId", countryList ));
-		if( recordForm.getTruename() != null )
+		//name
+		if( ( recordForm.getTruename()) != null && (!recordForm.getTruename().isEmpty())  )
 		{
 			searDc.add(Restrictions.eq("person.truename", recordForm.getTruename()));  
 		}
-		if( recordForm.getSsid() != null )
+		//ssid
+		if( ( recordForm.getSsid()) != null && (!recordForm.getSsid().isEmpty()))
 		{
 			searDc.add(Restrictions.eq("person.ssid", recordForm.getSsid() )); 
 		}
 		
-		if( recordForm.getTarget_id() != null )
+		//target
+		if( recordForm.getTarget_id() != null && ( recordForm.getTarget_id() != 0 ) )
+			
 		{
 			searDc.add(Restrictions.eq("targetId", (int) (recordForm.getTarget_id() )));
 		}
@@ -118,7 +122,7 @@ public class RecordAction extends ChengxinBaseAction {
 	
 		
 		/* 将contry list 由ID 转换为 string */
-		String countryListStr = cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(countryList) , recordForm.getCountry_id() );
+		String countryListStr = cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() );
 		
 		List<CmTarget> targetList = cmTargetDAO.findAll(); 
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );

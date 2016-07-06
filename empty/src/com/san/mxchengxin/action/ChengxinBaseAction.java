@@ -1,6 +1,7 @@
 package com.san.mxchengxin.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import org.hibernate.criterion.Restrictions;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.level.CmLevel;
+import com.san.mxchengxin.objects.CountryMapObj;
 import com.san.share.pmi.dto.LoginUserInfo; 
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
@@ -154,6 +156,32 @@ public class ChengxinBaseAction extends Action {
 		for( int i = 0 ; i < countryList.size() ; i++ )
 		{
 			names[i] = new Short((countryList.get(i).getId()));
+		}
+		
+		return names;
+	}
+	
+	public Short[] getVisiableCountryForShortAsCountryId( CmCountryDAO cmCountryDAO , Short id )
+	{
+		Short[] names = null;
+		
+		Map<Short, CountryMapObj > countryMap = cmCountryDAO.packCountryMapAsLevel(  cmCountryDAO.findAll() );
+		
+		if( countryMap.get( id ) == null )
+		{
+			names = new Short[1];
+			names[0] = id;
+		}
+		else
+		{
+			names = new Short[countryMap.get( id ).sonList.size() + 1 ];
+			
+			names[0] = id;
+			int count = 1;
+			
+			 for (Short key : countryMap.get( id ).sonList.keySet() ) {
+				 names[count++] = key;
+			  }
 		}
 		
 		return names;

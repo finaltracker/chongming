@@ -65,7 +65,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 		remark = addF.getRemark();
 	}
 	
-	private void passDataToDb(CmPerson cp, String author) {
+	private void passDataToDb(CmPerson cp) {
 		cp.setTruename(trueName);
 		cp.setAddress(address);
 		cp.setBirthday(birthDay);
@@ -80,12 +80,6 @@ public class PersonAddAction extends ChengxinBaseAction {
 		cp.setWhcd(personWhcd);
 		cp.setZzmm(personZzmm);
 		
-		cp.setAuthor(author);
-		
-	
-		boolean isAdmin = isAllVisiable();
-		cp.setStat(isAdmin);
-		
 		//TODO: not use, there is no way to transfer ouid to part id
 		//cp.setPartId(userInfo.getOuid());
 
@@ -97,15 +91,19 @@ public class PersonAddAction extends ChengxinBaseAction {
 	
 	private void saveDataToDbPerson(String author) {
 		CmPerson cp = new CmPerson();
-		passDataToDb(cp, author);
+		passDataToDb(cp);
+		cp.setAuthor(author);
+		
+		boolean isAdmin = isAllVisiable();
+		cp.setStat(isAdmin);
 		cmPersonDAO.save(cp);
 	}
 	
-	private void updateDataToDbPerson(String author, Integer id) {
-		CmPerson cp = new CmPerson();
-		passDataToDb(cp, author);
-		cp.setId(id);
-		cmPersonDAO.update(cp);
+	private void updateDataToDbPerson(CmPerson oldPerson) {
+		passDataToDb(oldPerson);
+		boolean isAdmin = isAllVisiable();
+		oldPerson.setStat(isAdmin);
+		cmPersonDAO.update(oldPerson);
 	}
 	
 	private ActionForward add(ActionMapping mapping, ActionForm form,
@@ -172,9 +170,10 @@ public class PersonAddAction extends ChengxinBaseAction {
 				Integer xId = Integer.valueOf(request.getParameter("xid"));
 				System.out.println("[update item] : "+xId);
 				
-				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
+				CmPerson oldPerson = cmPersonDAO.findById(xId);
+				//LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 
-				updateDataToDbPerson(userInfo.getCn(), xId);
+				updateDataToDbPerson(oldPerson);
 			}
 		}
 		return mapping.findForward("personaddForword");

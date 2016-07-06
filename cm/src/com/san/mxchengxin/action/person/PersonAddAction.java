@@ -97,6 +97,7 @@ public class PersonAddAction extends Action {
 			request.setAttribute("parentlist", afterList);
 		}
 			
+		System.out.println("jump to add jsp");
 		return mapping.findForward("personaddForword");
 	}
 	

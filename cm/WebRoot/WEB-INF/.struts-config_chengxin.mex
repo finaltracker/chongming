@@ -30,10 +30,10 @@
   <StrutsActivity path="home/target" location="350,750" dimension="105,53" />
   <StrutsTransition id="/page/san/country/add.jsp,null,/home/country/add.do,2" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="465,1206" />
-      <AbsolutePoint location="465,1281" />
-      <AbsolutePoint location="1209,1281" />
-      <AbsolutePoint location="1209,1066" />
+      <AbsolutePoint location="465,1150" />
+      <AbsolutePoint location="465,1111" />
+      <AbsolutePoint location="1161,1111" />
+      <AbsolutePoint location="1161,1066" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/login.do,targetForword,/home/target.do,1" routingType="0">
@@ -44,8 +44,9 @@
   </StrutsTransition>
   <StrutsTransition id="/home/person/add.do,personinfoForword,/page/san/person/info.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="1479,408" />
-      <AbsolutePoint location="1363,1178" />
+      <AbsolutePoint location="1558,466" />
+      <AbsolutePoint location="1558,1178" />
+      <AbsolutePoint location="1476,1178" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/page/san/person/info.jsp,null,/home/person/info.do,2" routingType="0">
@@ -89,15 +90,18 @@
   </StrutsTransition>
   <StrutsTransition id="/page/san/person/info.jsp,null,/home/person/add.do,2" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="1363,1178" />
-      <AbsolutePoint location="1479,408" />
+      <AbsolutePoint location="1363,1150" />
+      <AbsolutePoint location="1363,1111" />
+      <AbsolutePoint location="1528,1111" />
+      <AbsolutePoint location="1528,466" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/home/country/add.do,ctyaddForword,/page/san/country/add.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="1179,1066" />
-      <AbsolutePoint location="1179,1178" />
-      <AbsolutePoint location="581,1178" />
+      <AbsolutePoint location="1191,1066" />
+      <AbsolutePoint location="1191,1371" />
+      <AbsolutePoint location="465,1371" />
+      <AbsolutePoint location="465,1206" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/home/person/add.do,personaddForword,/page/san/person/add.jsp,1" routingType="0">
@@ -108,9 +112,9 @@
   </StrutsTransition>
   <StrutsTransition id="/page/san/country/country.jsp,null,/home/country.do,2" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="124,1150" />
-      <AbsolutePoint location="124,972" />
-      <AbsolutePoint location="350,972" />
+      <AbsolutePoint location="184,1150" />
+      <AbsolutePoint location="184,1032" />
+      <AbsolutePoint location="350,1032" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/home/target.do,targetForword,/page/san/target.jsp,1" routingType="0">
@@ -129,8 +133,9 @@
   </StrutsTransition>
   <StrutsTransition id="/home/person.do,personForword,/page/san/person/person.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="1479,208" />
-      <AbsolutePoint location="774,1178" />
+      <AbsolutePoint location="1250,261" />
+      <AbsolutePoint location="865,261" />
+      <AbsolutePoint location="865,1150" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="personForword;6,null,/page/san/person/person.jsp,1" routingType="0">
@@ -166,8 +171,8 @@
   </StrutsTransition>
   <StrutsTransition id="countryForword;6,null,/page/san/country/country.jsp,1" routingType="0">
     <AutomaticBendpoints>
-      <AbsolutePoint location="125,893" />
-      <AbsolutePoint location="154,1176" />
+      <AbsolutePoint location="124,937" />
+      <AbsolutePoint location="124,1150" />
     </AutomaticBendpoints>
   </StrutsTransition>
   <StrutsTransition id="/login.jsp,null,/login.do,2" routingType="0">

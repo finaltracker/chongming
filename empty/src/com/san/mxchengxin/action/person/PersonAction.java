@@ -112,10 +112,7 @@ public class PersonAction extends ChengxinBaseAction {
 		personTrueName = personForm.getPerson_truename();
 		countryId = personForm.getCountry_id();
 		
-		if( countryId == null ) 
-		{
-			countryId = 0;
-		}
+
 		
 		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
 		
@@ -131,6 +128,14 @@ public class PersonAction extends ChengxinBaseAction {
 		if( personTrueName != null && ( !personTrueName.isEmpty() ))
 		{
 			searDc.add(Restrictions.like("truename", personTrueName,MatchMode.ANYWHERE).ignoreCase()); 
+		}
+		
+		if( countryId == null ) 
+		{
+			countryId = 0;
+		} else if( countryId != 0 ) 
+		{
+			searDc.add(Restrictions.eq("countryId", countryId.shortValue() )); 
 		}
 		
 		searDc.addOrder( Order.asc("id") );
@@ -182,6 +187,7 @@ public class PersonAction extends ChengxinBaseAction {
 		request.setAttribute("person_truename", personTrueName);
 		request.setAttribute("ssid", personSsid);
 		request.setAttribute("plist", cpdList);
+		request.setAttribute("isadmin", isAllVisiable());
 		
 		return mapping.findForward( "personForword" );
 	}

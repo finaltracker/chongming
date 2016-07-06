@@ -40,6 +40,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">性别</label>
                                         <div class="col-lg-7">
+											${sex}                                         
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -84,6 +85,7 @@
                                         <label class="col-lg-3 control-label">其它信息</label>
 
                                         <div class="col-lg-7">
+                                            ${person_remark}
                                         </div>
                                     </div>
                                   

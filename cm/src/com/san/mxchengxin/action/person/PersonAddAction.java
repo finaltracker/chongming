@@ -112,7 +112,7 @@ public class PersonAddAction extends Action {
 			
 			request.setAttribute("person_truename", updateCc.getTruename());
 			request.setAttribute("person_ssid", updateCc.getSsid());
-			//TODO: sex
+			request.setAttribute("sex", updateCc.getSex());
 			request.setAttribute("person_zzmm", updateCc.getZzmm());
 			request.setAttribute("person_whcd", updateCc.getWhcd());
 			request.setAttribute("country_id", updateCc.getCountryId());

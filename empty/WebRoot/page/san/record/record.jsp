@@ -88,8 +88,8 @@
 											<td>${item.score}</td>
 											<td>${item.author}</td>
 											<td>${item.part_name}</td>
-											<td>${item.pubdate|date="Y-m-d H:i:s",###}</td>
-											<td>${item.dateline|date="Y-m-d",###}</td>
+											<td>${item.pubdate}</td>
+											<td>${item.dateline}</td>
 											<td><if condition="$isadmin eq 1 or $item.stat eq 0">
 												<!-- <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>-->
 												<a

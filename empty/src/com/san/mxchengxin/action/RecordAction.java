@@ -3,6 +3,7 @@ package com.san.mxchengxin.action;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,8 @@ import com.san.mxchengxin.model.record.CmRecordDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.model.target.CmTargetEnhance;
+import com.san.mxchengxin.objects.RecordListObj;
+import com.san.mxchengxin.utils.util;
 
 
 public class RecordAction extends ChengxinBaseAction {
@@ -35,6 +38,7 @@ public class RecordAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmRecordDAO cmRecordDAO;
 	private CmTargetDAO cmTargetDAO;
+	private CmPartDAO 	cmPartDAO;	
 	
 	public CmCountryDAO geCmCountryDAO() {
 		return cmCountryDAO;
@@ -60,6 +64,15 @@ public class RecordAction extends ChengxinBaseAction {
 		this.cmTargetDAO = cmTargetDAO;
 	}
 	
+	
+	public CmPartDAO getCmPartDAO() {
+		return cmPartDAO;
+	}
+	
+	public void setCmPartDAO(CmPartDAO cmPartDAO) {
+		this.cmPartDAO = cmPartDAO;
+	}
+		
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
@@ -67,7 +80,7 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		RecordForm recordForm = (RecordForm) form;
 		
-		/*  */
+		/*  根据条件进行内容过滤，查询  */
 		Short[] countryList = null;
 		
 		
@@ -110,13 +123,72 @@ public class RecordAction extends ChengxinBaseAction {
 		List<CmTarget> targetList = cmTargetDAO.findAll(); 
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );
 		
+		List<RecordListObj> enhanceRecordList = recordToRecordListObj( list );
+		
 		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("targetSelect", targetSelectStr );
 		request.setAttribute("truename", recordForm.getTruename() );
 		request.setAttribute("ssid", recordForm.getSsid() );
+		request.setAttribute("list", enhanceRecordList );
 		
 		return mapping.findForward( "recordForword" );
 	}
 	
+	
+	List<RecordListObj> recordToRecordListObj( List<CmRecord>  list )
+	{
+		
+		Map< Short , CmCountry > countryMap = cmCountryDAO.listAsMap();
+		Map< Short , CmTarget > targetMap = cmTargetDAO.listAsMap();
+		Map< Short , CmPart > partMap = cmPartDAO.listAsMap();
+		
+		List<RecordListObj> rloList = new ArrayList<RecordListObj>();
+		
+		for( int i = 0 ; i < list.size() ; i++ )
+		{
+			CmRecord rlo = list.get(i);
+			
+			int    id = rlo.getId();
+			String truename = rlo.getPerson().getTruename();
+			String ssid = rlo.getPerson().getSsid();
+			String countryName = "";
+			if( countryMap.get( rlo.getPerson().getCountryId() ) != null )
+			{
+				countryName = countryMap.get( rlo.getPerson().getCountryId() ).getName() ;
+			}
+			
+			String target_name = "";
+			if( targetMap.get( rlo.getTargetId().shortValue() ) != null )
+			{
+				target_name = targetMap.get( rlo.getTargetId().shortValue() ).getTargetName() ;
+			}
+			Short score = rlo.getScore();
+			String author = rlo.getAuthor();
+			String part_name = "";
+			
+			if( partMap.get( rlo.getPartId().shortValue() ) != null )
+			{
+				part_name = partMap.get( rlo.getPartId().shortValue() ).getPartName();
+			}
+			
+			String pubdate = util.dateLongToString( rlo.getPubdate() ) ;
+			String dateline = util.dateLongToString( rlo.getDateline() ) ;
+			
+			rloList.add( new RecordListObj(
+					id ,
+					truename,
+					ssid,
+					countryName,
+					target_name,
+					score,
+					author,
+					part_name,
+					pubdate,
+					dateline
+					) );
+		}
+		
+		return rloList;
+	}
 	
 }

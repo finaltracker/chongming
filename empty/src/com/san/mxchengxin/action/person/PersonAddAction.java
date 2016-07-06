@@ -24,6 +24,17 @@ public class PersonAddAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO cmPersonDAO;
 	List<CmCountry> countryList;
+	String trueName;
+	String personSsid;
+	String sex;
+	String personZzmm;
+	String personWhcd;
+	Short countryId;
+	String phone;
+	String birthDay;
+	String address;
+	String remark;
+	
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
 	}
@@ -39,56 +50,76 @@ public class PersonAddAction extends ChengxinBaseAction {
 	public void setCmPersonDAO(CmPersonDAO cmPersonDAO) {
 		this.cmPersonDAO = cmPersonDAO;
 	}
+	
+	private void passFormToVar(ActionForm form) {
+		PersonAddForm addF = (PersonAddForm)form;
+		trueName = addF.getTruename();
+		personSsid = addF.getSsid();
+		sex = addF.getSex();
+		personZzmm = addF.getZzmm();
+		personWhcd = addF.getWhcd();
+		countryId = addF.getCountry_id();
+		phone = addF.getPhone();
+		birthDay = addF.getBirthday();
+		address = addF.getAddress();
+		remark = addF.getRemark();
+	}
+	
+	private void passDataToDb(CmPerson cp, String author) {
+		cp.setTruename(trueName);
+		cp.setAddress(address);
+		cp.setBirthday(birthDay);
+		cp.setCountryId(countryId);
+		cp.setPhone(phone);
+		cp.setRemark(remark);
+		//TODO:score
+		//cp.setScore(score);
+		cp.setSex(sex);
+		cp.setSsid(personSsid);
+
+		cp.setWhcd(personWhcd);
+		cp.setZzmm(personZzmm);
+		
+		cp.setAuthor(author);
+		
+	
+		boolean isAdmin = isAllVisiable();
+		cp.setStat(isAdmin);
+		
+		//TODO: not use, there is no way to transfer ouid to part id
+		//cp.setPartId(userInfo.getOuid());
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Date now = new Date();
+		System.out.println(df.format(now));// new Date()为获取当前系统时间
+		cp.setPubdate(now.getTime()/1000);
+	}
+	
+	private void saveDataToDbPerson(String author) {
+		CmPerson cp = new CmPerson();
+		passDataToDb(cp, author);
+		cmPersonDAO.save(cp);
+	}
+	
+	private void updateDataToDbPerson(String author, Integer id) {
+		CmPerson cp = new CmPerson();
+		passDataToDb(cp, author);
+		cp.setId(id);
+		cmPersonDAO.update(cp);
+	}
+	
 	private ActionForward add(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		PersonAddForm addF = (PersonAddForm)form;
-		String trueName = addF.getTruename();
-		String personSsid = addF.getSsid();
-		String sex = addF.getSex();
-		String personZzmm = addF.getZzmm();
-		String personWhcd = addF.getWhcd();
-		Short countryId = addF.getCountry_id();
-		String phone = addF.getPhone();
-		String birthDay = addF.getBirthday();
-		String address = addF.getAddress();
-		String remark = addF.getRemark();
+		passFormToVar(form);
 		
 		if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
 				&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
-			CmPerson cp = new CmPerson();
-			cp.setTruename(trueName);
-			cp.setAddress(address);
-			cp.setBirthday(birthDay);
-			cp.setCountryId(countryId);
-			cp.setPhone(phone);
-			cp.setRemark(remark);
-			//TODO:score
-			//cp.setScore(score);
-			cp.setSex(sex);
-			cp.setSsid(personSsid);
-	
-			cp.setWhcd(personWhcd);
-			cp.setZzmm(personZzmm);
-			
-		
-			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-			cp.setAuthor(userInfo.getCn());
-			
-		
-			boolean isAdmin = isAllVisiable();
-			cp.setStat(isAdmin);
-			
-			//TODO: not use, there is no way to transfer ouid to part id
-			//cp.setPartId(userInfo.getOuid());
 
+			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
+
+			saveDataToDbPerson(userInfo.getCn());
 			
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-			Date now = new Date();
-			System.out.println(df.format(now));// new Date()为获取当前系统时间
-			cp.setPubdate(now.getTime()/1000);
-			
-			cmPersonDAO.save(cp);
 		} else {
 			
 			List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
@@ -133,53 +164,17 @@ public class PersonAddAction extends ChengxinBaseAction {
 		}
 		
 		if(request.getParameter("xid")!=null &&!request.getParameter("xid").isEmpty()) {
-			PersonAddForm addF = (PersonAddForm)form;
-			String trueName = addF.getTruename();
-			String personSsid = addF.getSsid();
-			String sex = addF.getSex();
-			String personZzmm = addF.getZzmm();
-			String personWhcd = addF.getWhcd();
-			Short countryId = addF.getCountry_id();
-			String phone = addF.getPhone();
-			String birthDay = addF.getBirthday();
-			String address = addF.getAddress();
-			String remark = addF.getRemark();
+			passFormToVar(form);
 			
 			if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
 					&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
-				CmPerson cp = new CmPerson();
-				cp.setTruename(trueName);
-				cp.setAddress(address);
-				cp.setBirthday(birthDay);
-				cp.setCountryId(countryId);
-				cp.setPhone(phone);
-				cp.setRemark(remark);
-				//TODO:score
-				//cp.setScore(score);
-				cp.setSex(sex);
-				cp.setSsid(personSsid);
 
-				cp.setWhcd(personWhcd);
-				cp.setZzmm(personZzmm);
-
-				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-				Date now = new Date();
-				System.out.println(df.format(now));// new Date()为获取当前系统时间
-				cp.setPubdate(now.getTime()/1000);
 				Integer xId = Integer.valueOf(request.getParameter("xid"));
 				System.out.println("[update item] : "+xId);
-				cp.setId(xId);
+				
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-				cp.setAuthor(userInfo.getCn());
-				
-				
-				boolean isAdmin = isAllVisiable();
-				cp.setStat(isAdmin);
-				
-				//TODO: not use
-				//cp.setPartId(userInfo.getOuid());
 
-				cmPersonDAO.update(cp);
+				updateDataToDbPerson(userInfo.getCn(), xId);
 			}
 		}
 		return mapping.findForward("personaddForword");

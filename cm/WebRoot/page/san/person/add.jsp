@@ -171,7 +171,7 @@
                                     layer.closeAll();
                                     layer.load();
                                     $.ajax({
-                                        url:'${pageContext.request.contextPath}/home/person/save2',
+                                        url:'${pageContext.request.contextPath}/home/person/add.do',
                                         type:"post",
                                         cache:false,
                                         data:{id:data.id},
@@ -179,23 +179,23 @@
                                             layer.confirm('提交成功', {
                                                 btn: ['继续录入','返回列表'] //按钮
                                             }, function(){
-                                                window.location.href='${pageContext.request.contextPath}/home/person/add';
+                                                window.location.href='${pageContext.request.contextPath}/home/person/add.do';
                                             }, function(){
-                                                window.location.href='${pageContext.request.contextPath}/home/person';
+                                                window.location.href='${pageContext.request.contextPath}/home/person.do';
                                             });
                                         }
                                     })
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/edit?id='+data.id;
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do?id='+data.id;
                                     layer.closeAll();
                                 });
                             }else{
                                 layer.confirm('${pageInfo_actionTitle}成功', {
                                     btn: ['继续录入','返回列表'] //按钮
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/add';
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do';
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person';
+                                    window.location.href='${pageContext.request.contextPath}/home/person.do';
                                 });
                             }
                         }

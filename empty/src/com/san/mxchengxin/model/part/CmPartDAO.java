@@ -1,11 +1,16 @@
 package com.san.mxchengxin.model.part;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.san.mxchengxin.model.target.CmTarget;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -152,5 +157,19 @@ public class CmPartDAO extends HibernateDaoSupport {
 			throw re;
 		}
 		
+	}
+	
+	public Map< Short , CmPart > listAsMap()
+	{
+		Map< Short , CmPart > ret = new HashMap<Short , CmPart >();
+		
+		List<CmPart> all = findAll();
+		
+		for( int i = 0 ; i < all.size() ; i++ )
+		{
+			ret.put( all.get(i).getId(), all.get(i) );
+		}
+		
+		return ret;
 	}
 }

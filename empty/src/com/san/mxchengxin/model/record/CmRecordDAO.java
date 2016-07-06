@@ -1,7 +1,10 @@
 package com.san.mxchengxin.model.record;
 // default package
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
@@ -193,4 +196,5 @@ public class CmRecordDAO extends HibernateDaoSupport  {
 	public static CmRecordDAO getFromApplicationContext(ApplicationContext ctx) {
     	return (CmRecordDAO) ctx.getBean("CmRecordDAO");
 	}
+	
 }

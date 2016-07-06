@@ -1,16 +1,19 @@
 package com.san.mxchengxin.model.country;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
 import org.hibernate.LockMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.san.mxchengxin.model.part.CmPart;
+import com.san.mxchengxin.objects.CountryMapObj;
 /**
  * A data access object (DAO) providing persistence and search support for
  * CmCountry entities. Transaction control of the save(), update() and delete()
@@ -197,5 +200,141 @@ public class CmCountryDAO extends HibernateDaoSupport {
 
 	public static CmCountryDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (CmCountryDAO) ctx.getBean("CmCountryDAO");
+	}
+	
+	public Map< Short , CmCountry > listAsMap()
+	{
+		Map< Short , CmCountry > ret = new HashMap<Short , CmCountry >();
+		
+		List<CmCountry> all = findAll();
+		
+		for( int i = 0 ; i < all.size() ; i++ )
+		{
+			ret.put( all.get(i).getId(), all.get(i) );
+		}
+		
+		return ret;
+	}
+	
+
+	
+	
+	public Map<Short, CountryMapObj > packCountryMapAsLevelByIdList( Short[] countryList )
+	{
+		Map<Short, CountryMapObj> ret = new HashMap<Short, CountryMapObj>();
+		
+		for( int i = 0 ; i < countryList.length ; i++ )
+		{
+			CmCountry country = (CmCountry)findById(countryList[i] );
+			
+			if( country.getParentid() == 0 )
+			{ // 镇
+				ret.put( country.getId() , new CountryMapObj( country ) );
+			}
+		}
+		
+		for( int i = 0 ; i < countryList.length ; i++ )
+		{
+			CmCountry country = (CmCountry)findById(countryList[i] );
+			
+			if( country.getParentid() != 0 )
+			{ // 村
+				if( ret.get( country.getParentid() ) != null )
+				{
+					ret.get( country.getParentid() ).addSon(country);
+				}
+				else
+				{
+					ret.put( country.getId() , new CountryMapObj( country ) );
+				}
+				
+			}
+		}
+		
+		return ret;
+	}
+	
+	
+	public Map<Short, CountryMapObj > packCountryMapAsLevel( List list )
+	{
+		Map<Short, CountryMapObj> ret = new HashMap<Short, CountryMapObj>();
+		
+		for( int i = 0 ; i < list.size() ; i++ )
+		{
+			CmCountry country = (CmCountry)list.get(i);
+			
+			if( country.getParentid() == 0 )
+			{ // 镇
+				ret.put( country.getId() , new CountryMapObj( country ) );
+			}
+		}
+		
+		for( int i = 0 ; i < list.size() ; i++ )
+		{
+			CmCountry country = (CmCountry)list.get(i);
+			
+			if( country.getParentid() != 0 )
+			{ // 村
+				if( ret.get( country.getParentid() ) != null )
+				{
+					ret.get( country.getParentid() ).addSon(country);
+				}
+				else
+				{
+					ret.put( country.getId() , new CountryMapObj( country ) );
+				}
+				
+			}
+		}
+		
+		return ret;
+	}
+	
+	
+	public String formatToJspString( Map<Short, CountryMapObj > countryMap , Short selectId )
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		/*
+		 * <option value='12' selected>乡镇</option>
+		 * <option value='13' >村</option>
+		*/
+		
+		 for (Short key : countryMap.keySet()) 
+		 {
+			 String s;
+			 CountryMapObj cmo = countryMap.get( key );
+			 
+			 if( ( selectId != null ) && ( selectId == key ) )
+			 {
+				 s = String.format("<option value='%d' selected>├─%s</option>", key , cmo.country.getName() );
+			 }
+			 else
+			 {
+				 s = String.format("<option value='%d'>├─%s</option>", key , cmo.country.getName() );
+			 }
+			 sb.append(s);
+			 
+			 for (Short sonKey : cmo.sonList.keySet()) 
+			 {
+				 String ss;
+				 CmCountry cc = cmo.sonList.get( sonKey );
+				 
+				 if( ( selectId != null ) && ( selectId == sonKey ) )
+				 {
+					 ss = String.format("<option value='%d' selected>&nbsp;&nbsp;├─%s</option>", sonKey , cc.getName() );
+				 }
+				 else
+				 {
+					 ss = String.format("<option value='%d'>&nbsp;&nbsp;├─%s</option>", sonKey , cc.getName() );
+				 }
+				 sb.append(ss);
+				 
+				 
+			 }
+		 }
+		 
+
+		return sb.toString();
 	}
 }

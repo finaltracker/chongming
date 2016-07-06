@@ -50,7 +50,9 @@
 	</bean>
 	
 	<bean name="/home/record" class="com.san.mxchengxin.action.RecordAction">
-		
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmRecordDAO" ref="cmRecordDAO" />
+		<property name="cmTargetDAO" ref="cmTargetDAO" />
 	</bean>
 	
 	<bean id="sessionFactory"

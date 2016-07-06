@@ -1,5 +1,8 @@
 package com.san.mxchengxin.model.country;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * CmCountry entity. @author MyEclipse Persistence Tools
  */
@@ -22,5 +25,6 @@ public class CmCountry extends AbstractCmCountry implements
 			String contact, String phone, Long pubdate, String author) {
 		super(parentid, displayOrder, name, contact, phone, pubdate, author);
 	}
+
 
 }

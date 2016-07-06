@@ -10,11 +10,12 @@
             <column name="ID" precision="8" scale="0" />
             <generator class="identity"></generator>
         </id>
-        <property name="personId" type="java.lang.Integer">
-            <column name="PERSON_ID" precision="8" scale="0" not-null="true">
+        <many-to-one name="person" class="com.san.mxchengxin.model.country.CmPerson">
+        	<column name="PERSON_ID" precision="8" scale="0" not-null="true">
                 <comment>人员ID</comment>
             </column>
-        </property>
+        </many-to-one>
+        
         <property name="targetId" type="java.lang.Integer">
             <column name="TARGET_ID" precision="8" scale="0" not-null="true">
                 <comment>考评ID</comment>

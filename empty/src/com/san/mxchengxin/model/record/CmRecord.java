@@ -1,4 +1,6 @@
 package com.san.mxchengxin.model.record;
+
+import com.san.mxchengxin.model.country.CmPerson;
 // default package
 
 
@@ -13,7 +15,7 @@ public class CmRecord  implements java.io.Serializable {
     // Fields    
 
      private Integer id;
-     private Integer personId;
+     private CmPerson person;
      private Integer targetId;
      private Short score;
      private String author;
@@ -31,7 +33,7 @@ public class CmRecord  implements java.io.Serializable {
 
 	/** minimal constructor */
     public CmRecord(Integer personId, Integer targetId, Short score, String author, Long pubdate) {
-        this.personId = personId;
+       // this.personId = personId;
         this.targetId = targetId;
         this.score = score;
         this.author = author;
@@ -40,7 +42,7 @@ public class CmRecord  implements java.io.Serializable {
     
     /** full constructor */
     public CmRecord(Integer personId, Integer targetId, Short score, String author, Long pubdate, Boolean stat, Long dateline, Long partId) {
-        this.personId = personId;
+        //this.personId = personId;
         this.targetId = targetId;
         this.score = score;
         this.author = author;
@@ -61,12 +63,12 @@ public class CmRecord  implements java.io.Serializable {
         this.id = id;
     }
 
-    public Integer getPersonId() {
-        return this.personId;
+    public CmPerson getPerson() {
+        return this.person;
     }
     
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setPerson(CmPerson person) {
+        this.person = person;
     }
 
     public Integer getTargetId() {

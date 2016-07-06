@@ -141,4 +141,21 @@ public class ChengxinBaseAction extends Action {
 		return names;
 	}
 	
+	public Short[] getVisiableCountryForShort( CmCountryDAO cmCountryDAO )
+	{
+		
+		List<CmCountry> countryList = getVisiableCountry(cmCountryDAO);
+		if( countryList == null ) 
+		{
+			return null;
+		}
+		Short[] names = new Short[countryList.size()];
+		
+		for( int i = 0 ; i < countryList.size() ; i++ )
+		{
+			names[i] = new Short((countryList.get(i).getId()));
+		}
+		
+		return names;
+	}
 }

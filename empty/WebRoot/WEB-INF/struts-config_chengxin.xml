@@ -11,6 +11,7 @@
     <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
     <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
     <form-bean name="partAddForm" type="com.san.mxchengxin.form.part.PartAddForm" />
+    <form-bean name="recordForm" type="com.san.mxchengxin.form.record.RecordForm" />
   </form-beans>
 
   <global-exceptions />
@@ -116,6 +117,9 @@
     </action>	
     
     <action
+      attribute="recordForm"
+      input="/page/san/record/record.jsp"
+      name="recordForm"
       path="/home/record"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">

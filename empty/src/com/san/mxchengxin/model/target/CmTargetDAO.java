@@ -1,11 +1,17 @@
 package com.san.mxchengxin.model.target;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+
+import com.san.mxchengxin.model.country.CmCountry;
+import com.san.mxchengxin.objects.CountryMapObj;
 
 /**
  * A data access object (DAO) providing persistence and search support for
@@ -177,4 +183,48 @@ public class CmTargetDAO extends HibernateDaoSupport {
 	public static CmTargetDAO getFromApplicationContext(ApplicationContext ctx) {
 		return (CmTargetDAO) ctx.getBean("CmTargetDAO");
 	}
+	
+	public Map< Short , CmTarget > listAsMap()
+	{
+		Map< Short , CmTarget > ret = new HashMap<Short , CmTarget >();
+		
+		List<CmTarget> all = findAll();
+		
+		for( int i = 0 ; i < all.size() ; i++ )
+		{
+			ret.put( all.get(i).getId(), all.get(i) );
+		}
+		
+		return ret;
+	}
+	
+	public String formatToJspString( List<CmTarget> all, Short selectId )
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		/*
+		 * option value='12'  target_score='100'>义务献血</option>
+		*/
+		
+		 for ( int i = 0 ; i < all.size() ; i++ ) 
+		 {
+			 String s;
+			 CmTarget ct = all.get(i);
+			 
+			 if( ( selectId != null ) && ( selectId == ct.getId() ) )
+			 {
+				 s = String.format("<option value='%d'  target_score='%d' selected >%s</option>", ct.getId() , ct.getTargetScore() , ct.getTargetName() );
+			 }
+			 else
+			 {
+				 s = String.format("<option value='%d'  target_score='%d' >%s</option>", ct.getId() , ct.getTargetScore() , ct.getTargetName() );
+			 }
+			 sb.append(s);
+			 
+		 }
+		 
+
+		return sb.toString();
+	}
+	
 }

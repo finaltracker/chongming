@@ -119,8 +119,7 @@ public class PersonAction extends ChengxinBaseAction {
 		
 		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
 		
-		//countryList = getVisiableCountry(cmCountryDAO);
-		countryList = cmCountryDAO.findAll();
+		countryList = getVisiableCountry(cmCountryDAO);
 		
 		DetachedCriteria searDc =	DetachedCriteria.forClass( CmPerson.class);
 		

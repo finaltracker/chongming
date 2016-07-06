@@ -7,11 +7,11 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.san.mxchengxin.action.ChengxinBaseAction;
 import com.san.mxchengxin.form.person.PersonAddForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
@@ -20,7 +20,7 @@ import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
-public class PersonAddAction extends Action {
+public class PersonAddAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO cmPersonDAO;
 	List<CmCountry> countryList;
@@ -75,14 +75,13 @@ public class PersonAddAction extends Action {
 			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 			cp.setAuthor(userInfo.getCn());
 			
-			/*
-			boolean isAdmin = Utils.isAdmin(userInfo.getOuname());
+		
+			boolean isAdmin = isAllVisiable();
 			cp.setStat(isAdmin);
 			
-			cp.setPartId(userInfo.getOuid());
-			*/
-			//TODO: for test
-			cp.setStat(true);
+			//TODO: not use, there is no way to transfer ouid to part id
+			//cp.setPartId(userInfo.getOuid());
+
 			
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			Date now = new Date();
@@ -92,8 +91,12 @@ public class PersonAddAction extends Action {
 			cmPersonDAO.save(cp);
 		} else {
 			
-			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-			request.setAttribute("countrySelect", afterList);
+			List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
+			Short parentId = 0;
+			Short selectedCountryId = 0;
+			String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+			System.out.println("country select: "+countrySelect);
+			request.setAttribute("countrySelect", countrySelect);
 		}
 			
 		return mapping.findForward("personaddForword");
@@ -119,8 +122,12 @@ public class PersonAddAction extends Action {
 			request.setAttribute("person_address", updateCc.getAddress());
 			request.setAttribute("person_remark", updateCc.getRemark());
 			
-			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-			request.setAttribute("countrySelect", afterList);
+			List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
+			Short parentId = 0;
+			Short selectedCountryId = Short.valueOf(updateCc.getCountryId());
+			String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+			System.out.println("country select: "+countrySelect);
+			request.setAttribute("countrySelect", countrySelect);
 			request.setAttribute("person_id", personId);
 			
 		}
@@ -165,14 +172,13 @@ public class PersonAddAction extends Action {
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 				cp.setAuthor(userInfo.getCn());
 				
-				/*
-				boolean isAdmin = Utils.isAdmin(userInfo.getOuname());
+				
+				boolean isAdmin = isAllVisiable();
 				cp.setStat(isAdmin);
 				
-				cp.setPartId(userInfo.getOuid());
-				*/
-				//TODO: for test
-				cp.setStat(true);
+				//TODO: not use
+				//cp.setPartId(userInfo.getOuid());
+
 				cmPersonDAO.update(cp);
 			}
 		}
@@ -190,7 +196,7 @@ public class PersonAddAction extends Action {
 			
 			request.setAttribute("person_truename", updateCc.getTruename());
 			request.setAttribute("person_ssid", updateCc.getSsid());
-			//TODO: sex
+			
 			request.setAttribute("sex", updateCc.getSex());
 			request.setAttribute("person_zzmm", updateCc.getZzmm());
 			request.setAttribute("person_whcd", updateCc.getWhcd());
@@ -206,8 +212,6 @@ public class PersonAddAction extends Action {
 			request.setAttribute("person_address", updateCc.getAddress());
 			request.setAttribute("person_remark", updateCc.getRemark());
 			
-			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-			request.setAttribute("countrySelect", afterList);
 			request.setAttribute("person_id", personId);
 			
 		}
@@ -217,6 +221,8 @@ public class PersonAddAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));
@@ -241,9 +247,46 @@ public class PersonAddAction extends Action {
 			}
 		}
 		
-		List<CmCountry> afterList = cmCountryDAO.queryParentZero();
-		request.setAttribute("countrySelect", afterList);
+		List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
+		Short parentId = 0;
+		Short selectedCountryId = 0;
+		String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+		System.out.println("country select: "+countrySelect);
+		request.setAttribute("countrySelect", countrySelect);
 		
 		return mapping.findForward( "personaddForword" );
+	}
+	
+	private String getCountrySelect(List<CmCountry> list, Short selectedId, Short parentId, int level) {
+		if(list.size() == 1)
+		{
+			CmCountry cc = (CmCountry)list.get(0);
+			String isSelected = "";
+			if(cc.getId().shortValue() == selectedId) {
+				isSelected = " selected";
+			}
+			
+			return String.format("<option value='%d'%s>%s</option>", cc.getId(),isSelected,"├─"+cc.getName());
+		}
+		
+		String select = "";
+		for(int i=0;i<list.size();i++) {
+			CmCountry cc = (CmCountry)list.get(i);
+			if(cc.getParentid() != parentId.shortValue()) continue;
+			
+			String empty="";
+			for(int x=1;x<level;x++)
+				empty +="&nbsp;&nbsp;";
+			
+			String isSelected = "";
+			if(cc.getId().shortValue() == selectedId) {
+				isSelected = " selected";
+			}
+			
+			select += String.format("<option value='%d'%s>%s</option>", cc.getId(),isSelected,empty+"├─"+cc.getName());
+			select += getCountrySelect(list, selectedId,cc.getId(),level+1);
+		}
+		
+		return select;
 	}
 }

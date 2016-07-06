@@ -60,7 +60,7 @@ public class ChengxinBaseAction extends Action {
 		return ret ;
 	}
 	
-	private boolean isAllVisiable()
+	public boolean isAllVisiable()
 	{
 		for( int i = 0 ; i < specifyPartmentList.length ; i++ )
 		{

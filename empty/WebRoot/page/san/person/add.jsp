@@ -189,7 +189,7 @@
                                         }
                                     })
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}&id='+data.id;
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do?method=3&id='+data.id;
                                     layer.closeAll();
                                 });
                             }else{

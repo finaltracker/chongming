@@ -116,6 +116,8 @@ public class PersonAddAction extends ChengxinBaseAction {
 				System.out.println("[save and update] id : "+ personId);
 				
 				CmPerson updateCc = cmPersonDAO.findById(personId);
+				updateCc.setStat(true);
+				cmPersonDAO.update(updateCc);
 			}
 		} else {
 		
@@ -135,11 +137,14 @@ public class PersonAddAction extends ChengxinBaseAction {
 				Short parentId = 0;
 				Short selectedCountryId = 0;
 				String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
-				System.out.println("country select: "+countrySelect);
+				
 				request.setAttribute("countrySelect", countrySelect);
 				
 				//for ajax
 				request.setAttribute("person_stat", false);
+				Integer xid = cmPersonDAO.getMaxId();
+				System.out.println("save xid: "+xid);
+				request.setAttribute("person_id", xid+1);
 			}
 		}
 			

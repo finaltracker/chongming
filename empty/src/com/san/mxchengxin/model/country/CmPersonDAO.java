@@ -4,6 +4,9 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -74,6 +77,12 @@ public class CmPersonDAO extends HibernateDaoSupport {
 		}
 	}
 
+	public Integer getMaxId() {
+		DetachedCriteria maxId = DetachedCriteria.forClass(CmPerson.class).setProjection(Projections.max("id"));
+		List<CmPerson> results = getSession().createCriteria(CmPerson.class).add(Property.forName("id").eq(maxId)).list();
+		return results.get(0).getId();
+	}
+	
 	public CmPerson findById(java.lang.Integer id) {
 		log.debug("getting CmPerson instance with id: " + id);
 		try {

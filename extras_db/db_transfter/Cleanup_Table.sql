@@ -114,10 +114,10 @@ begin
     
     V_NUM := 0;  
     
-    select count(0) into V_NUM from user_sequences where sequence_name = 'SEQ_CM_TARGE'; 
+    select count(0) into V_NUM from user_sequences where sequence_name = 'SEQ_CM_TARGET'; 
     
     if V_NUM > 0 then   
-		execute immediate 'DROP SEQUENCE  SEQ_CM_TARGE'; 
+		execute immediate 'DROP SEQUENCE  SEQ_CM_TARGET'; 
 		commit;
     end if;
     

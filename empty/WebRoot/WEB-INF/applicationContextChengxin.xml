@@ -58,12 +58,17 @@
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
 	
+	<bean name="/home/log" class="com.san.mxchengxin.action.LogAction">
+		<property name="cmLogDAO" ref="cmLogDAO" />
+	</bean>
+	
 	<bean name="/home/record" class="com.san.mxchengxin.action.RecordAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
 	</bean>
+	
 	
 	<bean name="/home/record/add" class="com.san.mxchengxin.action.RecordAddAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
@@ -84,6 +89,7 @@
 				<value>com/san/mxchengxin/model/record/CmRecord.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmCountry.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmPerson.hbm.xml</value>
+				<value>com/san/mxchengxin/model/log/CmLog.hbm.xml</value>
 
 			</list>
 		</property>
@@ -205,6 +211,13 @@
 	</bean>	
 	<bean id="cmPersonDAO"
 		class="com.san.mxchengxin.model.country.CmPersonDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+
+	<bean id="cmLogDAO"
+		class="com.san.mxchengxin.model.log.CmLogDAO">
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>

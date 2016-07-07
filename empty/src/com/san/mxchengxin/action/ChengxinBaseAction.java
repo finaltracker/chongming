@@ -3,6 +3,7 @@ package com.san.mxchengxin.action;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,10 +13,14 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.level.CmLevel;
+import com.san.mxchengxin.model.level.CmLevelDAO;
+import com.san.mxchengxin.model.log.CmLogDAO;
 import com.san.mxchengxin.objects.CountryMapObj;
 import com.san.share.pmi.dto.LoginUserInfo; 
 import com.san.share.pmi.service.LoginUserInfoDelegate;
@@ -27,6 +32,8 @@ public class ChengxinBaseAction extends Action {
 	protected String ouName ;
 	protected String sn ;
 	
+	CmLogDAO cmLogDAO = null; 
+	
 	private String[] specifyPartmentList = {
 	"系统管理部",
 	"崇明县"	
@@ -35,6 +42,8 @@ public class ChengxinBaseAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		//Object o = getBean("com.san.mxchengxin.model.log.CmLogDAO");
 		
 				pickOutUserInfo( request);
 				
@@ -186,4 +195,16 @@ public class ChengxinBaseAction extends Action {
 		
 		return names;
 	}
+	
+	/**
+     * Convenience method to get Spring-initialized beans
+     *
+     * @param name
+     * @return Object bean from ApplicationContext
+     */
+    public Object getBean(String name) {
+        ApplicationContext ctx = 
+            WebApplicationContextUtils.getRequiredWebApplicationContext(servlet.getServletContext());
+        return ctx.getBean(name);
+    }
 }

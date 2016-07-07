@@ -138,8 +138,8 @@
       path="/home/record/add"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
-
-      <forward name="recordAddForword" path="/page/san/record/add.jsp" />
+     
+      <forward  name="recordAddForword" path="/page/san/record/add.jsp" />
     </action>	
     
 	<action
@@ -161,6 +161,13 @@
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="personaddForword" path="/page/san/person/add.jsp" />
       <forward name="personinfoForword" path="/page/san/person/info.jsp" />
+    </action>    
+    
+    <action
+      path="/home/log"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="logForword" path="/page/san/log/log.jsp" />
     </action>    
     
   </action-mappings>

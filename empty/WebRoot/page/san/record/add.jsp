@@ -89,7 +89,7 @@
         $("#ssid").select2({
             ajax: {
                 placeholder: "输入身份证或名字查询",
-                url: "/${pageContext.request.contextPath}/person/ajaxList",
+                url: "${pageContext.request.contextPath}/home/record/add.do?opt=ajaxList",
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
@@ -122,9 +122,11 @@
             templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
         }).on("change", function () {
             //console.log($(this).val())
-            $("#person-info").load("/home/record/person/infoAjax?id=" + $(this).val()).closest(".form-group").show();
+            $("#person-info").load("${pageContext.request.contextPath}/home/record/add.do/?opt=infoAjax id=" + $(this).val()).closest(".form-group").show();
         });
 
+       
+        
         $("#target-id").on("change", function () {
             var ss = $(this).find("option:selected").attr("target_score");
             if (!ss) {
@@ -132,8 +134,7 @@
             }
             $("#target-score").val(ss);
         })
-
-
+        
         $('.bv-form').bootstrapValidator({
             submitHandler: function (validator, form, submitButton) {
                 $form=$(form);

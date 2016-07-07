@@ -22,7 +22,7 @@
                         <div class="widget-body">
                             <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}" class="form-horizontal bv-form">
                                 <fieldset>
-                                    <legend>人员${pageInfo_actionTitle}</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="xid" value="${person_id}"/>
+                                    <legend>人员${pageInfo_actionTitle}</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" id="xid" name="xid" value="${person_id}"/><input type="hidden" id="stat" name="stat" value="${person_stat}"/>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">姓名</label>
@@ -161,17 +161,20 @@
                     $.ajax({
                         url:$form.attr("action"),
                         type:$form.attr("method"),
-         
+						//dataType: 'json',
                         data:$form.serialize(),
                         success:function(data){
-                            if(data.stat==0){
+							data = {stat:$("#stat").val(),id:$("#xid").val()};
+                            if(data.stat=="false"){
                                 layer.confirm('${pageInfo_actionTitle}成功 是否继续提交', {
                                     btn: ['提交','返回修改'] //按钮
                                 }, function(){
                                     layer.closeAll();
                                     layer.load();
+									data = {stat:$("#stat").val(),id:$("#xid").val()};
                                     $.ajax({
-                                        url:'${pageContext.request.contextPath}/home/person/save2',
+                                        url:'${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}&save=2&xid='+data.id,
+                                        //url:'${pageContext.request.contextPath}/home/person/add',
                                         type:"post",
                                         cache:false,
                                         data:{id:data.id},
@@ -179,23 +182,23 @@
                                             layer.confirm('提交成功', {
                                                 btn: ['继续录入','返回列表'] //按钮
                                             }, function(){
-                                                window.location.href='${pageContext.request.contextPath}/home/person/add';
+                                                window.location.href='${pageContext.request.contextPath}/home/person/add.do';
                                             }, function(){
-                                                window.location.href='${pageContext.request.contextPath}/home/person';
+                                                window.location.href='${pageContext.request.contextPath}/home/person.do';
                                             });
                                         }
                                     })
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/edit?id='+data.id;
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}&id='+data.id;
                                     layer.closeAll();
                                 });
                             }else{
                                 layer.confirm('${pageInfo_actionTitle}成功', {
                                     btn: ['继续录入','返回列表'] //按钮
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/add';
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do';
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person';
+                                    window.location.href='${pageContext.request.contextPath}/home/person.do';
                                 });
                             }
                         }

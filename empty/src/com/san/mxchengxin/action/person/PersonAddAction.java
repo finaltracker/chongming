@@ -89,14 +89,15 @@ public class PersonAddAction extends ChengxinBaseAction {
 		cp.setPubdate(now.getTime()/1000);
 	}
 	
-	private void saveDataToDbPerson(String author) {
+	private Integer saveDataToDbPerson(String author) {
 		CmPerson cp = new CmPerson();
 		passDataToDb(cp);
 		cp.setAuthor(author);
-		
+
 		boolean isAdmin = isAllVisiable();
 		cp.setStat(isAdmin);
 		cmPersonDAO.save(cp);
+		return cp.getId();
 	}
 	
 	private void updateDataToDbPerson(CmPerson oldPerson) {
@@ -108,24 +109,38 @@ public class PersonAddAction extends ChengxinBaseAction {
 	
 	private ActionForward add(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-		
-		passFormToVar(form);
-		
-		if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
-				&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
-
-			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-
-			saveDataToDbPerson(userInfo.getCn());
-			
+		if(request.getParameter("save")!=null &&!request.getParameter("save").isEmpty()) {
+			System.out.println("save save3333");
+			if(request.getParameter("id")!=null &&!request.getParameter("id").isEmpty()) {
+				Integer personId = Integer.valueOf(request.getParameter("id"));
+				System.out.println("[save and update] id : "+ personId);
+				
+				CmPerson updateCc = cmPersonDAO.findById(personId);
+			}
 		} else {
+		
+			passFormToVar(form);
 			
-			List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
-			Short parentId = 0;
-			Short selectedCountryId = 0;
-			String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
-			System.out.println("country select: "+countrySelect);
-			request.setAttribute("countrySelect", countrySelect);
+			if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
+					&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
+	
+				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
+	
+				saveDataToDbPerson(userInfo.getCn());
+				
+				
+			} else {
+				
+				List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
+				Short parentId = 0;
+				Short selectedCountryId = 0;
+				String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+				System.out.println("country select: "+countrySelect);
+				request.setAttribute("countrySelect", countrySelect);
+				
+				//for ajax
+				request.setAttribute("person_stat", false);
+			}
 		}
 			
 		return mapping.findForward("personaddForword");
@@ -165,20 +180,27 @@ public class PersonAddAction extends ChengxinBaseAction {
 		}
 		
 		if(request.getParameter("xid")!=null &&!request.getParameter("xid").isEmpty()) {
-			passFormToVar(form);
 			
-			if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
-					&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
-
-				Integer xId = Integer.valueOf(request.getParameter("xid"));
-				System.out.println("[update item] : "+xId);
+			Integer xId = Integer.valueOf(request.getParameter("xid"));
+			System.out.println("[update item] : "+xId);
+			CmPerson oldPerson = cmPersonDAO.findById(xId);
+			
+			if(request.getParameter("save")!=null &&!request.getParameter("save").isEmpty()) {
+				oldPerson.setStat(true);
+				cmPersonDAO.update(oldPerson);
+			} else {
+				passFormToVar(form);
 				
-				CmPerson oldPerson = cmPersonDAO.findById(xId);
-				//LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-
-				updateDataToDbPerson(oldPerson);
+				if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
+						&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
+	
+					//LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
+	
+					updateDataToDbPerson(oldPerson);
+				}
 			}
 		}
+
 		return mapping.findForward("personaddForword");
 	}
 	

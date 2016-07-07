@@ -110,7 +110,9 @@ public class CountryAction extends ChengxinBaseAction {
 			
 			if(canDelete) {
 				System.out.println("we can delete ");
-				cmCountryDAO.delete(cmCountryDAO.findById(countryId));
+				CmCountry cmc = cmCountryDAO.findById(countryId);
+				saveMessageToLog("删除村镇: " + cmc.getName() , request );
+				cmCountryDAO.delete( cmc );
 			} else {
 				request.setAttribute("tipMessage", tipMessage);
 			}

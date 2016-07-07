@@ -53,7 +53,9 @@ public class TargetAction extends ChengxinBaseAction {
 		if(request.getParameter("id") != null) {
 			Short targetId = Short.valueOf(request.getParameter("id"));
 			System.out.println("[delete] id : "+targetId);
-			cmTargetDAO.delete(cmTargetDAO.findById(targetId));
+			CmTarget ct = cmTargetDAO.findById(targetId);
+			saveMessageToLog("删除指标: " + ct.getTargetName()  , request );
+			cmTargetDAO.delete(ct);
 
 		}
 		

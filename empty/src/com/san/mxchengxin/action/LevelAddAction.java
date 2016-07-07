@@ -69,6 +69,8 @@ public class LevelAddAction extends ChengxinBaseAction {
 			Date now = new Date();
 			System.out.println(df.format(now));// new Date()为获取当前系统时间
 			cl.setPubdate(now.getTime()/1000);
+			
+			saveMessageToLog("增加等级: " + cl.getLevelName() , request );
 			cmLevelDAO.save( cl );
 			
 			
@@ -129,6 +131,7 @@ public class LevelAddAction extends ChengxinBaseAction {
 				Date now = new Date();
 				System.out.println(df.format(now));// new Date()为获取当前系统时间
 				cl.setPubdate(now.getTime()/1000);
+				saveMessageToLog("更新等级: " + cl.getLevelName() , request );
 				cmLevelDAO.update( cl );
 				
 				

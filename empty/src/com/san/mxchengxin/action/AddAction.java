@@ -74,6 +74,8 @@ public class AddAction extends ChengxinBaseAction {
 			System.out.println(df.format(now));// new Date()为获取当前系统时间
 			ct.setPubdate(now.getTime()/1000);
 			
+			saveMessageToLog("增加指标: " + ct.getTargetName()  , request );
+			
 			cmTargetDAO.save(ct);
 		} else {
 			List<CmPart> partList = cmPartDAO.findAll();
@@ -154,6 +156,8 @@ public class AddAction extends ChengxinBaseAction {
 				System.out.println("[update item] : "+xId);
 				ct.setId(xId);
 				ct.setAuthor(cmTargetDAO.findById(xId).getAuthor());
+				
+				saveMessageToLog("编辑指标: " + ct.getTargetName()  , request );
 				cmTargetDAO.update(ct);
 			}
 		}

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -208,7 +207,7 @@ public class ChengxinBaseAction extends Action {
 		return names;
 	}
 	
-	void saveMessageToLog( String message ,HttpServletRequest request )
+	public void saveMessageToLog( String message ,HttpServletRequest request )
 	{
 		CmLog cl = new CmLog();
 		
@@ -221,6 +220,8 @@ public class ChengxinBaseAction extends Action {
 		cl.setPubdate( now.getTime()/1000 );
 		cl.setIp( request.getRemoteAddr() );
 		cl.setAuthor( cn );
+		
+		cmLogDAO.save( cl );
 		
 	}
 }

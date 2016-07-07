@@ -43,7 +43,11 @@ public class LevelAction extends ChengxinBaseAction {
 			//删除操作
 			Short levelId = Short.valueOf(request.getParameter("id"));
 			System.out.println("[delete] id : "+levelId);
-			cmLevelDAO.delete(cmLevelDAO.findById(levelId));
+			
+			CmLevel cl = cmLevelDAO.findById(levelId);
+			saveMessageToLog("删除等级: " + cl.getLevelName() , request );
+			
+			cmLevelDAO.delete(cl);
 
 		}
 		

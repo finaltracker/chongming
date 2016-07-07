@@ -57,6 +57,7 @@ public class CtyAddAction extends ChengxinBaseAction {
 			System.out.println(df.format(now));// new Date()为获取当前系统时间
 			ct.setPubdate(now.getTime()/1000);
 			
+			saveMessageToLog("增加 村镇: " + ct.getName() , request );
 			cmCountryDAO.save(ct);
 		} else {
 			
@@ -113,6 +114,9 @@ public class CtyAddAction extends ChengxinBaseAction {
 				ct.setId(xId);
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 				ct.setAuthor(userInfo.getCn());
+				
+				saveMessageToLog("编辑村镇: " + ct.getName() , request );
+				
 				cmCountryDAO.update(ct);
 			}
 		}

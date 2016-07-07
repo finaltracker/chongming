@@ -63,6 +63,7 @@ public class PartAddAction extends ChengxinBaseAction {
 			CmPart cp = new CmPart();
 			cp.setPartName( part_name );
 			
+			saveMessageToLog("增加部门: " + cp.getPartName() , request );
 			cmPartDAO.save( cp );
 			
 			
@@ -111,6 +112,8 @@ public class PartAddAction extends ChengxinBaseAction {
 
 				Short xId = Short.valueOf(request.getParameter("xid"));
 				cp.setId( xId );
+				
+				saveMessageToLog("编辑部门: " + cp.getPartName() , request );
 				
 				cmPartDAO.update( cp );
 				

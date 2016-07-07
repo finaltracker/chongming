@@ -89,13 +89,14 @@ public class PersonAddAction extends ChengxinBaseAction {
 		cp.setPubdate(now.getTime()/1000);
 	}
 	
-	private Integer saveDataToDbPerson(String author) {
+	private Integer saveDataToDbPerson(String author , HttpServletRequest request  ) {
 		CmPerson cp = new CmPerson();
 		passDataToDb(cp);
 		cp.setAuthor(author);
 
 		boolean isAdmin = isAllVisiable();
 		cp.setStat(isAdmin);
+		saveMessageToLog("新增人员: " + cp.getTruename() , request );
 		cmPersonDAO.save(cp);
 		return cp.getId();
 	}
@@ -117,6 +118,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 				
 				CmPerson updateCc = cmPersonDAO.findById(personId);
 				updateCc.setStat(true);
+				saveMessageToLog("提交人员: " + updateCc.getTruename() , request );
 				cmPersonDAO.update(updateCc);
 			}
 		} else {
@@ -128,7 +130,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 	
 				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 	
-				saveDataToDbPerson(userInfo.getCn());
+				saveDataToDbPerson(userInfo.getCn() ,request );
 				
 				
 			} else {
@@ -196,6 +198,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 			
 			if(request.getParameter("save")!=null &&!request.getParameter("save").isEmpty()) {
 				oldPerson.setStat(true);
+				saveMessageToLog("提交人员: " + oldPerson.getTruename() , request );
 				cmPersonDAO.update(oldPerson);
 			} else {
 				passFormToVar(form);

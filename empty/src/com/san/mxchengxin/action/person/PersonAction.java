@@ -96,7 +96,11 @@ public class PersonAction extends ChengxinBaseAction {
 		if(request.getParameter("id") != null) {
 			Integer personId = Integer.valueOf(request.getParameter("id"));
 			System.out.println("[person delete] id : "+personId);
-			cmPersonDAO.delete(cmPersonDAO.findById(personId));
+			
+			CmPerson cp = cmPersonDAO.findById(personId);
+			saveMessageToLog("删除人员: " + cp.getTruename() , request );
+			
+			cmPersonDAO.delete( cp );
 		}
 		
 
@@ -229,6 +233,8 @@ public class PersonAction extends ChengxinBaseAction {
         HSSFCellStyle style = wb.createCellStyle();    
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
     
+        saveMessageToLog("导出人员列表" , request );
+        
         for (short i = 0; i < excelHeader.length; i++) {    
             HSSFCell cell = row.createCell(i);  
             cell.setEncoding(HSSFCell.ENCODING_UTF_16);

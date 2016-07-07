@@ -36,7 +36,12 @@ public class PartAction extends ChengxinBaseAction {
 			//删除操作
 			Short partId = Short.valueOf(request.getParameter("id"));
 			System.out.println("[delete] id : "+partId);
-			cmPartDAO.delete(cmPartDAO.findById(partId));
+			
+			CmPart cp = cmPartDAO.findById(partId);
+			
+			saveMessageToLog("删除部门: " + cp.getPartName() , request );
+			
+			cmPartDAO.delete( cp );
 
 		}
 		

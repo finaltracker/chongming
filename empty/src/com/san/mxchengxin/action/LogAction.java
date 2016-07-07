@@ -15,18 +15,9 @@ import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.log.CmLogDAO;
 import com.san.mxchengxin.model.log.CmLogEnhance;
 
-public class LogAction extends Action  {
+public class LogAction extends ChengxinBaseAction  {
 
-	public CmLogDAO cmLogDAO;
 	
-	public CmLogDAO getCmLogDAO() {
-		return cmLogDAO;
-	}
-
-	public void setCmLogDAO(CmLogDAO cmLogDAO) {
-		this.cmLogDAO = cmLogDAO;
-	}
-
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		

@@ -25,7 +25,7 @@ import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.model.target.CmTargetEnhance;
 
 
-public class TargetAction extends Action {
+public class TargetAction extends ChengxinBaseAction {
 	private CmTargetDAO cmTargetDAO;
 	private CmPartDAO cmPartDAO;
 	
@@ -48,6 +48,7 @@ public class TargetAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("id") != null) {
 			Short targetId = Short.valueOf(request.getParameter("id"));

@@ -1,5 +1,7 @@
 package com.san.mxchengxin.action;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
+import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.log.CmLogDAO;
 import com.san.mxchengxin.objects.CountryMapObj;
 import com.san.share.pmi.dto.LoginUserInfo; 
@@ -32,7 +35,7 @@ public class ChengxinBaseAction extends Action {
 	protected String ouName ;
 	protected String sn ;
 	
-	CmLogDAO cmLogDAO = null; 
+	public CmLogDAO cmLogDAO = null; 
 	
 	private String[] specifyPartmentList = {
 	"系统管理部",
@@ -40,16 +43,25 @@ public class ChengxinBaseAction extends Action {
 	};
 	
 	
+	public CmLogDAO getCmLogDAO() {
+		return cmLogDAO;
+	}
+
+	public void setCmLogDAO(CmLogDAO cmLogDAO) {
+		this.cmLogDAO = cmLogDAO;
+	}
+
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		//Object o = getBean("com.san.mxchengxin.model.log.CmLogDAO");
+		//Object o = getBean("com.san.mxchengxin.action.LogAction");
 		
 				pickOutUserInfo( request);
 				
 				return null;
-		
-		
+	
+				
 	}
 	
 	public boolean pickOutUserInfo( HttpServletRequest request )
@@ -196,15 +208,19 @@ public class ChengxinBaseAction extends Action {
 		return names;
 	}
 	
-	/**
-     * Convenience method to get Spring-initialized beans
-     *
-     * @param name
-     * @return Object bean from ApplicationContext
-     */
-    public Object getBean(String name) {
-        ApplicationContext ctx = 
-            WebApplicationContextUtils.getRequiredWebApplicationContext(servlet.getServletContext());
-        return ctx.getBean(name);
-    }
+	void saveMessageToLog( String message ,HttpServletRequest request )
+	{
+		CmLog cl = new CmLog();
+		
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Date now = new Date();
+		System.out.println(df.format(now));// new Date()为获取当前系统时间
+		
+		cl.setInfo( message );
+		cl.setPubdate( now.getTime()/1000 );
+		cl.setIp( request.getRemoteAddr() );
+		cl.setAuthor( cn );
+		
+	}
 }

@@ -21,7 +21,7 @@ import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
-public class PartAddAction extends Action {
+public class PartAddAction extends ChengxinBaseAction {
 
 	private  String pageInfo_action ;
 	private String  part_name;
@@ -125,6 +125,8 @@ public class PartAddAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));

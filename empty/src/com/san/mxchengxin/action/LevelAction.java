@@ -23,7 +23,7 @@ import com.san.mxchengxin.model.level.CmLevelEnhance;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.model.target.CmTargetEnhance;
 
-public class LevelAction extends Action {
+public class LevelAction extends ChengxinBaseAction {
 	private CmLevelDAO cmLevelDAO;
 
 	
@@ -37,7 +37,8 @@ public class LevelAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-
+		super.execute(mapping, form, request, response);
+		
 		if(request.getParameter("id") != null) {
 			//删除操作
 			Short levelId = Short.valueOf(request.getParameter("id"));

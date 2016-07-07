@@ -13,13 +13,14 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import com.san.mxchengxin.action.ChengxinBaseAction;
 import com.san.mxchengxin.form.country.CtyAddForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
-public class CtyAddAction extends Action {
+public class CtyAddAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	List<CmCountry> countryList;
 	public CmCountryDAO getCmCountryDAO() {
@@ -120,6 +121,7 @@ public class CtyAddAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));

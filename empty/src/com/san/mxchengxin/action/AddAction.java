@@ -21,7 +21,7 @@ import com.san.mxchengxin.utils.Constants;
 import com.san.share.pmi.dto.LoginUserInfo; 
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
-public class AddAction extends Action {
+public class AddAction extends ChengxinBaseAction {
 	private CmTargetDAO cmTargetDAO;
 	private CmPartDAO cmPartDAO;
 	public CmTargetDAO geCmTargetDAO() {
@@ -162,6 +162,7 @@ public class AddAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));

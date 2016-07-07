@@ -18,7 +18,7 @@ import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
-public class LevelAddAction extends Action {
+public class LevelAddAction extends ChengxinBaseAction {
 	private CmLevelDAO cmLevelDAO;
 	private  String pageInfo_action ;
 	private  String pageInfo_actionTitle;
@@ -142,6 +142,8 @@ public class LevelAddAction extends Action {
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));

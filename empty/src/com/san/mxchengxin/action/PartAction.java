@@ -16,7 +16,7 @@ import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
 
 
-public class PartAction extends Action {
+public class PartAction extends ChengxinBaseAction {
 	private CmPartDAO cmPartDAO;
 
 	public CmPartDAO geCmPartDAO() {
@@ -30,6 +30,7 @@ public class PartAction extends Action {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("id") != null) {
 			//删除操作

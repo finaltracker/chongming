@@ -9,53 +9,64 @@
 	<bean name="/home/target" class="com.san.mxchengxin.action.TargetAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/target/add" class="com.san.mxchengxin.action.AddAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	<bean name="/home/country" class="com.san.mxchengxin.action.country.CountryAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/level" class="com.san.mxchengxin.action.LevelAction">
 		<property name="cmLevelDAO" ref="cmLevelDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 
 	</bean>
 	
 	<bean name="/home/level/add" class="com.san.mxchengxin.action.LevelAddAction">
 		<property name="cmLevelDAO" ref="cmLevelDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/report" class="com.san.mxchengxin.action.ReportAction">
 		<property name="cmLevelDAO" ref="cmLevelDAO" />
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmCountryDAO" ref="cmCountryDAO"/>
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/country/add" class="com.san.mxchengxin.action.country.CtyAddAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/person" class="com.san.mxchengxin.action.person.PersonAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	<bean name="/home/person/add" class="com.san.mxchengxin.action.person.PersonAddAction">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />	
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>	
 	
 	<import resource="applicationContext-resources.xml"/>
 	
 	<bean name="/home/part" class="com.san.mxchengxin.action.PartAction">
 		<property name="cmPartDAO" ref="cmPartDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/part/add" class="com.san.mxchengxin.action.PartAddAction">
 		<property name="cmPartDAO" ref="cmPartDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean name="/home/log" class="com.san.mxchengxin.action.LogAction">
@@ -67,11 +78,13 @@
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	
 	<bean name="/home/record/add" class="com.san.mxchengxin.action.RecordAddAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
+		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
 	<bean id="sessionFactory"

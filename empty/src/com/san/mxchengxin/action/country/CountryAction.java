@@ -15,6 +15,7 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
+import com.san.mxchengxin.action.ChengxinBaseAction;
 import com.san.mxchengxin.form.country.CountryForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryAd;
@@ -22,7 +23,7 @@ import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
 
-public class CountryAction extends Action {
+public class CountryAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO	cmPersonDAO;
 	List<CmCountry> countryList;
@@ -77,6 +78,8 @@ public class CountryAction extends Action {
 	}
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
+		
+		super.execute(mapping, form, request, response);
 		
 		if(request.getParameter("id") != null) {
 			Short countryId = Short.valueOf(request.getParameter("id"));

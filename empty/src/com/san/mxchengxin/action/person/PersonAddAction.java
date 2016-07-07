@@ -134,11 +134,13 @@ public class PersonAddAction extends ChengxinBaseAction {
 			} else {
 				
 				List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
-				Short parentId = 0;
-				Short selectedCountryId = 0;
-				String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
-				
-				request.setAttribute("countrySelect", countrySelect);
+				if(afterList != null) {
+					Short parentId = 0;
+					Short selectedCountryId = 0;
+					String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+					
+					request.setAttribute("countrySelect", countrySelect);
+				}
 				
 				//for ajax
 				request.setAttribute("person_stat", false);
@@ -172,11 +174,13 @@ public class PersonAddAction extends ChengxinBaseAction {
 			request.setAttribute("person_remark", updateCc.getRemark());
 			
 			List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
-			Short parentId = 0;
-			Short selectedCountryId = Short.valueOf(updateCc.getCountryId());
-			String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
-			System.out.println("country select: "+countrySelect);
-			request.setAttribute("countrySelect", countrySelect);
+			if (afterList != null) {
+				Short parentId = 0;
+				Short selectedCountryId = Short.valueOf(updateCc.getCountryId());
+				String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+				System.out.println("country select: "+countrySelect);
+				request.setAttribute("countrySelect", countrySelect);
+			}
 			request.setAttribute("person_id", personId);
 			
 			//for ajax
@@ -272,12 +276,13 @@ public class PersonAddAction extends ChengxinBaseAction {
 		}
 		
 		List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
-		Short parentId = 0;
-		Short selectedCountryId = 0;
-		String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
-		System.out.println("country select: "+countrySelect);
-		request.setAttribute("countrySelect", countrySelect);
-		
+		if(afterList != null) {
+			Short parentId = 0;
+			Short selectedCountryId = 0;
+			String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
+			System.out.println("country select: "+countrySelect);
+			request.setAttribute("countrySelect", countrySelect);
+		}
 		return mapping.findForward( "personaddForword" );
 	}
 	

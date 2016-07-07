@@ -132,61 +132,88 @@ public class PersonAction extends ChengxinBaseAction {
 		
 		if( countryId == null ) 
 		{
-			countryId = 0;
+			//当前管理员所属的镇村，及其下级村
+			Short[] countryIds = new Short[countryList.size()];
+			if(countryList != null) {
+				for(int i = 0; i<countryList.size();i++) {
+					CmCountry cc = countryList.get(i);
+					countryIds[i] = cc.getId();
+					System.out.println("country id :"+countryIds[i]);
+				}
+				searDc.add(Restrictions.in("countryId", countryIds));
+			} 
+			if(isAllVisiable())
+				countryId = 0;
+			else {
+				Short min = countryIds[0];
+				for(int i=0;i<countryIds.length;i++)
+				{
+				System.out.print(i+" : "+ countryIds[i]+" ");
+				if(countryIds[i]<min)   // 判断最小值
+					min=countryIds[i];
+				}
+				countryId = min;
+			}
+			
 		} else if( countryId != 0 ) 
 		{
 			searDc.add(Restrictions.eq("countryId", countryId.shortValue() )); 
 		}
 		
 		searDc.addOrder( Order.asc("id") );
-		
-		List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
-		
-		List<CmPersonAd> cpdList = new ArrayList<CmPersonAd>();
-		//for pagination
-		int noOfRecords = targetList.size();
-		int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
-		int startPos = (page-1)*recordsPerPage;
-		int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
-		for(int i=startPos;i<endPos;i++) {
-			CmPerson target = (CmPerson)targetList.get(i);
-			CmPersonAd cpa = new CmPersonAd(target);
-			if (cmCountryDAO.findById(target.getCountryId()) != null) {
-				String countryName = cmCountryDAO.findById(target.getCountryId()).getName();
-				cpa.setCountryName(countryName);
-			} else {
-				cpa.setCountryName("");
-			}
+		if(countryList != null) {
+			List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
 			
-			cpdList.add(cpa);
-		}
-		
-		//export excel
-		if(request.getParameter("opt") != null) {
-			int opt = Integer.valueOf(request.getParameter("opt"));
-			if(opt==21) {
-				try {
-					dumpToExcel(request, response, cpdList);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			List<CmPersonAd> cpdList = new ArrayList<CmPersonAd>();
+			//for pagination
+			int noOfRecords = targetList.size();
+			int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
+			int startPos = (page-1)*recordsPerPage;
+			int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
+			for(int i=startPos;i<endPos;i++) {
+				CmPerson target = (CmPerson)targetList.get(i);
+				CmPersonAd cpa = new CmPersonAd(target);
+				if (cmCountryDAO.findById(target.getCountryId()) != null) {
+					String countryName = cmCountryDAO.findById(target.getCountryId()).getName();
+					cpa.setCountryName(countryName);
+				} else {
+					cpa.setCountryName("");
 				}
-				return null;
+				
+				cpdList.add(cpa);
+			}
+	
+		
+			//export excel
+			if(request.getParameter("opt") != null) {
+				int opt = Integer.valueOf(request.getParameter("opt"));
+				if(opt==21) {
+					try {
+						dumpToExcel(request, response, cpdList);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return null;
+				}
+				
 			}
 			
+			request.setAttribute("noOfPages", noOfPages);
+			request.setAttribute("currentPage", page);
+			request.setAttribute("noOfRecords", noOfRecords);
+			request.setAttribute("plist", cpdList);
 		}
 		
-		request.setAttribute("noOfPages", noOfPages);
-		request.setAttribute("currentPage", page);
-		request.setAttribute("noOfRecords", noOfRecords);
-
-		Short parentId = 0;
-		String countrySelect = getCountrySelect(countryId.shortValue(),parentId,1);
-		System.out.println("country select result: "+countrySelect);
-		request.setAttribute("countrySelect", countrySelect);
+		if(countryList != null) {
+			Short parentId = 0;
+			String countrySelect = getCountrySelect(countryId.shortValue(),parentId,1);
+			System.out.println("country select result: "+countrySelect);
+			request.setAttribute("countrySelect", countrySelect);
+		}
 		request.setAttribute("person_truename", personTrueName);
 		request.setAttribute("ssid", personSsid);
-		request.setAttribute("plist", cpdList);
+		
 		request.setAttribute("isadmin", isAllVisiable());
 		
 		return mapping.findForward( "personForword" );

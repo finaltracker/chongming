@@ -19,7 +19,7 @@ public class LogAction extends ChengxinBaseAction  {
 
 	//for pagination
 	int page = 1;
-	int recordsPerPage = 15;
+	int recordsPerPage = 25;
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		

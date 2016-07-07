@@ -126,7 +126,7 @@ public class PersonAction extends ChengxinBaseAction {
 		
 		if( personSsid != null && ( !personSsid.isEmpty() )) 
 		{
-			searDc.add(Restrictions.eq("ssid", personSsid )); 
+			searDc.add(Restrictions.like("ssid", personSsid, MatchMode.ANYWHERE )); 
 		}
 		
 		if( personTrueName != null && ( !personTrueName.isEmpty() ))

@@ -106,7 +106,7 @@ public class CmLogDAO extends HibernateDaoSupport  {
 	public List findAll() {
 		log.debug("finding all CmLog instances");
 		try {
-			String queryString = "from CmLog";
+			String queryString = "from CmLog cmlog order by pubdate desc";
 		 	return getHibernateTemplate().find(queryString);
 		} catch (RuntimeException re) {
 			log.error("find all failed", re);

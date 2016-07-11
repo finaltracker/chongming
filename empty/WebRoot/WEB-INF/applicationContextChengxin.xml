@@ -87,6 +87,12 @@
 		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
+	<bean name="/home/statistics" class="com.san.mxchengxin.action.Statistics/StatisticsAction">
+		<property name="cmCountryDAO" ref="cmCountryDAO" />
+		<property name="cmRecordDAO" ref="cmRecordDAO" />
+		<property name="cmLevelDAO" ref="cmLevelDAO" />
+	</bean>	
+		
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource">

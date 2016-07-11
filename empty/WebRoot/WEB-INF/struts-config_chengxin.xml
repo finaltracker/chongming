@@ -15,6 +15,7 @@
 	<form-bean name="recordAddForm" type="com.san.mxchengxin.form.record.RecordAddForm" />
     <form-bean name="personForm" type="com.san.mxchengxin.form.person.PersonForm" />
     <form-bean name="personAddForm" type="com.san.mxchengxin.form.person.PersonAddForm" />
+    <form-bean name="statisticsForm" type="com.san.mxchengxin.form.statistics.StatisticsForm" />
   </form-beans>
 
   <global-exceptions />
@@ -168,7 +169,17 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
       <forward name="logForword" path="/page/san/log/log.jsp" />
-    </action>    
+    </action> 
+    
+    <action
+	  attribute="statisticsForm"
+      input="/page/san/statistics/index.jsp"
+      name="statisticsForm"
+      path="/home/statistics"
+      scope="request"
+      type="org.springframework.web.struts.DelegatingActionProxy">
+      <forward name="statisticsForword" path="/page/san/statistics/index.jsp" />
+    </action>        
     
   </action-mappings>
 

@@ -65,10 +65,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                                                <c:set var="index" value="0" />
+								<c:set var="index" value="0" />
                                 <c:forEach var="targetEnhance" items="${plist}">
-                               
-                                  <c:set var="index" value="${index+1}" />
+								<c:set var="index" value="${index+1}" />
                                   <tr>
                                         <td>${index}</td>
                                         <td>${targetEnhance.truename}</td>

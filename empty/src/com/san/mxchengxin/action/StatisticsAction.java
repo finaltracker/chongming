@@ -1,4 +1,4 @@
-package com.san.mxchengxin.action.Statistics;
+package com.san.mxchengxin.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,7 +7,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.san.mxchengxin.action.ChengxinBaseAction;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.mxchengxin.model.record.CmRecordDAO;

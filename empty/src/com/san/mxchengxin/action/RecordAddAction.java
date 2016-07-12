@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +30,8 @@ import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
+import com.san.mxchengxin.model.record.CmRecord;
+import com.san.mxchengxin.model.record.CmRecordDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.objects.PersonSimpleObj;
@@ -37,9 +42,22 @@ public class RecordAddAction extends ChengxinBaseAction {
 	CmTargetDAO	cmTargetDAO;
 	CmPersonDAO cmPersonDAO;
 	CmCountryDAO	cmCountryDAO;
+	CmRecordDAO		cmRecordDAO;
+	
+
+	String pageInfo_action = "增加";
+	String pageInfo_actionTitle = "录入"; 
 	
 	final int pageSize = 30;
 	
+
+	public CmRecordDAO getCmRecordDAO() {
+		return cmRecordDAO;
+	}
+
+	public void setCmRecordDAO(CmRecordDAO cmRecordDAO) {
+		this.cmRecordDAO = cmRecordDAO;
+	}
 
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
@@ -72,8 +90,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 		super.execute(mapping, form, request, response);
 		
 		
-		String pageInfo_action = "录入";
-		String pageInfo_actionTitle = "录入"; 
+
 		
 		List<CmTarget> targetList = cmTargetDAO.findAll(); 
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , (short)(-1) );
@@ -91,6 +108,10 @@ public class RecordAddAction extends ChengxinBaseAction {
 			else if( opt.equals("infoAjax") )
 			{
 				return infoAjaxReq( request , mapping );
+			}
+			else if( opt.equals("save"))
+			{
+				return saveReq( request ,response );
 			}
 			
 			
@@ -152,7 +173,8 @@ public class RecordAddAction extends ChengxinBaseAction {
 			Session s = cmPersonDAO.getSessionFactory().openSession();
 			Criteria searDc =  s.createCriteria( CmPerson.class );
 			
-			if( util.isNumeric(q) )
+			//if( util.isNumeric(q) )
+			if( true )
 			{
 				searDc.add( Restrictions.like("ssid", q, MatchMode.START )  );
 				searDc.addOrder( Order.asc("ssid") );
@@ -222,6 +244,64 @@ public class RecordAddAction extends ChengxinBaseAction {
 			
 		}
 		
+		
+		return null;
+	}
+	
+	//save
+	public ActionForward saveReq( HttpServletRequest request , HttpServletResponse response )
+	{
+		String action = request.getParameter("action");
+		String score = request.getParameter("score");
+		String target_id = request.getParameter("target_id");
+		String person_id = request.getParameter("person_id");
+		String part_id = ouId;
+		
+		long  day = cmTargetDAO.findById( Short.valueOf(target_id ) ).getDateline();
+		long dateLine = day * 24 * 60 * 60 + day;
+		
+		if( action.equals( pageInfo_action ))
+		{
+			String author = cn;
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+			Date now = new Date();
+			long pubdate = now.getTime()/1000;
+			
+			
+			CmRecord cr = new CmRecord( cmPersonDAO.findById( Integer.valueOf( person_id )),
+										Integer.valueOf( target_id ),
+										Short.valueOf( score ),
+										author,
+										pubdate,
+										false,
+										dateLine,
+										Long.valueOf( part_id ) //????
+										) ;
+			cmRecordDAO.save( cr );
+			
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/javascript");
+			Map jasonOut = new HashMap();
+			jasonOut.put("stat", false);
+			jasonOut.put("id", cr.getId() );
+			
+			JSONArray jsonObject = JSONArray.fromObject( jasonOut );//装换json
+			response.setContentType("text/html;charset=UTF-8"); 
+			response.setHeader("Cache-Control", "no-cache"); 
+			PrintWriter out;
+			try {
+				out = response.getWriter();
+		
+				out.write(jsonObject.toString()); 
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
 		
 		return null;
 	}

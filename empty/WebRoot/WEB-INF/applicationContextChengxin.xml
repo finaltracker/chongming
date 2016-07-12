@@ -86,6 +86,8 @@
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmLogDAO" ref="cmLogDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />
+		<property name="cmCountryDAO" ref="cmCountryDAO"/>
+		<property name="cmRecordDAO" ref="cmRecordDAO" />
 	</bean>
 	
 	<bean name="/home/statistics" class="com.san.mxchengxin.action.StatisticsAction">

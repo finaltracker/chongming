@@ -41,8 +41,8 @@ public class CmRecord  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public CmRecord(Integer personId, Integer targetId, Short score, String author, Long pubdate, Boolean stat, Long dateline, Long partId) {
-        //this.personId = personId;
+    public CmRecord(CmPerson person, Integer targetId, Short score, String author, Long pubdate, Boolean stat, Long dateline, Long partId) {
+        this.person = person;
         this.targetId = targetId;
         this.score = score;
         this.author = author;

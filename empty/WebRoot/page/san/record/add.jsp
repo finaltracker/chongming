@@ -18,7 +18,7 @@
                     <div class="widget widget-info">
 
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/record/save.do" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/record/add.do?opt=save" class="form-horizontal bv-form">
                                 <fieldset>
                                     <legend>考核对象${pageInfo_action}</legend>
                                     <input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="id" value="${record.id}"/>
@@ -149,7 +149,7 @@
                                 btn: ['提交', '返回'] //按钮
                             }, function () {
                                 $.ajax({
-                                    url: '/${pageContext.request.contextPath}/home/record/save2',
+                                    url: '${pageContext.request.contextPath}/home/record/save2',
                                     type: "get",
                                     cache: false,
                                     data: {id: data.id},

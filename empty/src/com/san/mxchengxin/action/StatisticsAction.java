@@ -259,9 +259,9 @@ public class StatisticsAction extends ChengxinBaseAction {
 			System.out.println("country select result: "+countrySelect);
 			request.setAttribute("countrySelect", countrySelect);
 		}
-		request.setAttribute("person_truename", searchMap_truename);
+		request.setAttribute("truename", searchMap_truename);
 		request.setAttribute("ssid", searchMap_ssid);
-		
+		request.setAttribute("level_id", levelId);
 		
 		return mapping.findForward( "statisticsForword" );
 		

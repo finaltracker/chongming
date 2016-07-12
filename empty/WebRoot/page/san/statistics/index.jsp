@@ -36,8 +36,8 @@
                                     <option value="">请选择</option>
                                     ${levelSelect}
                                 </select>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics">搜索</button>
-                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics">查看所有</button>
+                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">搜索</button>
+                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics.do">查看所有</button>
                             </div>
 
                         </form>

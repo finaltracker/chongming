@@ -85,6 +85,7 @@
 	<bean name="/home/record/add" class="com.san.mxchengxin.action.RecordAddAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmLogDAO" ref="cmLogDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />
 	</bean>
 	
 	<bean name="/home/statistics" class="com.san.mxchengxin.action.StatisticsAction">

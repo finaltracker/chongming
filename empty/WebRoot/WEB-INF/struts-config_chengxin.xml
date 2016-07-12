@@ -141,6 +141,7 @@
       type="org.springframework.web.struts.DelegatingActionProxy">
      
       <forward  name="recordAddForword" path="/page/san/record/add.jsp" />
+      <forward  name="infoAjaxForword" path="/page/san/record/infoAjax.jsp" />
     </action>	
     
 	<action

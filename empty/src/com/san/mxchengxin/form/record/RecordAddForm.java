@@ -25,15 +25,7 @@ public class RecordAddForm extends ActionForm {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/** person id : ssid */
-	private String person_id;
-
-	/** target_id */
-	private String target_id;
-
-	/** score */
-	private String score;
-
+	
 	/*
 	 * Generated Methods
 	 */
@@ -59,29 +51,6 @@ public class RecordAddForm extends ActionForm {
 		// TODO Auto-generated method stub
 	}
 
-	public String getPerson_id() {
-		return person_id;
-	}
-
-	public void setPerson_id(String person_id) {
-		this.person_id = person_id;
-	}
-
-	public String getTarget_id() {
-		return target_id;
-	}
-
-	public void setTarget_id(String target_id) {
-		this.target_id = target_id;
-	}
-
-	public String getScore() {
-		return score;
-	}
-
-	public void setScore(String score) {
-		this.score = score;
-	}
 	
 	
 }

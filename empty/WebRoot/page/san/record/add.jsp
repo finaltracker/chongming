@@ -24,7 +24,7 @@
                                     <input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" name="id" value="${record.id}"/>
 
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">身份证号</label>
+                                        <label class="col-lg-3 control-label">姓名/身份证号</label>
 
                                         <div class="col-lg-7">
                                             <select type="text" class="form-control" id="ssid" name="person_id" value="${record.person_id}" required></select>
@@ -78,7 +78,7 @@
     <script>
         function formatRepo(repo) {
             if (repo.loading) return repo.text;
-            var markup = "<div class='select2-result-repository clearfix'><b>" + repo.truename + "</b> " + "<i>身份证:" + repo.ssid + " " + repo.countryName + "</i> </div>";
+            var markup = "<div class='select2-result-repository clearfix'><b>" + repo.truename + "</b> " + "<i>身份证:  " + repo.ssid + " " + repo.countryName + "</i> </div>";
             return markup;
         }
 
@@ -94,7 +94,7 @@
                 delay: 250,
                 data: function (params) {
                     return {
-                        q: params.term, // search term
+                        q: encodeURI( params.term), // search term
                         page: params.page
                     };
                 },
@@ -122,7 +122,7 @@
             templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
         }).on("change", function () {
             //console.log($(this).val())
-            $("#person-info").load("${pageContext.request.contextPath}/home/record/add.do/?opt=infoAjax id=" + $(this).val()).closest(".form-group").show();
+            $("#person-info").load("${pageContext.request.contextPath}/home/record/add.do?opt=infoAjax&id=" + $(this).val()).closest(".form-group").show();
         });
 
        
@@ -157,9 +157,9 @@
                                         layer.confirm('提交成功', {
                                             btn: ['继续录入', '返回列表'] //按钮
                                         }, function () {
-                                            window.location.href = '/${pageContext.request.contextPath}/home/record/add';
+                                            window.location.href = '${pageContext.request.contextPath}/home/record/add.do';
                                         }, function () {
-                                            window.location.href = '${pageContext.request.contextPath}/home/record/';
+                                            window.location.href = '${pageContext.request.contextPath}/home/record.do';
                                         });
                                     }
                                 })
@@ -171,9 +171,9 @@
                             layer.confirm('{$pageInfo_actionTitle}成功', {
                                 btn: ['继续录入', '返回列表'] //按钮
                             }, function () {
-                                window.location.href = '/${pageContext.request.contextPath}/home/record//add';
+                                window.location.href = '/${pageContext.request.contextPath}/home/record/add.do';
                             }, function () {
-                                window.location.href = '/${pageContext.request.contextPath}/home/record/';
+                                window.location.href = '/${pageContext.request.contextPath}/home/record.do';
                             });
                         }
                         return false;

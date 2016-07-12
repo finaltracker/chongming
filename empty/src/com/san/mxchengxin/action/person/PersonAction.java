@@ -116,6 +116,13 @@ public class PersonAction extends ChengxinBaseAction {
 		personTrueName = personForm.getPerson_truename();
 		countryId = personForm.getCountry_id();
 		
+		if(request.getParameter("ssid") != null) {
+			String ssid = request.getParameter("ssid");
+			System.out.println("ssid : "+ssid);
+			
+			personSsid = ssid;
+		}
+		
 
 		
 		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
@@ -216,7 +223,7 @@ public class PersonAction extends ChengxinBaseAction {
 			request.setAttribute("countrySelect", countrySelect);
 		}
 		request.setAttribute("person_truename", personTrueName);
-		request.setAttribute("ssid", personSsid);
+		request.setAttribute("person_ssid", personSsid);
 		
 		request.setAttribute("isadmin", isAllVisiable());
 		

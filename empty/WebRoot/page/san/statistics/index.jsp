@@ -73,9 +73,9 @@
                                         <td>${targetEnhance.truename}</td>
                                         <td>${targetEnhance.ssid}</td>
                                         <td>${targetEnhance.score}</td>
-										<td>${targetEnhance.level}</td>
+										<td>${targetEnhance.levelName}</td>
       
-                                       <td><a href="/{$Think.MODULE_NAME}/Record?ssid={$item.ssid}">查看详情</a></td>                      
+                                       <td><a href="${pageContext.request.contextPath}/home/person.do?ssid=${targetEnhance.ssid}">查看详情</a></td>                      
                                   
                                   </tr>
                                 </c:forEach>	
@@ -85,7 +85,7 @@
 						<span class="pull-right" style="margin-top:20px">共 ${noOfRecords} 条记录</span>
 						<ul class="pagination">
 							<c:if test="${currentPage != 1}">
-								<li><a href="${pageContext.request.contextPath}/home/person.do?page=${currentPage - 1}" class="prev"><<</a></li>
+								<li><a href="${pageContext.request.contextPath}/home/statistics.do?page=${currentPage - 1}" class="prev"><<</a></li>
 							</c:if>
 
 							<c:forEach begin="1" end="${noOfPages}" var="i">
@@ -94,7 +94,7 @@
 										<li class="active"><span class="current">${i}</span></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath}/home/person.do?page=${i}" class="num">${i}</a></li>
+										<li><a href="${pageContext.request.contextPath}/home/statistics.do?page=${i}" class="num">${i}</a></li>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

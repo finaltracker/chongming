@@ -5,7 +5,7 @@ import com.san.mxchengxin.utils.util;
 public class CmPersonAd extends CmPerson {
 	String stringPubData;
 	String countryName;
-	
+	String levelName;
 	
 	public CmPersonAd(CmPerson in) {
 		this.setAuthor(in.getAuthor());
@@ -41,6 +41,14 @@ public class CmPersonAd extends CmPerson {
 	
 	public void setCountryName(String v) {
 		this.countryName = v;
+	}
+	
+	public String getLevelName() {
+		return levelName;
+	}
+	
+	public void setLevelName(String v) {
+		this.levelName = v;
 	}
 
 }

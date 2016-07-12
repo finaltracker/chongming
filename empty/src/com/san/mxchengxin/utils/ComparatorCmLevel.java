@@ -11,6 +11,8 @@ import com.san.mxchengxin.model.level.CmLevel;
  * @author tmac
  */
 public class ComparatorCmLevel implements Comparator<CmLevel>{
+	
+	private boolean asc = false;
 
 	/**
 	 * lhs.compareTo(rhs);
@@ -22,12 +24,28 @@ public class ComparatorCmLevel implements Comparator<CmLevel>{
 		// TODO Auto-generated method stub
 		int m1 = Integer.valueOf(lhs.getLevelScore());
 		int m2 = Integer.valueOf(rhs.getLevelScore());
-		if(m1 > m2){
-			return -1;
-		}else if(m1 < m2){
-			return 1;
+		if(!asc) {
+			if(m1 > m2){
+				return -1;
+			}else if(m1 < m2){
+				return 1;
+			}
+		} else {
+			if(m1 > m2){
+				return 1;
+			}else if(m1 < m2){
+				return -1;
+			}
 		}
 		return 0;
+	}
+	
+	public ComparatorCmLevel() {
+		
+	}
+	
+	public ComparatorCmLevel(boolean isAsc) {
+		asc = isAsc;
 	}
 
 }

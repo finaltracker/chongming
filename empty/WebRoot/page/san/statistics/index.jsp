@@ -19,13 +19,13 @@
                 <div class="widget">
 
                     <div class="widget-body">
-                        <form action="" method="get" class="form-inline">
-                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics/export">导出</button>
+                        <form action="" method="post" class="form-inline">
+                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do?opt=21">导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 姓名 </label>
-                                <input type="text" class="form-control" name="truename"  value="${searchMap_truename}"/>
+                                <input type="text" class="form-control input-sm" name="truename"  value="${searchMap_truename}"/>
                                 <label class="control-label"> 身份证号 </label>
-                                <input type="text" class="form-control" name="ssid"  value="${searchMap_ssid}"/>
+                                <input type="text" class="form-control input-sm" name="ssid"  value="${searchMap_ssid}"/>
                                 <label class="control-label"> 所属乡镇 </label>
                                 <select class="select2 form-control" name="country_id">
                                     <option value="">请选择</option>
@@ -100,7 +100,7 @@
 							</c:forEach>
 
 							<c:if test="${currentPage lt noOfPages}">
-								<li><a href="${pageContext.request.contextPath}/home/person.do?page=${currentPage +1}" class="next">>></a></li>
+								<li><a href="${pageContext.request.contextPath}/home/statistics.do?page=${currentPage +1}" class="next">>></a></li>
 							</c:if>
 						</ul>
                     </div>

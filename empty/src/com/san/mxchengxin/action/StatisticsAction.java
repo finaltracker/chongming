@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -33,12 +34,19 @@ import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.utils.ComparatorCmLevel;
 
 public class StatisticsAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmRecordDAO cmRecordDAO;
 	private CmLevelDAO cmLevelDAO;
 	private CmPersonDAO	cmPersonDAO;
+	
+	
+	String searchMap_truename = "";
+	String searchMap_ssid = "";
+	Short countryId = 0 ;
+	Short levelId = 0;
 	
 	List<CmCountry> countryList;
 	List<CmLevel> levels;
@@ -119,47 +127,24 @@ public class StatisticsAction extends ChengxinBaseAction {
 
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
+		} else {
+
+			StatisticsForm statForm = (StatisticsForm)form;
+			searchMap_ssid = statForm.getSsid();
+			searchMap_truename = statForm.getTruename();
+			countryId = statForm.getCountry_id();
+			levelId = statForm.getLevel_id();
 		}
-		
-		String searchMap_truename = "";
-		String searchMap_ssid = "";
-		Short countryId = 0 ;
-		Short levelId = 0;
-		StatisticsForm statForm = (StatisticsForm)form;
-		searchMap_ssid = statForm.getSsid();
-		searchMap_truename = statForm.getTruename();
-		countryId = statForm.getCountry_id();
-		levelId = statForm.getLevel_id();
 		
 		
 		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
 		
 		countryList = getVisiableCountry(cmCountryDAO);
 		levels = cmLevelDAO.findAll();
-		if(levelId == null) {
-			levelId = 0;
-		}
-		StringBuffer sb = new StringBuffer();
-		
-		for(int i=0;i<levels.size();i++) {
-			CmLevel cc = (CmLevel)levels.get(i);
-			String s;
-			if( cc.getId() == levelId.shortValue() )
-			{
-				s = String.format("<option value='%d' selected>%s</option>", cc.getId(), cc.getLevelName());
-			}
-			else
-			{
-				s = String.format("<option value='%d'>%s</option>", cc.getId(), cc.getLevelName());
-				
-			}
-			sb.append(s);
-			
-		}
-		
-		System.out.println("result: "+sb.toString());
-		String levelSel = sb.toString();
-		request.setAttribute("levelSelect", levelSel);
+
+		// 调用排序方法，参数二为自定义的排序工具类
+		Collections.sort(levels, new ComparatorCmLevel(true));
+
 		
 		DetachedCriteria searDc =	DetachedCriteria.forClass( CmPerson.class);
 		
@@ -203,6 +188,41 @@ public class StatisticsAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.eq("countryId", countryId.shortValue() )); 
 		}
 		
+		if(levelId == null) {
+			levelId = 0;
+		} else if (levelId != null) {
+			for(int xi = 0;xi < levels.size();xi++) {
+				if(levels.get(xi).id.equals(levelId)) {
+					if(xi == levels.size()-1) {
+						searDc.add(Restrictions.ge("score", Integer.valueOf(levels.get(xi).levelScore) ) );
+						break;
+					} else {
+						searDc.add(Restrictions.ge("score", Integer.valueOf(levels.get(xi).levelScore) ) );
+						searDc.add(Restrictions.lt("score", Integer.valueOf(levels.get(xi+1).levelScore) ) );
+						break;
+					}
+				}
+			}
+		
+		}
+		StringBuffer sb = new StringBuffer();
+		for(int i=0;i<levels.size();i++) {
+			CmLevel cc = (CmLevel)levels.get(i);
+			String s;
+			if( cc.getId() == levelId.shortValue() )
+			{
+				s = String.format("<option value='%d' selected>%s</option>", cc.getId(), cc.getLevelName());
+			}
+			else
+			{
+				s = String.format("<option value='%d'>%s</option>", cc.getId(), cc.getLevelName());
+				
+			}
+			sb.append(s);
+		}
+		String levelSel = sb.toString();
+		request.setAttribute("levelSelect", levelSel);
+		
 		searDc.addOrder( Order.asc("id") );
 		if(countryList != null) {
 			List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
@@ -222,10 +242,33 @@ public class StatisticsAction extends ChengxinBaseAction {
 				} else {
 					cpa.setCountryName("");
 				}
+
+				
 				if(cpa.getScore() != null) {
-					cpa.setLevelName("aa");
+					
+					for(int ix = 0; ix<levels.size();ix++) {
+						if(ix == (levels.size()-1)) {
+							cpa.setLevelName(levels.get(ix).getLevelName());
+							break;
+						} 
+						
+						Integer score1 = Integer.valueOf(levels.get(ix).getLevelScore());
+						Integer socre2 = Integer.valueOf(levels.get(ix+1).getLevelScore());
+						if(score1.equals( cpa.getScore())) {
+							cpa.setLevelName(levels.get(ix).getLevelName());
+							System.out.println("level name: "+levels.get(ix).getLevelName());
+							break;
+						} else if(score1.compareTo(cpa.getScore()) > 0  && socre2.compareTo(cpa.getScore()) < 0) {
+							cpa.setLevelName(levels.get(ix).getLevelName());
+							break;
+						} else {
+							continue;
+						}
+							
+						
+					}
 				} else {
-					cpa.setLevelName("null");
+					cpa.setLevelName("");
 				}
 				
 				cpdList.add(cpa);
@@ -256,12 +299,13 @@ public class StatisticsAction extends ChengxinBaseAction {
 		if(countryList != null) {
 			Short parentId = 0;
 			String countrySelect = getCountrySelect(countryId.shortValue(),parentId,1);
-			System.out.println("country select result: "+countrySelect);
+			//System.out.println("country select result: "+countrySelect);
 			request.setAttribute("countrySelect", countrySelect);
 		}
 		request.setAttribute("truename", searchMap_truename);
 		request.setAttribute("ssid", searchMap_ssid);
 		request.setAttribute("level_id", levelId);
+		request.setAttribute("country_id", countryId);
 		
 		return mapping.findForward( "statisticsForword" );
 		

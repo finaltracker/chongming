@@ -12,6 +12,8 @@ public class RecordListObj {
 	private String part_name;
 	private String pubdate;
 	private String dateline;
+	private int stat;
+	
 	
 	public RecordListObj( 
 			int    id ,
@@ -23,7 +25,8 @@ public class RecordListObj {
 			String author,
 			String part_name,
 			String pubdate,
-			String dateline
+			String dateline,
+			int stat
 			)
 	{
 		this.id  = id;
@@ -36,8 +39,17 @@ public class RecordListObj {
 		this.part_name = part_name;
 		this.pubdate = pubdate;
 		this.dateline = dateline;
+		this.stat = stat;
 	}
 	
+	public int getStat() {
+		return stat;
+	}
+
+	public void setStat(int stat) {
+		this.stat = stat;
+	}
+
 	public int getId() {
 		return id;
 	}

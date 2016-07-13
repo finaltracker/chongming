@@ -90,6 +90,19 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		RecordForm recordForm = (RecordForm) form;
 		
+		if(request.getParameter("id") != null) {
+			//删除操作
+			Integer recordId = Integer.valueOf(request.getParameter("id"));
+			System.out.println("[delete] id : "+recordId);
+			
+			CmRecord cr = cmRecordDAO.findById( recordId );
+			
+			//saveMessageToLog("删除考核记录: " + cr.getPerson().getTruename() + " target: " + cr.getTargetId() , request );
+			
+			cmRecordDAO.delete( cr );
+
+		}
+		
 		/*  根据条件进行内容过滤，查询  */
 		Short[] countryList = null;
 		
@@ -155,11 +168,18 @@ public class RecordAction extends ChengxinBaseAction {
 			}
 			
 		}
-				
+		
+		int isadmin = 0;
+		if( this.isAllVisiable() )
+		{
+			isadmin = 1;
+		}
+		
 		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("targetSelect", targetSelectStr );
 		request.setAttribute("truename", recordForm.getTruename() );
 		request.setAttribute("ssid", recordForm.getSsid() );
+		request.setAttribute("isadmin", isadmin );
 		request.setAttribute("list", enhanceRecordList );
 		
 		return mapping.findForward( "recordForword" );
@@ -204,7 +224,7 @@ public class RecordAction extends ChengxinBaseAction {
 			
 			String pubdate = util.dateLongToString( rlo.getPubdate() ) ;
 			String dateline = util.dateLongToString( rlo.getDateline() ) ;
-			
+			int stat = (rlo.getStat())? 1 : 0 ;
 			rloList.add( new RecordListObj(
 					id ,
 					truename,
@@ -215,7 +235,8 @@ public class RecordAction extends ChengxinBaseAction {
 					author,
 					part_name,
 					pubdate,
-					dateline
+					dateline,
+					stat
 					) );
 		}
 		

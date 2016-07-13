@@ -11,6 +11,8 @@ import org.hibernate.LockMode;
 import org.springframework.context.ApplicationContext;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
+import com.san.mxchengxin.model.country.CmPerson;
+
 /**
  	* A data access object (DAO) providing persistence and search support for CmRecord entities.
  			* Transaction control of the save(), update() and delete() operations 
@@ -193,6 +195,16 @@ public class CmRecordDAO extends HibernateDaoSupport  {
         }
     }
 
+    public void update(CmRecord transientInstance) {
+		log.debug("updating CmRecord instance");
+		try {
+			getHibernateTemplate().update(transientInstance);
+			log.debug("update successful");
+		} catch (RuntimeException re) {
+			log.error("update failed", re);
+			throw re;
+		}
+	}
 	public static CmRecordDAO getFromApplicationContext(ApplicationContext ctx) {
     	return (CmRecordDAO) ctx.getBean("CmRecordDAO");
 	}

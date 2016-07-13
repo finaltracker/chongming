@@ -132,7 +132,8 @@ public class RecordAction extends ChengxinBaseAction {
 	
 		
 		/* 将contry list 由ID 转换为 string */
-		String countryListStr = cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() );
+		String countryListStr = "";
+		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() , 0 , countryListStr );
 		
 		List<CmTarget> targetList = cmTargetDAO.findAll(); 
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );

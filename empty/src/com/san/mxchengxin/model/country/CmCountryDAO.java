@@ -1,5 +1,6 @@
 package com.san.mxchengxin.model.country;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -221,77 +222,51 @@ public class CmCountryDAO extends HibernateDaoSupport {
 	
 	public Map<Short, CountryMapObj > packCountryMapAsLevelByIdList( Short[] countryList )
 	{
-		Map<Short, CountryMapObj> ret = new HashMap<Short, CountryMapObj>();
+		List<CmCountry> list = new ArrayList<CmCountry>();
 		
 		for( int i = 0 ; i < countryList.length ; i++ )
 		{
-			CmCountry country = (CmCountry)findById(countryList[i] );
-			
-			if( country.getParentid() == 0 )
-			{ // 镇
-				ret.put( country.getId() , new CountryMapObj( country ) );
-			}
+			list.add( (CmCountry)findById(countryList[i] ) );
 		}
 		
-		for( int i = 0 ; i < countryList.length ; i++ )
-		{
-			CmCountry country = (CmCountry)findById(countryList[i] );
-			
-			if( country.getParentid() != 0 )
-			{ // 村
-				if( ret.get( country.getParentid() ) != null )
-				{
-					ret.get( country.getParentid() ).addSon(country);
-				}
-				else
-				{
-					ret.put( country.getId() , new CountryMapObj( country ) );
-				}
-				
-			}
-		}
-		
-		return ret;
+		return packCountryMapAsLevel( list );
 	}
 	
 	
 	public Map<Short, CountryMapObj > packCountryMapAsLevel( List list )
 	{
 		Map<Short, CountryMapObj> ret = new HashMap<Short, CountryMapObj>();
+		Map<Short , CountryMapObj >lineCountryMap = new HashMap<Short, CountryMapObj>(); // 将对象排成一排
 		
+		//将 country 排成一列
 		for( int i = 0 ; i < list.size() ; i++ )
 		{
 			CmCountry country = (CmCountry)list.get(i);
 			
-			if( country.getParentid() == 0 )
-			{ // 镇
-				ret.put( country.getId() , new CountryMapObj( country ) );
-			}
+			lineCountryMap.put( country.getId(), new CountryMapObj(country) );
 		}
 		
-		for( int i = 0 ; i < list.size() ; i++ )
+		//组装成树形结构
+		for( CountryMapObj cmo :  lineCountryMap.values() )
 		{
-			CmCountry country = (CmCountry)list.get(i);
 			
-			if( country.getParentid() != 0 )
-			{ // 村
-				if( ret.get( country.getParentid() ) != null )
-				{
-					ret.get( country.getParentid() ).addSon(country);
-				}
-				else
-				{
-					ret.put( country.getId() , new CountryMapObj( country ) );
-				}
-				
+			if( lineCountryMap.get( cmo.getCountry().getParentid() ) == null )
+			{
+				ret.put( cmo.getCountry().getId() , cmo );
 			}
+			else
+			{
+				lineCountryMap.get( cmo.getCountry().getParentid() ).addSon( cmo ) ;
+			}
+		
 		}
+		
 		
 		return ret;
 	}
 	
-	
-	public String formatToJspString( Map<Short, CountryMapObj > countryMap , Short selectId )
+	//countryMap map by level
+	public void formatToJspString( Map<Short, CountryMapObj > countryMap , Short selectId , int level , String inputOut )
 	{
 		StringBuffer sb = new StringBuffer();
 		
@@ -299,6 +274,11 @@ public class CmCountryDAO extends HibernateDaoSupport {
 		 * <option value='12' selected>乡镇</option>
 		 * <option value='13' >村</option>
 		*/
+		String space = "";
+		for( int i = 0 ; i < level ; i++ )
+		{
+			space += "&nbsp;&nbsp;";
+		}
 		
 		 for (Short key : countryMap.keySet()) 
 		 {
@@ -307,34 +287,20 @@ public class CmCountryDAO extends HibernateDaoSupport {
 			 
 			 if( ( selectId != null ) && ( selectId == key ) )
 			 {
-				 s = String.format("<option value='%d' selected>├─%s</option>", key , cmo.country.getName() );
+				 s = String.format("<option value='%d' selected>" + space + "├─%s</option>", key , cmo.country.getName() );
 			 }
 			 else
 			 {
-				 s = String.format("<option value='%d'>├─%s</option>", key , cmo.country.getName() );
+				 s = String.format("<option value='%d'>" + space + "├─%s</option>", key , cmo.country.getName() );
 			 }
 			 sb.append(s);
-			 
-			 for (Short sonKey : cmo.sonList.keySet()) 
+			
+			 if(cmo.getSonList() != null ) 
 			 {
-				 String ss;
-				 CmCountry cc = cmo.sonList.get( sonKey );
-				 
-				 if( ( selectId != null ) && ( selectId == sonKey ) )
-				 {
-					 ss = String.format("<option value='%d' selected>&nbsp;&nbsp;├─%s</option>", sonKey , cc.getName() );
-				 }
-				 else
-				 {
-					 ss = String.format("<option value='%d'>&nbsp;&nbsp;├─%s</option>", sonKey , cc.getName() );
-				 }
-				 sb.append(ss);
-				 
-				 
+				 formatToJspString( cmo.getSonList() , selectId , level++ , inputOut );
 			 }
 		 }
 		 
-
-		return sb.toString();
+		 inputOut = inputOut +  sb.toString();
 	}
 }

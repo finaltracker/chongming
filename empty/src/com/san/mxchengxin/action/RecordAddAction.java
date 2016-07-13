@@ -21,7 +21,6 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -30,6 +29,7 @@ import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
+import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
 import com.san.mxchengxin.model.target.CmTarget;
@@ -43,6 +43,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 	CmPersonDAO cmPersonDAO;
 	CmCountryDAO	cmCountryDAO;
 	CmRecordDAO		cmRecordDAO;
+	CmPartDAO	cmPartDAO;
 	
 
 	String pageInfo_action = "增加";
@@ -83,6 +84,14 @@ public class RecordAddAction extends ChengxinBaseAction {
 		this.cmTargetDAO = cmTargetDAO;
 	}
 
+	public CmPartDAO getCmPartDAO() {
+		return cmPartDAO;
+	}
+
+	public void setCmPartDAO(CmPartDAO cmPartDAO) {
+		this.cmPartDAO = cmPartDAO;
+	}
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
@@ -112,6 +121,10 @@ public class RecordAddAction extends ChengxinBaseAction {
 			else if( opt.equals("save"))
 			{
 				return saveReq( request ,response );
+			}
+			else if( opt.equals("save2"))
+			{
+				return save2Req( request ,response  );
 			}
 			
 			
@@ -254,34 +267,40 @@ public class RecordAddAction extends ChengxinBaseAction {
 		String score = request.getParameter("score");
 		String target_id = request.getParameter("target_id");
 		String person_id = request.getParameter("person_id");
-		String part_id = ouId;
+		long part_id = getPartId( this.cmPartDAO , this.cmCountryDAO );
+		
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Date now = new Date();
+		long pubdate = now.getTime()/1000;
 		
 		long  day = cmTargetDAO.findById( Short.valueOf(target_id ) ).getDateline();
-		long dateLine = day * 24 * 60 * 60 + day;
+		long dateLine = day * 24 * 60 * 60 + pubdate;
 		
 		if( action.equals( pageInfo_action ))
 		{
 			String author = cn;
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-			Date now = new Date();
-			long pubdate = now.getTime()/1000;
 			
-			
+			boolean stat = false;
+			if( this.isAllVisiable() )
+			{
+				stat = true;
+			}
+
 			CmRecord cr = new CmRecord( cmPersonDAO.findById( Integer.valueOf( person_id )),
 										Integer.valueOf( target_id ),
 										Short.valueOf( score ),
 										author,
 										pubdate,
-										false,
+										stat,
 										dateLine,
-										Long.valueOf( part_id ) //????
+										part_id 
 										) ;
 			cmRecordDAO.save( cr );
 			
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("text/javascript");
-			Map jasonOut = new HashMap();
-			jasonOut.put("stat", false);
+			Map<String , Object > jasonOut = new HashMap<String , Object >();
+			jasonOut.put("stat", stat);
 			jasonOut.put("id", cr.getId() );
 			
 			JSONArray jsonObject = JSONArray.fromObject( jasonOut );//装换json
@@ -304,5 +323,22 @@ public class RecordAddAction extends ChengxinBaseAction {
 		
 		return null;
 	}
+	
+	//confirm save 
+		public ActionForward save2Req( HttpServletRequest request , HttpServletResponse response )
+		{
+			String id = request.getParameter("id");
+			
+			CmRecord cmRecord = cmRecordDAO.findById( Integer.valueOf( id ) );
+			
+			cmRecord.setStat( true );
+			
+			cmRecordDAO.update(cmRecord);
+			
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/javascript");
+
+			return null;
+		}
 	
 }

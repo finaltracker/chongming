@@ -23,6 +23,8 @@ import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.log.CmLogDAO;
+import com.san.mxchengxin.model.part.CmPart;
+import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.mxchengxin.objects.CountryMapObj;
 import com.san.share.pmi.dto.LoginUserInfo; 
 import com.san.share.pmi.service.LoginUserInfoDelegate;
@@ -223,5 +225,44 @@ public class ChengxinBaseAction extends Action {
 		
 		cmLogDAO.save( cl );
 		
+	}
+	
+	// return CmPart ID accord to ouName
+	public short getPartId( CmPartDAO cmPartDAO , CmCountryDAO	cmCountryDAO )
+	{
+		short ret = -1;
+		
+		List<CmPart> cpList = cmPartDAO.findByPartName( ouName );
+		
+		if( cpList.size() > 0 )
+		{
+			ret = cpList.get(0).getId();
+		}
+		else
+		{
+			List<CmCountry> cclist  = cmCountryDAO.findByName( ouName );
+			
+			if( cclist.size() > 0 )
+			{
+				if( cclist.get(0).getParentid() == 0 )
+				{ // 无父节点，镇
+					List<CmPart> pList = cmPartDAO.findByPartName( "乡镇" );
+					if( pList.size() > 0 )
+					{
+						ret = cpList.get(0).getId();
+					}
+				}
+				else
+				{ // 村以及以下
+					List<CmPart> pList = cmPartDAO.findByPartName( "村" );
+					if( pList.size() > 0 )
+					{
+						ret = cpList.get(0).getId();
+					}
+				}
+			}
+			
+		}
+		return ret;
 	}
 }

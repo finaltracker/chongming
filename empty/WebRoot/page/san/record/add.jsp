@@ -144,15 +144,16 @@
                     dataType:"json",
                     data:$form.serialize(),
                     success: function (data) {
-                        if (data.stat == 0) {
+                    	console.log( "data.stat" , data.stat );
+                        if (data[0].stat == false ) {
                             layer.confirm('${pageInfo_actionTitle}成功 是否继续提交', {
                                 btn: ['提交', '返回'] //按钮
                             }, function () {
                                 $.ajax({
-                                    url: '${pageContext.request.contextPath}/home/record/save2',
+                                    url: '${pageContext.request.contextPath}/home/record/add.do?opt=save2',
                                     type: "get",
                                     cache: false,
-                                    data: {id: data.id},
+                                    data: {id: data[0].id},
                                     success: function () {
                                         layer.confirm('提交成功', {
                                             btn: ['继续录入', '返回列表'] //按钮
@@ -168,12 +169,12 @@
                                 layer.closeAll();
                             });
                         } else {
-                            layer.confirm('{$pageInfo_actionTitle}成功', {
+                            layer.confirm('${pageInfo_actionTitle}成功', {
                                 btn: ['继续录入', '返回列表'] //按钮
                             }, function () {
-                                window.location.href = '/${pageContext.request.contextPath}/home/record/add.do';
+                                window.location.href = '${pageContext.request.contextPath}/home/record/add.do';
                             }, function () {
-                                window.location.href = '/${pageContext.request.contextPath}/home/record.do';
+                                window.location.href = '${pageContext.request.contextPath}/home/record.do';
                             });
                         }
                         return false;

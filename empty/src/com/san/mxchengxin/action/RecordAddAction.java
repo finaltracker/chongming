@@ -173,8 +173,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 			Session s = cmPersonDAO.getSessionFactory().openSession();
 			Criteria searDc =  s.createCriteria( CmPerson.class );
 			
-			//if( util.isNumeric(q) )
-			if( true )
+			if( util.isNumeric(q) )
 			{
 				searDc.add( Restrictions.like("ssid", q, MatchMode.START )  );
 				searDc.addOrder( Order.asc("ssid") );

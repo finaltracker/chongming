@@ -12,7 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.san.mxchengxin.form.LevelAddForm;
+import com.san.mxchengxin.form.level.LevelAddForm;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.share.pmi.dto.LoginUserInfo;

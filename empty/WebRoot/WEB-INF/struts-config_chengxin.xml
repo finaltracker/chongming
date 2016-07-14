@@ -4,10 +4,10 @@
 <struts-config>
   <data-sources />
   <form-beans >
-    <form-bean name="targetForm" type="com.san.mxchengxin.form.TargetForm" />
-    <form-bean name="addForm" type="com.san.mxchengxin.form.AddForm" />
-    <form-bean name="levelForm" type="com.san.mxchengxin.form.LevelForm" />
-    <form-bean name="levelAddForm" type="com.san.mxchengxin.form.LevelAddForm" />
+    <form-bean name="targetForm" type="com.san.mxchengxin.form.target.TargetForm" />
+    <form-bean name="addForm" type="com.san.mxchengxin.form.target.AddForm" />
+    <form-bean name="levelForm" type="com.san.mxchengxin.form.level.LevelForm" />
+    <form-bean name="levelAddForm" type="com.san.mxchengxin.form.level.LevelAddForm" />
     <form-bean name="countryForm" type="com.san.mxchengxin.form.country.CountryForm" />
     <form-bean name="ctyAddForm" type="com.san.mxchengxin.form.country.CtyAddForm" />
     <form-bean name="partAddForm" type="com.san.mxchengxin.form.part.PartAddForm" />
@@ -20,11 +20,11 @@
 
   <global-exceptions />
   <global-forwards >
-    <forward name="targetForword" path="/page/san/target.jsp" />
-	<forward name="addForword" path="/page/san/add.jsp" />
-	<forward name="levelForword" path="/page/san/level.jsp" />
+    <forward name="targetForword" path="/page/san/target/target.jsp" />
+	<forward name="addForword" path="/page/san/target/add.jsp" />
+	<forward name="levelForword" path="/page/san/level/level.jsp" />
     <forward name="countryForword" path="/page/san/country/country.jsp" />
-	<forward name="levelAddForword" path="/page/san/levelAdd.jsp" />
+	<forward name="levelAddForword" path="/page/san/level/levelAdd.jsp" />
 	<forward name="personForword" path="/page/san/person/person.jsp" />
   </global-forwards>
   <!-- path:  action 的路径 -->
@@ -33,23 +33,23 @@
 		
     <action
       attribute="targetForm"
-      input="/page/san/target.jsp"
+      input="/page/san/target/target.jsp"
       name="targetForm"
       path="/home/target"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
 
-      <forward name="targetForword" path="/page/san/target.jsp" />
+      <forward name="targetForword" path="/page/san/target/target.jsp" />
     </action>
     <action
       attribute="addForm"
-      input="/page/san/add.jsp"
+      input="/page/san/target/add.jsp"
       name="addForm"
       path="/home/target/add"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
 
-      <forward name="addForword" path="/page/san/add.jsp" />
+      <forward name="addForword" path="/page/san/target/add.jsp" />
     </action>	
    
 	<action
@@ -74,13 +74,13 @@
 
      <action
       attribute="levelForm"
-      input="/page/san/level.jsp"
+      input="/page/san/level/level.jsp"
       name="levelForm"
       path="/home/level"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
 
-      <forward name="targetForword" path="/page/san/level.jsp" />
+      <forward name="levelForword" path="/page/san/level/level.jsp" />
     </action>
     
     <action
@@ -91,7 +91,7 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
 
-      <forward name="levelAddForword" path="/page/san/levelAdd.jsp" />
+      <forward name="levelAddForword" path="/page/san/level/levelAdd.jsp" />
     </action>	
    
    <action

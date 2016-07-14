@@ -15,7 +15,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-import com.san.mxchengxin.form.LevelForm;
+import com.san.mxchengxin.form.level.LevelForm;
 import com.san.mxchengxin.form.target.TargetForm;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;

@@ -136,6 +136,12 @@ public class StatisticsAction extends ChengxinBaseAction {
 			levelId = statForm.getLevel_id();
 		}
 		
+		//来自图标统计的url
+		if( request.getParameter("level_id") != null )
+		{
+			levelId = Short.valueOf( request.getParameter("level_id") );
+		}
+		
 		
 		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
 		

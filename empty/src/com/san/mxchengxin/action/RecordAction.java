@@ -113,7 +113,7 @@ public class RecordAction extends ChengxinBaseAction {
 		searDc.setFetchMode("person", FetchMode.JOIN); 
 		searDc.createAlias("person", "person");  
 		
-		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO );;
+		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO );
 		if( ( recordForm.getCountry_id() == null) || (recordForm.getCountry_id() == 0 ) )
 		{//根据登陆的用户名来确定
 			countryList = userSeenCountryList;
@@ -127,12 +127,12 @@ public class RecordAction extends ChengxinBaseAction {
 		//name
 		if( ( recordForm.getTruename()) != null && (!recordForm.getTruename().isEmpty())  )
 		{
-			searDc.add(Restrictions.eq("person.truename", recordForm.getTruename()));  
+			searDc.add(Restrictions.like("person.truename", recordForm.getTruename() , MatchMode.ANYWHERE ));  
 		}
 		//ssid
 		if( ( recordForm.getSsid()) != null && (!recordForm.getSsid().isEmpty()))
 		{
-			searDc.add(Restrictions.eq("person.ssid", recordForm.getSsid() )); 
+			searDc.add(Restrictions.like("person.ssid", recordForm.getSsid() , MatchMode.ANYWHERE )); 
 		}
 		
 		//target, 用户选择做了选择
@@ -153,8 +153,9 @@ public class RecordAction extends ChengxinBaseAction {
 	
 		
 		/* 将contry list 由ID 转换为 string */
-		String countryListStr = "";
-		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() , 0 , countryListStr );
+		StringBuffer sb = new StringBuffer();
+		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() , 0 , sb );
+		String countryListStr = sb.toString();
 		
 		/* 查询 可用的target */
 		DetachedCriteria targetDc =	DetachedCriteria.forClass( CmTarget.class);

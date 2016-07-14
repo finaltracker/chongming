@@ -266,9 +266,9 @@ public class CmCountryDAO extends HibernateDaoSupport {
 	}
 	
 	//countryMap map by level
-	public void formatToJspString( Map<Short, CountryMapObj > countryMap , Short selectId , int level , String inputOut )
+	public void formatToJspString( Map<Short, CountryMapObj > countryMap , Short selectId , int level , StringBuffer sb )
 	{
-		StringBuffer sb = new StringBuffer();
+		//StringBuffer sb = new StringBuffer();
 		
 		/*
 		 * <option value='12' selected>乡镇</option>
@@ -297,10 +297,11 @@ public class CmCountryDAO extends HibernateDaoSupport {
 			
 			 if(cmo.getSonList() != null ) 
 			 {
-				 formatToJspString( cmo.getSonList() , selectId , level++ , inputOut );
+				 formatToJspString( cmo.getSonList() , selectId , level++ , sb );
 			 }
 		 }
 		 
-		 inputOut = inputOut +  sb.toString();
+		 
+		 return ;
 	}
 }

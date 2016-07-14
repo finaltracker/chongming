@@ -18,7 +18,7 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.mapping.Map;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
-import com.san.mxchengxin.form.TargetForm;
+import com.san.mxchengxin.form.target.TargetForm;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.mxchengxin.model.target.CmTarget;

@@ -12,7 +12,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
-import com.san.mxchengxin.form.AddForm;
+import com.san.mxchengxin.form.target.AddForm;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.mxchengxin.model.target.CmTarget;
@@ -21,7 +21,7 @@ import com.san.mxchengxin.utils.Constants;
 import com.san.share.pmi.dto.LoginUserInfo; 
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
-public class AddAction extends ChengxinBaseAction {
+public class TargetAddAction extends ChengxinBaseAction {
 	private CmTargetDAO cmTargetDAO;
 	private CmPartDAO cmPartDAO;
 	public CmTargetDAO geCmTargetDAO() {

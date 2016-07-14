@@ -26,8 +26,8 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
-import com.san.mxchengxin.form.TargetForm;
 import com.san.mxchengxin.form.record.RecordForm;
+import com.san.mxchengxin.form.target.TargetForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPersonAd;

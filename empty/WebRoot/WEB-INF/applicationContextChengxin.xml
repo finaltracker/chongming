@@ -12,7 +12,7 @@
 		<property name="cmLogDAO" ref="cmLogDAO" />
 	</bean>
 	
-	<bean name="/home/target/add" class="com.san.mxchengxin.action.AddAction">
+	<bean name="/home/target/add" class="com.san.mxchengxin.action.TargetAddAction">
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
 		<property name="cmPartDAO" ref="cmPartDAO" />
 		<property name="cmLogDAO" ref="cmLogDAO" />

@@ -22,4 +22,16 @@ public class util {
 		   } 
 		   return true; 
 		}
+	
+	static public Short[] IntegerArrayToShortArray( Integer in[] )
+	{
+		Short[] out = new Short[in.length ];
+		
+		for( int i = 0 ; i < in.length ; i++ )
+		{
+			out[i] = in[i].shortValue();
+		}
+		
+		return out;
+	}
 }

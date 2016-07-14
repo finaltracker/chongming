@@ -25,6 +25,8 @@ import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.log.CmLogDAO;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
+import com.san.mxchengxin.model.target.CmTarget;
+import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.objects.CountryMapObj;
 import com.san.share.pmi.dto.LoginUserInfo; 
 import com.san.share.pmi.service.LoginUserInfoDelegate;
@@ -265,4 +267,36 @@ public class ChengxinBaseAction extends Action {
 		}
 		return ret;
 	}
+	
+	public Integer[] getVisiableTargetList( CmTargetDAO cmTargetDAO , CmPartDAO cmPartDAO , CmCountryDAO	cmCountryDAO)
+	{
+		Integer ret[] = null;
+		List<CmTarget> ctList = null;
+		
+		if( isAllVisiable() )
+		{
+			ctList = cmTargetDAO.findAll( );
+		}
+		else
+		{
+			short partId = getPartId( cmPartDAO , cmCountryDAO );
+			
+			ctList = cmTargetDAO.findByPartId( partId );
+		}
+		
+		
+		if( ctList!= null )
+		{
+			ret = new Integer[ctList.size() ];
+			
+			for( int i = 0 ; i < ctList.size() ;i++ )
+			{
+				ret[i] = (int)(ctList.get(i).getId());
+			}
+		}
+		
+		
+		return ret;
+	}
+	
 }

@@ -106,6 +106,7 @@ public class RecordAction extends ChengxinBaseAction {
 		/*  根据条件进行内容过滤，查询  */
 		Short[] countryList = null;
 		
+		Integer targetIdList[] = getVisiableTargetList( cmTargetDAO , cmPartDAO , cmCountryDAO );
 		
 		DetachedCriteria searDc =	DetachedCriteria.forClass( CmRecord.class);
 		
@@ -134,11 +135,18 @@ public class RecordAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.eq("person.ssid", recordForm.getSsid() )); 
 		}
 		
-		//target
+		//target, 用户选择做了选择
 		if( recordForm.getTarget_id() != null && ( recordForm.getTarget_id() != 0 ) )
 			
 		{
 			searDc.add(Restrictions.eq("targetId", (int) (recordForm.getTarget_id() )));
+		}
+		else
+		{//
+			if( targetIdList != null )
+			{
+				searDc.add(Restrictions.in("targetId", targetIdList ));
+			}
 		}
 
 		List<CmRecord>  list = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
@@ -148,7 +156,10 @@ public class RecordAction extends ChengxinBaseAction {
 		String countryListStr = "";
 		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() , 0 , countryListStr );
 		
-		List<CmTarget> targetList = cmTargetDAO.findAll(); 
+		/* 查询 可用的target */
+		DetachedCriteria targetDc =	DetachedCriteria.forClass( CmTarget.class);
+		targetDc.add(Restrictions.in("id", util.IntegerArrayToShortArray(targetIdList) ));
+		List<CmTarget>  targetList = cmTargetDAO.getHibernateTemplate ().findByCriteria( targetDc );
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );
 		
 		List<RecordListObj> enhanceRecordList = recordToRecordListObj( list );

@@ -83,7 +83,7 @@
         		};
         donut_chart.setOption(option);
         donut_chart.on("click", function(e){
-            window.location.href='/home/statistics.do?level_id='+e.data.keyId;
+            window.location.href='${pageContext.request.contextPath}/home/statistics.do?level_id='+e.data.keyId;
         });
 
 

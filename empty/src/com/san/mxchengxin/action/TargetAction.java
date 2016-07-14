@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.mapping.Map;
 import org.omg.CORBA.PUBLIC_MEMBER;
@@ -93,6 +94,8 @@ public class TargetAction extends ChengxinBaseAction {
 		{
 			searDc.add(Restrictions.like("targetName", target_name,MatchMode.ANYWHERE).ignoreCase()); 
 		}
+		
+		searDc.addOrder(Order.asc("pubdate"));
 		//search by condition in target table
 
 		List<CmTarget> targetList = cmPartDAO.getHibernateTemplate ().findByCriteria( searDc );

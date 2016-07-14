@@ -99,7 +99,7 @@
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
 
-      <forward name="reportForword" path="/page/san/report.jsp" />
+      <forward name="reportForword" path="/page/san/report/report.jsp" />
     </action>	
    
    <action

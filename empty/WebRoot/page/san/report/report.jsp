@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<jsp:include page="Common/base.jsp" flush="true"/>
+<jsp:include page="../Common/base.jsp" flush="true"/>
   
 <block name="title">首页</block>
 <block name="body">

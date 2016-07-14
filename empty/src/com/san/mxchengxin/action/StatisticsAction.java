@@ -263,12 +263,9 @@ public class StatisticsAction extends ChengxinBaseAction {
 						
 						Short score1 = Short.valueOf(levels.get(ix).getLevelScore());
 						Short socre2 = Short.valueOf(levels.get(ix+1).getLevelScore());
-						if(score1.equals( cpa.getScore())) {
+						if(score1.compareTo(cpa.getScore()) <= 0  && socre2.compareTo(cpa.getScore()) > 0) {
 							cpa.setLevelName(levels.get(ix).getLevelName());
-							System.out.println("level name: "+levels.get(ix).getLevelName());
-							break;
-						} else if(score1.compareTo(cpa.getScore()) > 0  && socre2.compareTo(cpa.getScore()) < 0) {
-							cpa.setLevelName(levels.get(ix).getLevelName());
+							System.out.println("level score "+cpa.getScore()+" and name: "+levels.get(ix).getLevelName());
 							break;
 						} else {
 							continue;

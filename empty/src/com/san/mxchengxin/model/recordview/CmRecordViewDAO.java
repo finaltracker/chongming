@@ -21,7 +21,6 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 public class CmRecordViewDAO extends HibernateDaoSupport {
 	private static final Log log = LogFactory.getLog(CmRecordViewDAO.class);
-	public static final String COUNTRY_ID = "countryId";
 	// property constants
 
 	protected void initDao() {
@@ -99,11 +98,6 @@ public class CmRecordViewDAO extends HibernateDaoSupport {
 		}
 	}
 	
-	public List findByCountryId(Object countryId
-	) {
-		return findByProperty(COUNTRY_ID, countryId
-		);
-	}
 
 	public CmRecordView merge(CmRecordView detachedInstance) {
 		log.debug("merging CmRecordView instance");

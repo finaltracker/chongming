@@ -90,16 +90,23 @@
 											<td>${item.part_name}</td>
 											<td>${item.pubdate}</td>
 											<td>${item.dateline}</td>
-											<td><if condition="$isadmin eq 1 or $item.stat eq 0">
-												<!-- <a href="/{$Think.MODULE_NAME}/{$Think.CONTROLLER_NAME}/edit?id={$item.id}"><i class="fa fa-edit"></i> 修改</a>-->
-												<a
+											<td>
+											   <c:if test="${isadmin == 1 || item.stat == 0 }">
+											   	<a
 													href="${pageContext.request.contextPath}/home/record.do?id=${item.id}"
-													class="item-remove"><i class="fa fa-remove"></i> 删除</a> <if
-													condition="$isadmin eq 0">
+													class="item-remove"><i class="fa fa-remove"></i> 删除</br>  </a>
+												</c:if>
+												
+												<c:if test="${item.stat == 0 }">
 												<a
-													href="${pageContext.request.contextPath}/home/record/save2?id=${item.id}"
-													class="item-submit"><i class="fa fa-level-up"></i> 提交</a> </if>
-												<else /> 已提交 </if></td>
+													href="${pageContext.request.contextPath}/home/record/add.do?opt=save2&id=${item.id}"
+													class="item-submit"><i class="fa fa-level-up"></i> 提交</br> </a> 
+											    </c:if>  
+											   <c:if test="${item.stat == 1 }">
+											   		已提交 
+											   </c:if>  
+											
+											</td>
 										</tr>
 									</c:forEach>
 

@@ -22,21 +22,24 @@ public class ComparatorCmLevel implements Comparator<CmLevel>{
 	@Override
 	public int compare(CmLevel lhs, CmLevel rhs) {
 		// TODO Auto-generated method stub
-		int m1 = Integer.valueOf(lhs.getLevelScore());
-		int m2 = Integer.valueOf(rhs.getLevelScore());
 		if(!asc) {
+			int m1 = Integer.valueOf(lhs.getLevelScore());
+			int m2 = Integer.valueOf(rhs.getLevelScore());
 			if(m1 > m2){
 				return -1;
 			}else if(m1 < m2){
 				return 1;
 			}
 		} else {
+			Short m1 = Short.valueOf(lhs.getLevelScore());
+			Short m2 = Short.valueOf(rhs.getLevelScore());
 			if(m1 > m2){
 				return 1;
 			}else if(m1 < m2){
 				return -1;
 			}
 		}
+
 		return 0;
 	}
 	

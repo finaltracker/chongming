@@ -95,7 +95,7 @@
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmLevelDAO" ref="cmLevelDAO" />
-		<property name="cmPersonDAO" ref="cmPersonDAO" />	
+		<property name="cmRecordViewDAO" ref="cmRecordViewDAO" />	
 	</bean>	
 		
 	<bean id="sessionFactory"
@@ -114,7 +114,7 @@
 				<value>com/san/mxchengxin/model/country/CmCountry.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmPerson.hbm.xml</value>
 				<value>com/san/mxchengxin/model/log/CmLog.hbm.xml</value>
-
+				<value>com/san/mxchengxin/model/recordview/CmRecordView.hbm.xml</value>
 			</list>
 		</property>
 
@@ -246,4 +246,10 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	<bean id="cmRecordViewDAO" 
+		class="com.san.mxchengxin.model.recordview.CmRecordViewDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>	
 </beans>

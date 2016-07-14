@@ -27,20 +27,22 @@ import org.hibernate.criterion.Restrictions;
 import com.san.mxchengxin.form.statistics.StatisticsForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
-import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonAd;
-import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
-import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.recordview.CmRecordView;
+import com.san.mxchengxin.model.recordview.CmRecordView;
+import com.san.mxchengxin.model.recordview.CmRecordViewAd;
+import com.san.mxchengxin.model.recordview.CmRecordViewDAO;
+import com.san.mxchengxin.model.recordview.CmRecordViewId;
 import com.san.mxchengxin.utils.ComparatorCmLevel;
 
 public class StatisticsAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmRecordDAO cmRecordDAO;
 	private CmLevelDAO cmLevelDAO;
-	private CmPersonDAO	cmPersonDAO;
+	private CmRecordViewDAO	cmRecordViewDAO;
 	
 	
 	String searchMap_truename = "";
@@ -77,12 +79,13 @@ public class StatisticsAction extends ChengxinBaseAction {
 	public void setCmLevelDAO(CmLevelDAO cmLevelDAO) {
 		this.cmLevelDAO = cmLevelDAO;
 	}
-	public CmPersonDAO getCmPersonDAO() {
-		return cmPersonDAO;
+	
+	public CmRecordViewDAO getCmRecordViewDAO() {
+		return cmRecordViewDAO;
 	}
 	
-	public void setCmPersonDAO(CmPersonDAO cmPersonDAO) {
-		this.cmPersonDAO = cmPersonDAO;
+	public void setCmRecordViewDAO(CmRecordViewDAO cmRecordViewDAO) {
+		this.cmRecordViewDAO = cmRecordViewDAO;
 	}
 	
 	private String getCountrySelect(Short selectedId, Short parentId, int level) {
@@ -137,7 +140,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		}
 		
 		//来自图标统计的url
-		if( request.getParameter("level_id") != null )
+		if( request.getParameter("level_id") != null &&  !request.getParameter("level_id").isEmpty() )
 		{
 			levelId = Short.valueOf( request.getParameter("level_id") );
 		}
@@ -152,16 +155,16 @@ public class StatisticsAction extends ChengxinBaseAction {
 		Collections.sort(levels, new ComparatorCmLevel(true));
 
 		
-		DetachedCriteria searDc =	DetachedCriteria.forClass( CmPerson.class);
+		DetachedCriteria searDc =	DetachedCriteria.forClass( CmRecordView.class);
 		
 		if( searchMap_ssid != null && ( !searchMap_ssid.isEmpty() )) 
 		{
-			searDc.add(Restrictions.like("ssid", searchMap_ssid, MatchMode.ANYWHERE )); 
+			searDc.add(Restrictions.like("id.ssid", searchMap_ssid, MatchMode.ANYWHERE )); 
 		}
 		
 		if( searchMap_truename != null && ( !searchMap_truename.isEmpty() ))
 		{
-			searDc.add(Restrictions.like("truename", searchMap_truename,MatchMode.ANYWHERE).ignoreCase()); 
+			searDc.add(Restrictions.like("id.truename", searchMap_truename,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		
 		if( countryId == null ) 
@@ -174,7 +177,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 					countryIds[i] = cc.getId();
 					System.out.println("country id :"+countryIds[i]);
 				}
-				searDc.add(Restrictions.in("countryId", countryIds));
+				searDc.add(Restrictions.in("id.countryId", countryIds));
 			} 
 			if(isAllVisiable())
 				countryId = 0;
@@ -191,7 +194,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 			
 		} else if( countryId != 0 ) 
 		{
-			searDc.add(Restrictions.eq("countryId", countryId.shortValue() )); 
+			searDc.add(Restrictions.eq("id.countryId", countryId.shortValue() )); 
 		}
 		
 		if(levelId == null) {
@@ -200,11 +203,11 @@ public class StatisticsAction extends ChengxinBaseAction {
 			for(int xi = 0;xi < levels.size();xi++) {
 				if(levels.get(xi).id.equals(levelId)) {
 					if(xi == levels.size()-1) {
-						searDc.add(Restrictions.ge("score", Integer.valueOf(levels.get(xi).levelScore) ) );
+						searDc.add(Restrictions.ge("id.score", Short.valueOf(levels.get(xi).levelScore) ) );
 						break;
 					} else {
-						searDc.add(Restrictions.ge("score", Integer.valueOf(levels.get(xi).levelScore) ) );
-						searDc.add(Restrictions.lt("score", Integer.valueOf(levels.get(xi+1).levelScore) ) );
+						searDc.add(Restrictions.ge("id.score", Short.valueOf(levels.get(xi).levelScore) ) );
+						searDc.add(Restrictions.lt("id.score", Short.valueOf(levels.get(xi+1).levelScore) ) );
 						break;
 					}
 				}
@@ -231,17 +234,17 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 		searDc.addOrder( Order.asc("id") );
 		if(countryList != null) {
-			List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
-			
-			List<CmPersonAd> cpdList = new ArrayList<CmPersonAd>();
+
+			List<CmRecordView> targetList = cmRecordViewDAO.getHibernateTemplate ().findByCriteria( searDc );
+			List<CmRecordViewAd> cpdList = new ArrayList<CmRecordViewAd>();
 			//for pagination
 			int noOfRecords = targetList.size();
 			int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
 			int startPos = (page-1)*recordsPerPage;
 			int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
 			for(int i=startPos;i<endPos;i++) {
-				CmPerson target = (CmPerson)targetList.get(i);
-				CmPersonAd cpa = new CmPersonAd(target);
+				CmRecordViewId target = targetList.get(i).getId();
+				CmRecordViewAd cpa = new CmRecordViewAd(target);
 				if (cmCountryDAO.findById(target.getCountryId()) != null) {
 					String countryName = cmCountryDAO.findById(target.getCountryId()).getName();
 					cpa.setCountryName(countryName);
@@ -258,8 +261,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 							break;
 						} 
 						
-						Integer score1 = Integer.valueOf(levels.get(ix).getLevelScore());
-						Integer socre2 = Integer.valueOf(levels.get(ix+1).getLevelScore());
+						Short score1 = Short.valueOf(levels.get(ix).getLevelScore());
+						Short socre2 = Short.valueOf(levels.get(ix+1).getLevelScore());
 						if(score1.equals( cpa.getScore())) {
 							cpa.setLevelName(levels.get(ix).getLevelName());
 							System.out.println("level name: "+levels.get(ix).getLevelName());
@@ -317,7 +320,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 	}
 	
-	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<CmPersonAd> list) throws IOException
+	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<CmRecordViewAd> list) throws IOException
 	{
 
 		String[] excelHeader = { "序号", "姓名", "身份证号","诚信得分","所属等级"};    
@@ -339,7 +342,7 @@ public class StatisticsAction extends ChengxinBaseAction {
     
         for (int i = 0; i < list.size(); i++) {    
             row = sheet.createRow(i + 1);    
-            CmPersonAd cp = list.get(i);    
+            CmRecordViewAd cp = list.get(i);    
             //csCell.setEncoding(HSSFCell.ENCODING_UTF_16);
             HSSFCell cell0 = row.createCell((short)0);
             cell0.setEncoding(HSSFCell.ENCODING_UTF_16);

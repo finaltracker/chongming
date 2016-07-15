@@ -76,12 +76,7 @@
                                             <input type="text" class="form-control" name="country_phone" value="${country_phone}" required/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">显示顺序</label>
-                                        <div class="col-lg-7">
-                                            <input type="text" class="form-control"  pattern="\d+" name="country_display_order" value="${country_display_order}" required/>
-                                        </div>
-                                    </div>
+                                    
                                 </fieldset>
 
                                 <div class="form-group">

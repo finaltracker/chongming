@@ -26,9 +26,6 @@ public class CtyAddForm extends ActionForm {
 	/** country_contact property */
 	private String country_contact;
 
-	/** country_display_order property */
-	private String country_display_order;
-
 	/** country_name property */
 	private String country_name;
 
@@ -92,22 +89,7 @@ public class CtyAddForm extends ActionForm {
 		this.country_contact = country_contact;
 	}
 
-	/** 
-	 * Returns the country_display_order.
-	 * @return String
-	 */
-	public String getCountry_display_order() {
-		return country_display_order;
-	}
-
-	/** 
-	 * Set the country_display_order.
-	 * @param country_display_order The country_display_order to set
-	 */
-	public void setCountry_display_order(String country_display_order) {
-		this.country_display_order = country_display_order;
-	}
-
+	
 	/** 
 	 * Returns the country_name.
 	 * @return String

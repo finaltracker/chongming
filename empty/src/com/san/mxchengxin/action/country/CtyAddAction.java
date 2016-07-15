@@ -38,15 +38,15 @@ public class CtyAddAction extends ChengxinBaseAction {
 		Short parentid = addF.getParent_id();
 		String contact = addF.getCountry_contact();
 		String phone = addF.getCountry_phone();
-		String displayOrder = addF.getCountry_display_order();
+		//String displayOrder = addF.getCountry_display_order();
 		
-		if (name != null && parentid != null && contact != null && phone !=null && displayOrder !=null) {
+		if (name != null && parentid != null && contact != null && phone !=null ) {
 			CmCountry ct = new CmCountry();
 			ct.setName(name);
 			ct.setParentid(parentid);
 			ct.setContact(contact);
 			ct.setPhone(phone);
-			ct.setDisplayOrder(Short.valueOf(displayOrder));
+			//ct.setDisplayOrder(Short.valueOf(displayOrder));
 			
 			LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
 			ct.setAuthor(userInfo.getCn());
@@ -80,7 +80,6 @@ public class CtyAddAction extends ChengxinBaseAction {
 			request.setAttribute("country_name", updateCc.getName());
 			request.setAttribute("country_contact", updateCc.getContact());
 			request.setAttribute("country_phone", updateCc.getPhone());
-			request.setAttribute("country_display_order", updateCc.getDisplayOrder());
 			
 			List<CmCountry> afterList = cmCountryDAO.queryParentZero();
 			request.setAttribute("parentlist", afterList);
@@ -95,15 +94,14 @@ public class CtyAddAction extends ChengxinBaseAction {
 			Short parentid = addF.getParent_id();
 			String contact = addF.getCountry_contact();
 			String phone = addF.getCountry_phone();
-			String displayOrder = addF.getCountry_display_order();
-			
-			if (name != null && parentid != null && contact != null && phone !=null && displayOrder !=null) {
+			short displayOrder = 0;
+			if (name != null && parentid != null && contact != null && phone !=null ) {
 				CmCountry ct = new CmCountry();
 				ct.setName(name);
 				ct.setParentid(parentid);
 				ct.setContact(contact);
 				ct.setPhone(phone);
-				ct.setDisplayOrder(Short.valueOf(displayOrder));
+				ct.setDisplayOrder( displayOrder );
 
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 				Date now = new Date();

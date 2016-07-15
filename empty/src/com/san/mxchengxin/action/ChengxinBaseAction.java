@@ -304,7 +304,7 @@ public class ChengxinBaseAction extends Action {
 		return ret;
 	}
 	
-	void ajaxResponse( HttpServletResponse response , Object jasonOut )
+	public void ajaxResponse( HttpServletResponse response , Object jasonOut )
 	{
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/javascript");

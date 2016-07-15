@@ -165,7 +165,7 @@
                                     }
                                 })
                             }, function () {
-                                window.location.href = '${pageContext.request.contextPath}/home/record/';
+                                window.location.href = '${pageContext.request.contextPath}/home/record.do';
                                 layer.closeAll();
                             });
                         } else {

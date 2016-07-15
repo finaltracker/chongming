@@ -2,7 +2,9 @@ package com.san.mxchengxin.action.person;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
+import com.san.mxchengxin.model.record.CmRecord;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
@@ -110,49 +113,25 @@ public class PersonAddAction extends ChengxinBaseAction {
 	
 	private ActionForward add(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-		if(request.getParameter("save")!=null &&!request.getParameter("save").isEmpty()) {
-			System.out.println("save save3333");
-			if(request.getParameter("id")!=null &&!request.getParameter("id").isEmpty()) {
-				Integer personId = Integer.valueOf(request.getParameter("id"));
-				System.out.println("[save and update] id : "+ personId);
-				
-				CmPerson updateCc = cmPersonDAO.findById(personId);
-				updateCc.setStat(true);
-				saveMessageToLog("提交人员: " + updateCc.getTruename() , request );
-				cmPersonDAO.update(updateCc);
-			}
-		} else {
 		
-			passFormToVar(form);
+		List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
+		if(afterList != null) {
+			Short parentId = 0;
+			Short selectedCountryId = 0;
+			String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
 			
-			if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
-					&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
-	
-				LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-	
-				saveDataToDbPerson(userInfo.getCn() ,request );
-				
-				
-			} else {
-				
-				List<CmCountry> afterList = getVisiableCountry(cmCountryDAO);
-				if(afterList != null) {
-					Short parentId = 0;
-					Short selectedCountryId = 0;
-					String countrySelect = getCountrySelect(afterList, selectedCountryId ,parentId,1);
-					
-					request.setAttribute("countrySelect", countrySelect);
-				}
-				
-				//for ajax
-				request.setAttribute("person_stat", false);
-				Integer xid = cmPersonDAO.getMaxId();
-				System.out.println("save xid: "+xid);
-				request.setAttribute("person_id", xid+1);
-			}
+			request.setAttribute("countrySelect", countrySelect);
 		}
-			
+		
+		//for ajax
+		request.setAttribute("person_stat", false);
+		Integer xid = cmPersonDAO.getMaxId();
+		System.out.println("save xid: "+xid);
+		request.setAttribute("person_id", xid+1);
+	
 		return mapping.findForward("personaddForword");
+		
+
 	}
 	
 	private ActionForward update(ActionMapping mapping, ActionForm form,
@@ -255,6 +234,21 @@ public class PersonAddAction extends ChengxinBaseAction {
 		
 		super.execute(mapping, form, request, response);
 		
+		/* ajax */
+		if(request.getParameter("opt") != null) {
+			String opt = request.getParameter("opt");
+			
+			if( opt.equals("save"))
+			{
+				return saveReq( request ,response ,form );
+			}
+			else if( opt.equals("save2"))
+			{
+				return save2Req( request ,response  );
+			}
+		}
+		
+		
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));
 			System.out.println("op action : "+actionMethod);
@@ -321,4 +315,44 @@ public class PersonAddAction extends ChengxinBaseAction {
 		
 		return select;
 	}
+	
+	//click submit button (save)
+	public ActionForward saveReq( HttpServletRequest request , HttpServletResponse response ,ActionForm form )
+	{
+		passFormToVar( form );
+		
+		CmPerson cp = new CmPerson();
+		passDataToDb(cp);
+		cp.setAuthor( this.cn );
+
+		boolean isAdmin = isAllVisiable();
+		isAdmin = false;
+		cp.setStat(isAdmin);
+		saveMessageToLog("新增人员: " + cp.getTruename() , request );
+		cmPersonDAO.save(cp);
+		
+		Map<String , Object > jasonOut = new HashMap<String , Object >();
+		jasonOut.put("stat", isAdmin );
+		jasonOut.put("id", cp.getId() );
+		
+		ajaxResponse( response , jasonOut );
+		
+		return null;
+	}
+	
+	//confirm save 
+	public ActionForward save2Req( HttpServletRequest request , HttpServletResponse response )
+	{
+		String personId = request.getParameter("id");
+		
+		CmPerson updateCc = cmPersonDAO.findById(Integer.valueOf( personId ));
+		updateCc.setStat(true);
+		saveMessageToLog("提交人员: " + updateCc.getTruename() , request );
+		cmPersonDAO.update(updateCc);
+		
+		ajaxResponse( response , null );
+
+		return null;
+	}
+
 }

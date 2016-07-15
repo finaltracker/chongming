@@ -6,7 +6,7 @@
 <block name="body">
     <div class="title_1">
         <p class="position">
-            <a role="button" href="${pageContext.request.contextPath}/home/person/add" class="btn btn-danger pull-right">增加人员</a>
+            <a role="button" href="${pageContext.request.contextPath}/home/person/add.do" class="btn btn-danger pull-right">增加人员</a>
             <strong>当前位置：</strong>人员&nbsp;>&nbsp;${pageInfo_actionTitle}人员
         </p>
     </div>
@@ -20,7 +20,7 @@
                     <div class="widget widget-info">
 
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?opt=save" class="form-horizontal bv-form">
                                 <fieldset>
                                     <legend>人员${pageInfo_actionTitle}</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" id="xid" name="xid" value="${person_id}"/><input type="hidden" id="stat" name="stat" value="${person_stat}"/>
 
@@ -161,23 +161,18 @@
                     $.ajax({
                         url:$form.attr("action"),
                         type:$form.attr("method"),
-						//dataType: 'json',
+                        dataType:"json",
                         data:$form.serialize(),
                         success:function(data){
-							data = {stat:$("#stat").val(),id:$("#xid").val()};
-                            if(data.stat=="false"){
+                        if (data[0].stat == false ) {
                                 layer.confirm('${pageInfo_actionTitle}成功 是否继续提交', {
-                                    btn: ['提交','返回修改'] //按钮
+                                btn: ['提交', '返回'] //按钮
                                 }, function(){
-                                    layer.closeAll();
-                                    layer.load();
-									data = {stat:$("#stat").val(),id:$("#xid").val()};
                                     $.ajax({
-                                        url:'${pageContext.request.contextPath}/home/person/add.do?method=${pageInfo_action}&save=2&xid='+data.id,
-                                        //url:'${pageContext.request.contextPath}/home/person/add',
+                                     url:'${pageContext.request.contextPath}/home/person/add.do?opt=save2',
                                         type:"post",
                                         cache:false,
-                                        data:{id:data.id},
+                                    data: {id: data[0].id},
                                         success:function(){
                                             layer.confirm('提交成功', {
                                                 btn: ['继续录入','返回列表'] //按钮
@@ -189,7 +184,7 @@
                                         }
                                     })
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do?method=3&id='+data.id;
+                                    window.location.href='${pageContext.request.contextPath}/home/person.do';
                                     layer.closeAll();
                                 });
                             }else{

@@ -171,7 +171,7 @@ public class PersonAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.eq("countryId", countryId.shortValue() )); 
 		}
 		
-		searDc.addOrder( Order.asc("id") );
+		searDc.addOrder( Order.desc("pubdate") );
 		if(countryList != null) {
 			List<CmPerson> targetList = cmPersonDAO.getHibernateTemplate ().findByCriteria( searDc );
 			

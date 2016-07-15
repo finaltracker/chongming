@@ -6,7 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,6 +35,7 @@ import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.objects.RecordListObj;
 import com.san.mxchengxin.utils.ComparatorCmLevel;
 import com.san.mxchengxin.utils.util;
@@ -236,7 +239,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 		searDc.addOrder( Order.asc("id") );
 		if(countryList != null) {
 
-			List<CmRecord> targetList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
+			List<CmRecord> originList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
+			List<CmRecord> targetList = clusterListData(originList);
 			List<RecordListObj> cpdList = new ArrayList<RecordListObj>();
 			//for pagination
 			int noOfRecords = targetList.size();
@@ -273,10 +277,13 @@ public class StatisticsAction extends ChengxinBaseAction {
 							levelName = levels.get(ix).getLevelName();
 							System.out.println("level score "+score+" and name: "+levels.get(ix).getLevelName());
 							break;
+						} else if (score1.compareTo(score) > 0) {
+							levelName = levels.get(ix).getLevelName();
+							System.out.println("level score "+score+" and name: "+levels.get(ix).getLevelName());
+							break;		
 						} else {
 							continue;
 						}
-							
 						
 					}
 				} 
@@ -330,6 +337,26 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 	}
 	
+	private List<CmRecord>  clusterListData(List<CmRecord>  list) {
+		
+		Map<String, CmRecord> ssidCluster = new HashMap<String, CmRecord>();
+		
+		for( int i = 0 ; i < list.size() ; i++ )
+		{
+			CmRecord temp = ssidCluster.get(list.get(i).getPerson().getSsid());
+			if (temp == null)
+				ssidCluster.put( list.get(i).getPerson().getSsid(), list.get(i) );
+			else {
+				Short score = (short) (list.get(i).getScore()+temp.getScore());
+				list.get(i).setScore(score);
+				ssidCluster.put( list.get(i).getPerson().getSsid(), list.get(i) );
+			}
+		}
+		
+		List<CmRecord> rloList = new ArrayList<CmRecord>(ssidCluster.values());
+
+		return rloList;
+	}
 	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<RecordListObj> list) throws IOException
 	{
 

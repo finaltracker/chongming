@@ -96,6 +96,7 @@
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmLevelDAO" ref="cmLevelDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />	
+		<property name ="cmLogDAO" ref = "cmLogDAO"/>
 	</bean>	
 		
 	<bean id="sessionFactory"

@@ -127,6 +127,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 		request.setAttribute("person_stat", false);
 		Integer xid = cmPersonDAO.getMaxId();
 		System.out.println("save xid: "+xid);
+		
 		request.setAttribute("person_id", xid+1);
 	
 		return mapping.findForward("personaddForword");
@@ -169,29 +170,6 @@ public class PersonAddAction extends ChengxinBaseAction {
 			
 		}
 		
-		if(request.getParameter("xid")!=null &&!request.getParameter("xid").isEmpty()) {
-			
-			Integer xId = Integer.valueOf(request.getParameter("xid"));
-			System.out.println("[update item] : "+xId);
-			CmPerson oldPerson = cmPersonDAO.findById(xId);
-			
-			if(request.getParameter("save")!=null &&!request.getParameter("save").isEmpty()) {
-				oldPerson.setStat(true);
-				saveMessageToLog("提交人员: " + oldPerson.getTruename() , request );
-				cmPersonDAO.update(oldPerson);
-			} else {
-				passFormToVar(form);
-				
-				if (trueName != null && personSsid != null && sex != null && phone !=null && personZzmm !=null 
-						&& birthDay!= null && remark != null && personWhcd != null && countryId != null) {
-	
-					//LoginUserInfo userInfo = LoginUserInfoDelegate.getLoginUserInfoFromRequest(request);
-	
-					updateDataToDbPerson(oldPerson);
-				}
-			}
-		}
-
 		return mapping.findForward("personaddForword");
 	}
 	
@@ -252,6 +230,7 @@ public class PersonAddAction extends ChengxinBaseAction {
 		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) {
 			Short actionMethod = Short.valueOf(request.getParameter("method"));
 			System.out.println("op action : "+actionMethod);
+			request.setAttribute("method", actionMethod );
 			if(actionMethod == 1) {
 				System.out.println("add action");
 				request.setAttribute("pageInfo_actionTitle", "增加");
@@ -321,19 +300,56 @@ public class PersonAddAction extends ChengxinBaseAction {
 	{
 		passFormToVar( form );
 		
-		CmPerson cp = new CmPerson();
-		passDataToDb(cp);
-		cp.setAuthor( this.cn );
+		
 
 		boolean isAdmin = isAllVisiable();
-		isAdmin = false;
-		cp.setStat(isAdmin);
-		saveMessageToLog("新增人员: " + cp.getTruename() , request );
-		cmPersonDAO.save(cp);
+		//isAdmin = false;
+		CmPerson cp = new CmPerson();
+		
+		if(request.getParameter("method") != null && !request.getParameter("method").isEmpty()) 
+		{
+			Short actionMethod = Short.valueOf(request.getParameter("method"));
+			passDataToDb(cp);
+			cp.setAuthor( this.cn );
+			cp.setStat(isAdmin);
+
+			if( actionMethod == 1 )
+			{
+				
+				saveMessageToLog("新增人员: " + cp.getTruename() , request );
+				cmPersonDAO.save(cp);
+			}
+			else if( actionMethod == 3 )
+			{
+				if(request.getParameter("xid")!=null &&!request.getParameter("xid").isEmpty()) 
+				{
+					Integer xId = Integer.valueOf(request.getParameter("xid"));
+					cp.setId( xId );
+					saveMessageToLog("更新人员: " + cp.getTruename() , request );
+					cmPersonDAO.update(cp);
+				}
+				else
+				{
+					System.out.print("personAddAction: 无效的actionMethod " + actionMethod );
+				}
+			}
+			else
+			{
+				System.out.print("personAddAction: 无效的actionMethod " + actionMethod );
+			}
+			
+		}
+		else
+		{
+			System.out.print( "无 method 参数" );
+		}
 		
 		Map<String , Object > jasonOut = new HashMap<String , Object >();
 		jasonOut.put("stat", isAdmin );
-		jasonOut.put("id", cp.getId() );
+		if( cp != null )
+		{
+			jasonOut.put("id", cp.getId() );
+		}
 		
 		ajaxResponse( response , jasonOut );
 		

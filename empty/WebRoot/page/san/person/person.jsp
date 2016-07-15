@@ -84,7 +84,11 @@
 												<a href="${pageContext.request.contextPath}/home/person.do?id=${targetEnhance.id}" class="item-remove"><i class="fa fa-remove"></i> 删除</a>
                                             </c:if>
 											<c:if test="${isadmin ne true && targetEnhance.stat ne false}">
-												<a href="${pageContext.request.contextPath}/home/person/add.do?method=4&id=${targetEnhance.id}"><i class="fa fa-file-text-o"></i> 查看 </a>  已提交
+												<a href="${pageContext.request.contextPath}/home/person/add.do?method=4&id=${targetEnhance.id}"><i class="fa fa-file-text-o"></i> 查看 </a>
+                                            </c:if>
+                                            
+                                            <c:if test="${targetEnhance.stat ne false}">
+												已提交 
                                             </c:if>
                                         </td>                       
                                   

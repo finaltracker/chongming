@@ -20,7 +20,7 @@
                     <div class="widget widget-info">
 
                         <div class="widget-body">
-                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?opt=save" class="form-horizontal bv-form">
+                            <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?opt=save&method=${method}" class="form-horizontal bv-form">
                                 <fieldset>
                                     <legend>人员${pageInfo_actionTitle}</legend><input type="hidden" name="action" value="${pageInfo_action}"/><input type="hidden" id="xid" name="xid" value="${person_id}"/><input type="hidden" id="stat" name="stat" value="${person_stat}"/>
 

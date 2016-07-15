@@ -50,6 +50,10 @@ public class RecordAction extends ChengxinBaseAction {
 	private CmTargetDAO cmTargetDAO;
 	private CmPartDAO 	cmPartDAO;	
 	
+	//for pagination
+	int page = 1;
+	int recordsPerPage = 15;
+	
 	public CmCountryDAO geCmCountryDAO() {
 		return cmCountryDAO;
 	}
@@ -89,6 +93,10 @@ public class RecordAction extends ChengxinBaseAction {
 		super.execute( mapping, form, request, response);
 		
 		RecordForm recordForm = (RecordForm) form;
+		
+		if(request.getParameter("page") != null) {
+			page = Integer.valueOf(request.getParameter("page"));
+		} 
 		
 		if(request.getParameter("id") != null) {
 			//删除操作
@@ -163,9 +171,15 @@ public class RecordAction extends ChengxinBaseAction {
 		List<CmTarget>  targetList = cmTargetDAO.getHibernateTemplate ().findByCriteria( targetDc );
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );
 		
-		List<RecordListObj> enhanceRecordList = recordToRecordListObj( list );
+		//for pagination
+		int noOfRecords = list.size();
+		int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
+		int startPos = (page-1)*recordsPerPage;
+		int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
 		
+		List<RecordListObj> enhanceRecordList = recordToRecordListObj( list , startPos, endPos);
 		
+
 		//export excel
 		if(request.getParameter("opt") != null) {
 			int opt = Integer.valueOf(request.getParameter("opt"));
@@ -187,6 +201,10 @@ public class RecordAction extends ChengxinBaseAction {
 			isadmin = 1;
 		}
 		
+		request.setAttribute("noOfPages", noOfPages);
+		request.setAttribute("currentPage", page);
+		request.setAttribute("noOfRecords", noOfRecords);
+		
 		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("targetSelect", targetSelectStr );
 		request.setAttribute("truename", recordForm.getTruename() );
@@ -198,7 +216,7 @@ public class RecordAction extends ChengxinBaseAction {
 	}
 	
 	
-	List<RecordListObj> recordToRecordListObj( List<CmRecord>  list )
+	List<RecordListObj> recordToRecordListObj( List<CmRecord>  list , int start, int end )
 	{
 		
 		Map< Short , CmCountry > countryMap = cmCountryDAO.listAsMap();
@@ -207,7 +225,7 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		List<RecordListObj> rloList = new ArrayList<RecordListObj>();
 		
-		for( int i = 0 ; i < list.size() ; i++ )
+		for( int i = start ; i < end ; i++ )
 		{
 			CmRecord rlo = list.get(i);
 			

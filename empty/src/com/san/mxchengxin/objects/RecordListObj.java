@@ -13,6 +13,7 @@ public class RecordListObj {
 	private String pubdate;
 	private String dateline;
 	private int stat;
+	private String levelName;
 	
 	
 	public RecordListObj( 
@@ -40,6 +41,27 @@ public class RecordListObj {
 		this.pubdate = pubdate;
 		this.dateline = dateline;
 		this.stat = stat;
+	}
+	
+	public RecordListObj( 
+			int    id ,
+			String truename,
+			String ssid,
+			String countryName,
+			String levelName,
+			Short score,
+			String pubdate,
+			String dateline
+			)
+	{
+		this.id  = id;
+		this.truename = truename;
+		this.ssid = ssid;
+		this.countryName = countryName;
+		this.levelName = levelName;
+		this.score = score;
+		this.pubdate = pubdate;
+		this.dateline = dateline;
 	}
 	
 	public int getStat() {
@@ -70,6 +92,12 @@ public class RecordListObj {
 	}
 	public String getCountryName() {
 		return countryName;
+	}
+	public void setLevelName(String levelName) {
+		this.levelName = levelName;
+	}
+	public String getLevelName() {
+		return levelName;
 	}
 	public void setCountryName(String countryName) {
 		this.countryName = countryName;

@@ -1,12 +1,17 @@
 package com.san.mxchengxin.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
 
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
@@ -299,4 +304,28 @@ public class ChengxinBaseAction extends Action {
 		return ret;
 	}
 	
+	void ajaxResponse( HttpServletResponse response , Object jasonOut )
+	{
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/javascript");
+		response.setHeader("Cache-Control", "no-cache"); 
+		PrintWriter out;
+		if( jasonOut != null )
+		{
+			JSONArray jsonObject = JSONArray.fromObject( jasonOut );//装换json
+			
+			try {
+				out = response.getWriter();
+		
+				out.write(jsonObject.toString()); 
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 }

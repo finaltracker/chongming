@@ -157,8 +157,6 @@ public class RecordAddAction extends ChengxinBaseAction {
 		String q  = null;
 		String page;
 		
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/javascript");
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e2) {
@@ -208,19 +206,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 			
 		
 			JSONArray jsonObject = JSONArray.fromObject( rsoList );//装换json
-			response.setContentType("text/html;charset=UTF-8"); 
-			response.setHeader("Cache-Control", "no-cache"); 
-			PrintWriter out;
-			try {
-				out = response.getWriter();
-		
-				out.write(jsonObject.toString()); 
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ajaxResponse( response , jsonObject );
 			
 			  
 		}
@@ -297,27 +283,12 @@ public class RecordAddAction extends ChengxinBaseAction {
 										) ;
 			cmRecordDAO.save( cr );
 			
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/javascript");
+			
 			Map<String , Object > jasonOut = new HashMap<String , Object >();
 			jasonOut.put("stat", stat);
 			jasonOut.put("id", cr.getId() );
 			
-			JSONArray jsonObject = JSONArray.fromObject( jasonOut );//装换json
-			response.setContentType("text/html;charset=UTF-8"); 
-			response.setHeader("Cache-Control", "no-cache"); 
-			PrintWriter out;
-			try {
-				out = response.getWriter();
-		
-				out.write(jsonObject.toString()); 
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			ajaxResponse( response , jasonOut );
 			
 		}
 		
@@ -335,8 +306,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 			
 			cmRecordDAO.update(cmRecord);
 			
-			response.setCharacterEncoding("UTF-8");
-			response.setContentType("text/javascript");
+			ajaxResponse( response , null );
 
 			return null;
 		}

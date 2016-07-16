@@ -20,7 +20,9 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -259,12 +261,13 @@ public class RecordAddAction extends ChengxinBaseAction {
 			String author = cn;
 			
 			boolean stat = false;
+			CmPerson cp = cmPersonDAO.findById( Integer.valueOf( person_id ));
 			if( this.isAllVisiable() )
 			{
 				stat = true;
 			}
-
-			CmRecord cr = new CmRecord( cmPersonDAO.findById( Integer.valueOf( person_id )),
+			
+			CmRecord cr = new CmRecord( cp,
 										Integer.valueOf( target_id ),
 										Short.valueOf( score ),
 										author,
@@ -273,9 +276,17 @@ public class RecordAddAction extends ChengxinBaseAction {
 										dateLine,
 										part_id 
 										) ;
+			
 			cmRecordDAO.save( cr );
 			
-			
+			if( stat )
+			{
+				saveMessageToLog("增加考核记录(已提交) id: " + cr.getId() + " 名字 " +cp.getTruename() + " 考核项目: " + target_id , request );
+			}
+			else
+			{
+				saveMessageToLog("增加考核记录(未提交) id: " + cr.getId() + " 名字" +cp.getTruename() + " 考核项目: " + target_id , request );
+			}
 			Map<String , Object > jasonOut = new HashMap<String , Object >();
 			jasonOut.put("stat", stat);
 			jasonOut.put("id", cr.getId() );
@@ -295,6 +306,8 @@ public class RecordAddAction extends ChengxinBaseAction {
 			CmRecord cmRecord = cmRecordDAO.findById( Integer.valueOf( id ) );
 			
 			cmRecord.setStat( true );
+			
+			saveMessageToLog("提交考核记录  id: " +id  , request );
 			
 			cmRecordDAO.update(cmRecord);
 			

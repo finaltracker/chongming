@@ -24,6 +24,7 @@ import org.apache.struts.action.ActionMapping;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.san.mxchengxin.form.record.RecordForm;
@@ -103,9 +104,20 @@ public class RecordAction extends ChengxinBaseAction {
 			Integer recordId = Integer.valueOf(request.getParameter("id"));
 			System.out.println("[delete] id : "+recordId);
 			
-			CmRecord cr = cmRecordDAO.findById( recordId );
+			DetachedCriteria DelSearDc =	DetachedCriteria.forClass( CmRecord.class);
 			
-			//saveMessageToLog("删除考核记录: " + cr.getPerson().getTruename() + " target: " + cr.getTargetId() , request );
+			DelSearDc.setFetchMode("person", FetchMode.JOIN); 
+			DelSearDc.createAlias("person", "person");  
+			
+			DelSearDc.add(Restrictions.eq("id", recordId));
+			//CmRecord cr = cmRecordDAO.findById( recordId );
+			List<CmRecord>  list = cmRecordDAO.getHibernateTemplate ().findByCriteria( DelSearDc );
+			CmRecord cr = null;
+			if( list.size() > 0 )
+			{
+				cr = list.get( 0 );
+			}
+			saveMessageToLog("删除考核记录: 名字" + cr.getPerson().getTruename() + " 考核项目: " + cr.getTargetId() , request );
 			
 			cmRecordDAO.delete( cr );
 
@@ -159,7 +171,8 @@ public class RecordAction extends ChengxinBaseAction {
 				searDc.add(Restrictions.in("targetId", targetIdList ));
 			}
 		}
-
+		
+		searDc.addOrder( Order.desc( "pubdate" ) );
 		List<CmRecord>  list = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
 	
 		

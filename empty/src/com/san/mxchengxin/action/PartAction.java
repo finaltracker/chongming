@@ -17,15 +17,6 @@ import com.san.mxchengxin.model.part.CmPartDAO;
 
 
 public class PartAction extends ChengxinBaseAction {
-	private CmPartDAO cmPartDAO;
-
-	public CmPartDAO geCmPartDAO() {
-		return cmPartDAO;
-	}
-	
-	public void setCmPartDAO(CmPartDAO cmPartDAO) {
-		this.cmPartDAO = cmPartDAO;
-	}
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {

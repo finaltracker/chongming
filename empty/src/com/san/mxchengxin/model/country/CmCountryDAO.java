@@ -243,7 +243,10 @@ public class CmCountryDAO extends HibernateDaoSupport {
 		{
 			CmCountry country = (CmCountry)list.get(i);
 			
-			lineCountryMap.put( country.getId(), new CountryMapObj(country) );
+			if( country != null )
+			{
+				lineCountryMap.put( country.getId(), new CountryMapObj(country) );
+			}
 		}
 		
 		//组装成树形结构

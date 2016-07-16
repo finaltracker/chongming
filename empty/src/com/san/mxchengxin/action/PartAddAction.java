@@ -27,16 +27,6 @@ public class PartAddAction extends ChengxinBaseAction {
 	private String  part_name;
 
 
-	private CmPartDAO cmPartDAO;
-
-	public CmPartDAO geCmPartDAO() {
-		return cmPartDAO;
-	}
-	
-	public void setCmPartDAO(CmPartDAO cmPartDAO) {
-		this.cmPartDAO = cmPartDAO;
-	}
-	
 	
 	//点击增加等级 处理
 	private ActionForward add(ActionMapping mapping, ActionForm form,

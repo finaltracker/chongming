@@ -3,6 +3,7 @@ package com.san.mxchengxin.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -44,6 +45,7 @@ public class ChengxinBaseAction extends Action {
 	protected String sn ;
 	
 	public CmLogDAO cmLogDAO = null; 
+	public CmPartDAO cmPartDAO = null;
 	
 	private String[] specifyPartmentList = {
 	"系统管理部",
@@ -57,6 +59,15 @@ public class ChengxinBaseAction extends Action {
 
 	public void setCmLogDAO(CmLogDAO cmLogDAO) {
 		this.cmLogDAO = cmLogDAO;
+	}
+
+
+	public CmPartDAO getCmPartDAO() {
+		return cmPartDAO;
+	}
+
+	public void setCmPartDAO(CmPartDAO cmPartDAO) {
+		this.cmPartDAO = cmPartDAO;
 	}
 
 	
@@ -122,13 +133,26 @@ public class ChengxinBaseAction extends Action {
 			if( cmCountry.size() < 1 )
 			{
 				System.out.println("在 CmCountry表中找不到" + ouName );
+				
+				if( cmPartDAO.findByPartName( ouName ).size() > 0 )
+				{	//是个部门所有的村镇都可见，间接可以看到所有村镇下的人
+					countryList = cmCountryDAO.findAll();
+				}
+				else
+				{
+					//没有找到对应的部门，用unknow产生一个临时的country，以便用于过滤people和record
+					countryList = new ArrayList<CmCountry>();
+					countryList.add( new CmCountry( "unknow" , "" , (long) 0 ) );
+				}
 			}
-			
-			DetachedCriteria searDc =	DetachedCriteria.forClass( CmCountry.class);
-	
-			searDc.add(Restrictions.or( Restrictions.eq("id", cmCountry.get(0).getId() )  , Restrictions.eq("parentid", cmCountry.get(0).getId() )));
-					
-			countryList = cmCountryDAO.getHibernateTemplate ().findByCriteria( searDc );
+			else
+			{
+				DetachedCriteria searDc =	DetachedCriteria.forClass( CmCountry.class);
+		
+				searDc.add(Restrictions.or( Restrictions.eq("id", cmCountry.get(0).getId() )  , Restrictions.eq("parentid", cmCountry.get(0).getId() )));
+						
+				countryList = cmCountryDAO.getHibernateTemplate ().findByCriteria( searDc );
+			}
 			
 		}
 		return countryList;
@@ -256,7 +280,7 @@ public class ChengxinBaseAction extends Action {
 					List<CmPart> pList = cmPartDAO.findByPartName( "乡镇" );
 					if( pList.size() > 0 )
 					{
-						ret = cpList.get(0).getId();
+						ret = pList.get(0).getId();
 					}
 				}
 				else
@@ -264,7 +288,7 @@ public class ChengxinBaseAction extends Action {
 					List<CmPart> pList = cmPartDAO.findByPartName( "村" );
 					if( pList.size() > 0 )
 					{
-						ret = cpList.get(0).getId();
+						ret = pList.get(0).getId();
 					}
 				}
 			}

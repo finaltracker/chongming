@@ -48,7 +48,7 @@ public class RecordAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmRecordDAO cmRecordDAO;
 	private CmTargetDAO cmTargetDAO;
-	private CmPartDAO 	cmPartDAO;	
+
 	
 	//for pagination
 	int page = 1;
@@ -70,15 +70,6 @@ public class RecordAction extends ChengxinBaseAction {
 		this.cmRecordDAO = cmRecordDAO;
 	}
 	
-	public CmTargetDAO getCmTargetDAO() {
-		return cmTargetDAO;
-	}
-	
-	public void setCmTargetDAO(CmTargetDAO cmTargetDAO) {
-		this.cmTargetDAO = cmTargetDAO;
-	}
-	
-	
 	public CmPartDAO getCmPartDAO() {
 		return cmPartDAO;
 	}
@@ -87,6 +78,15 @@ public class RecordAction extends ChengxinBaseAction {
 		this.cmPartDAO = cmPartDAO;
 	}
 		
+
+	public CmTargetDAO getCmTargetDAO() {
+		return cmTargetDAO;
+	}
+
+	public void setCmTargetDAO(CmTargetDAO cmTargetDAO) {
+		this.cmTargetDAO = cmTargetDAO;
+	}
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 
@@ -121,7 +121,7 @@ public class RecordAction extends ChengxinBaseAction {
 		searDc.setFetchMode("person", FetchMode.JOIN); 
 		searDc.createAlias("person", "person");  
 		
-		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO );
+		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO  );
 		if( ( recordForm.getCountry_id() == null) || (recordForm.getCountry_id() == 0 ) )
 		{//根据登陆的用户名来确定
 			countryList = userSeenCountryList;
@@ -130,8 +130,11 @@ public class RecordAction extends ChengxinBaseAction {
 		{//用户指定(村或帧)
 			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , recordForm.getCountry_id() );
 		}
-		//country
-		searDc.add(Restrictions.in("person.countryId", countryList ));
+		if( countryList != null )
+		{
+			//country
+			searDc.add(Restrictions.in("person.countryId", countryList ));
+		}
 		//name
 		if( ( recordForm.getTruename()) != null && (!recordForm.getTruename().isEmpty())  )
 		{
@@ -151,7 +154,7 @@ public class RecordAction extends ChengxinBaseAction {
 		}
 		else
 		{//
-			if( targetIdList != null )
+			if( targetIdList != null && ( targetIdList.length > 0 ) )
 			{
 				searDc.add(Restrictions.in("targetId", targetIdList ));
 			}
@@ -167,7 +170,10 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		/* 查询 可用的target */
 		DetachedCriteria targetDc =	DetachedCriteria.forClass( CmTarget.class);
-		targetDc.add(Restrictions.in("id", util.IntegerArrayToShortArray(targetIdList) ));
+		if(( targetIdList != null )&& ( targetIdList.length > 0 ) )
+		{
+			targetDc.add(Restrictions.in("id", util.IntegerArrayToShortArray(targetIdList) ));
+		}
 		List<CmTarget>  targetList = cmTargetDAO.getHibernateTemplate ().findByCriteria( targetDc );
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );
 		
@@ -216,6 +222,7 @@ public class RecordAction extends ChengxinBaseAction {
 	}
 	
 	
+
 	List<RecordListObj> recordToRecordListObj( List<CmRecord>  list , int start, int end )
 	{
 		

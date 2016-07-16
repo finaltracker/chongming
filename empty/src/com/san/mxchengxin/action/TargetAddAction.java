@@ -23,21 +23,12 @@ import com.san.share.pmi.service.LoginUserInfoDelegate;
 
 public class TargetAddAction extends ChengxinBaseAction {
 	private CmTargetDAO cmTargetDAO;
-	private CmPartDAO cmPartDAO;
 	public CmTargetDAO geCmTargetDAO() {
 		return cmTargetDAO;
 	}
 	
 	public void setCmTargetDAO(CmTargetDAO cmTargetDAO) {
 		this.cmTargetDAO = cmTargetDAO;
-	}
-	
-	public CmPartDAO geCmPartDAO() {
-		return cmPartDAO;
-	}
-	
-	public void setCmPartDAO(CmPartDAO cmPartDAO) {
-		this.cmPartDAO = cmPartDAO;
 	}
 	
 	private ActionForward add(ActionMapping mapping, ActionForm form,

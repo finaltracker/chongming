@@ -29,6 +29,11 @@ public abstract class AbstractCmCountry implements java.io.Serializable {
 		this.name = name;
 		this.contact = contact;
 		this.pubdate = pubdate;
+		id = -1; 
+		parentid = 0;
+		displayOrder = 0;
+		phone = "";
+		author = "";
 	}
 
 	/** full constructor */

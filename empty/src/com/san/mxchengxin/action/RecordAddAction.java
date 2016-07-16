@@ -43,7 +43,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 	CmPersonDAO cmPersonDAO;
 	CmCountryDAO	cmCountryDAO;
 	CmRecordDAO		cmRecordDAO;
-	CmPartDAO	cmPartDAO;
+
 	
 
 	String pageInfo_action = "增加";
@@ -84,14 +84,6 @@ public class RecordAddAction extends ChengxinBaseAction {
 		this.cmTargetDAO = cmTargetDAO;
 	}
 
-	public CmPartDAO getCmPartDAO() {
-		return cmPartDAO;
-	}
-
-	public void setCmPartDAO(CmPartDAO cmPartDAO) {
-		this.cmPartDAO = cmPartDAO;
-	}
-	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		

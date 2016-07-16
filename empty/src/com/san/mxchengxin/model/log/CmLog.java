@@ -76,6 +76,10 @@ public class CmLog  implements java.io.Serializable {
     }
     
     public void setIp(String ip) {
+    	if( ip.equals("0:0:0:0:0:0:0:1"))
+    	{
+    		ip = "127.0.0.1:8080";
+    	}
         this.ip = ip;
     }
    

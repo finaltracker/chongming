@@ -10,10 +10,17 @@ import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
+import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.log.CmLogDAO;
 import com.san.mxchengxin.model.log.CmLogEnhance;
+import com.san.mxchengxin.utils.util;
 
 public class LogAction extends ChengxinBaseAction  {
 
@@ -23,26 +30,36 @@ public class LogAction extends ChengxinBaseAction  {
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
-		List<CmLog> clList =  cmLogDAO.findAll();
 		List<CmLogEnhance> clEnhanceList = new ArrayList<CmLogEnhance>();
 		//for pagination
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		}
 		
-		int noOfRecords = clList.size();
-		int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
-		int startPos = (page-1)*recordsPerPage;
-		int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
-		for(int i=startPos;i<endPos;i++)
+		Session s = cmLogDAO.getSessionFactory().openSession();
+		Criteria searDc =  s.createCriteria( CmLog.class );
+		
+		
+		searDc.setFirstResult( (page-1) * recordsPerPage );
+		searDc.setMaxResults( recordsPerPage );
+		searDc.addOrder(Order.desc("pubdate"));
+		List<CmLog> clList =  searDc.list();
+		
+		for(int i= 0 ;i< clList.size() ;i++)
 		{
 			clEnhanceList.add( new CmLogEnhance(clList.get(i)) );
 		}
 		
+		String hql = "select count(*) from CmLog";
+		Object number = s.createQuery(hql).uniqueResult();
+		
+		
+		int noOfRecords = Integer.parseInt(String.valueOf(number));
+		
 		request.setAttribute("list", clEnhanceList );
-		request.setAttribute("noOfPages", noOfPages);
+		request.setAttribute("noOfPages", ( noOfRecords + recordsPerPage -1 ) / recordsPerPage);
 		request.setAttribute("currentPage", page);
-		request.setAttribute("noOfRecords", noOfRecords);
+		request.setAttribute("noOfRecords", noOfRecords  );
 		
 		return mapping.findForward( "logForword" );
 	}

@@ -220,6 +220,8 @@ public class RecordAction extends ChengxinBaseAction {
 			isadmin = 1;
 		}
 		
+		short partId = this.getPartId(cmPartDAO, cmCountryDAO);
+		
 		request.setAttribute("noOfPages", noOfPages);
 		request.setAttribute("currentPage", page);
 		request.setAttribute("noOfRecords", noOfRecords);
@@ -230,7 +232,8 @@ public class RecordAction extends ChengxinBaseAction {
 		request.setAttribute("ssid", recordForm.getSsid() );
 		request.setAttribute("isadmin", isadmin );
 		request.setAttribute("list", enhanceRecordList );
-		
+		request.setAttribute("partId", partId );
+		request.setAttribute("partName", this.ouName );
 		return mapping.findForward( "recordForword" );
 	}
 	

@@ -297,9 +297,8 @@ public class ChengxinBaseAction extends Action {
 		return ret;
 	}
 	
-	public Integer[] getVisiableTargetList( CmTargetDAO cmTargetDAO , CmPartDAO cmPartDAO , CmCountryDAO	cmCountryDAO)
+	public List<CmTarget> getVisiableTargetList( CmTargetDAO cmTargetDAO , CmPartDAO cmPartDAO , CmCountryDAO	cmCountryDAO)
 	{
-		Integer ret[] = null;
 		List<CmTarget> ctList = null;
 		
 		if( isAllVisiable() )
@@ -312,6 +311,17 @@ public class ChengxinBaseAction extends Action {
 			
 			ctList = cmTargetDAO.findByPartId( partId );
 		}
+		
+		return ctList;
+	}
+	
+	
+	public Integer[] getVisiableTargetIdList( CmTargetDAO cmTargetDAO , CmPartDAO cmPartDAO , CmCountryDAO	cmCountryDAO)
+	{
+		Integer ret[] = null;
+		List<CmTarget> ctList = null;
+		
+		ctList = getVisiableTargetList( cmTargetDAO , cmPartDAO ,cmCountryDAO );
 		
 		
 		if( ctList!= null )

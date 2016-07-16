@@ -95,7 +95,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 		
 
 		
-		List<CmTarget> targetList = cmTargetDAO.findAll(); 
+		List<CmTarget> targetList = this.getVisiableTargetList(cmTargetDAO, cmPartDAO, cmCountryDAO);
 		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , (short)(-1) );
 		
 		

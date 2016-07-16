@@ -126,7 +126,7 @@ public class RecordAction extends ChengxinBaseAction {
 		/*  根据条件进行内容过滤，查询  */
 		Short[] countryList = null;
 		
-		Integer targetIdList[] = getVisiableTargetList( cmTargetDAO , cmPartDAO , cmCountryDAO );
+		Integer targetIdList[] = getVisiableTargetIdList( cmTargetDAO , cmPartDAO , cmCountryDAO );
 		
 		DetachedCriteria searDc =	DetachedCriteria.forClass( CmRecord.class);
 		

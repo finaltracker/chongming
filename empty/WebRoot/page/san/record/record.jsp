@@ -5,17 +5,23 @@
 <block name="title">考核管理</block>
 <block name="body">
 
+<script>
+	function alertMsg(){
+		layer.confirm('找不到对应的考核部门\'${partName}\' ，请在考核部门中添加部门或在村镇管理中添加村镇',
+								function(){ 
+								layer.closeAll();
+								},
+								function(){ 
+								layer.closeAll();
+								});
+	}
+</script>
+
 <div class="title_1">
 	<p class="position">
 		<a role="button"
 			<%if((Short)(request.getAttribute("partId")) == -1){%>
-				href="javascript:layer.confirm('找不到对应的考核部门\'${partName}\' ，请在考核部门中添加部门或在村镇管理中添加村镇',
-				function(){
-                    layer.closeAll();
-                },
-                function(){
-                    layer.closeAll();
-                });"
+				 href="javascript:onclick=alertMsg()";
 			<%}else{ %>
 				href="${pageContext.request.contextPath}/home/record/add.do?method=1"
 				

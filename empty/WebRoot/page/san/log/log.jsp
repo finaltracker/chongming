@@ -60,7 +60,12 @@
 										<li class="active"><span class="current">${i}</span></li>
 									</c:when>
 									<c:otherwise>
-										<li><a href="${pageContext.request.contextPath}/home/log.do?page=${i}" class="num">${i}</a></li>
+										<c:if test="${i eq 10 }" >
+											<li><a>...</a></li>
+										</c:if>
+										<c:if test="${i lt 10 }" >
+											<li><a href="${pageContext.request.contextPath}/home/log.do?page=${i}" class="num">${i}</a></li>
+										</c:if>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>

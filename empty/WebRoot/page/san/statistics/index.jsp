@@ -75,7 +75,7 @@
                                         <td>${targetEnhance.score}</td>
 										<td>${targetEnhance.levelName}</td>
       
-                                       <td><a href="${pageContext.request.contextPath}/home/person.do?ssid=${targetEnhance.ssid}">查看详情</a></td>                      
+                                       <td><a href="${pageContext.request.contextPath}/home/record.do?ssid=${targetEnhance.ssid}">查看详情</a></td>                      
                                   
                                   </tr>
                                 </c:forEach>	

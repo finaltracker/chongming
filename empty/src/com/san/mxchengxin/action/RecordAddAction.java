@@ -190,6 +190,15 @@ public class RecordAddAction extends ChengxinBaseAction {
 				searDc.addOrder( Order.asc("truename") );
 			}
 			
+			Short[] countryList = null;
+			countryList = getVisiableCountryForShort( cmCountryDAO  );
+			
+			if( countryList != null )
+			{
+				//country
+				searDc.add(Restrictions.in("countryId", countryList ));
+			}
+			
 			searDc.setFirstResult( Integer.valueOf(p) * pageSize );
 			searDc.setMaxResults( pageSize );
 			

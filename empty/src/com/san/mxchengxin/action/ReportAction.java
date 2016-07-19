@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
+import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
 import com.san.mxchengxin.objects.levelCatigoryObj;
@@ -69,7 +74,7 @@ public class ReportAction extends ChengxinBaseAction {
 		// des order
 		
 		/*  */
-		Integer[] countryList = getVisiableCountryForInteger( this.cmCountryDAO );
+		Short[] countryList = getVisiableCountryForShort( this.cmCountryDAO );
 		
 		
 		List<levelCatigoryObj> lcoList = null;
@@ -77,11 +82,13 @@ public class ReportAction extends ChengxinBaseAction {
 		{
 			//产生jsp 对应的对象
 			lcoList = new ArrayList<levelCatigoryObj>();
+			Session s = cmLogDAO.getSessionFactory().openSession();
 			
 			for( int i = 0 ; i < levelList.size() ; i++ )
 			{
 				// 遍历所有的level 列表
-				DetachedCriteria searDcForRecord =	DetachedCriteria.forClass( CmRecord.class);
+				Criteria searDcForRecord =  s.createCriteria( CmRecord.class );
+				
 				
 				if( i != 0 )
 				{
@@ -91,14 +98,23 @@ public class ReportAction extends ChengxinBaseAction {
 				//>= 
 				searDcForRecord.add(Restrictions.ge("score", new Short(levelList.get(i).levelScore ) ) );
 				
-				searDcForRecord.add(Restrictions.in("targetId", countryList ));
+				searDcForRecord.setFetchMode("person", FetchMode.JOIN); 
+				searDcForRecord.createAlias("person", "person");  
 				
-				List<CmLevel> recordList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDcForRecord );
+				if( (countryList!= null )&& ( countryList.length > 0 ))
+				{
+					searDcForRecord.add(Restrictions.in("person.countryId", countryList ));
+				}
+				searDcForRecord.setProjection(Projections.rowCount());
+				
+				List<Integer> recordList = searDcForRecord.list();
+				
+				//List recordList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDcForRecord );
 				
 				levelCatigoryObj lco = new levelCatigoryObj();
 				lco.setLevelId( levelList.get(i).getId().toString() );
 				lco.setLevelName( levelList.get(i).getLevelName() );
-				lco.setHowmanyPeople( String.valueOf(recordList.size()) );
+				lco.setHowmanyPeople( String.valueOf(recordList.get(0)) );
 				lcoList.add( lco );
 			}
 		}

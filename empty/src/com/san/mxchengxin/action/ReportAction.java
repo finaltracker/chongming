@@ -114,7 +114,10 @@ public class ReportAction extends ChengxinBaseAction {
 				levelCatigoryObj lco = new levelCatigoryObj();
 				lco.setLevelId( levelList.get(i).getId().toString() );
 				lco.setLevelName( levelList.get(i).getLevelName() );
-				lco.setHowmanyPeople( String.valueOf(recordList.get(0)) );
+				if( recordList.size() > 0 )
+				{
+					lco.setHowmanyPeople( String.valueOf(recordList.get(0)) );
+				}
 				lcoList.add( lco );
 			}
 		}

@@ -167,6 +167,14 @@ public class RecordAction extends ChengxinBaseAction {
 			
 		}
 		
+		//刨除已过期的记录
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Date now = new Date();
+		System.out.println(df.format(now));// new Date()为获取当前系统时间
+		long currentTime = now.getTime()/1000;
+		
+		searDc.add( Restrictions.ge(  "dateline", currentTime ) );
+		
 		searDc.addOrder( Order.desc( "pubdate" ) );
 		List<CmRecord>  list = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
 	

@@ -142,7 +142,7 @@ public class CountryAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.like("name", countryName,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		
-		searDc.addOrder( Order.asc("displayOrder") ).addOrder( Order.asc("id") );
+		searDc.addOrder( Order.asc("name")  );
 		List<CmCountry> targetList = cmCountryDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
 		List<CmCountryAd> cadList = new ArrayList<CmCountryAd>();

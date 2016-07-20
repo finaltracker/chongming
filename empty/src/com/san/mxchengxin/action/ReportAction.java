@@ -1,7 +1,9 @@
 package com.san.mxchengxin.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -105,6 +107,13 @@ public class ReportAction extends ChengxinBaseAction {
 				{
 					searDcForRecord.add(Restrictions.in("person.countryId", countryList ));
 				}
+				
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+				Date now = new Date();
+				System.out.println(df.format(now));// new Date()为获取当前系统时间
+				long currentTime = now.getTime()/1000;
+				
+				searDcForRecord.add( Restrictions.ge(  "dateline", currentTime ) );
 				searDcForRecord.setProjection(Projections.rowCount());
 				
 				List<Integer> recordList = searDcForRecord.list();

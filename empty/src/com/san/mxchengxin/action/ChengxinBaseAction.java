@@ -91,7 +91,6 @@ public class ChengxinBaseAction extends Action {
 		ouId = userInfo.getOuid();//获得用户所属部门ID
 		ouName = userInfo.getOuname();//获得用户所属部门名称
 		
-		//for test 
 		if( ouName == "" ) 
 		{
 			System.out.println("找不到用户所属部门 ouName = " + ouName );

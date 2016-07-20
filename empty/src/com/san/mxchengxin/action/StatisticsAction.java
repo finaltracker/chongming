@@ -236,9 +236,16 @@ public class StatisticsAction extends ChengxinBaseAction {
 		String levelSel = sb.toString();
 		request.setAttribute("levelSelect", levelSel);
 		
-		searDc.addOrder( Order.asc("id") );
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Date now = new Date();
+		System.out.println(df.format(now));// new Date()为获取当前系统时间
+		long currentTime = now.getTime()/1000;
+		
+		searDc.add( Restrictions.ge(  "dateline", currentTime ) );
+		
+		searDc.addOrder( Order.desc("pubdate") );
 		if(countryList != null) {
-
+			
 			List<CmRecord> originList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
 			List<CmRecord> targetList = clusterListData(originList);
 			List<RecordListObj> cpdList = new ArrayList<RecordListObj>();

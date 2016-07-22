@@ -98,7 +98,7 @@
 											<li><a>...</a></li>
 										</c:if>
 										<c:if test="${i lt 10 }" >
-											<li><a href="${pageContext.request.contextPath}/home/log.do?page=${i}" class="num">${i}</a></li>
+											<li><a href="${pageContext.request.contextPath}/home/statistics.do?page=${i}" class="num">${i}</a></li>
 										</c:if>
 									</c:otherwise>
 								</c:choose>

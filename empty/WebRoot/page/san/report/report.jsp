@@ -9,7 +9,25 @@
     <div class="dashboard-container">
         <!-- Container starts -->
         <div class="container">
-           
+			<div class="row">
+            	<div class="col-xs-12">
+                	<div class="widget">
+                    	<div class="widget-body">
+	                        <form action="" method="post" class="form-inline">
+	                            <div class="form-group">
+	                                <label class="control-label"> 所属乡镇 </label>
+	                                <select class="select2 form-control" name="country_id">
+	                                    <option value="">请选择</option>
+	                                    ${countrySelect}
+	                                </select>
+	                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">确定选择</button>
+	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics.do">查看全区</button>
+	                            </div>
+	                        </form>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
             <!-- Row Starts -->
             <div class="row">
                 <div class="col-lg-4">

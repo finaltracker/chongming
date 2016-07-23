@@ -119,6 +119,14 @@
             height: 35px;
             line-height: 35px;
         }
+        .table2 {
+        }
+        .table2 tr td {
+        	width: 10%;
+        }
+        .table2 tr th {
+        	width: 10%;
+        }
     </style>
 </head>
 

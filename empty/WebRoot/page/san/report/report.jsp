@@ -20,8 +20,8 @@
 	                                    <option value="">请选择</option>
 	                                    ${countrySelect}
 	                                </select>
-	                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">确定选择</button>
-	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics.do">查看全区</button>
+	                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/report.do">确定选择</button>
+	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/report.do">查看全区</button>
 	                            </div>
 	                        </form>
                     	</div>

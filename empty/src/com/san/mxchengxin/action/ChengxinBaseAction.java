@@ -681,7 +681,8 @@ public class ChengxinBaseAction extends Action {
 		String validDateSql = " CM_RECORD .DATELINE > " +  Long.toString(nowTime);
 				
 		//记录中共有多少人
-		String Sql1 = "select COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfAllPerson, " + townGroupSql + "as GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql;
+		String Sql1 = "select 1 as numberOfAllPerson, " + townGroupSql + "as GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql;
+
 		
 		//从本年度1月1日开始小于0的人的个数
 		String Sql2 = "SELECT COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + "as  GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql   + "  AND " + limitCountryListSql +" GROUP BY " + townGroupSql;

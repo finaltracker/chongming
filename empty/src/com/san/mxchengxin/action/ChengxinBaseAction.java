@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -505,6 +506,13 @@ public class ChengxinBaseAction extends Action {
 		System.out.println(df.format(now));// new Date()为获取当前系统时间
 		long nowTime = now.getTime()/1000;
 	
+		Calendar   yearBegin=Calendar.getInstance();
+		yearBegin.set(Calendar.DAY_OF_YEAR, 1);
+		yearBegin.set(Calendar.HOUR_OF_DAY , 0 );
+		yearBegin.set(Calendar.MINUTE , 0 );
+
+		
+		
 		// 在有效期内的记录列表
 		String validDateSql = " CM_RECORD .DATELINE > " +  Long.toString(nowTime);
 				
@@ -512,7 +520,7 @@ public class ChengxinBaseAction extends Action {
 		String Sql1 = "select COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfAllPerson, " + townGroupSql + " GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  +" GROUP BY  " + townGroupSql;
 		
 		//从本年度1月1日开始小于0的人的个数
-		String Sql2 = "SELECT COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + " GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > 1454331740 AND CM_RECORD.SCORE < 0 AND " +  validDateSql +" GROUP BY " + townGroupSql;
+		String Sql2 = "SELECT COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + " GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql +" GROUP BY " + townGroupSql;
 		
 		// 加分
 		String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE > 0 AND " + validDateSql + " GROUP BY  " + townGroupSql ;

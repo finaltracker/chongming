@@ -145,10 +145,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		String[] visiableCountry = getVisiableCountryForString( cmCountryDAO );
 		
 			
-		Calendar   yearBegin=Calendar.getInstance();
-		yearBegin.set(Calendar.MONTH, 1);
-		yearBegin.set(Calendar.DAY_OF_MONTH , 1 );
-		
+
 		
 		 
 		

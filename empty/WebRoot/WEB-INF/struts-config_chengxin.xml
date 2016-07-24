@@ -16,6 +16,7 @@
     <form-bean name="personForm" type="com.san.mxchengxin.form.person.PersonForm" />
     <form-bean name="personAddForm" type="com.san.mxchengxin.form.person.PersonAddForm" />
     <form-bean name="statisticsForm" type="com.san.mxchengxin.form.statistics.StatisticsForm" />
+    <form-bean name="reportForm" type="com.san.mxchengxin.form.statistics.ReportForm" />
   </form-beans>
 
   <global-exceptions />
@@ -95,6 +96,9 @@
     </action>	
    
    <action
+      attribute="reportForm"
+      input="/page/san/report/report.jsp"
+      name="reportForm" 
       path="/home/report"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">

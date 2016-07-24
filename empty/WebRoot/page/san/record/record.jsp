@@ -81,7 +81,7 @@
 					</div>
 					<div class="widget-body">
 						<div class="table-responsive">
-							<table class="table table-bordered table-striped no-margin">
+							<table class="table table2 table-bordered table-striped no-margin">
 								<thead>
 									<tr>
 										<th>姓名</th>

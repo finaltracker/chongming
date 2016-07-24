@@ -179,7 +179,7 @@
       path="/home/statistics"
       scope="request"
       type="org.springframework.web.struts.DelegatingActionProxy">
-      <forward name="statisticsForword" path="/page/san/statistics/index.jsp" />
+      <forward name="statisticsForword" path="/page/san/statistics/statistics.jsp" />
     </action>        
     
   </action-mappings>

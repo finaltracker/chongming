@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.objects.RecordListObj;
+import com.san.mxchengxin.objects.StatisticsChengxinObj;
 import com.san.mxchengxin.utils.ComparatorCmLevel;
 import com.san.mxchengxin.utils.util;
 
@@ -56,7 +58,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 	List<CmLevel> levels;
 	//for pagination
 	int page = 1;
-	int recordsPerPage = 15;
+	int recordsPerPage = 30;
 	
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
@@ -135,215 +137,50 @@ public class StatisticsAction extends ChengxinBaseAction {
 		} else {
 
 			StatisticsForm statForm = (StatisticsForm)form;
-			searchMap_ssid = statForm.getSsid();
-			searchMap_truename = statForm.getTruename();
-			countryId = statForm.getCountry_id();
-			levelId = statForm.getLevel_id();
-		}
-		
-		//来自图标统计的url
-		if( request.getParameter("level_id") != null &&  !request.getParameter("level_id").isEmpty() )
-		{
-			levelId = Short.valueOf( request.getParameter("level_id") );
-		}
-		
-		
-		System.out.println("log user info: "+cn+" : "+ouId+" : "+ouName);
-		
-		countryList = getVisiableCountry(cmCountryDAO);
-		levels = cmLevelDAO.findAll();
 
-		// 调用排序方法，参数二为自定义的排序工具类
-		Collections.sort(levels, new ComparatorCmLevel(true));
-
-		
-		DetachedCriteria searDc =	DetachedCriteria.forClass( CmRecord.class);
-		searDc.setFetchMode("person", FetchMode.JOIN); 
-		searDc.createAlias("person", "person");  
-		
-		if( searchMap_ssid != null && ( !searchMap_ssid.isEmpty() )) 
-		{
-			searDc.add(Restrictions.like("person.ssid", searchMap_ssid, MatchMode.ANYWHERE )); 
 		}
 		
-		if( searchMap_truename != null && ( !searchMap_truename.isEmpty() ))
-		{
-			searDc.add(Restrictions.like("person.truename", searchMap_truename,MatchMode.ANYWHERE).ignoreCase()); 
-		}
 		
-		if( countryId == null ) 
-		{
-			//当前管理员所属的镇村，及其下级村
-			Short[] countryIds = new Short[countryList.size()];
-			if(countryList != null) {
-				for(int i = 0; i<countryList.size();i++) {
-					CmCountry cc = countryList.get(i);
-					countryIds[i] = cc.getId();
-					System.out.println("country id :"+countryIds[i]);
-				}
-				searDc.add(Restrictions.in("person.countryId", countryIds));
-			} 
-			if(isAllVisiable())
-				countryId = 0;
-			else {
-				Short min = countryIds[0];
-				for(int i=0;i<countryIds.length;i++)
-				{
-				System.out.print(i+" : "+ countryIds[i]+" ");
-				if(countryIds[i]<min)   // 判断最小值
-					min=countryIds[i];
-				}
-				countryId = min;
-			}
+		/* 获取看得见的country 列表*/
+		String[] visiableCountry = getVisiableCountryForString( cmCountryDAO );
+		
 			
-		} else if( countryId != 0 ) 
-		{
-			searDc.add(Restrictions.eq("person.countryId", countryId.shortValue() )); 
-		}
+		Calendar   yearBegin=Calendar.getInstance();
+		yearBegin.set(Calendar.MONTH, 1);
+		yearBegin.set(Calendar.DAY_OF_MONTH , 1 );
 		
-		if(levelId == null) {
-			levelId = 0;
-		} else if (levelId != null) {
-			for(int xi = 0;xi < levels.size();xi++) {
-				if(levels.get(xi).id.equals(levelId)) {
-					if(xi == levels.size()-1) {
-						searDc.add(Restrictions.ge("score", Short.valueOf(levels.get(xi).levelScore) ) );
-						break;
-					} else {
-						searDc.add(Restrictions.ge("score", Short.valueOf(levels.get(xi).levelScore) ) );
-						searDc.add(Restrictions.lt("score", Short.valueOf(levels.get(xi+1).levelScore) ) );
-						break;
-					}
-				}
-			}
 		
-		}
-		StringBuffer sb = new StringBuffer();
-		for(int i=0;i<levels.size();i++) {
-			CmLevel cc = (CmLevel)levels.get(i);
-			String s;
-			if( cc.getId() == levelId.shortValue() )
-			{
-				s = String.format("<option value='%d' selected>%s</option>", cc.getId(), cc.getLevelName());
-			}
-			else
-			{
-				s = String.format("<option value='%d'>%s</option>", cc.getId(), cc.getLevelName());
-				
-			}
-			sb.append(s);
-		}
-		String levelSel = sb.toString();
-		request.setAttribute("levelSelect", levelSel);
+		 
 		
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		Date now = new Date();
-		System.out.println(df.format(now));// new Date()为获取当前系统时间
-		long currentTime = now.getTime()/1000;
+		//加分项和减分项的分数和
+		//String sql4 ="SELECT SUM(SCORE), CASE WHEN SCORE < 0 THEN '减分' WHEN SCORE > 0 THEN '加分' ELSE NULL END SCORE_T FROM   CM_RECORD GROUP BY CASE WHEN SCORE < 0 THEN '减分' WHEN SCORE > 0 THEN '加分' ELSE NULL END;";
 		
-		searDc.add( Restrictions.ge(  "dateline", currentTime ) );
-		
-		searDc.addOrder( Order.desc("pubdate") );
-		if(countryList != null) {
-			
-			List<CmRecord> originList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
-			List<CmRecord> targetList = clusterListData(originList);
-			List<RecordListObj> cpdList = new ArrayList<RecordListObj>();
-			//for pagination
-			int noOfRecords = targetList.size();
-			int noOfPages = (int)Math.ceil(noOfRecords*1.0/recordsPerPage);
-			int startPos = (page-1)*recordsPerPage;
-			int endPos = (page*recordsPerPage - noOfRecords)>0?noOfRecords:page*recordsPerPage;
-			
-			for(int i=startPos;i<endPos;i++) {
-				CmRecord target = targetList.get(i);
-				int id = target.getId();
-				String countryName = "";
-				String truename = target.getPerson().getTruename();
-				String levelName = "";
-				String ssid = target.getPerson().getSsid();
-				Short score = target.getScore();
-				String pubdate = util.dateLongToString( target.getPubdate() ) ;
-				String dateline = util.dateLongToString( target.getDateline() ) ;
-				if (cmCountryDAO.findById(target.getPerson().getCountryId()) != null) {
-					countryName = cmCountryDAO.findById(target.getPerson().getCountryId()).getName();
-				}
-
-				
-				if(target.getScore() != null) {
+		//按固定村组合来分组
+		//String Sql5 = "SELECT  CM_RECORD.*  FROM  ( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id where CM_COUNTRY.ID IN ( 14 , 16  )";
+							
+		//镇分组
+		// String  Sql6 = "SELECT sum(ID),	 CASE PARENTID	 WHEN 0     THEN id	 ELSE PARENTID  END GROUP_ID FROM    cm_country	 GROUP BY CASE PARENTID	 WHEN 0     THEN id	 ELSE PARENTID  END;";			
 					
-					for(int ix = 0; ix<levels.size();ix++) {
-						if(ix == (levels.size()-1)) {
-							levelName = levels.get(ix).getLevelName();
-							break;
-						} 
-						
-						Short score1 = Short.valueOf(levels.get(ix).getLevelScore());
-						Short socre2 = Short.valueOf(levels.get(ix+1).getLevelScore());
-						if(score1.compareTo(score) <= 0  && socre2.compareTo(score) > 0) {
-							levelName = levels.get(ix).getLevelName();
-							System.out.println("level score "+score+" and name: "+levels.get(ix).getLevelName());
-							break;
-						} else if (score1.compareTo(score) > 0) {
-							levelName = levels.get(ix).getLevelName();
-							System.out.println("level score "+score+" and name: "+levels.get(ix).getLevelName());
-							break;		
-						} else {
-							continue;
-						}
-						
-					}
-				} 
-				
-				cpdList.add( new RecordListObj(
-						id ,
-						truename,
-						ssid,
-						countryName,
-						levelName,
-						score,
-						pubdate,
-						dateline
-						) );
-			}
-	
+		//分镇算出分数增和 
+		 String Sql7 = "SELECT   sum( cm_record.score), CASE CM_COUNTRY.PARENTID	 WHEN 0     THEN CM_COUNTRY.id	 ELSE CM_COUNTRY.PARENTID  END GROUP_ID    FROM  ( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id GROUP BY CASE cm_country.PARENTID	 WHEN 0     THEN cm_country.id	 ELSE cm_country.PARENTID  END;"; 
 		
-			//export excel
-			if(request.getParameter("opt") != null) {
-				int opt = Integer.valueOf(request.getParameter("opt"));
-				if(opt==21) {
-					try {
-						dumpToExcel(request, response, cpdList);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					return null;
-				}
-				
-			}
-			
-			request.setAttribute("noOfPages", noOfPages);
-			request.setAttribute("currentPage", page);
-			request.setAttribute("noOfRecords", noOfRecords);
-			request.setAttribute("plist", cpdList);
-		}
-		
-		if(countryList != null) {
-			Short parentId = 0;
-			String countrySelect = getCountrySelect(countryId.shortValue(),parentId,1);
-			//System.out.println("country select result: "+countrySelect);
-			request.setAttribute("countrySelect", countrySelect);
-		}
-		request.setAttribute("truename", searchMap_truename);
-		request.setAttribute("ssid", searchMap_ssid);
-		request.setAttribute("level_id", levelId);
-		request.setAttribute("country_id", countryId);
-		
+		 
+		 
+		 List<StatisticsChengxinObj>  statisticsChengxinOjbList = null;
+		 //县级权限登录，查询所有的镇
+		 if( true )
+		 {
+			 statisticsChengxinOjbList = getTownChengxinObjList(30);
+		 }
+		 
+		 request.setAttribute("list" , statisticsChengxinOjbList );
+		 
 		return mapping.findForward( "statisticsForword" );
+		
 		
 	}
 	
+
 	private List<CmRecord>  clusterListData(List<CmRecord>  list) {
 		
 		Map<String, CmRecord> ssidCluster = new HashMap<String, CmRecord>();

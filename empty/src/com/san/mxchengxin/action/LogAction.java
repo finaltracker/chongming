@@ -45,6 +45,7 @@ public class LogAction extends ChengxinBaseAction  {
 		searDc.addOrder(Order.desc("pubdate"));
 		List<CmLog> clList =  searDc.list();
 		
+		s.close();
 		for(int i= 0 ;i< clList.size() ;i++)
 		{
 			clEnhanceList.add( new CmLogEnhance(clList.get(i)) );

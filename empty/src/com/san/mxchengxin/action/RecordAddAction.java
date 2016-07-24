@@ -203,6 +203,7 @@ public class RecordAddAction extends ChengxinBaseAction {
 			searDc.setMaxResults( pageSize );
 			
 			List<CmPerson> personList = searDc.list();
+			s.close();
 			Map< Short , CmCountry > countryMap = cmCountryDAO.listAsMap();
 			
 			List<PersonSimpleObj> rsoList = personListToRecordSimpleList( personList , countryMap );

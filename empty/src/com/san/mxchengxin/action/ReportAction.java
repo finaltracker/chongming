@@ -129,6 +129,7 @@ public class ReportAction extends ChengxinBaseAction {
 				}
 				lcoList.add( lco );
 			}
+			s.close();
 		}
 		
 		request.setAttribute("Level_List", lcoList );

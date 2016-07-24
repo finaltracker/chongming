@@ -16,6 +16,7 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
@@ -133,7 +134,6 @@ public class ReportAction extends ChengxinBaseAction {
 		
 		// 获取所有的level 列表
 		DetachedCriteria searDc =	DetachedCriteria.forClass( CmLevel.class);
-		
 		List<CmLevel> levelList = cmLevelDAO.getHibernateTemplate ().findByCriteria( searDc );
 		
 		// 调用排序方法，参数二为自定义的排序工具类

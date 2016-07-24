@@ -48,10 +48,17 @@ public class StatisticsAction extends ChengxinBaseAction {
 	private CmLevelDAO cmLevelDAO;
 	private CmPersonDAO	cmPersonDAO;
 	
+	final int MACRO_TOWN_VALID	= 2;
+	final int MACRO_COUNTRY_VALID	= 1;
+	final int MACRO_PEOPLE_VALID	= 0;
+	final int MACRO_INVALID	= -1;
+	
+	
+	Short countryId = -1 ;
 	
 	String searchMap_truename = "";
 	String searchMap_ssid = "";
-	Short countryId = 0 ;
+	
 	Short levelId = 0;
 	
 	List<CmCountry> countryList;
@@ -134,42 +141,47 @@ public class StatisticsAction extends ChengxinBaseAction {
 
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
-		} else {
+		} 
 
-			StatisticsForm statForm = (StatisticsForm)form;
-
+		StatisticsForm statForm = (StatisticsForm)form;
+		
+		Integer catSelect = statForm.getCatSelect();
+		Integer levelSelect = statForm.getLevelSelect();
+		
+		//用户能看见的等级
+		int userSeenCatValid = makeSureCatSelectAccordUser();
+		
+		if( catSelect == null )
+		{
+			catSelect = userSeenCatValid;
 		}
-		
-		
-		/* 获取看得见的country 列表*/
-		String[] visiableCountry = getVisiableCountryForString( cmCountryDAO );
-		
-			
-
-		
 		 
 		
-		//加分项和减分项的分数和
-		//String sql4 ="SELECT SUM(SCORE), CASE WHEN SCORE < 0 THEN '减分' WHEN SCORE > 0 THEN '加分' ELSE NULL END SCORE_T FROM   CM_RECORD GROUP BY CASE WHEN SCORE < 0 THEN '减分' WHEN SCORE > 0 THEN '加分' ELSE NULL END;";
 		
-		//按固定村组合来分组
-		//String Sql5 = "SELECT  CM_RECORD.*  FROM  ( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id where CM_COUNTRY.ID IN ( 14 , 16  )";
-							
-		//镇分组
-		// String  Sql6 = "SELECT sum(ID),	 CASE PARENTID	 WHEN 0     THEN id	 ELSE PARENTID  END GROUP_ID FROM    cm_country	 GROUP BY CASE PARENTID	 WHEN 0     THEN id	 ELSE PARENTID  END;";			
-					
-		//分镇算出分数增和 
-		 String Sql7 = "SELECT   sum( cm_record.score), CASE CM_COUNTRY.PARENTID	 WHEN 0     THEN CM_COUNTRY.id	 ELSE CM_COUNTRY.PARENTID  END GROUP_ID    FROM  ( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id GROUP BY CASE cm_country.PARENTID	 WHEN 0     THEN cm_country.id	 ELSE cm_country.PARENTID  END;"; 
-		
-		 
 		 
 		 List<StatisticsChengxinObj>  statisticsChengxinOjbList = null;
+		 
+		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelect );
 		 //县级权限登录，查询所有的镇
-		 if( true )
-		 {
+		 if( catSelect == MACRO_TOWN_VALID )
+		 { // 县级权限，town列表显示
 			 statisticsChengxinOjbList = getTownChengxinObjList(30);
 		 }
+		 else if(catSelect == MACRO_COUNTRY_VALID )
+		 {
+			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , page ,recordsPerPage);
+		 }
+		 else if(catSelect == MACRO_PEOPLE_VALID )
+		 {
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,page , recordsPerPage);
+		 }
+		 //else
+		 {
+			 
+		 }
 		 
+		 
+		 request.setAttribute("catSelectStr", catSelectStr);
 		 request.setAttribute("list" , statisticsChengxinOjbList );
 		 
 		return mapping.findForward( "statisticsForword" );
@@ -198,6 +210,57 @@ public class StatisticsAction extends ChengxinBaseAction {
 
 		return rloList;
 	}
+	
+	//topShowCat: 2：显示到镇   1： 显示到村   0： 显示到人
+	//selected : which cat is select 
+	private String buildCatSelectStr( int topShowCat , int selected )
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		String s="";
+		switch (topShowCat)
+		{
+		case MACRO_TOWN_VALID:
+			if( selected == MACRO_TOWN_VALID )
+			{
+				s = String.format("<option value=2 selected>乡镇</option>" );
+			}
+			else
+			{
+				s = String.format("<option value=2 >乡镇</option>" );
+			}
+			
+			sb.append(s);
+		case MACRO_COUNTRY_VALID:
+			if( selected == this.MACRO_COUNTRY_VALID )
+			{
+				s = String.format("<option value=1 selected>村</option>" );
+			}
+			else
+			{
+				s = String.format("<option value=1 >村</option>" );
+			}
+			
+			sb.append(s);
+		case MACRO_PEOPLE_VALID:
+			if( selected == MACRO_PEOPLE_VALID )
+			{
+				s = String.format("<option value=0 selected>人员</option>" );
+			}
+			else
+			{
+				s = String.format("<option value=0 >人员</option>" );
+			}
+			
+			sb.append(s);
+			break;
+		default:
+			break;
+		}
+		
+		return sb.toString();
+	}
+	
 	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<RecordListObj> list) throws IOException
 	{
 
@@ -253,6 +316,37 @@ public class StatisticsAction extends ChengxinBaseAction {
         ouputStream.close(); 
 		
 		
+	}
+	
+	//更加用户名确定可以看到的等级
+	private int makeSureCatSelectAccordUser()
+	{
+		int ret = MACRO_INVALID;
+		
+		if( this.isAllVisiable() )
+		{//最高能看到 towns
+			ret = MACRO_TOWN_VALID;
+		}
+		else
+		{
+			List< CmCountry> countryList = cmCountryDAO.findByName( ouName );
+			
+			if( countryList.size() > 0 )
+			{
+				CmCountry cc = countryList.get(0);
+				countryId = cc.getId();
+				if( cc.getParentid() == 0 )
+				{ // 是 town ， 看见的是村级
+					ret = MACRO_COUNTRY_VALID;
+				}
+				else
+				{
+					ret = MACRO_PEOPLE_VALID;
+				}
+			}
+		}
+		
+		return ret;
 	}
 
 }

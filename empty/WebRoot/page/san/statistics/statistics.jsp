@@ -23,12 +23,12 @@
                             <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do?opt=21">导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 考核对象</label>
-                                <select class="select2 form-control" name="performance_cat">
+                                <select class="select2 form-control" name="catSelect">
                                     <option value="">请选择</option>
-                                    ${countrySelect}
+                                    ${catSelectStr}
                                 </select>
                                 <label class="control-label"> 所属等级 </label>
-                                <select class="select2 form-control" name="level_id">
+                                <select class="select2 form-control" name="levelSelect">
                                     <option value="">请选择</option>
                                     ${levelSelect}
                                 </select>&nbsp;&nbsp;

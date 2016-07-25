@@ -27,8 +27,18 @@ public class StatisticsForm extends ActionForm {
 	/** levelSelect property */
 	private Integer levelSelect;
 
+	private Short country_id;
+
+
 	
 
+	public Short getCountry_id() {
+		return country_id;
+	}
+
+	public void setCountry_id(Short country_id) {
+		this.country_id = country_id;
+	}
 
 	public Integer getCatSelect() {
 		return catSelect;

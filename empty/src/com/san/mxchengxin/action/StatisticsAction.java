@@ -148,7 +148,24 @@ public class StatisticsAction extends ChengxinBaseAction {
 		Integer catSelect = statForm.getCatSelect();
 		Integer levelSelect = statForm.getLevelSelect();
 		
+		/*获取所属乡镇要显示的字符串 */
+		Short[] countryList = null;
+		StringBuffer sb = new StringBuffer();
+		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO  );
+		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , statForm.getCountry_id() , 0 , sb );
+		String countryListStr = sb.toString();
+		
+		if( ( statForm.getCountry_id() == null) || (statForm.getCountry_id() == 0 ) )
+		{//根据登陆的用户名来确定
+			countryList = userSeenCountryList;
+		}
+		else
+		{//用户指定(村或镇)
+			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , statForm.getCountry_id() );
+		}
+		
 		//用户能看见的等级
+
 		int userSeenCatValid = makeSureCatSelectAccordUser();
 		
 		if( catSelect == null )
@@ -163,7 +180,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 
 		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelect );
 		 //县级权限登录，查询所有的镇
-		 Short[] VisiableContryLimit = null ; 
+
+		 Short[] VisiableContryLimit = countryList ; 
 		 if( catSelect == MACRO_TOWN_VALID )
 		 { // 县级权限，town列表显示
 			 statisticsChengxinOjbList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 100 );
@@ -182,9 +200,10 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 }
 		 
 		 
-		 request.setAttribute("catSelectStr", catSelectStr);
-		 request.setAttribute("list" , statisticsChengxinOjbList );
-		 
+		request.setAttribute("catSelectStr", catSelectStr);
+		request.setAttribute("list" , statisticsChengxinOjbList );
+		request.setAttribute("countrySelect", countryListStr );
+		
 		return mapping.findForward( "statisticsForword" );
 		
 		

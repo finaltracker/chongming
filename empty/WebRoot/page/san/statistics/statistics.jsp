@@ -27,6 +27,11 @@
                                     <option value="">请选择</option>
                                     ${catSelectStr}
                                 </select>
+                                <label class="control-label"> 所属乡镇 </label>
+                                <select class="select2 form-control" name="country_id">
+                                    <option value="">请选择</option>
+                                    "${countrySelect}"
+                                </select>
                                 <label class="control-label"> 所属等级 </label>
                                 <select class="select2 form-control" name="levelSelect">
                                     <option value="">请选择</option>

@@ -82,6 +82,15 @@ public class ReportAction extends ChengxinBaseAction {
 		else
 		{//用户指定(村或镇)
 			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , countryId );
+			//自动设置合适的等级
+			int countryType = getCountryType( countryId , cmCountryDAO );
+			if( countryType == COUNTRY_FLAG )
+			{
+				if( ( catSelect == null ) || ( catSelect == MACRO_TOWN_VALID ) )
+				{
+					catSelect = MACRO_COUNTRY_VALID;
+				}
+			}
 		}
 		
 		//用户能看见的等级

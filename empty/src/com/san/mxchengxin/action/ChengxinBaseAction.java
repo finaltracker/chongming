@@ -61,6 +61,9 @@ public class ChengxinBaseAction extends Action {
 	"崇明县"	
 	};
 	
+	public int COUNTRY_FLAG 			= 1;
+	public int TOWN_FLAG 				= 2;
+	public int INVALID_COUNTRY_FLAG 	= 3;
 	
 	public CmLogDAO getCmLogDAO() {
 		return cmLogDAO;
@@ -631,6 +634,26 @@ public class ChengxinBaseAction extends Action {
 		return chengxinObjList;
 	 	
     }
-   
+    
+    protected int getCountryType( short countryId , CmCountryDAO cmCountryDAO  )
+    {
+    	int ret = INVALID_COUNTRY_FLAG;
+    	
+    	CmCountry cc = cmCountryDAO.findById( countryId );
+    	
+    	if( cc!= null )
+    	{
+    		if(cc.getParentid() == 0 )
+    		{
+    			ret = TOWN_FLAG;
+    		}
+    		else
+    		{
+    			ret = COUNTRY_FLAG;
+    		}
+    	}
+    	
+    	return ret;
+    }
  
 }

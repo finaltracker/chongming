@@ -288,7 +288,7 @@ public class CmCountryDAO extends HibernateDaoSupport {
 			 String s;
 			 CountryMapObj cmo = countryMap.get( key );
 			 
-			 if( ( selectId != null ) && ( selectId == key ) )
+			 if( ( selectId != null ) && ( selectId == key.shortValue() ) )
 			 {
 				 s = String.format("<option value='%d' selected>" + space + "├─%s</option>", key , cmo.country.getName() );
 			 }

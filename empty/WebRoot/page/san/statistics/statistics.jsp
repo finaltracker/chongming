@@ -26,7 +26,7 @@
                                 <select class="select2 form-control" name="catSelect">
                                     <option value="">请选择</option>
                                     ${catSelectStr}
-                                </select>
+                                </select>&nbsp;&nbsp;
                                 <label class="control-label"> 所属乡镇 </label>
                                 <select class="select2 form-control" name="country_id">
                                     <option value="">请选择</option>
@@ -37,7 +37,7 @@
                                     <option value="">请选择</option>
                                     ${levelSelect}
                                 </select-->&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">确定</button>
+                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">确定</button>&nbsp;&nbsp;
                                 <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics.do">查看所有</button>
                             </div>
 

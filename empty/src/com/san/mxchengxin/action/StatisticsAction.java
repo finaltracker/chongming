@@ -48,6 +48,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 	private CmLevelDAO cmLevelDAO;
 	private CmPersonDAO	cmPersonDAO;
 	
+	int MAX_PAGE_SIZE_9999 = 9999;
 	final int MACRO_TOWN_VALID	= 2;
 	final int MACRO_COUNTRY_VALID	= 1;
 	final int MACRO_PEOPLE_VALID	= 0;
@@ -65,7 +66,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 	List<CmLevel> levels;
 	//for pagination
 	int page = 1;
-	int recordsPerPage = 30;
+	int recordsPerPage = 20;
+	int noOfPages = 0;
 	
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
@@ -156,11 +158,11 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 }
 		 else if(catSelect == MACRO_COUNTRY_VALID )
 		 {
-			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , page ,recordsPerPage);
+			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , page ,MAX_PAGE_SIZE_9999);
 		 }
 		 else if(catSelect == MACRO_PEOPLE_VALID )
 		 { 
-			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , page , recordsPerPage);
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , page , MAX_PAGE_SIZE_9999);
 		 }
 		 //else
 		 {
@@ -180,7 +182,13 @@ public class StatisticsAction extends ChengxinBaseAction {
 			}
 			
 		}
-		 
+		
+		int noOfRecords = statisticsChengxinOjbList.size();
+		noOfPages = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
+		request.setAttribute("noOfPages", noOfPages);
+		request.setAttribute("currentPage", page);
+		request.setAttribute("noOfRecords", noOfRecords);
+		
 		request.setAttribute("catSelectStr", catSelectStr);
 		request.setAttribute("list" , statisticsChengxinOjbList );
 		request.setAttribute("countrySelect", countryListStr );
@@ -188,28 +196,6 @@ public class StatisticsAction extends ChengxinBaseAction {
 		return mapping.findForward( "statisticsForword" );
 		
 		
-	}
-	
-
-	private List<CmRecord>  clusterListData(List<CmRecord>  list) {
-		
-		Map<String, CmRecord> ssidCluster = new HashMap<String, CmRecord>();
-		
-		for( int i = 0 ; i < list.size() ; i++ )
-		{
-			CmRecord temp = ssidCluster.get(list.get(i).getPerson().getSsid());
-			if (temp == null)
-				ssidCluster.put( list.get(i).getPerson().getSsid(), list.get(i) );
-			else {
-				Short score = (short) (list.get(i).getScore()+temp.getScore());
-				list.get(i).setScore(score);
-				ssidCluster.put( list.get(i).getPerson().getSsid(), list.get(i) );
-			}
-		}
-		
-		List<CmRecord> rloList = new ArrayList<CmRecord>(ssidCluster.values());
-
-		return rloList;
 	}
 	
 	//topShowCat: 2：显示到镇   1： 显示到村   0： 显示到人

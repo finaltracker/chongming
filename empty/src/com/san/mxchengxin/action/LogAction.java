@@ -45,7 +45,6 @@ public class LogAction extends ChengxinBaseAction  {
 		searDc.addOrder(Order.desc("pubdate"));
 		List<CmLog> clList =  searDc.list();
 		
-		s.close();
 		for(int i= 0 ;i< clList.size() ;i++)
 		{
 			clEnhanceList.add( new CmLogEnhance(clList.get(i)) );
@@ -54,6 +53,7 @@ public class LogAction extends ChengxinBaseAction  {
 		String hql = "select count(*) from CmLog";
 		Object number = s.createQuery(hql).uniqueResult();
 		
+		s.close();
 		
 		int noOfRecords = Integer.parseInt(String.valueOf(number));
 		

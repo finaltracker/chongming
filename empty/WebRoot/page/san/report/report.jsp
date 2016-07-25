@@ -18,14 +18,14 @@
 		                            <label class="control-label"> 考核对象</label>
 	                                <select class="select2 form-control" name="catSelect">
 	                                    <option value="">请选择</option>
-	                                    ${catSelectStr}
+	                                    "${catSelectStr}""
 	                                </select>
 	                                <label class="control-label"> 所属乡镇 </label>
 	                                <select class="select2 form-control" name="country_id">
 	                                    <option value="">请选择</option>
 	                                    "${countrySelect}"
 	                                </select>&nbsp;&nbsp;
-	                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/report.do">确定选择</button>
+	                                <button class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">搜索</button>
 	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/report.do">查看所有</button>
 	                            </div>
 	                        </form>
@@ -48,7 +48,7 @@
                 <div class="col-lg-8">
                     <div class="widget widget-info widget-stack">
                         <div class="widget-header">
-                            <h4><i class="fa fa-calendar"></i> ${part_name}诚信人数波动图</h4>
+                            <h4><i class="fa fa-calendar"></i> ${part_name}诚信等级波动图</h4>
                         </div>
                         <div class="widget-body">
                             <div id="line-chart" class="chart-height"></div>
@@ -106,7 +106,7 @@
         		};
         donut_chart.setOption(option);
         donut_chart.on("click", function(e){
-            window.location.href='${pageContext.request.contextPath}/home/statistics.do?level_id='+e.data.keyId;
+            //window.location.href='${pageContext.request.contextPath}/home/statistics.do?level_id='+e.data.keyId;
         });
 
 
@@ -116,7 +116,7 @@
                 trigger: 'axis'
             },
             legend: {
-                data:['人数']
+                data:['数量']
             },
             toolbox: {
                 show : true,
@@ -147,7 +147,7 @@
             ],
             series : [
                 {
-                    name:'级以上人数',
+                    name:'级以上数量',
                     type:'bar',
                     data:[
                     

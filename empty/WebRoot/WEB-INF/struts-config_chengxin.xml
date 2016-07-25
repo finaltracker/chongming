@@ -86,7 +86,7 @@
     
     <action
       attribute="levelAddForm"
-      input="/page/san/levelAdd.jsp"
+      input="/page/san/level/levelAdd.jsp"
       name="levelAddForm"
       path="/home/level/add"
       scope="request"

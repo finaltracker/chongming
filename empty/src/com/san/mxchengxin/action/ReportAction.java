@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import com.san.mxchengxin.form.statistics.ReportForm;
+import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
@@ -28,6 +29,11 @@ public class ReportAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	
 	Short countryId = 0 ;
+	Integer catSelect = 0;
+	final int MACRO_TOWN_VALID	= 2;
+	final int MACRO_COUNTRY_VALID	= 1;
+	final int MACRO_PEOPLE_VALID	= 0;
+	final int MACRO_INVALID	= -1;
 	
 	public CmCountryDAO geCmCountryDAO() {
 		return cmCountryDAO;
@@ -60,6 +66,7 @@ public class ReportAction extends ChengxinBaseAction {
 		
 		ReportForm reportForm = (ReportForm)form;
 		countryId = reportForm.getCountry_id();
+		catSelect = reportForm.getCatSelect();
 		
 		/*获取所属乡镇要显示的字符串 */
 		Short[] countryList = null;
@@ -67,9 +74,51 @@ public class ReportAction extends ChengxinBaseAction {
 		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO  );
 		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , countryId , 0 , sb );
 		String countryListStr = sb.toString();
-		request.setAttribute("countrySelect", countryListStr);
 		
-		List<StatisticsChengxinObj> levelList = getTownChengxinObjList( cmCountryDAO, getVisiableCountryForShort(cmCountryDAO), 1, 9999 );
+		if( ( countryId == null) || (countryId == 0 ) )
+		{//根据登陆的用户名来确定
+			countryList = userSeenCountryList;
+		}
+		else
+		{//用户指定(村或镇)
+			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , countryId );
+		}
+		
+		//用户能看见的等级
+
+		int userSeenCatValid = makeSureCatSelectAccordUser();
+		
+		if( catSelect == null )
+		{
+			catSelect = userSeenCatValid;
+		}
+		 
+		
+		
+		 
+		List<StatisticsChengxinObj> levelList = null;
+		 
+		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelect );
+		 //县级权限登录，查询所有的镇
+
+		 Short[] VisiableContryLimit = countryList ; 
+		 if( catSelect == MACRO_TOWN_VALID )
+		 { // 县级权限，town列表显示
+			 levelList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 9999 );
+		 }
+		 else if(catSelect == MACRO_COUNTRY_VALID )
+		 {
+			 levelList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , 1, 9999);
+		 }
+		 else if(catSelect == MACRO_PEOPLE_VALID )
+		 { 
+			 levelList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , 1, 9999);
+		 }
+		 //else
+		 {
+			 
+		 }
+		
 		List<levelCatigoryObj> lcoList = null;
 
 		lcoList = new ArrayList<levelCatigoryObj>();
@@ -94,10 +143,92 @@ public class ReportAction extends ChengxinBaseAction {
 			lcoList.add( lco );
 		  
 		}  
-
 		
+		request.setAttribute("catSelectStr", catSelectStr);
+		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("Level_List", lcoList );
 		request.setAttribute("part_name", ouName );
 		return mapping.findForward( "reportForword" );
+	}
+	
+	//更加用户名确定可以看到的等级
+	private int makeSureCatSelectAccordUser()
+	{
+		int ret = MACRO_INVALID;
+		
+		if( this.isAllVisiable() )
+		{//最高能看到 towns
+			ret = MACRO_TOWN_VALID;
+		}
+		else
+		{
+			List< CmCountry> countryList = cmCountryDAO.findByName( ouName );
+			
+			if( countryList.size() > 0 )
+			{
+				CmCountry cc = countryList.get(0);
+				countryId = cc.getId();
+				if( cc.getParentid() == 0 )
+				{ // 是 town ， 看见的是村级
+					ret = MACRO_COUNTRY_VALID;
+				}
+				else
+				{
+					ret = MACRO_PEOPLE_VALID;
+				}
+			}
+		}
+		
+		return ret;
+	}
+	
+	//topShowCat: 2：显示到镇   1： 显示到村   0： 显示到人
+	//selected : which cat is select 
+	private String buildCatSelectStr( int topShowCat , int selected )
+	{
+		StringBuffer sb = new StringBuffer();
+		
+		String s="";
+		switch (topShowCat)
+		{
+		case MACRO_TOWN_VALID:
+			if( selected == MACRO_TOWN_VALID )
+			{
+				s = String.format("<option value=2 selected>乡镇</option>" );
+			}
+			else
+			{
+				s = String.format("<option value=2 >乡镇</option>" );
+			}
+			
+			sb.append(s);
+		case MACRO_COUNTRY_VALID:
+			if( selected == this.MACRO_COUNTRY_VALID )
+			{
+				s = String.format("<option value=1 selected>村</option>" );
+			}
+			else
+			{
+				s = String.format("<option value=1 >村</option>" );
+			}
+			
+			sb.append(s);
+		case MACRO_PEOPLE_VALID:
+			if( selected == MACRO_PEOPLE_VALID )
+			{
+				s = String.format("<option value=0 selected>人员</option>" );
+			}
+			else
+			{
+				s = String.format("<option value=0 >人员</option>" );
+			}
+			
+			sb.append(s);
+			break;
+		default:
+			break;
+		}
+		
+		return sb.toString();
 	}
 }

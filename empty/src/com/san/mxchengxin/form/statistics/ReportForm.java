@@ -21,6 +21,8 @@ public class ReportForm extends ActionForm {
 	 * Generated fields
 	 */
 
+	/** catSelect property */
+	private Integer catSelect;
 
 	/** country_id property */
 	private Short country_id;
@@ -49,6 +51,16 @@ public class ReportForm extends ActionForm {
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 	}
+	
+	
+	public Integer getCatSelect() {
+		return catSelect;
+	}
+
+	public void setCatSelect(Integer catSelect) {
+		this.catSelect = catSelect;
+	}
+
 
 	/** 
 	 * Returns the country_id.

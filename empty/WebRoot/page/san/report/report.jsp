@@ -15,13 +15,18 @@
                     	<div class="widget-body">
 	                        <form action="" method="post" class="form-inline">
 	                            <div class="form-group">
+		                            <label class="control-label"> 考核对象</label>
+	                                <select class="select2 form-control" name="catSelect">
+	                                    <option value="">请选择</option>
+	                                    ${catSelectStr}
+	                                </select>
 	                                <label class="control-label"> 所属乡镇 </label>
 	                                <select class="select2 form-control" name="country_id">
 	                                    <option value="">请选择</option>
-	                                    ${countrySelect}
-	                                </select>
+	                                    "${countrySelect}"
+	                                </select>&nbsp;&nbsp;
 	                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/report.do">确定选择</button>
-	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/report.do">查看全区</button>
+	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/report.do">查看所有</button>
 	                            </div>
 	                        </form>
                     	</div>

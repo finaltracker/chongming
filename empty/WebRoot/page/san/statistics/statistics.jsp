@@ -31,13 +31,13 @@
                                 <select class="select2 form-control" name="country_id">
                                     <option value="">请选择</option>
                                     "${countrySelect}"
-                                </select>
-                                <label class="control-label"> 所属等级 </label>
+                                </select>&nbsp;&nbsp;
+                                <!--label class="control-label"> 所属等级 </label>
                                 <select class="select2 form-control" name="levelSelect">
                                     <option value="">请选择</option>
                                     ${levelSelect}
-                                </select>&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">搜索</button>
+                                </select-->&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">确定</button>
                                 <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics.do">查看所有</button>
                             </div>
 

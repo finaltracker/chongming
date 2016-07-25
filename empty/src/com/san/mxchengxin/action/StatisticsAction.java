@@ -99,44 +99,12 @@ public class StatisticsAction extends ChengxinBaseAction {
 		this.cmPersonDAO = cmPersonDAO;
 	}
 	
-	private String getCountrySelect(Short selectedId, Short parentId, int level) {
-		if(countryList.size() == 1)
-		{
-			CmCountry cc = (CmCountry)countryList.get(0);
-			String isSelected = "";
-			if(cc.getId().shortValue() == selectedId) {
-				isSelected = " selected";
-			}
-			
-			return String.format("<option value='%d'%s>%s</option>", cc.getId(),isSelected,"├─"+cc.getName());
-		}
-		
-		String select = "";
-		for(int i=0;i<countryList.size();i++) {
-			CmCountry cc = (CmCountry)countryList.get(i);
-			if(cc.getParentid() != parentId.shortValue()) continue;
-			
-			String empty="";
-			for(int x=1;x<level;x++)
-				empty +="&nbsp;&nbsp;";
-			
-			String isSelected = "";
-			if(cc.getId().shortValue() == selectedId) {
-				isSelected = " selected";
-			}
-			
-			select += String.format("<option value='%d'%s>%s</option>", cc.getId(),isSelected,empty+"├─"+cc.getName());
-			//System.out.println("temp select : "+select);
-			select += getCountrySelect(selectedId,cc.getId(),level+1);
-		}
-		
-		return select;
-	}
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
 		super.execute(mapping, form, request, response);
+		
 		
 
 		if(request.getParameter("page") != null) {
@@ -198,7 +166,20 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 {
 			 
 		 }
-		 
+		//export excel
+		if(request.getParameter("opt") != null) {
+			int opt = Integer.valueOf(request.getParameter("opt"));
+			if(opt==21) {
+				try {
+					dumpToExcel(request, response, statisticsChengxinOjbList);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return null;
+			}
+			
+		}
 		 
 		request.setAttribute("catSelectStr", catSelectStr);
 		request.setAttribute("list" , statisticsChengxinOjbList );
@@ -281,17 +262,17 @@ public class StatisticsAction extends ChengxinBaseAction {
 		return sb.toString();
 	}
 	
-	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<RecordListObj> list) throws IOException
+	private void dumpToExcel(HttpServletRequest request, HttpServletResponse response, List<StatisticsChengxinObj> list) throws IOException
 	{
 
-		String[] excelHeader = { "序号", "姓名", "身份证号","诚信得分","所属等级"};    
+		String[] excelHeader = { "序号", "名称", "基础分","诚信积累(加分)","诚信流失(减分)","诚信总分","等级"};    
         HSSFWorkbook wb = new HSSFWorkbook();    
-        HSSFSheet sheet = wb.createSheet("Person");    
+        HSSFSheet sheet = wb.createSheet("statistics");    
         HSSFRow row = sheet.createRow(0);    
         HSSFCellStyle style = wb.createCellStyle();    
         style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
     
-        saveMessageToLog("导出人员列表" , request );
+        saveMessageToLog("导出诚信统计列表" , request );
         
         for (short i = 0; i < excelHeader.length; i++) {    
             HSSFCell cell = row.createCell(i);  
@@ -303,30 +284,39 @@ public class StatisticsAction extends ChengxinBaseAction {
     
         for (int i = 0; i < list.size(); i++) {    
             row = sheet.createRow(i + 1);    
-            RecordListObj cp = list.get(i);    
+            StatisticsChengxinObj scx = list.get(i);    
             //csCell.setEncoding(HSSFCell.ENCODING_UTF_16);
             HSSFCell cell0 = row.createCell((short)0);
             cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell0.setCellValue(i+1);  
             HSSFCell cell1 = row.createCell((short)1);
             cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
-            cell1.setCellValue(cp.getTruename());  
+            cell1.setCellValue(scx.getName());  
             HSSFCell cell2 = row.createCell((short)2);
             cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
-            cell2.setCellValue(cp.getSsid());  
+            cell2.setCellValue(scx.getBaseScore());  
             
             HSSFCell cell3 = row.createCell((short)3);
             cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
-            cell3.setCellValue(cp.getScore());  
+            cell3.setCellValue(scx.getSubScore());  
+            
             HSSFCell cell4 = row.createCell((short)4);
             cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
-            cell4.setCellValue(cp.getLevelName());  
+            cell4.setCellValue(scx.getAddScore());  
+            
+            HSSFCell cell5 = row.createCell((short)5);
+            cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell5.setCellValue(scx.getTotalScore()); 
+            
+            HSSFCell cell6 = row.createCell((short)6);
+            cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
+            cell6.setCellValue(scx.getRank()); 
             
         }        
         response.setContentType("application/octet-stream;charset=ISO8859-1");
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");//设置日期格式
         String date = df.format(new Date());
-        String fileName =  "person"+date+".xls";  
+        String fileName =  "chengxinRecord"+date+".xls";  
         response.setHeader("Content-disposition", "attachment;filename="+fileName); 
         response.addHeader("Pargam", "no-cache");  
         response.addHeader("Cache-Control", "no-cache");  

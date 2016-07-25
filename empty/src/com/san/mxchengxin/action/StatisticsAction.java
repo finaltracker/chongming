@@ -193,11 +193,27 @@ public class StatisticsAction extends ChengxinBaseAction {
 			
 		}
 		
+	
+		int listSize = recordsPerPage;
+		
+		int startP =  (page-1) * recordsPerPage ;
+		if( startP + listSize >  noOfPages )
+		{
+			listSize = noOfPages - startP;
+		}
+		
+		List<StatisticsChengxinObj>  showStatisticsChengxinOjbList = new ArrayList<StatisticsChengxinObj>();
+		for( int i = 0 ; i < listSize ; i++ )
+		{
+			showStatisticsChengxinOjbList.add( statisticsChengxinOjbList.get( startP + i ));
+		}
+		
+		
 		int noOfRecords = statisticsChengxinOjbList.size();
 		noOfPages = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
 		request.setAttribute("noOfPages", noOfPages);
-		request.setAttribute("currentPage", page);
 		request.setAttribute("noOfRecords", noOfRecords);
+		request.setAttribute("currentPage", page);
 		
 		request.setAttribute("catSelectStr", catSelectStr);
 		request.setAttribute("list" , statisticsChengxinOjbList );

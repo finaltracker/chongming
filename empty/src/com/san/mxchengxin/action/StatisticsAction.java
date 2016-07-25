@@ -163,17 +163,18 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 
 		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelect );
 		 //县级权限登录，查询所有的镇
+		 Short[] VisiableContryLimit = null ; 
 		 if( catSelect == MACRO_TOWN_VALID )
 		 { // 县级权限，town列表显示
-			 statisticsChengxinOjbList = getTownChengxinObjList(30);
+			 statisticsChengxinOjbList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 100 );
 		 }
 		 else if(catSelect == MACRO_COUNTRY_VALID )
 		 {
-			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , page ,recordsPerPage);
+			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , page ,recordsPerPage);
 		 }
 		 else if(catSelect == MACRO_PEOPLE_VALID )
-		 {
-			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,page , recordsPerPage);
+		 { 
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , page , recordsPerPage);
 		 }
 		 //else
 		 {

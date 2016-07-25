@@ -503,152 +503,66 @@ public class ChengxinBaseAction extends Action {
     	return ret;
     }
     // 所有城镇都可见
-    public List<StatisticsChengxinObj> getTownChengxinObjList( int recordsPerPage )
+    public List<StatisticsChengxinObj> getTownChengxinObjList( CmCountryDAO cmCountryDAO  , Short[] VisiableContryLimit ,int page , int recordsPerPage )
     {
+ 
+    	String townGroupSql = " CASE CM_COUNTRY.PARENTID	 WHEN 0     THEN CM_COUNTRY.id	 ELSE CM_COUNTRY.PARENTID  END ";
+    	String numberOfAllPersonSql= "  COUNT(DISTINCT CM_RECORD.PERSON_ID) ";
+    	String outNameSql = " CM_COUNTRY.Name ";
+    	String joinOutNameTableSql = " LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id ";
+		
+		 return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , page , recordsPerPage );
 
-    	String joinRecord_Person_CountryStr = "( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id ";
-		String townGroupSql = " CASE CM_COUNTRY.PARENTID	 WHEN 0     THEN CM_COUNTRY.id	 ELSE CM_COUNTRY.PARENTID  END";
-		
-		
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		Date now = new Date();
-		System.out.println(df.format(now));// new Date()为获取当前系统时间
-		long nowTime = now.getTime()/1000;
-	
-		Calendar   yearBegin=Calendar.getInstance();
-		yearBegin.set(Calendar.DAY_OF_YEAR, 1);
-		yearBegin.set(Calendar.HOUR_OF_DAY , 0 );
-		yearBegin.set(Calendar.MINUTE , 0 );
-
-		
-		
-		// 在有效期内的记录列表
-		String validDateSql = " CM_RECORD .DATELINE > " +  Long.toString(nowTime);
-				
-		//记录中共有多少人
-		String Sql1 = "select COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfAllPerson, " + townGroupSql + " GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  +" GROUP BY  " + townGroupSql;
-		
-		//从本年度1月1日开始小于0的人的个数
-		String Sql2 = "SELECT COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + " GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql +" GROUP BY " + townGroupSql;
-		
-		// 加分
-		String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE > 0 AND " + validDateSql + " GROUP BY  " + townGroupSql ;
-		//String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " GROUP_ID   ,  CASE WHEN cm_record.SCORE < 0 THEN 'sub' WHEN cm_record.SCORE > 0 THEN 'add' ELSE NULL END SCORE_T   FROM " + joinRecord_Person_CountryStr + " GROUP BY  " + townGroupSql + ", CASE WHEN cm_record.SCORE < 0 THEN 'sub' WHEN  cm_record.SCORE > 0 THEN 'add' ELSE NULL END";
-		 
-		// 减分
-		String Sql4 = "SELECT sum( cm_record.score) as sumSubScore," + townGroupSql + " GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE < 0  AND " + validDateSql + " GROUP BY  "  + townGroupSql ;
-					
-		 // SUM(CM_RECORD.SCORE)   GROUP_ID               SCORE_T 
-		 //---------------------- ---------------------- ------- 
-		//		 -400                   10                     减分    
-		//		 -10352                 13                     减分    
-		//		 150                    10                     加分   
-		
-		 //String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfLessZeroPerson as numberOfLessZeroPerson, s2.numberOfAllPerson as numberOfAllPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (" + Sql1 + ")s1,(" + Sql2 + ")s2,( "+ Sql3 + ")s3,( "+ Sql4 + ")s4 , cm_country where s1.GROUP_ID = cm_country.id AND s1.GROUP_ID = s2.GROUP_ID AND s1.GROUP_ID = s3.GROUP_ID AND s1.GROUP_ID = s4.GROUP_ID";
-		String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id  )";
-		 
-		List result = null;
-		try {
-			result = getRsBySql( totalSql );
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		List<StatisticsChengxinObj> chengxinObjList = sqlResultToStatisticsChengxinObjList( result);
-		
-		
-		return chengxinObjList;
-	 	
     }
     
     //取得所有村的诚信列表 ,town 在cmCountry里面的ID ， 如果是县级管理员进入则 townId = -1
-    public List<StatisticsChengxinObj> getCountryChengxinObjList( CmCountryDAO cmCountryDAO , int page , int recordsPerPage )
+    public List<StatisticsChengxinObj> getCountryChengxinObjList( CmCountryDAO cmCountryDAO  , Short[] VisiableContryLimit ,int page , int recordsPerPage )
     {
-    	Short[] visiableCountryList = getVisiableCountryForShort(cmCountryDAO);
-    		
-    	String joinRecord_Person_CountryStr = "( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id ";
-		
-    	//限制需要的村列表SQL 语句
-    	String limitCountryListSql = " cm_country.ID IN ( ";
-		for( int i = 0 ; i < visiableCountryList.length ; i++ )
-		{
-			limitCountryListSql = limitCountryListSql + visiableCountryList[i];
-			
-			if( i < visiableCountryList.length - 1 )
-			{
-				limitCountryListSql = limitCountryListSql + ',' ;
-			}
-		}
-		
-		limitCountryListSql = limitCountryListSql + ") ";
-		
     	String townGroupSql = " cm_country.id ";
+    	String numberOfAllPersonSql= "  COUNT(DISTINCT CM_RECORD.PERSON_ID) ";
+    	String outNameSql = " CM_COUNTRY.Name ";
+    	String joinOutNameTableSql = " LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id ";
 		
-		
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		Date now = new Date();
-		System.out.println(df.format(now));// new Date()为获取当前系统时间
-		long nowTime = now.getTime()/1000;
-	
-		Calendar   yearBegin=Calendar.getInstance();
-		yearBegin.set(Calendar.DAY_OF_YEAR, 1);
-		yearBegin.set(Calendar.HOUR_OF_DAY , 0 );
-		yearBegin.set(Calendar.MINUTE , 0 );
-
-		
-		
-		// 在有效期内的记录列表
-		String validDateSql = " CM_RECORD .DATELINE > " +  Long.toString(nowTime);
-				
-		//记录中共有多少人
-		String Sql1 = "select COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfAllPerson, " + townGroupSql + "as GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql;
-		
-		//从本年度1月1日开始小于0的人的个数
-		String Sql2 = "SELECT COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + "as  GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql   + "  AND " + limitCountryListSql +" GROUP BY " + townGroupSql;
-		
-		// 加分
-		String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " as GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE > 0 AND " + validDateSql   + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql ;
-		//String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " GROUP_ID   ,  CASE WHEN cm_record.SCORE < 0 THEN 'sub' WHEN cm_record.SCORE > 0 THEN 'add' ELSE NULL END SCORE_T   FROM " + joinRecord_Person_CountryStr + " GROUP BY  " + townGroupSql + ", CASE WHEN cm_record.SCORE < 0 THEN 'sub' WHEN  cm_record.SCORE > 0 THEN 'add' ELSE NULL END";
-		 
-		// 减分
-		String Sql4 = "SELECT sum( cm_record.score) as sumSubScore," + townGroupSql + "as  GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE < 0  AND " + validDateSql   + "  AND " + limitCountryListSql + " GROUP BY  "  + townGroupSql ;
-					
-		 // SUM(CM_RECORD.SCORE)   GROUP_ID               SCORE_T 
-		 //---------------------- ---------------------- ------- 
-		//		 -400                   10                     减分    
-		//		 -10352                 13                     减分    
-		//		 150                    10                     加分   
-		
-		 //String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfLessZeroPerson as numberOfLessZeroPerson, s2.numberOfAllPerson as numberOfAllPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (" + Sql1 + ")s1,(" + Sql2 + ")s2,( "+ Sql3 + ")s3,( "+ Sql4 + ")s4 , cm_country where s1.GROUP_ID = cm_country.id AND s1.GROUP_ID = s2.GROUP_ID AND s1.GROUP_ID = s3.GROUP_ID AND s1.GROUP_ID = s4.GROUP_ID";
-		String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id  )";
-		 
-		List result = null;
-		try {
-			result = getRsBySqlForPage( totalSql , page , recordsPerPage );
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		List<StatisticsChengxinObj> chengxinObjList = sqlResultToStatisticsChengxinObjList( result);
-		
-		
-		return chengxinObjList;
+		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , page , recordsPerPage );
 	 	
     }
     
     
   //取得所有所有人的 诚信列表 ,town 在cmCountry里面的ID ， 如果是县级管理员进入则 townId = -1
-    public List<StatisticsChengxinObj>  getPeopleChengxinObjList( CmCountryDAO cmCountryDAO , int page , int recordsPerPage )
+    public List<StatisticsChengxinObj>  getPeopleChengxinObjList( CmCountryDAO cmCountryDAO , Short[] VisiableContryLimit, int page , int recordsPerPage )
     {
-    	Short[] visiableCountryList = getVisiableCountryForShort(cmCountryDAO);
+    	String townGroupSql = " cm_person.id ";
+    	String numberOfAllPersonSql= " 1 ";
+    	String outNameSql = " cm_person.TRUENAME ";
+    	String joinOutNameTableSql = " LEFT JOIN  cm_person on  s1.GROUP_ID = cm_person.id ";
+		
+		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , page , recordsPerPage );
+	 	
+    }
+    
+    
+    // String VisiableContryLimit : 限制能够看到的人
+    // townGroupSql : 根据什么分组 sql
+    // numberOfAllPersonSql 计算每个分组有多少人 SQL
+    // outNameSql 用什么作为输出的name
+    // joinOutNameTableSql: 输出的那么，在哪个表中选取
+    public List<StatisticsChengxinObj>  getChengxinObjListCommon( CmCountryDAO cmCountryDAO ,  Short[] VisiableContryLimit , String townGroupSql , String numberOfAllPersonSql, String outNameSql, String joinOutNameTableSql , int page , int recordsPerPage )
+    {
+    	
+    	Short[] visiableCountryList = null;
     		
     	String joinRecord_Person_CountryStr = "( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id ";
 		
-    	//限制需要的村列表SQL 语句
+    	if( VisiableContryLimit == null )
+    	{
+    		visiableCountryList = getVisiableCountryForShort(cmCountryDAO);
+    	}
+    	else
+    	{
+    		visiableCountryList = VisiableContryLimit;
+    	}
+    	
+    	/*产生限制需要的村列表SQL 语句 begin */
     	String limitCountryListSql = " cm_country.ID IN ( ";
 		for( int i = 0 ; i < visiableCountryList.length ; i++ )
 		{
@@ -662,9 +576,8 @@ public class ChengxinBaseAction extends Action {
 		
 		limitCountryListSql = limitCountryListSql + ") ";
 		
-    	String townGroupSql = " cm_person.id ";
-		
-		
+    	/* 产生限制需要的村列表SQL 语句 end */
+    	
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		Date now = new Date();
 		System.out.println(df.format(now));// new Date()为获取当前系统时间
@@ -681,11 +594,11 @@ public class ChengxinBaseAction extends Action {
 		String validDateSql = " CM_RECORD .DATELINE > " +  Long.toString(nowTime);
 				
 		//记录中共有多少人
-		String Sql1 = "select 1 as numberOfAllPerson, " + townGroupSql + "as GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql;
+		String Sql1 = "SELECT " + numberOfAllPersonSql +"  as numberOfAllPerson, " +  townGroupSql + "as GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql;
 
 		
 		//从本年度1月1日开始小于0的人的个数
-		String Sql2 = "SELECT COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + "as  GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql   + "  AND " + limitCountryListSql +" GROUP BY " + townGroupSql;
+		String Sql2 = "SELECT  COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + "as  GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql   + "  AND " + limitCountryListSql +" GROUP BY " + townGroupSql;
 		
 		// 加分
 		String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " as GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE > 0 AND " + validDateSql   + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql ;
@@ -701,7 +614,7 @@ public class ChengxinBaseAction extends Action {
 		//北兴村                                             1                      1                                             -9999        
 		
 		 //String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfLessZeroPerson as numberOfLessZeroPerson, s2.numberOfAllPerson as numberOfAllPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (" + Sql1 + ")s1,(" + Sql2 + ")s2,( "+ Sql3 + ")s3,( "+ Sql4 + ")s4 , cm_country where s1.GROUP_ID = cm_country.id AND s1.GROUP_ID = s2.GROUP_ID AND s1.GROUP_ID = s3.GROUP_ID AND s1.GROUP_ID = s4.GROUP_ID";
-		String totalSql = "select cm_person.TRUENAME as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) LEFT JOIN  cm_person on  s1.GROUP_ID = cm_person.id  )";
+		String totalSql = "select " + outNameSql + " as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) " + joinOutNameTableSql + "  )";
 		 
 		List result = null;
 		try {

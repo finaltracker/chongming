@@ -131,7 +131,17 @@ public class StatisticsAction extends ChengxinBaseAction {
 		}
 		else
 		{//用户指定(村或镇)
-			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , statForm.getCountry_id() );
+			short country_id = statForm.getCountry_id();
+			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , country_id );
+			//自动设置合适的等级
+			int countryType = getCountryType( country_id , cmCountryDAO );
+			if( countryType == COUNTRY_FLAG )
+			{
+				if( ( catSelect == null ) || ( catSelect == MACRO_TOWN_VALID ) )
+				{
+					catSelect = MACRO_COUNTRY_VALID;
+				}
+			}
 		}
 		
 		//用户能看见的等级

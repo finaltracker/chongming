@@ -177,7 +177,7 @@
                                             layer.confirm('提交成功', {
                                                 btn: ['继续录入','返回列表'] //按钮
                                             }, function(){
-                                                window.location.href='${pageContext.request.contextPath}/home/person/add.do';
+                                                window.location.href='${pageContext.request.contextPath}/home/person/add.do?method=1';
                                             }, function(){
                                                 window.location.href='${pageContext.request.contextPath}/home/person.do';
                                             });
@@ -191,7 +191,7 @@
                                 layer.confirm('${pageInfo_actionTitle}成功', {
                                     btn: ['继续录入','返回列表'] //按钮
                                 }, function(){
-                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do';
+                                    window.location.href='${pageContext.request.contextPath}/home/person/add.do?method=1';
                                 }, function(){
                                     window.location.href='${pageContext.request.contextPath}/home/person.do';
                                 });

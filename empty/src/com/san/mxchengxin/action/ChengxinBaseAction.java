@@ -262,7 +262,7 @@ public class ChengxinBaseAction extends Action {
 		
 		cl.setInfo( message );
 		cl.setPubdate( now.getTime()/1000 );
-		cl.setIp( request.getRemoteAddr() );
+		cl.setIp( request.getRemoteAddr().length() > 15 ? "unknown": request.getRemoteAddr());
 		cl.setAuthor( cn );
 		
 		cmLogDAO.save( cl );

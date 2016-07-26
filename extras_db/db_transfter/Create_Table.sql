@@ -69,7 +69,7 @@ create table CM_LOG
   INFO    VARCHAR2(500),
   PUBDATE NUMBER(11) not null,
   AUTHOR  VARCHAR2(50) default '',
-  IP      VARCHAR2(15)
+  IP      VARCHAR2(60)
 )
 ;
 comment on column CM_LOG.ID

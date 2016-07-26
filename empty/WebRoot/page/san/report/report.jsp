@@ -25,7 +25,7 @@
 	                                    <option value="">请选择</option>
 	                                    "${countrySelect}"
 	                                </select>&nbsp;&nbsp;
-	                                <button class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">搜索</button>
+	                                <button class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/report.do">确定</button>
 	                                <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/report.do">查看所有</button>
 	                            </div>
 	                        </form>

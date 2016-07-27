@@ -109,10 +109,15 @@ public class StatisticsAction extends ChengxinBaseAction {
 		super.execute(mapping, form, request, response);
 		
 		
-
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		} 
+
+		if(request.getParameter("showAll") != null) {
+			catSelectInt = -1;    // 重新设置cat 选择为无效
+			country_idShort = -1; // 重新设置country 选择为无效
+			page = 1; //设置从头开始
+		}
 
 		StatisticsForm statForm = (StatisticsForm)form;
 		

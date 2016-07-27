@@ -124,6 +124,10 @@ public class StatisticsAction extends ChengxinBaseAction {
 		Integer catSelect = statForm.getCatSelect();
 		if( catSelect != null )
 		{
+			if( catSelectInt != catSelect.intValue() )
+			{
+				page = 1; //设置从头开始
+			}
 			catSelectInt = catSelect.intValue();
 		}
 		

@@ -57,13 +57,14 @@ public class StatisticsAction extends ChengxinBaseAction {
 	
 	Short countryId = -1 ;
 	
+	int catSelectInt = -1; // -1 invalid
+	short country_idShort = -1;// -1 invalid
+	
 	String searchMap_truename = "";
 	String searchMap_ssid = "";
 	
 	Short levelId = 0;
 	
-	List<CmCountry> countryList;
-	List<CmLevel> levels;
 	//for pagination
 	int page = 1;
 	int recordsPerPage = 20;
@@ -116,30 +117,38 @@ public class StatisticsAction extends ChengxinBaseAction {
 		StatisticsForm statForm = (StatisticsForm)form;
 		
 		Integer catSelect = statForm.getCatSelect();
-		Integer levelSelect = statForm.getLevelSelect();
+		if( catSelect != null )
+		{
+			catSelectInt = catSelect.intValue();
+		}
+		
+		if( statForm.getCountry_id() != null)
+		{
+			country_idShort = statForm.getCountry_id();
+		}
 		
 		/*获取所属乡镇要显示的字符串 */
 		Short[] countryList = null;
 		StringBuffer sb = new StringBuffer();
 		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO  );
-		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , statForm.getCountry_id() , 0 , sb );
+		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , country_idShort , 0 , sb );
 		String countryListStr = sb.toString();
 		
-		if( ( statForm.getCountry_id() == null) || (statForm.getCountry_id() == 0 ) )
+		
+		if( ( country_idShort == -1 ) || ( country_idShort == 0 ) )
 		{//根据登陆的用户名来确定
 			countryList = userSeenCountryList;
 		}
 		else
 		{//用户指定(村或镇)
-			short country_id = statForm.getCountry_id();
-			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , country_id );
+			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , country_idShort );
 			//自动设置合适的等级
-			int countryType = getCountryType( country_id , cmCountryDAO );
+			int countryType = getCountryType( country_idShort , cmCountryDAO );
 			if( countryType == COUNTRY_FLAG )
 			{
-				if( ( catSelect == null ) || ( catSelect == MACRO_TOWN_VALID ) )
+				if( ( catSelectInt == -1 ) || ( catSelectInt == MACRO_TOWN_VALID ) )
 				{
-					catSelect = MACRO_COUNTRY_VALID;
+					catSelectInt = MACRO_COUNTRY_VALID;
 				}
 			}
 		}
@@ -148,9 +157,9 @@ public class StatisticsAction extends ChengxinBaseAction {
 
 		int userSeenCatValid = makeSureCatSelectAccordUser();
 		
-		if( catSelect == null )
+		if( catSelectInt == -1 )
 		{
-			catSelect = userSeenCatValid;
+			catSelectInt = userSeenCatValid;
 		}
 		 
 		
@@ -158,21 +167,21 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 
 		 List<StatisticsChengxinObj>  statisticsChengxinOjbList = null;
 		 
-		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelect );
+		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelectInt );
 		 //县级权限登录，查询所有的镇
 
 		 Short[] VisiableContryLimit = countryList ; 
-		 if( catSelect == MACRO_TOWN_VALID )
+		 if( catSelectInt == MACRO_TOWN_VALID )
 		 { // 县级权限，town列表显示
 			 statisticsChengxinOjbList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 100 );
 		 }
-		 else if(catSelect == MACRO_COUNTRY_VALID )
+		 else if(catSelectInt == MACRO_COUNTRY_VALID )
 		 {
-			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , page ,MAX_PAGE_SIZE_9999);
+			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 ,MAX_PAGE_SIZE_9999);
 		 }
-		 else if(catSelect == MACRO_PEOPLE_VALID )
+		 else if(catSelectInt == MACRO_PEOPLE_VALID )
 		 { 
-			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , page , MAX_PAGE_SIZE_9999);
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , 1 , MAX_PAGE_SIZE_9999);
 		 }
 		 //else
 		 {
@@ -217,7 +226,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		request.setAttribute("currentPage", page);
 		
 		request.setAttribute("catSelectStr", catSelectStr);
-		request.setAttribute("list" , statisticsChengxinOjbList );
+		request.setAttribute("list" , showStatisticsChengxinOjbList );
 		request.setAttribute("countrySelect", countryListStr );
 		
 		return mapping.findForward( "statisticsForword" );

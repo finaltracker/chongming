@@ -153,10 +153,15 @@ public class ReportAction extends ChengxinBaseAction {
 		  
 		}  
 		
+		String part_name = ouName;
+		if( part_name.equals( "系统管理部") )
+		{
+			part_name = "崇明县";
+		}
 		request.setAttribute("catSelectStr", catSelectStr);
 		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("Level_List", lcoList );
-		request.setAttribute("part_name", ouName );
+		request.setAttribute("part_name", part_name );
 		return mapping.findForward( "reportForword" );
 	}
 	

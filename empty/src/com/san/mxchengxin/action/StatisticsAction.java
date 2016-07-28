@@ -200,20 +200,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 {
 			 
 		 }
-		//export excel
-		if(request.getParameter("opt") != null) {
-			int opt = Integer.valueOf(request.getParameter("opt"));
-			if(opt==21) {
-				try {
-					dumpToExcel(request, response, statisticsChengxinOjbList);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return null;
-			}
-			
-		}
+		
 		
 	
 		int noOfRecords = statisticsChengxinOjbList.size();
@@ -233,7 +220,39 @@ public class StatisticsAction extends ChengxinBaseAction {
 			showStatisticsChengxinOjbList.add( statisticsChengxinOjbList.get( startP + i ));
 		}
 		
-		
+		//export excel
+		if(request.getParameter("opt") != null) {
+			int opt = Integer.valueOf(request.getParameter("opt"));
+			if(opt==21) {
+				boolean doDumpToExcel = false;
+				if( this.isAllVisiable() )
+				{// 系统管理员
+					doDumpToExcel = true;
+				}
+				else
+				{
+					if( showStatisticsChengxinOjbList.size() == 1 )
+					{ // 只允许导出一个记录(一般是用户进行查询获得)
+						doDumpToExcel = true;
+					}
+					else						
+					{
+						doDumpToExcel = false;
+					}
+				}
+				if( doDumpToExcel )
+				{ // do export to excel
+					try {
+						dumpToExcel(request, response, showStatisticsChengxinOjbList);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				return null;
+			}
+			
+		}
 		request.setAttribute("noOfPages", noOfPages);
 		request.setAttribute("noOfRecords", noOfRecords);
 		request.setAttribute("currentPage", page);

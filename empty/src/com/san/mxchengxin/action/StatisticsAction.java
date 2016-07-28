@@ -113,6 +113,10 @@ public class StatisticsAction extends ChengxinBaseAction {
 			page = Integer.valueOf(request.getParameter("page"));
 		} 
 
+		if( request.getParameter("search") != null )
+		{// search button,每次搜索都应该从头开始
+			page = 1; //设置从头开始
+		}
 		if(request.getParameter("showAll") != null) {
 			catSelectInt = -1;    // 重新设置cat 选择为无效
 			country_idShort = -1; // 重新设置country 选择为无效

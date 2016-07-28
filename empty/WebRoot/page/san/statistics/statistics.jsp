@@ -42,7 +42,7 @@
                                     <option value="">请选择</option>
                                     ${levelSelect}
                                 </select-->&nbsp;&nbsp;
-                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do">确定</button>&nbsp;&nbsp;
+                                <button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do?search=1">确定</button>&nbsp;&nbsp;
                                 <button class="btn btn-default back" data-url="${pageContext.request.contextPath}/home/statistics.do?showAll=1">查看所有</button>
                             </div>
 

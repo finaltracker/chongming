@@ -94,9 +94,15 @@
                             radius : '55%',
                             center: ['50%', '60%'],
                             data:[
+							<c:set var="index" value="0" />
                             <c:forEach var="item" items="${Level_List}">
-                            
-                             { name: '${item.levelName }' ,  value: ${item.howmanyPeople} ,keyId:${item.levelId}  },
+							  <c:set var="index" value="${index+1}" />
+							</c:forEach>
+							
+							<c:set var="index2" value="0" />
+                            <c:forEach var="item" items="${Level_List}">
+							  <c:set var="index2" value="${index2+1}" />
+                             { name: '${item.levelName }' ,  value: ${item.howmanyPeople} ,keyId:${item.levelId}  }<c:if test="${index2 lt index }" >,</c:if>
                             </c:forEach>
                                 
                             
@@ -133,9 +139,15 @@
                 {
                     type : 'category',
                     data : [
-                    
-                    	<c:forEach var="item" items="${Level_List}">       
-                    	'${item.levelName }', 
+						<c:set var="index" value="0" />
+                        <c:forEach var="item" items="${Level_List}">
+							<c:set var="index" value="${index+1}" />
+						</c:forEach>     
+						
+						<c:set var="index2" value="0" />
+                    	<c:forEach var="item" items="${Level_List}">   
+						<c:set var="index2" value="${index2+1}" />						
+                    	'${item.levelName }'<c:if test="${index2 lt index }" >,</c:if>
                    		</c:forEach>
                     ]
                 }         

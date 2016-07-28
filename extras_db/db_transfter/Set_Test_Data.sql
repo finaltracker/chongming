@@ -1615,8 +1615,6 @@ prompt Loading CM_PART...
 insert into CM_PART (ID, PART_NAME)
 values (19, '系统管理部');
 insert into CM_PART (ID, PART_NAME)
-values (19, '行政部门');
-insert into CM_PART (ID, PART_NAME)
 values (22, '县规土局城管执法局');
 insert into CM_PART (ID, PART_NAME)
 values (25, '县综治委');
@@ -1702,23 +1700,23 @@ prompt Loading CM_TARGET...
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
 values (28, '非正常上访、非正常集访', -200, 'cm', 1463918804, 10000, 23);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (31, '电、毒、炸等非法捕捞', -150, 'cm', 1463918869, 0, 12);
+values (31, '电、毒、炸等非法捕捞', -150, 'cm', 1463918869, 100, 12);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
 values (29, '食品安全事故责任', -200, 'cm', 1463918827, 1000, 24);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (32, '违禁使用农药', -150, 'cm', 1463918883, 0, 12);
+values (32, '违禁使用农药', -150, 'cm', 1463918883, 100, 12);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
 values (33, '不规范养猪场', -150, 'cm', 1463918896, 0, 12);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (34, '其他损害生态环境行为', -150, 'cm', 1463918915, 0, 12);
+values (34, '其他损害生态环境行为', -150, 'cm', 1463918915, 100, 12);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (35, '秸秆及其它垃圾焚烧', -100, 'cm', 1463918927, 0, 13);
+values (35, '秸秆及其它垃圾焚烧', -100, 'cm', 1463918927, 100, 13);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (36, '丧家骨灰乱埋乱葬', -100, 'cm', 1463918942, 0, 13);
+values (36, '丧家骨灰乱埋乱葬', -100, 'cm', 1463918942, 100, 13);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (37, '乱堆杂物、乱倒垃圾', -10, 'cm', 1463918953, 0, 13);
+values (37, '乱堆杂物、乱倒垃圾', -10, 'cm', 1463918953, 100, 13);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
-values (38, '其他违反社会公德的行为', -100, 'cm', 1463918963, 0, 13);
+values (38, '其他违反社会公德的行为', -100, 'cm', 1463918963, 100, 13);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)
 values (12, '义务献血', 100, 'admin', 1462765249, 1000, 15);
 insert into CM_TARGET (ID, TARGET_NAME, TARGET_SCORE, AUTHOR, PUBDATE, DATELINE, PART_ID)

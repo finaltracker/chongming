@@ -121,7 +121,7 @@ public class ReportAction extends ChengxinBaseAction {
 		 }
 		 else if(catSelect == MACRO_PEOPLE_VALID )
 		 { 
-			 levelList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , 1, 9999);
+			 levelList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , null , null ,1, 9999);
 		 }
 		 //else
 		 {

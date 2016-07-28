@@ -190,7 +190,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 }
 		 else if(catSelectInt == MACRO_PEOPLE_VALID )
 		 { 
-			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , 1 , MAX_PAGE_SIZE_9999);
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , statForm.getPerson_truename() , statForm.getPerson_ssid() , 1 , MAX_PAGE_SIZE_9999 );
 		 }
 		 //else
 		 {

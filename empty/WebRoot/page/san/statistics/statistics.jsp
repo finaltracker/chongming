@@ -32,6 +32,11 @@
                                     <option value="">请选择</option>
                                     "${countrySelect}"
                                 </select>&nbsp;&nbsp;
+                                <label class="control-label"> 姓名 </label>
+                                <input type="text" class="form-control input-sm" name="person_truename" value="${person_truename}"/>&nbsp;&nbsp;
+                                <label class="control-label"> 身份证号 </label>
+                                <input type="text" class="form-control input-sm" name="person_ssid" value="${person_ssid}"/>&nbsp;&nbsp;
+								
                                 <!--label class="control-label"> 所属等级 </label>
                                 <select class="select2 form-control" name="levelSelect">
                                     <option value="">请选择</option>

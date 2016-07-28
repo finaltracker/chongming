@@ -514,7 +514,7 @@ public class ChengxinBaseAction extends Action {
     	String outNameSql = " CM_COUNTRY.Name ";
     	String joinOutNameTableSql = " LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id ";
 		
-		 return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , page , recordsPerPage );
+		 return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , "", page , recordsPerPage );
 
     }
     
@@ -526,20 +526,60 @@ public class ChengxinBaseAction extends Action {
     	String outNameSql = " CM_COUNTRY.Name ";
     	String joinOutNameTableSql = " LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id ";
 		
-		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , page , recordsPerPage );
+		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql ,"",  page , recordsPerPage );
 	 	
     }
     
     
   //取得所有所有人的 诚信列表 ,town 在cmCountry里面的ID ， 如果是县级管理员进入则 townId = -1
-    public List<StatisticsChengxinObj>  getPeopleChengxinObjList( CmCountryDAO cmCountryDAO , Short[] VisiableContryLimit, int page , int recordsPerPage )
+    public List<StatisticsChengxinObj>  getPeopleChengxinObjList( CmCountryDAO cmCountryDAO , Short[] VisiableContryLimit, String name , String ssid ,int page , int recordsPerPage )
     {
     	String townGroupSql = " cm_person.id ";
     	String numberOfAllPersonSql= " 1 ";
     	String outNameSql = " cm_person.TRUENAME ";
     	String joinOutNameTableSql = " LEFT JOIN  cm_person on  s1.GROUP_ID = cm_person.id ";
-		
-		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , page , recordsPerPage );
+    	String commonWhere = "";
+
+    	if(name != null && name.isEmpty() )
+    	{
+    		name = null;
+    	}
+    	
+    	if(ssid != null && ssid.isEmpty() )
+    	{
+    		ssid = null;
+    	}
+    	
+    		
+    	if( name != null || ssid != null )
+    	{
+    		commonWhere = " where ";
+    		
+    		if( name != null )
+    		{
+    			commonWhere += "cm_person.TRUENAME like '%"+ name +"%' ";
+    			if( ssid != null )
+        		{
+        			commonWhere += " AND SSID = '" + ssid + "'";
+        		}
+        		else
+        		{
+        		}
+    		}
+    		else
+    		{
+    			if( ssid != null )
+        		{
+        			commonWhere += " cm_person.SSID = '" + ssid + "'";
+        		}
+        		else
+        		{
+        			
+        		}
+    		}
+    	}
+    	
+		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql ,commonWhere,  page , recordsPerPage );
 	 	
     }
     
@@ -549,7 +589,7 @@ public class ChengxinBaseAction extends Action {
     // numberOfAllPersonSql 计算每个分组有多少人 SQL
     // outNameSql 用什么作为输出的name
     // joinOutNameTableSql: 输出的那么，在哪个表中选取
-    public List<StatisticsChengxinObj>  getChengxinObjListCommon( CmCountryDAO cmCountryDAO ,  Short[] VisiableContryLimit , String townGroupSql , String numberOfAllPersonSql, String outNameSql, String joinOutNameTableSql , int page , int recordsPerPage )
+    public List<StatisticsChengxinObj>  getChengxinObjListCommon( CmCountryDAO cmCountryDAO ,  Short[] VisiableContryLimit , String townGroupSql , String numberOfAllPersonSql, String outNameSql, String joinOutNameTableSql , String CommonWhere, int page , int recordsPerPage )
     {
     	
     	Short[] visiableCountryList = null;
@@ -617,7 +657,7 @@ public class ChengxinBaseAction extends Action {
 		//北兴村                                             1                      1                                             -9999        
 		
 		 //String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfLessZeroPerson as numberOfLessZeroPerson, s2.numberOfAllPerson as numberOfAllPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (" + Sql1 + ")s1,(" + Sql2 + ")s2,( "+ Sql3 + ")s3,( "+ Sql4 + ")s4 , cm_country where s1.GROUP_ID = cm_country.id AND s1.GROUP_ID = s2.GROUP_ID AND s1.GROUP_ID = s3.GROUP_ID AND s1.GROUP_ID = s4.GROUP_ID";
-		String totalSql = "select " + outNameSql + " as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) " + joinOutNameTableSql + "  )";
+		String totalSql = "select " + outNameSql + " as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) " + joinOutNameTableSql + "  )" + CommonWhere ;
 		 
 		List result = null;
 		try {

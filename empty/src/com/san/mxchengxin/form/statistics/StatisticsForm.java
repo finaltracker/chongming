@@ -28,7 +28,28 @@ public class StatisticsForm extends ActionForm {
 	private Integer levelSelect;
 
 	private Short country_id;
+	
+	private String person_truename;
 
+	private String person_ssid;
+	
+
+
+	public String getPerson_truename() {
+		return person_truename;
+	}
+
+	public void setPerson_truename(String person_truename) {
+		this.person_truename = person_truename;
+	}
+
+	public String getPerson_ssid() {
+		return person_ssid;
+	}
+
+	public void setPerson_ssid(String person_ssid) {
+		this.person_ssid = person_ssid;
+	}
 
 	
 

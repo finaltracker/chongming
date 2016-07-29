@@ -23,7 +23,7 @@
                             <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do?opt=21">导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 考核对象</label>
-                                <select class="select2 form-control" name="catSelect">
+                                <select id =IdcatSelect class="select2 form-control" name="catSelect">
                                     <option value="">请选择</option>
                                     ${catSelectStr}
                                 </select>&nbsp;&nbsp;
@@ -33,9 +33,9 @@
                                     "${countrySelect}"
                                 </select>&nbsp;&nbsp;
                                 <label class="control-label"> 姓名 </label>
-                                <input type="text" class="form-control input-sm" name="person_truename" value="${person_truename}"/>&nbsp;&nbsp;
+                                <input type="text" class="form-control input-sm show-enabel" name="person_truename"  disabled="disabled" value="${person_truename}"/>&nbsp;&nbsp;
                                 <label class="control-label"> 身份证号 </label>
-                                <input type="text" class="form-control input-sm" name="person_ssid" value="${person_ssid}"/>&nbsp;&nbsp;
+                                <input type="text" class="form-control input-sm show-enabel" name="person_ssid" disabled="disabled" value="${person_ssid}"/>&nbsp;&nbsp;
 								
                                 <!--label class="control-label"> 所属等级 </label>
                                 <select class="select2 form-control" name="levelSelect">
@@ -131,5 +131,17 @@
                 $(this).closest("form").attr("action",$(this).attr("data-url")).submit();
             })
         })
+        $("#IdcatSelect").change(function(){
+  		var inputValue = $(this).val();
+  		if( inputValue == "0")
+  		{//人员
+  			$(".show-enabel").attr("disabled", false )
+  		}
+  		
+  		else
+  		{
+  			$(".show-enabel").attr("disabled", true )
+  		}
+});
     </script>
 </block>

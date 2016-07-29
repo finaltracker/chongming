@@ -14,6 +14,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -240,6 +242,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 						doDumpToExcel = false;
 					}
 				}
+				//for test
+				doDumpToExcel = false;
 				if( doDumpToExcel )
 				{ // do export to excel
 					try {
@@ -248,7 +252,17 @@ public class StatisticsAction extends ChengxinBaseAction {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
 				}
+				else
+				{
+					Map failReason  = new HashMap<String, String>();
+					failReason.put("failcause", "只允许导一个记录");
+					JSONArray jsonObject = JSONArray.fromObject( failReason );//装换json
+					
+					ajaxResponse( response , jsonObject );
+				}
+				
 				return null;
 			}
 			

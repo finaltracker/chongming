@@ -20,7 +20,7 @@
 
                     <div class="widget-body">
                         <form action="" method="post" class="form-inline">
-                            <button type="button" class="btn btn-primary pull-right form-action" data-action="form" data-url="${pageContext.request.contextPath}/home/statistics.do?opt=21">导出</button>
+                            <button type="button" id= export class="btn btn-primary pull-right form-action" data-action="form" >导出</button>
                             <div class="form-group">
                                 <label class="control-label"> 考核对象</label>
                                 <select id =IdcatSelect class="select2 form-control" name="catSelect">
@@ -131,17 +131,34 @@
                 $(this).closest("form").attr("action",$(this).attr("data-url")).submit();
             })
         })
-        $("#IdcatSelect").change(function(){
-  		var inputValue = $(this).val();
-  		if( inputValue == "0")
-  		{//人员
-  			$(".show-enabel").attr("disabled", false )
-  		}
+        
+        $(function(){
+	        $("#IdcatSelect").change(function(){
+	  		var inputValue = $(this).val();
+	  		if( inputValue == "0")
+	  		{//人员
+	  			$(".show-enabel").attr("disabled", false )
+	  		}
+	  		
+	  		else
+	  		{
+	  			$(".show-enabel").attr("disabled", true )
+	  		}
+  		});
   		
-  		else
-  		{
-  			$(".show-enabel").attr("disabled", true )
-  		}
+  		$(function(){
+		    $('#export').click(function(){
+		         $.ajax({
+		             type: "post",
+		             url: "${pageContext.request.contextPath}/home/statistics.do",
+		             data: {opt:21},
+		             dataType: "json",
+		             complete: function(data){
+		                         console.log(data);
+		                      }
+		         });
+		    });
+		});
 });
     </script>
 </block>

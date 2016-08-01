@@ -61,7 +61,8 @@
 									class="select2 form-control" name="target_id">
 									<option value="">请选择</option> ${targetSelect}
 								</select>&nbsp;&nbsp;
-								<button type="submit" class="btn btn-primary">搜索</button>
+								<button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/record.do?search=1">搜索</button>
+                                
 								<button class="btn btn-default back"
 									data-url="${pageContext.request.contextPath}/home/record.do">查看所有</button>
 							</div>

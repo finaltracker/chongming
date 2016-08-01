@@ -107,7 +107,10 @@ public class PersonAction extends ChengxinBaseAction {
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		}
-		
+		if( request.getParameter("search") != null )
+		{// search button,每次搜索都应该从头开始
+			page = 1; //设置从头开始
+		}
 		String personTrueName = "";
 		String personSsid = "";
 		Short countryId = 0 ;

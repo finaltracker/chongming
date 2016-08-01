@@ -155,7 +155,7 @@
 		             data: {opt:21},
 		             dataType: "json",
 		             complete: function(XMLHttpRequest, textStatus) {
-		                         console.log(XMLHttpRequest);
+		                         //console.log(XMLHttpRequest);
 		                         var ret = eval(XMLHttpRequest.responseText);
 		                         failCause = ret[0].failCause;
 		                         

@@ -144,7 +144,7 @@
                     dataType:"json",
                     data:$form.serialize(),
                     success: function (data) {
-                    	console.log( "data.stat" , data.stat );
+                    	//console.log( "data.stat" , data.stat );
                         if (data[0].stat == false ) {
                             layer.confirm('${pageInfo_actionTitle}成功 是否继续提交', {
                                 btn: ['提交', '返回'] //按钮

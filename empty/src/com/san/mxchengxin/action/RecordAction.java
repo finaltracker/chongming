@@ -50,6 +50,10 @@ public class RecordAction extends ChengxinBaseAction {
 	private CmRecordDAO cmRecordDAO;
 	private CmTargetDAO cmTargetDAO;
 
+	String truename = "";
+	String ssid = "" ;
+	Short country_id = 0 ;
+	Short target_id = 0;
 	
 	//for pagination
 	int page = 1;
@@ -95,6 +99,27 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		RecordForm recordForm = (RecordForm) form;
 		
+		if( recordForm != null )
+		{
+			if( recordForm.getTruename() != null )
+			{
+				truename = recordForm.getTruename();
+			}
+			if( recordForm.getSsid() != null )
+			{
+				ssid = recordForm.getSsid() ;
+			}
+			if( recordForm.getCountry_id() != null )
+			{
+				country_id = recordForm.getCountry_id() ;
+			}
+			if( recordForm.getTarget_id() != null )
+			{
+				target_id = recordForm.getTarget_id();
+			}
+		}
+		
+		
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		} 
@@ -102,7 +127,13 @@ public class RecordAction extends ChengxinBaseAction {
 		{// search button,每次搜索都应该从头开始
 			page = 1; //设置从头开始
 		}
-		
+		if(request.getParameter("showAll") != null) {
+			page = 1; //设置从头开始
+			truename = null;
+			ssid = null ;
+			country_id = 0 ;
+			target_id = 0 ;
+		}
 		if(request.getParameter("id") != null) {
 			//删除操作
 			Integer recordId = Integer.valueOf(request.getParameter("id"));
@@ -136,13 +167,13 @@ public class RecordAction extends ChengxinBaseAction {
 		searDc.createAlias("person", "person");  
 		
 		Short[] userSeenCountryList = getVisiableCountryForShort( this.cmCountryDAO  );
-		if( ( recordForm.getCountry_id() == null) || (recordForm.getCountry_id() == 0 ) )
+		if( ( country_id == null) || (country_id  == 0 ) )
 		{//根据登陆的用户名来确定
 			countryList = userSeenCountryList;
 		}
 		else
 		{//用户指定(村或帧)
-			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , recordForm.getCountry_id() );
+			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , country_id );
 		}
 		if( countryList != null )
 		{
@@ -150,21 +181,21 @@ public class RecordAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.in("person.countryId", countryList ));
 		}
 		//name
-		if( ( recordForm.getTruename()) != null && (!recordForm.getTruename().isEmpty())  )
+		if( ( truename != null )&& (!truename.isEmpty())  )
 		{
-			searDc.add(Restrictions.like("person.truename", recordForm.getTruename() , MatchMode.ANYWHERE ));  
+			searDc.add(Restrictions.like("person.truename", truename , MatchMode.ANYWHERE ));  
 		}
 		//ssid
-		if( ( recordForm.getSsid()) != null && (!recordForm.getSsid().isEmpty()))
+		if( ( ssid != null ) && (!ssid.isEmpty()))
 		{
-			searDc.add(Restrictions.like("person.ssid", recordForm.getSsid() , MatchMode.ANYWHERE )); 
+			searDc.add(Restrictions.like("person.ssid", ssid , MatchMode.ANYWHERE )); 
 		}
 		
 		//target, 用户选择做了选择
-		if( recordForm.getTarget_id() != null && ( recordForm.getTarget_id() != 0 ) )
+		if( (target_id != null) && ( target_id != 0 ) )
 			
 		{
-			searDc.add(Restrictions.eq("targetId", (int) (recordForm.getTarget_id() )));
+			searDc.add(Restrictions.eq("targetId", (int) (target_id )));
 		}
 		else
 		{//
@@ -185,14 +216,14 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		/* 将contry list 由ID 转换为 string */
 		StringBuffer sb = new StringBuffer();
-		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , recordForm.getCountry_id() , 0 , sb );
+		cmCountryDAO.formatToJspString( cmCountryDAO.packCountryMapAsLevelByIdList(userSeenCountryList) , country_id , 0 , sb );
 		String countryListStr = sb.toString();
 		
 		/* 查询 可用的target */
 		DetachedCriteria targetDc =	DetachedCriteria.forClass( CmTarget.class);
 		
 		List<CmTarget>  targetList = cmTargetDAO.getHibernateTemplate ().findByCriteria( targetDc );
-		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , recordForm.getTarget_id() );
+		String targetSelectStr = cmTargetDAO.formatToJspString( targetList , target_id );
 		
 		//for pagination
 		int noOfRecords = list.size();
@@ -232,8 +263,8 @@ public class RecordAction extends ChengxinBaseAction {
 		
 		request.setAttribute("countrySelect", countryListStr );
 		request.setAttribute("targetSelect", targetSelectStr );
-		request.setAttribute("truename", recordForm.getTruename() );
-		request.setAttribute("ssid", recordForm.getSsid() );
+		request.setAttribute("truename", truename );
+		request.setAttribute("ssid", ssid );
 		request.setAttribute("isadmin", isadmin );
 		request.setAttribute("list", enhanceRecordList );
 		request.setAttribute("partId", partId );

@@ -62,8 +62,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 	int catSelectInt = -1; // -1 invalid
 	short country_idShort = -1;// -1 invalid
 	
-	String searchMap_truename = "";
-	String searchMap_ssid = "";
+	String truename = "";
+	String ssid = "";
 	
 	Short levelId = 0;
 	
@@ -185,6 +185,15 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelectInt );
 		 //县级权限登录，查询所有的镇
 
+		 if( statForm.getPerson_truename() != null )
+		 {
+			 truename = statForm.getPerson_truename() ;
+			 
+		 }
+		 if( statForm.getPerson_ssid() != null )
+		 {
+			 ssid = statForm.getPerson_ssid();
+		 }
 		 Short[] VisiableContryLimit = countryList ; 
 		 if( catSelectInt == MACRO_TOWN_VALID )
 		 { // 县级权限，town列表显示
@@ -196,7 +205,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 }
 		 else if(catSelectInt == MACRO_PEOPLE_VALID )
 		 {  
-			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , statForm.getPerson_truename() , statForm.getPerson_ssid() , 1 , MAX_PAGE_SIZE_9999 );
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , truename , ssid , 1 , MAX_PAGE_SIZE_9999 );
 		 }
 		 //else
 		 {

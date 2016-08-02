@@ -64,7 +64,7 @@
 								<button type="button" class="btn btn-primary" data-action="form" data-url="${pageContext.request.contextPath}/home/record.do?search=1">搜索</button>
                                 
 								<button class="btn btn-default back"
-									data-url="${pageContext.request.contextPath}/home/record.do">查看所有</button>
+									data-url="${pageContext.request.contextPath}/home/record.do?showAll=1"">查看所有</button>
 							</div>
 
 						</form>

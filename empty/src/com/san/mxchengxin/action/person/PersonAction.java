@@ -39,6 +39,11 @@ public class PersonAction extends ChengxinBaseAction {
 	//for pagination
 	int page = 1;
 	int recordsPerPage = 15;
+	
+	String personTrueName = "";
+	String personSsid = "";
+	Short countryId = 0 ;
+	
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
 	}
@@ -103,7 +108,20 @@ public class PersonAction extends ChengxinBaseAction {
 			cmPersonDAO.delete( cp );
 		}
 		
-
+		PersonForm personForm = (PersonForm)form;
+		if( personForm.getPerson_ssid() != null )
+		{
+			personSsid = personForm.getPerson_ssid();
+		}
+		if( personForm.getPerson_truename() != null  )
+		{
+			personTrueName = personForm.getPerson_truename();
+		}
+		if( personForm.getCountry_id() != null )
+		{
+			countryId = personForm.getCountry_id();
+		}
+		
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
 		}
@@ -111,13 +129,12 @@ public class PersonAction extends ChengxinBaseAction {
 		{// search button,每次搜索都应该从头开始
 			page = 1; //设置从头开始
 		}
-		String personTrueName = "";
-		String personSsid = "";
-		Short countryId = 0 ;
-		PersonForm personForm = (PersonForm)form;
-		personSsid = personForm.getPerson_ssid();
-		personTrueName = personForm.getPerson_truename();
-		countryId = personForm.getCountry_id();
+		if(request.getParameter("showAll") != null) {
+			page = 1; //设置从头开始
+			personTrueName = "";
+			personSsid = "";
+			countryId = 0 ;
+		}
 		
 		if(request.getParameter("ssid") != null) {
 			String ssid = request.getParameter("ssid");

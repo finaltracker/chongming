@@ -99,7 +99,7 @@ public class CountryAction extends ChengxinBaseAction {
 			}
 			//todo: add person restriction
 			List<CmPerson> beforeList2 = cmPersonDAO.findAll();
-			for(int i=0;i<beforeList.size();i++) {
+			for(int i=0;i<beforeList2.size();i++) {
 				CmPerson item = beforeList2.get(i);
 				if(countryId == item.getCountryId().shortValue()) {
 					System.out.println("has people, so not delete ");

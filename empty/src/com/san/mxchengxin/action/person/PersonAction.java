@@ -161,7 +161,7 @@ public class PersonAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.like("truename", personTrueName,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		
-		if( countryId == null ) 
+		if( countryId == null || ( countryId == 0 )) 
 		{
 			//当前管理员所属的镇村，及其下级村
 			Short[] countryIds = new Short[countryList.size()];

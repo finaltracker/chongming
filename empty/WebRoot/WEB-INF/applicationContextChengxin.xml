@@ -110,6 +110,9 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.OracleDialect
 				</prop>
+				<prop key="hibernate.connection.release_mode">
+                    auto
+				</prop>
 			</props>
 		</property>
 	</bean>

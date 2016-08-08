@@ -111,7 +111,7 @@
 					org.hibernate.dialect.OracleDialect
 				</prop>
 				<prop key="hibernate.connection.release_mode">
-                    auto
+                    after_transaction
 				</prop>
 			</props>
 		</property>

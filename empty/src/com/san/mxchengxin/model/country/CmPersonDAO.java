@@ -80,6 +80,8 @@ public class CmPersonDAO extends HibernateDaoSupport {
 	public Integer getMaxId() {
 		DetachedCriteria maxId = DetachedCriteria.forClass(CmPerson.class).setProjection(Projections.max("id"));
 		List<CmPerson> results = getSession().createCriteria(CmPerson.class).add(Property.forName("id").eq(maxId)).list();
+		// release session
+		getSession().close();
 		return results.get(0).getId();
 	}
 	

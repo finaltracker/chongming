@@ -72,7 +72,8 @@ public class CmCountryDAO extends HibernateDaoSupport {
 				.addOrder( Order.asc("displayOrder") ) 
 				.addOrder( Order.asc("id") ) 
 				.list(); 
-		
+		// release session
+		getSession().close();
 		return ccs;
 	}
 

@@ -124,12 +124,8 @@ public class PersonAddAction extends ChengxinBaseAction {
 		}
 		
 		//for ajax
-		request.setAttribute("person_stat", false);
-		Integer xid = cmPersonDAO.getMaxId();
-		System.out.println("save xid: "+xid);
-		
-		request.setAttribute("person_id", xid+1);
-	
+
+
 		return mapping.findForward("personaddForword");
 		
 

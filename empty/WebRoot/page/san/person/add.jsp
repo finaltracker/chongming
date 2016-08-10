@@ -23,6 +23,9 @@
                             <form id="defaultForm" method="post" action="${pageContext.request.contextPath}/home/person/add.do?opt=save&method=${method}" class="form-horizontal bv-form">
                                 <fieldset>
                                     <legend>人员${pageInfo_actionTitle}</legend>
+                                    <input type="hidden" name="action" value="${pageInfo_action}"/>
+                                    <input type="hidden" id="xid" name="xid" value="${person_id}"/>
+                                    <input type="hidden" id="stat" name="stat" value="${person_stat}"/>
                     
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">姓名</label>

@@ -214,7 +214,11 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 		
 	
-		int noOfRecords = statisticsChengxinOjbList.size();
+		int noOfRecords = 0;
+		if( statisticsChengxinOjbList != null )
+		{
+			statisticsChengxinOjbList.size();
+		}
 		noOfPages = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
 		
 		int listSize = recordsPerPage;
@@ -235,45 +239,50 @@ public class StatisticsAction extends ChengxinBaseAction {
 		if(request.getParameter("opt") != null) {
 			int opt = Integer.valueOf(request.getParameter("opt"));
 			if(opt==21) {
-				boolean doDumpToExcel = false;
-				if( this.isAllVisiable() )
-				{// 系统管理员
-					doDumpToExcel = true;
-				}
-				else
-				{
-					if( showStatisticsChengxinOjbList.size() == 1 )
-					{ // 只允许导出一个记录(一般是用户进行查询获得)
-						doDumpToExcel = true;
-					}
-					else						
-					{
-						doDumpToExcel = false;
-					}
-				}
-				if( doDumpToExcel )
+				
+				
 				{ // do export to excel
 					try {
 						dumpToExcel(request, response, showStatisticsChengxinOjbList);
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
 				}
-				else
-				{
-					Map failReason  = new HashMap<String, String>();
-					failReason.put("failCause","只允许导出一个记录");
-					JSONArray jsonObject = JSONArray.fromObject( failReason );//装换json
-					
-					ajaxResponse( response , jsonObject );
-				}
 				
 				return null;
+
+
 			}
 			
 		}
+		
+		boolean exportAllow = false;
+		if( this.isAllVisiable() )
+		{// 系统管理员
+			exportAllow = true;
+		}
+		else
+		{
+			if( showStatisticsChengxinOjbList.size() == 1 )
+			{ // 只允许导出一个记录(一般是用户进行查询获得)
+				exportAllow = true;
+			}
+			else						
+			{
+				exportAllow = false;
+			}
+		}
+		boolean ssidEnable = false;
+		if( MACRO_PEOPLE_VALID == catSelectInt )
+		{
+			ssidEnable = true;
+		}
+		
+		request.setAttribute("ssidEnable", ssidEnable);
+		request.setAttribute("exportAllow", exportAllow);
 		request.setAttribute("noOfPages", noOfPages);
 		request.setAttribute("noOfRecords", noOfRecords);
 		request.setAttribute("currentPage", page);
@@ -394,11 +403,26 @@ public class StatisticsAction extends ChengxinBaseAction {
         String fileName =  "chengxinRecord"+date+".xls";  
         response.setHeader("Content-disposition", "attachment;filename="+fileName); 
         response.addHeader("Pargam", "no-cache");  
-        response.addHeader("Cache-Control", "no-cache");  
-        OutputStream ouputStream = response.getOutputStream();    
-        wb.write(ouputStream);    
-        ouputStream.flush();    
-        ouputStream.close(); 
+        response.addHeader("Cache-Control", "no-cache"); 
+        OutputStream ouputStream = null;
+        try
+        {
+	        ouputStream = response.getOutputStream();    
+	        wb.write(ouputStream);   
+	        ouputStream.flush(); 
+        }
+        catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+        finally
+        {
+        	
+        	if( ouputStream != null )
+	        {
+        		ouputStream.close(); 
+	        }
+        }
 		
 		
 	}

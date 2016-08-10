@@ -133,15 +133,17 @@ public class ReportAction extends ChengxinBaseAction {
 		lcoList = new ArrayList<levelCatigoryObj>();
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		Integer count = 0;
-		for(int i = 0 ; i<levelList.size();i++) {
-			if(map.get(levelList.get(i).getRank()) == null) {
-				count = 1;
-			} else {
-				count = map.get(levelList.get(i).getRank())+1;
+		if( levelList != null )
+		{
+			for(int i = 0 ; i<levelList.size();i++) {
+				if(map.get(levelList.get(i).getRank()) == null) {
+					count = 1;
+				} else {
+					count = map.get(levelList.get(i).getRank())+1;
+				}
+				map.put(levelList.get(i).getRank(), count);
 			}
-			map.put(levelList.get(i).getRank(), count);
 		}
-		
 		for (String key : map.keySet()) {  
 			  
 			levelCatigoryObj lco = new levelCatigoryObj();

@@ -2,6 +2,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <jsp:include page="../Common/base.jsp" flush="true"/>
+
+<script>
+	function alertMsg(){
+		layer.confirm("不允许导出超过一个记录",
+						function(){ 
+						layer.closeAll();
+						},
+						function(){ 
+						layer.closeAll();
+						});
+	}
+</script>
+
 <block name="title">统计信息</block>
 <block name="body">
     <div class="title_1">
@@ -20,7 +33,19 @@
 
                     <div class="widget-body">
                         <form action="" method="post" class="form-inline">
-                            <button type="button" id= export class="btn btn-primary pull-right form-action"  >导出</button>
+                            
+							<p class="position">
+								<a role="button"
+									<%if((Boolean)(request.getAttribute("exportAllow")) == false){%>
+										 href="javascript:onclick=alertMsg()";
+									<%}else{ %>
+										href="${pageContext.request.contextPath}/home/statistics.do?opt=21",
+										
+									<%} %>
+										class="btn btn-primary pull-right form-action"  >导出</a>
+							</p>
+
+
                             <div class="form-group">
                                 <label class="control-label"> 考核对象</label>
                                 <select id =IdcatSelect class="select2 form-control" name="catSelect">
@@ -33,10 +58,38 @@
                                     "${countrySelect}"
                                 </select>&nbsp;&nbsp;
                                 <label class="control-label"> 姓名 </label>
-                                <input type="text" class="form-control input-sm show-enabel" name="person_truename"  disabled="disabled" value="${person_truename}"/>&nbsp;&nbsp;
+                                <% 
+                                 boolean ssidEnable = (Boolean)(request.getAttribute("ssidEnable"));
+                                 if( ssidEnable )
+                                 {
+                                 %>
+                                	<input type="text" class="form-control input-sm show-enabel" name="person_truename"  value="${person_truename}"/>&nbsp;&nbsp;
+                                 <% 
+                                 }
+                                 else
+                                 {
+                                 %>
+                                	<input type="text" class="form-control input-sm show-enabel" name="person_truename"  disabled="disabled" value="${person_truename}"/>&nbsp;&nbsp;
+                                 <% 
+                                 }
+                                 %>
                                 <label class="control-label"> 身份证号 </label>
-                                <input type="text" class="form-control input-sm show-enabel" name="person_ssid" disabled="disabled" value="${person_ssid}"/>&nbsp;&nbsp;
+                                <% 
+                                 if( ssidEnable )
+                                 {
+                                 %>
+                                	<input type="text" class="form-control input-sm show-enabel" name="person_ssid" value="${person_ssid}"/>&nbsp;&nbsp;
 								
+                                 <% 
+                                 }
+                                 else
+                                 {
+                                 %>
+                                	<input type="text" class="form-control input-sm show-enabel" name="person_ssid" disabled="disabled" value="${person_ssid}"/>&nbsp;&nbsp;
+								
+                                 <% 
+                                 }
+                                 %>
                                 <!--label class="control-label"> 所属等级 </label>
                                 <select class="select2 form-control" name="levelSelect">
                                     <option value="">请选择</option>
@@ -157,7 +210,7 @@
 		             complete: function(XMLHttpRequest, textStatus) {
 		                         //console.log(XMLHttpRequest);
 		                         var ret = eval(XMLHttpRequest.responseText);
-		                         failCause = ret[0].failCause;
+		                         failCause = ret[0].result;
 		                         
 		                         //询问框
 

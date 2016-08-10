@@ -354,7 +354,7 @@ public class ChengxinBaseAction extends Action {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/javascript");
 		response.setHeader("Cache-Control", "no-cache"); 
-		PrintWriter out;
+		PrintWriter out = null;
 		if( jasonOut != null )
 		{
 			JSONArray jsonObject = JSONArray.fromObject( jasonOut );//装换json
@@ -364,10 +364,17 @@ public class ChengxinBaseAction extends Action {
 		
 				out.write(jsonObject.toString()); 
 				out.flush();
-				out.close();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+			finally
+			{
+				if( out != null )
+				{
+					out.close();
+				}
 			}
 		}
 		

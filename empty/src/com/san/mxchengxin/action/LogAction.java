@@ -11,6 +11,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -36,26 +37,45 @@ public class LogAction extends ChengxinBaseAction  {
 			page = Integer.valueOf(request.getParameter("page"));
 		}
 		
-		Session s = cmLogDAO.getSessionFactory().openSession();
-		Criteria searDc =  s.createCriteria( CmLog.class );
+		Session s = null;
+		Object number = null;
+		try
+        {
+            
+			s = cmLogDAO.getSessionFactory().openSession();
+			Criteria searDc =  s.createCriteria( CmLog.class );
+			
+			
+			searDc.setFirstResult( (page-1) * recordsPerPage );
+			searDc.setMaxResults( recordsPerPage );
+			searDc.addOrder(Order.desc("pubdate"));
+			List<CmLog> clList =  searDc.list();
+			
+			for(int i= 0 ;i< clList.size() ;i++)
+			{
+				clEnhanceList.add( new CmLogEnhance(clList.get(i)) );
+			}
+			
+			String hql = "select count(*) from CmLog";
+			number = s.createQuery(hql).uniqueResult();
+        }
+		catch(HibernateException ex)
+        {
+            throw new RuntimeException(" " + ex);
+        }
+        finally
+        {
+        	s.close();
+        }
 		
 		
-		searDc.setFirstResult( (page-1) * recordsPerPage );
-		searDc.setMaxResults( recordsPerPage );
-		searDc.addOrder(Order.desc("pubdate"));
-		List<CmLog> clList =  searDc.list();
 		
-		for(int i= 0 ;i< clList.size() ;i++)
+		int noOfRecords = 0; 
+		
+		if( number != null )
 		{
-			clEnhanceList.add( new CmLogEnhance(clList.get(i)) );
+			noOfRecords = Integer.parseInt(String.valueOf(number));
 		}
-		
-		String hql = "select count(*) from CmLog";
-		Object number = s.createQuery(hql).uniqueResult();
-		
-		s.close();
-		
-		int noOfRecords = Integer.parseInt(String.valueOf(number));
 		
 		request.setAttribute("list", clEnhanceList );
 		request.setAttribute("noOfPages", ( noOfRecords + recordsPerPage -1 ) / recordsPerPage);

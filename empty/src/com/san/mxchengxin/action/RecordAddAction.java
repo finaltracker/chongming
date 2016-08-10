@@ -21,6 +21,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
@@ -134,6 +135,10 @@ public class RecordAddAction extends ChengxinBaseAction {
 	
 	public List<PersonSimpleObj> personListToRecordSimpleList( List<CmPerson> personList ,Map< Short , CmCountry > countryMap )
 	{
+		if( personList == null ) 
+		{
+			return null;
+		}
 		List<PersonSimpleObj> ret = new ArrayList<PersonSimpleObj>( personList.size() );
 		
 		for( int i = 0 ; i < personList.size() ; i++ )
@@ -175,35 +180,49 @@ public class RecordAddAction extends ChengxinBaseAction {
 		{
 			/* 设置查询person表条件 */
 			
-			Session s = cmPersonDAO.getSessionFactory().openSession();
-			Criteria searDc =  s.createCriteria( CmPerson.class );
-			
-			if( util.isNumeric(q) )
+			Session s = null ;
+			List<CmPerson> personList = null;
+			try
 			{
-				searDc.add( Restrictions.like("ssid", q, MatchMode.START )  );
-				searDc.addOrder( Order.asc("ssid") );
-
+				s = cmPersonDAO.getSessionFactory().openSession();
+			
+				Criteria searDc =  s.createCriteria( CmPerson.class );
+				
+				if( util.isNumeric(q) )
+				{
+					searDc.add( Restrictions.like("ssid", q, MatchMode.START )  );
+					searDc.addOrder( Order.asc("ssid") );
+	
+				}
+				else
+				{
+					searDc.add( Restrictions.like("truename", q, MatchMode.START )  );
+					searDc.addOrder( Order.asc("truename") );
+				}
+				
+				Short[] countryList = null;
+				countryList = getVisiableCountryForShort( cmCountryDAO  );
+				
+				if( countryList != null )
+				{
+					//country
+					searDc.add(Restrictions.in("countryId", countryList ));
+				}
+				
+				searDc.setFirstResult( Integer.valueOf(p) * pageSize );
+				searDc.setMaxResults( pageSize );
+				
+				personList = searDc.list();
 			}
-			else
-			{
-				searDc.add( Restrictions.like("truename", q, MatchMode.START )  );
-				searDc.addOrder( Order.asc("truename") );
-			}
 			
-			Short[] countryList = null;
-			countryList = getVisiableCountryForShort( cmCountryDAO  );
-			
-			if( countryList != null )
-			{
-				//country
-				searDc.add(Restrictions.in("countryId", countryList ));
-			}
-			
-			searDc.setFirstResult( Integer.valueOf(p) * pageSize );
-			searDc.setMaxResults( pageSize );
-			
-			List<CmPerson> personList = searDc.list();
-			s.close();
+			catch(HibernateException ex)
+	        {
+	            throw new RuntimeException(" " + ex);
+	        }
+	        finally
+	        {
+	        	s.close();
+	        }
 			Map< Short , CmCountry > countryMap = cmCountryDAO.listAsMap();
 			
 			List<PersonSimpleObj> rsoList = personListToRecordSimpleList( personList , countryMap );

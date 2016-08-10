@@ -7,7 +7,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
+import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
@@ -67,13 +69,26 @@ public class CmCountryDAO extends HibernateDaoSupport {
 	public List queryParentZero() {
 		log.debug("query parent condition equal zero");
 		Short parentId = 0;
-		List ccs = getSession().createCriteria(CmCountry.class) 
-				.add( Restrictions.eq("parentid", parentId) )
-				.addOrder( Order.asc("displayOrder") ) 
-				.addOrder( Order.asc("id") ) 
-				.list(); 
-		// release session
-		getSession().close();
+		Session s = null;
+		List ccs = null;
+		
+		try {
+			s = getSession();
+			ccs = s.createCriteria(CmCountry.class) 
+					.add( Restrictions.eq("parentid", parentId) )
+					.addOrder( Order.asc("displayOrder") ) 
+					.addOrder( Order.asc("id") ) 
+					.list(); 
+			// release session
+		}
+		catch(HibernateException ex)
+		{
+			throw new RuntimeException(" " + ex);
+		}
+		finally
+		{
+			s.close();
+		}
 		return ccs;
 	}
 

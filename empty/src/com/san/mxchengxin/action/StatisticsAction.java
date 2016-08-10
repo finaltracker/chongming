@@ -217,7 +217,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		int noOfRecords = 0;
 		if( statisticsChengxinOjbList != null )
 		{
-			statisticsChengxinOjbList.size();
+			noOfRecords = statisticsChengxinOjbList.size();
 		}
 		noOfPages = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
 		

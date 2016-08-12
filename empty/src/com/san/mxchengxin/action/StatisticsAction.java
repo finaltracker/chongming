@@ -286,6 +286,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 		request.setAttribute("noOfPages", noOfPages);
 		request.setAttribute("noOfRecords", noOfRecords);
 		request.setAttribute("currentPage", page);
+		request.setAttribute("person_truename", truename);
+		request.setAttribute("person_ssid", ssid);
 		
 		request.setAttribute("catSelectStr", catSelectStr);
 		request.setAttribute("list" , showStatisticsChengxinOjbList );

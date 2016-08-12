@@ -87,7 +87,7 @@ public class TargetAction extends ChengxinBaseAction {
 			searDc.add(Restrictions.like("targetName", target_name,MatchMode.ANYWHERE).ignoreCase()); 
 		}
 		
-		searDc.addOrder(Order.desc("pubdate"));
+		searDc.addOrder(Order.desc("targetScore"));
 		//search by condition in target table
 
 		List<CmTarget> targetList = cmPartDAO.getHibernateTemplate ().findByCriteria( searDc );

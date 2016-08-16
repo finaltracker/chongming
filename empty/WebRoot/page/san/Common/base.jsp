@@ -3,7 +3,7 @@
 <!DOCTYPE html><html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11,IE=10,IE=9,IE=8,chrome=1" />
+<!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,IE=11,IE=10,IE=9,IE=8,chrome=1" /> -->
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <title><block name="title">标题</block></title>
     <link href="${pageContext.request.contextPath}/css/css.css" rel="stylesheet" type="text/css"/>
@@ -38,7 +38,8 @@
         /*.row{margin:0;}*/
         .title_1{margin-bottom:10px}
         .title_1 .pull-right.btn{margin-right:10px;margin-top:7px}
-        .form-inline .form-group .form-control{width:auto;display:inline}
+        .form-inline .form-group{width:auto;display:inline}
+        .form-control{width:auto;height:28px;display:inline}
         .btn.search{ background-image: url('${pageContext.request.contextPath}/img/chaxun.jpg');border:0px;width:62px;height:24px;margin-bottom:-6px}
         .container{width: 100%}
     </style>

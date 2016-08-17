@@ -157,6 +157,38 @@ comment on column CM_PERSON.REMARK
 alter table CM_PERSON
   add constraint CM_PERSON_ID primary key (ID);
 
+
+prompt
+prompt Creating table CM_STATISTICS
+prompt ========================
+prompt
+create table CM_STATISTICS
+(
+  ID              NUMBER(8) not null,
+  PERSON_ID       NUMBER(8) not null,
+  COUNTRY_ID      NUMBER(4) default 0,
+  SCORE_BASE      NUMBER(4) default 0,
+  SCORE_ADD       NUMBER(4) default 0,
+  SCORE_SUB       NUMBER(4) default 0
+ 
+)
+;
+comment on column CM_STATISTICS.ID
+  is '主键系统自动生成';
+comment on column CM_STATISTICS.PERSON_ID
+  is '人员ID';
+comment on column CM_STATISTICS.COUNTRY_ID
+  is '所在村镇';
+comment on column CM_STATISTICS.SCORE_BASE
+  is '基础分';
+comment on column CM_STATISTICS.SCORE_ADD
+  is '诚信加分';
+comment on column CM_STATISTICS.SCORE_SUB
+  is '诚信减分';
+
+alter table CM_STATISTICS
+  add constraint CM_STATISTICS_ID primary key (ID);
+  
 prompt
 prompt Creating table CM_RECORD
 prompt ========================
@@ -298,6 +330,17 @@ increment by 1
 nocache;
 
 prompt
+prompt Creating sequence SEQ_CM_STATISTICS
+prompt ===============================
+prompt
+create sequence SEQ_CM_STATISTICS
+minvalue 1
+maxvalue 9999999999999999999999999999
+start with 100
+increment by 1
+nocache;
+
+prompt
 prompt Creating sequence SEQ_CM_RECORD
 prompt ===============================
 prompt
@@ -392,6 +435,20 @@ for each row
 when (new.id is null)
 begin
 select seq_cm_person.nextval into:new.id from dual;
+end;
+/
+
+
+prompt
+prompt Creating trigger tig_cm_statistics
+prompt ==============================
+prompt
+create or replace trigger "tig_cm_statistics"
+before insert on cm_statistics
+for each row
+when (new.id is null)
+begin
+select seq_cm_statistics.nextval into:new.id from dual;
 end;
 /
 

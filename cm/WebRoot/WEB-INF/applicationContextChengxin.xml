@@ -167,4 +167,8 @@
 		</property>
 	</bean>
 	
-</beans>
+	<bean id="CmStatisticsDAO" class="CmStatisticsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean></beans>

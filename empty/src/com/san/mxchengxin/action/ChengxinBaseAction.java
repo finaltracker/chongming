@@ -63,7 +63,7 @@ public class ChengxinBaseAction extends Action {
 	public CmLogDAO cmLogDAO = null; 
 	public CmPartDAO cmPartDAO = null;
 	
-	int noOfPagesForStatistics = 0;
+	int noOfRecords = 0;
 
 	private String[] specifyPartmentList = {
 	"系统管理部",
@@ -683,11 +683,10 @@ public class ChengxinBaseAction extends Action {
 		
 		String totalCountSql = "select COUNT(cm_statistics.id) "+ from + commonWhere ;
 		
-		if( noOfPagesForStatistics == 0 )
+		if( noOfRecords == 0 )
 		{
 			try {
-				int totalRecordNum =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
-				noOfPagesForStatistics = (totalRecordNum + recordsPerPage - 1 ) /recordsPerPage ;
+				noOfRecords =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -780,11 +779,10 @@ public class ChengxinBaseAction extends Action {
 		
 		String totalCountSql = "select COUNT(COUNT(cm_statistics.country_id)) "+ from + commonWhere + group;
 		
-		if( noOfPagesForStatistics == 0 )
+		if( noOfRecords == 0 )
 		{
 			try {
-				int totalRecordNum =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
-				noOfPagesForStatistics = (totalRecordNum + recordsPerPage - 1 ) /recordsPerPage ;
+				noOfRecords =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -841,11 +839,10 @@ public class ChengxinBaseAction extends Action {
 		
 		String totalCountSql = "select COUNT(COUNT("+ townGroupSql + " )) " +from + commonWhere + group;
 		
-		if( noOfPagesForStatistics == 0 )
+		if( noOfRecords == 0 )
 		{
 			try {
-				int totalRecordNum =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
-				noOfPagesForStatistics = (totalRecordNum + recordsPerPage - 1 ) /recordsPerPage ;
+				noOfRecords =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

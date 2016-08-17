@@ -80,6 +80,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 	//for pagination
 	int page = 1;
 	int recordsPerPage = 20;
+	int noOfPagesForStatistics = 0;
 	
 	
 	public CmCountryDAO getCmCountryDAO() {
@@ -129,6 +130,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 		super.execute(mapping, form, request, response);
 		
+		noOfRecords = 0;
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.valueOf(request.getParameter("page"));
@@ -238,28 +240,9 @@ public class StatisticsAction extends ChengxinBaseAction {
 			 
 		 }
 		
-		
-	
-		int noOfRecords = 0;
-		if( statisticsChengxinOjbList != null )
-		{
-			noOfRecords = statisticsChengxinOjbList.size();
-		}
+
 		noOfPagesForStatistics = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
-		
-		int listSize = recordsPerPage;
-		
-		int startP =  (page-1) * recordsPerPage ;
-		if( startP + listSize >  noOfRecords )
-		{
-			listSize = noOfRecords - startP;
-		}
-		
-		List<StatisticsChengxinObj>  showStatisticsChengxinOjbList = new ArrayList<StatisticsChengxinObj>();
-		for( int i = 0 ; i < listSize ; i++ )
-		{
-			showStatisticsChengxinOjbList.add( statisticsChengxinOjbList.get( startP + i ));
-		}
+	
 		
 		//export excel
 		if(request.getParameter("opt") != null) {
@@ -269,7 +252,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 				
 				{ // do export to excel
 					try {
-						dumpToExcel(request, response, showStatisticsChengxinOjbList);
+						dumpToExcel(request, response, statisticsChengxinOjbList);
 						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -292,7 +275,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		}
 		else
 		{
-			if( showStatisticsChengxinOjbList.size() == 1 )
+			if( statisticsChengxinOjbList.size() == 1 )
 			{ // 只允许导出一个记录(一般是用户进行查询获得)
 				exportAllow = true;
 			}
@@ -316,7 +299,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		request.setAttribute("person_ssid", ssid);
 		
 		request.setAttribute("catSelectStr", catSelectStr);
-		request.setAttribute("list" , showStatisticsChengxinOjbList );
+		request.setAttribute("list" , statisticsChengxinOjbList );
 		request.setAttribute("countrySelect", countryListStr );
 		
 		return mapping.findForward( "statisticsForword" );

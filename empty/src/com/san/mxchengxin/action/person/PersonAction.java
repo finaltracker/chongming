@@ -30,11 +30,15 @@ import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonAd;
 import com.san.mxchengxin.model.country.CmPersonDAO;
+import com.san.mxchengxin.model.statistics.CmStatistics;
+import com.san.mxchengxin.model.statistics.CmStatisticsDAO;
 
 public class PersonAction extends ChengxinBaseAction {
 	
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO	cmPersonDAO;
+	private CmStatisticsDAO	cmStatisticsDAO;
+	
 	List<CmCountry> countryList;
 	//for pagination
 	int page = 1;
@@ -60,6 +64,15 @@ public class PersonAction extends ChengxinBaseAction {
 		this.cmPersonDAO = cmPersonDAO;
 	}
 	
+	
+	public CmStatisticsDAO getCmStatisticsDAO() {
+		return cmStatisticsDAO;
+	}
+
+	public void setCmStatisticsDAO(CmStatisticsDAO cmStatisticsDAO) {
+		this.cmStatisticsDAO = cmStatisticsDAO;
+	}
+
 	private String getCountrySelect(Short selectedId, Short parentId, int level) {
 		if(countryList.size() == 1)
 		{
@@ -106,6 +119,16 @@ public class PersonAction extends ChengxinBaseAction {
 			saveMessageToLog("删除人员: " + cp.getTruename() , request );
 			
 			cmPersonDAO.delete( cp );
+			
+			//删除对应的诚信统计项
+			List<CmStatistics> csList = cmStatisticsDAO.findByPersonId( personId );
+			if( csList != null )
+			{
+				for( CmStatistics cs : csList )
+				{
+					cmStatisticsDAO.delete( cs );
+				}
+			}
 		}
 		
 		PersonForm personForm = (PersonForm)form;

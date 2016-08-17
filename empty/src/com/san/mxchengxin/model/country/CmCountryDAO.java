@@ -316,7 +316,7 @@ public class CmCountryDAO extends HibernateDaoSupport {
 			
 			 if(cmo.getSonList() != null ) 
 			 {
-				 formatToJspString( cmo.getSonList() , selectId , level++ , sb );
+				 formatToJspString( cmo.getSonList() , selectId , level+1 , sb );
 			 }
 		 }
 		 

@@ -35,7 +35,7 @@ public class ReportAction extends ChengxinBaseAction {
 	final int MACRO_PEOPLE_VALID	= 0;
 	final int MACRO_INVALID	= -1;
 	
-	public CmCountryDAO geCmCountryDAO() {
+	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
 	}
 	
@@ -43,7 +43,7 @@ public class ReportAction extends ChengxinBaseAction {
 		this.cmCountryDAO = cmCountryDAO;
 	}
 	
-	public CmLevelDAO geCmLevelDAO() {
+	public CmLevelDAO getCmLevelDAO() {
 		return cmLevelDAO;
 	}
 	
@@ -51,7 +51,7 @@ public class ReportAction extends ChengxinBaseAction {
 		this.cmLevelDAO = cmLevelDAO;
 	}
 	
-	public CmRecordDAO geCmRecordDAO() {
+	public CmRecordDAO getCmRecordDAO() {
 		return cmRecordDAO;
 	}
 	
@@ -77,7 +77,14 @@ public class ReportAction extends ChengxinBaseAction {
 		
 		if( ( countryId == null) || (countryId == 0 ) )
 		{//根据登陆的用户名来确定
-			countryList = userSeenCountryList;
+			if( this.isAllVisiable() )
+			 {
+				countryList = null; // 不做限定
+			 }
+			else
+			{
+				countryList = userSeenCountryList;
+			}
 		}
 		else
 		{//用户指定(村或镇)
@@ -109,19 +116,20 @@ public class ReportAction extends ChengxinBaseAction {
 		 
 		 String catSelectStr = buildCatSelectStr( userSeenCatValid ,catSelect );
 		 //县级权限登录，查询所有的镇
-
+		 
 		 Short[] VisiableContryLimit = countryList ; 
+		
 		 if( catSelect == MACRO_TOWN_VALID )
 		 { // 县级权限，town列表显示
-			 levelList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 9999 );
+			 levelList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 99999 );
 		 }
 		 else if(catSelect == MACRO_COUNTRY_VALID )
 		 {
-			 levelList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , 1, 9999);
+			 levelList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , 1, 99999);
 		 }
 		 else if(catSelect == MACRO_PEOPLE_VALID )
 		 { 
-			 levelList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , null , null ,1, 9999);
+			 levelList = getPeopleChengxinObjList( VisiableContryLimit , null , null ,1, 99999);
 		 }
 		 //else
 		 {

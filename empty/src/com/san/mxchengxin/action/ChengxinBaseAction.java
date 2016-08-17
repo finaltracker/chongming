@@ -25,18 +25,25 @@ import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
+import com.san.mxchengxin.model.country.CmPerson;
+import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.mxchengxin.model.log.CmLog;
 import com.san.mxchengxin.model.log.CmLogDAO;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
+import com.san.mxchengxin.model.record.CmRecord;
+import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.statistics.CmStatistics;
+import com.san.mxchengxin.model.statistics.CmStatisticsDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.objects.CountryMapObj;
@@ -56,6 +63,8 @@ public class ChengxinBaseAction extends Action {
 	public CmLogDAO cmLogDAO = null; 
 	public CmPartDAO cmPartDAO = null;
 	
+	int noOfPagesForStatistics = 0;
+
 	private String[] specifyPartmentList = {
 	"系统管理部",
 	"崇明县"	
@@ -512,175 +521,6 @@ public class ChengxinBaseAction extends Action {
     			
     	return ret;
     }
-    // 所有城镇都可见
-    public List<StatisticsChengxinObj> getTownChengxinObjList( CmCountryDAO cmCountryDAO  , Short[] VisiableContryLimit ,int page , int recordsPerPage )
-    {
- 
-    	String townGroupSql = " CASE CM_COUNTRY.PARENTID	 WHEN 0     THEN CM_COUNTRY.id	 ELSE CM_COUNTRY.PARENTID  END ";
-    	String numberOfAllPersonSql= "  COUNT(DISTINCT CM_RECORD.PERSON_ID) ";
-    	String outNameSql = " CM_COUNTRY.Name ";
-    	String joinOutNameTableSql = " LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id ";
-		
-		 return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql , "", page , recordsPerPage );
-
-    }
-    
-    //取得所有村的诚信列表 ,town 在cmCountry里面的ID ， 如果是县级管理员进入则 townId = -1
-    public List<StatisticsChengxinObj> getCountryChengxinObjList( CmCountryDAO cmCountryDAO  , Short[] VisiableContryLimit ,int page , int recordsPerPage )
-    {
-    	String townGroupSql = " cm_country.id ";
-    	String numberOfAllPersonSql= "  COUNT(DISTINCT CM_RECORD.PERSON_ID) ";
-    	String outNameSql = " CM_COUNTRY.Name ";
-    	String joinOutNameTableSql = " LEFT JOIN  cm_country on  s1.GROUP_ID = cm_country.id ";
-		
-		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql ,"",  page , recordsPerPage );
-	 	
-    }
-    
-    
-  //取得所有所有人的 诚信列表 ,town 在cmCountry里面的ID ， 如果是县级管理员进入则 townId = -1
-    public List<StatisticsChengxinObj>  getPeopleChengxinObjList( CmCountryDAO cmCountryDAO , Short[] VisiableContryLimit, String name , String ssid ,int page , int recordsPerPage )
-    {
-    	String townGroupSql = " cm_person.id ";
-    	String numberOfAllPersonSql= " 1 ";
-    	String outNameSql = " cm_person.TRUENAME ";
-    	String joinOutNameTableSql = " LEFT JOIN  cm_person on  s1.GROUP_ID = cm_person.id ";
-    	String commonWhere = "";
-
-    	if(name != null && name.isEmpty() )
-    	{
-    		name = null;
-    	}
-    	
-    	if(ssid != null && ssid.isEmpty() )
-    	{
-    		ssid = null;
-    	}
-    	
-    		
-    	if( name != null || ssid != null )
-    	{
-    		commonWhere = " where ";
-    		
-    		if( name != null )
-    		{
-    			commonWhere += "cm_person.TRUENAME like '%"+ name +"%' ";
-    			if( ssid != null )
-        		{
-        			commonWhere += " AND SSID = '" + ssid + "'";
-        		}
-        		else
-        		{
-        		}
-    		}
-    		else
-    		{
-    			if( ssid != null )
-        		{
-        			commonWhere += " cm_person.SSID = '" + ssid + "'";
-        		}
-        		else
-        		{
-        			
-        		}
-    		}
-    	}
-    	
-		return getChengxinObjListCommon( cmCountryDAO ,  VisiableContryLimit , townGroupSql , numberOfAllPersonSql, outNameSql, joinOutNameTableSql ,commonWhere,  page , recordsPerPage );
-	 	
-    }
-    
-    
-    // String VisiableContryLimit : 限制能够看到的人
-    // townGroupSql : 根据什么分组 sql
-    // numberOfAllPersonSql 计算每个分组有多少人 SQL
-    // outNameSql 用什么作为输出的name
-    // joinOutNameTableSql: 输出的那么，在哪个表中选取
-    public List<StatisticsChengxinObj>  getChengxinObjListCommon( CmCountryDAO cmCountryDAO ,  Short[] VisiableContryLimit , String townGroupSql , String numberOfAllPersonSql, String outNameSql, String joinOutNameTableSql , String CommonWhere, int page , int recordsPerPage )
-    {
-    	
-    	Short[] visiableCountryList = null;
-    		
-    	String joinRecord_Person_CountryStr = "( CM_RECORD JOIN CM_PERSON  on CM_RECORD.PERSON_ID = CM_PERSON.ID) JOIN CM_COUNTRY on CM_PERSON.country_id = CM_COUNTRY.id ";
-		
-    	if( VisiableContryLimit == null )
-    	{
-    		visiableCountryList = getVisiableCountryForShort(cmCountryDAO);
-    	}
-    	else
-    	{
-    		visiableCountryList = VisiableContryLimit;
-    	}
-    	
-    	/*产生限制需要的村列表SQL 语句 begin */
-    	String limitCountryListSql = " cm_country.ID IN ( ";
-		for( int i = 0 ; i < visiableCountryList.length ; i++ )
-		{
-			limitCountryListSql = limitCountryListSql + visiableCountryList[i];
-			
-			if( i < visiableCountryList.length - 1 )
-			{
-				limitCountryListSql = limitCountryListSql + ',' ;
-			}
-		}
-		
-		limitCountryListSql = limitCountryListSql + ") ";
-		
-    	/* 产生限制需要的村列表SQL 语句 end */
-    	
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-		Date now = new Date();
-		System.out.println(df.format(now));// new Date()为获取当前系统时间
-		long nowTime = now.getTime()/1000;
-	
-		Calendar   yearBegin=Calendar.getInstance();
-		yearBegin.set(Calendar.DAY_OF_YEAR, 1);
-		yearBegin.set(Calendar.HOUR_OF_DAY , 0 );
-		yearBegin.set(Calendar.MINUTE , 0 );
-
-		
-		
-		// 在有效期内的记录列表
-		String validDateSql = " CM_RECORD .DATELINE > " +  Long.toString(nowTime);
-				
-		//记录中共有多少人
-		String Sql1 = "SELECT " + numberOfAllPersonSql +"  as numberOfAllPerson, " +  townGroupSql + "as GROUP_ID  from  " + joinRecord_Person_CountryStr + " where " + validDateSql  + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql;
-
-		
-		//从本年度1月1日开始小于0的人的个数
-		String Sql2 = "SELECT  COUNT(DISTINCT CM_RECORD.PERSON_ID) as numberOfLessZeroPerson, " + townGroupSql + "as  GROUP_ID   FROM  " + joinRecord_Person_CountryStr + " where CM_RECORD.PUBDATE > " + yearBegin.getTime().getTime() /1000+" AND CM_RECORD.SCORE < 0 AND " +  validDateSql   + "  AND " + limitCountryListSql +" GROUP BY " + townGroupSql;
-		
-		// 加分
-		String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " as GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE > 0 AND " + validDateSql   + "  AND " + limitCountryListSql + " GROUP BY  " + townGroupSql ;
-		//String Sql3 = "SELECT sum( cm_record.score) as sumAddScore," + townGroupSql + " GROUP_ID   ,  CASE WHEN cm_record.SCORE < 0 THEN 'sub' WHEN cm_record.SCORE > 0 THEN 'add' ELSE NULL END SCORE_T   FROM " + joinRecord_Person_CountryStr + " GROUP BY  " + townGroupSql + ", CASE WHEN cm_record.SCORE < 0 THEN 'sub' WHEN  cm_record.SCORE > 0 THEN 'add' ELSE NULL END";
-		 
-		// 减分
-		String Sql4 = "SELECT sum( cm_record.score) as sumSubScore," + townGroupSql + "as  GROUP_ID  FROM " + joinRecord_Person_CountryStr + " where cm_record.SCORE < 0  AND " + validDateSql   + "  AND " + limitCountryListSql + " GROUP BY  "  + townGroupSql ;
-					
-		//NAME             NUMBEROFALLPERSON      NUMBEROFLESSZEROPERSON SUMADDSCORE            SUMSUBSCORE            
-		//-------------------------------------------------- ---------------------- ---------------------- ---------------------- ---------------------- 
-		//爱国村                                             3                      1                      100                    -100                   
-		//胜利村                                             1                                             50                                            
-		//北兴村                                             1                      1                                             -9999        
-		
-		 //String totalSql = "select CM_COUNTRY.Name as name , s1.numberOfLessZeroPerson as numberOfLessZeroPerson, s2.numberOfAllPerson as numberOfAllPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (" + Sql1 + ")s1,(" + Sql2 + ")s2,( "+ Sql3 + ")s3,( "+ Sql4 + ")s4 , cm_country where s1.GROUP_ID = cm_country.id AND s1.GROUP_ID = s2.GROUP_ID AND s1.GROUP_ID = s3.GROUP_ID AND s1.GROUP_ID = s4.GROUP_ID";
-		String totalSql = "select " + outNameSql + " as name , s1.numberOfAllPerson as numberOfAllPerson, s2.numberOfLessZeroPerson as numberOfLessZeroPerson, s3.sumAddScore as sumAddScore ,s4.sumSubScore as sumSubScore from (((((" + Sql1 + ")s1 LEFT JOIN (" + Sql2 + ")s2 on s1.GROUP_ID = s2.GROUP_ID )  LEFT JOIN ( "+ Sql3 + ")s3 on s1.GROUP_ID = s3.GROUP_ID )  LEFT JOIN ( "+ Sql4 + ")s4 on s1.GROUP_ID = s4.GROUP_ID ) " + joinOutNameTableSql + "  )" + CommonWhere ;
-		 
-		List result = null;
-		try {
-			result = getRsBySqlForPage( totalSql , page , recordsPerPage );
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		List<StatisticsChengxinObj> chengxinObjList = sqlResultToStatisticsChengxinObjList( result);
-		
-		
-		return chengxinObjList;
-	 	
-    }
     
     protected int getCountryType( short countryId , CmCountryDAO cmCountryDAO  )
     {
@@ -702,5 +542,385 @@ public class ChengxinBaseAction extends Action {
     	
     	return ret;
     }
+    
+    
+    //根据person的记录调整对应此人的statistics的记录
+    static public void adjustStatisticsForPerson( CmRecordDAO cmRecordDAO , CmStatisticsDAO cmStatisticsDAO , CmPersonDAO cmPersonDAO , int personId )
+	{
+		CmPerson cp = cmPersonDAO.findById( personId );
+		if( cp == null )
+		{
+			//没有找到对应的人
+			return ; 
+		}
+		List<CmStatistics> csList = cmStatisticsDAO.findByPersonId( personId );
+		
+		CmStatistics cs = null;
+		if( ( csList == null ) || ( csList.size() == 0 ) )
+		{  // 产生一个新的记录
+			
+			cs = new CmStatistics( personId );
+			cs.setCountryId( cp.getCountryId() ); //设置属于哪个村
+		}
+		else
+		{ // 用原来存在的记录
+			cs = csList.get(0);
+		}
+		
+		//
+		DetachedCriteria searDc =	DetachedCriteria.forClass( CmRecord.class);
+		searDc.add(Restrictions.eq("person", cp ));
+		
+		//刨除已过期的记录
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+		Date now = new Date();
+		long currentTime = now.getTime()/1000;
+		
+		searDc.add( Restrictions.ge(  "dateline", currentTime ) );
+		
+		searDc.addOrder( Order.desc( "pubdate" ) );
+		List<CmRecord>  crList = cmRecordDAO.getHibernateTemplate ().findByCriteria( searDc );
+		
+
+		Calendar   curentTime=Calendar.getInstance(); // 当前时间
+		Calendar peoplePubTime= Calendar.getInstance();
+		peoplePubTime.setTimeInMillis( cp.getPubdate() * 1000 ); // people 登记时间
+		
+		/* 计算出出现负值的年计数*/
+		int NscoreYearCount = 0;
+		int totalYears = curentTime.get(curentTime.YEAR) - peoplePubTime.get(Calendar.YEAR);
+		for( int i = curentTime.get(Calendar.YEAR); i < peoplePubTime.get(curentTime.YEAR) ;i++ )
+		{
+			for(  int j = 0 ; j < crList.size(); j++ )
+			{
+				if( crList.get(j).getScore() >0 )
+				{ //不统计正分数
+					continue;
+				}
+				Calendar   recordPubTime = Calendar.getInstance();
+				recordPubTime.setTimeInMillis( crList.get(j).getPubdate() * 1000 );
+				if( recordPubTime.get(Calendar.YEAR) == i )
+				{
+					NscoreYearCount ++; // 找到了负数record
+					break;// 进行下一年统计
+				}
+			}
+		
+		}
+		
+		// 设置基础分
+		cs.setScoreBase( (short) (1000 + ( totalYears - NscoreYearCount )* 99) ); //初始分 + 逐年累加分
+		cs.setScoreSub((short) 0);
+		cs.setScoreAdd((short) 0);
+		
+		// 设置正分和负分
+		for( int i = 0 ; i < crList.size() ; i++  )
+		{
+			CmRecord cr = crList.get(i);
+			if( cr.getScore() < 0 )
+			{
+				cs.setScoreSub( (short) (cs.getScoreSub() + cr.getScore()) );
+			}
+			else
+			{
+				cs.setScoreAdd( (short) (cs.getScoreAdd() + cr.getScore()) );
+			}
+				
+		}
+		
+
+		if( ( csList == null ) || ( csList.size() == 0 ) )
+		{
+			cmStatisticsDAO.save( cs );
+		}
+		else
+		{
+			cmStatisticsDAO.update(cs);
+		}
+	}
  
+
+	public List<StatisticsChengxinObj>  getPeopleChengxinObjList(  Short[] VisiableContryLimit, String name , String ssid ,int page , int recordsPerPage )
+    {
+		List<StatisticsChengxinObj> scxList = null;
+		String commonWhere = " where cm_statistics.person_id = cm_person.id  ";
+		String from = " from cm_statistics  ,cm_person ";
+		
+    		
+    	if( (name != null) && (!name.isEmpty()) )
+    	{
+    		commonWhere += " AND cm_person.TRUENAME like '%"+ name +"%' ";
+    	}
+    	if( (ssid != null) && (!ssid.isEmpty()) )
+		{
+			commonWhere += " AND  cm_person.SSID like '%"+ ssid +"%' ";
+		}
+    	
+    	Short[] visiableCountryList = VisiableContryLimit;
+		
+		if( visiableCountryList != null )
+		{
+			/*产生限制需要的村列表SQL 语句 begin */
+	    	String limitCountryListSql = " cm_statistics.country_id IN ( ";
+			for( int i = 0 ; i < visiableCountryList.length ; i++ )
+			{
+				limitCountryListSql = limitCountryListSql + visiableCountryList[i];
+				
+				if( i < visiableCountryList.length - 1 )
+				{
+					limitCountryListSql = limitCountryListSql + ',' ;
+				}
+			}
+			
+			limitCountryListSql = limitCountryListSql + ") ";
+			
+			commonWhere += " AND "+ limitCountryListSql;
+		}
+		
+		
+		
+		String totalSql = "select cm_person.trueName , cm_statistics.score_base, cm_statistics.score_add, cm_statistics.score_sub , ( cm_statistics.score_add + cm_statistics.score_sub) as score_total" + from + commonWhere ;
+		
+		String totalCountSql = "select COUNT(cm_statistics.id) "+ from + commonWhere ;
+		
+		if( noOfPagesForStatistics == 0 )
+		{
+			try {
+				int totalRecordNum =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
+				noOfPagesForStatistics = (totalRecordNum + recordsPerPage - 1 ) /recordsPerPage ;
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		List result = null;
+		try {
+			result = getRsBySqlForPage( totalSql , page , recordsPerPage );
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if( result != null )
+		{
+			scxList = getPeopleChengxinObjListToStatisticsUiShowObjList( result );
+		}
+		return scxList;
+     
+    }
+	
+	public List<StatisticsChengxinObj> getPeopleChengxinObjListToStatisticsUiShowObjList( List sqlResult )
+    {
+    	List<StatisticsChengxinObj> ret = new ArrayList<StatisticsChengxinObj>();
+    	
+    	for( int i = 0 ; i < sqlResult.size() ; i++ )
+    	{
+    		Object[] subject = (Object[]) sqlResult.get(i);
+    		
+    		String name = (String)subject[0];
+    		long baseScore =((BigDecimal )subject[1]).longValue();
+    		long addScore = ((BigDecimal )subject[2]).longValue();
+    		long subScore = ((BigDecimal )subject[3]).longValue();
+    		long totalScore = baseScore + addScore + subScore;
+    		
+    		
+    		String rankName =""  ;
+    		
+    		rankName = getRankLevelStrAccordingToScore(totalScore);
+    		
+    		ret.add( new StatisticsChengxinObj( name ,
+    											subScore,
+    											addScore,
+    											baseScore,
+    											totalScore,
+    											rankName
+    											) );
+    	}
+    	
+    	// 调用排序方法，参数二为自定义的排序工具类
+		//Collections.sort(ret, new ComparatorTownChengxinObj(false));
+		// des order
+    			
+    	return ret;
+    }
+
+	//取得所有村的诚信列表 ,town 在cmCountry里面的ID ， 如果是县级管理员进入则 townId = -1
+    public List<StatisticsChengxinObj> getCountryChengxinObjList( CmCountryDAO cmCountryDAO ,Short[] VisiableContryLimit ,int page , int recordsPerPage )
+    {
+    	List<StatisticsChengxinObj> scxList = null;
+		String commonWhere = " where 1=1  ";
+		String from = " from cm_statistics  ";
+		String group = " group by cm_statistics.country_id ";
+    	
+    	Short[] visiableCountryList = VisiableContryLimit;
+		
+		if( visiableCountryList != null )
+		{
+			/*产生限制需要的村列表SQL 语句 begin */
+	    	String limitCountryListSql = " cm_statistics.country_id IN ( ";
+			for( int i = 0 ; i < visiableCountryList.length ; i++ )
+			{
+				limitCountryListSql = limitCountryListSql + visiableCountryList[i];
+				
+				if( i < visiableCountryList.length - 1 )
+				{
+					limitCountryListSql = limitCountryListSql + ',' ;
+				}
+			}
+			
+			limitCountryListSql = limitCountryListSql + ") ";
+			
+			commonWhere += " AND "+ limitCountryListSql;
+		}
+		
+		
+		
+		String totalSql = "select cm_statistics.country_id , avg(cm_statistics.score_base), avg(cm_statistics.score_add), avg(cm_statistics.score_sub) , avg( cm_statistics.score_add + cm_statistics.score_sub) as score_total" + from + commonWhere + group;
+		
+		String totalCountSql = "select COUNT(COUNT(cm_statistics.country_id)) "+ from + commonWhere + group;
+		
+		if( noOfPagesForStatistics == 0 )
+		{
+			try {
+				int totalRecordNum =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
+				noOfPagesForStatistics = (totalRecordNum + recordsPerPage - 1 ) /recordsPerPage ;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		List result = null;
+		try {
+			result = getRsBySqlForPage( totalSql , page , recordsPerPage );
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if( result != null )
+		{
+			scxList = getCountryChengxinObjListToStatisticsUiShowObjList( cmCountryDAO ,result );
+		}
+		return scxList;	
+    }
+    
+    public List<StatisticsChengxinObj> getTownChengxinObjList( CmCountryDAO cmCountryDAO ,Short[] VisiableContryLimit ,int page , int recordsPerPage )
+    {
+    	List<StatisticsChengxinObj> scxList = null;
+		String commonWhere = " where cm_statistics.country_id = cm_country.id  ";
+		String from = " from cm_statistics  ,cm_country ";
+		String townGroupSql = " CASE CM_COUNTRY.PARENTID	 WHEN 0     THEN CM_COUNTRY.id	 ELSE CM_COUNTRY.PARENTID  END ";
+		String group = " group by " + townGroupSql ;
+		
+    	
+    	Short[] visiableCountryList = VisiableContryLimit;
+		
+		if( visiableCountryList != null )
+		{
+			/*产生限制需要的村列表SQL 语句 begin */
+	    	String limitCountryListSql = " cm_statistics.country_id IN ( ";
+			for( int i = 0 ; i < visiableCountryList.length ; i++ )
+			{
+				limitCountryListSql = limitCountryListSql + visiableCountryList[i];
+				
+				if( i < visiableCountryList.length - 1 )
+				{
+					limitCountryListSql = limitCountryListSql + ',' ;
+				}
+			}
+			
+			limitCountryListSql = limitCountryListSql + ") ";
+			
+			commonWhere += " AND "+ limitCountryListSql;
+		}
+		
+		
+		
+		String totalSql = "select "+ townGroupSql + " as country_id , avg(cm_statistics.score_base), avg(cm_statistics.score_add), avg(cm_statistics.score_sub) , avg( cm_statistics.score_add + cm_statistics.score_sub) as score_total" + from + commonWhere + group;
+		
+		String totalCountSql = "select COUNT(COUNT("+ townGroupSql + " )) " +from + commonWhere + group;
+		
+		if( noOfPagesForStatistics == 0 )
+		{
+			try {
+				int totalRecordNum =  ((BigDecimal )(getRsBySql( totalCountSql  ).get(0))).intValue();
+				noOfPagesForStatistics = (totalRecordNum + recordsPerPage - 1 ) /recordsPerPage ;
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		List result = null;
+		try {
+			result = getRsBySqlForPage( totalSql , page , recordsPerPage );
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if( result != null )
+		{
+			scxList = getCountryChengxinObjListToStatisticsUiShowObjList( cmCountryDAO ,result );
+		}
+		return scxList;	
+    }
+    
+    public String getRankLevelStrAccordingToScore( long totalScore )
+    {
+    	String rankName = "";
+    	
+
+		String levelSql = "select LEVEL_NAME from CM_LEVEL where  LEVEL_SCORE <= "+totalScore+"   ORDER BY LEVEL_SCORE DESC  " ;
+		List levelList = null;
+		try {
+			levelList = getRsBySql( levelSql );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if( levelList != null && ( levelList.size() > 0 ))
+		{
+			rankName = (String)levelList.get(0);
+		
+		}
+		
+		return rankName;
+    }
+    
+    public List<StatisticsChengxinObj> getCountryChengxinObjListToStatisticsUiShowObjList( CmCountryDAO cmCountryDAO ,List sqlResult )
+    {
+    	List<StatisticsChengxinObj> ret = new ArrayList<StatisticsChengxinObj>();
+    	
+    	for( int i = 0 ; i < sqlResult.size() ; i++ )
+    	{
+    		Object[] subject = (Object[]) sqlResult.get(i);
+    		
+    		int  countryId = ((BigDecimal)subject[0]).intValue();
+    		String name = cmCountryDAO.findById( (short) countryId ).getName();
+    		long baseScore =((BigDecimal )subject[1]).longValue();
+    		long addScore = ((BigDecimal )subject[2]).longValue();
+    		long subScore = ((BigDecimal )subject[3]).longValue();
+    		long totalScore = baseScore + addScore + subScore;
+    		
+    		String rankName =""  ;
+    		
+    		rankName = getRankLevelStrAccordingToScore(totalScore);
+    		
+    		ret.add( new StatisticsChengxinObj( name ,
+    											subScore,
+    											addScore,
+    											baseScore,
+    											totalScore,
+    											rankName
+    											) );
+    	}
+    	
+    	// 调用排序方法，参数二为自定义的排序工具类
+		//Collections.sort(ret, new ComparatorTownChengxinObj(false));
+		// des order
+    			
+    	return ret;
+    }
 }

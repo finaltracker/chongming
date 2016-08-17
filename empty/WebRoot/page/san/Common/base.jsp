@@ -38,8 +38,7 @@
         /*.row{margin:0;}*/
         .title_1{margin-bottom:10px}
         .title_1 .pull-right.btn{margin-right:10px;margin-top:7px}
-        .form-inline .form-group{width:auto;display:inline}
-        .form-control{width:auto;height:28px;display:inline}
+        .form-inline .form-group .form-control{width:auto;display:inline}
         .btn.search{ background-image: url('${pageContext.request.contextPath}/img/chaxun.jpg');border:0px;width:62px;height:24px;margin-bottom:-6px}
         .container{width: 100%}
     </style>

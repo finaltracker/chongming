@@ -35,6 +35,8 @@ import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.statistics.CmStatistics;
+import com.san.mxchengxin.model.statistics.CmStatisticsDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.objects.PersonSimpleObj;
@@ -42,12 +44,14 @@ import com.san.mxchengxin.utils.util;
 
 
 public class RecordAddAction extends ChengxinBaseAction {
-	CmTargetDAO	cmTargetDAO;
-	CmPersonDAO cmPersonDAO;
+	CmTargetDAO		cmTargetDAO;
 	CmCountryDAO	cmCountryDAO;
 	CmRecordDAO		cmRecordDAO;
+	CmPersonDAO 	cmPersonDAO;
+	CmStatisticsDAO	cmStatisticsDAO;
 
 	
+
 
 	String pageInfo_action = "增加";
 	String pageInfo_actionTitle = "录入"; 
@@ -87,6 +91,14 @@ public class RecordAddAction extends ChengxinBaseAction {
 		this.cmTargetDAO = cmTargetDAO;
 	}
 
+	public CmStatisticsDAO getCmStatisticsDAO() {
+		return cmStatisticsDAO;
+	}
+
+	public void setCmStatisticsDAO(CmStatisticsDAO cmStatisticsDAO) {
+		this.cmStatisticsDAO = cmStatisticsDAO;
+	}
+	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		
@@ -308,8 +320,10 @@ public class RecordAddAction extends ChengxinBaseAction {
 			
 			cmRecordDAO.save( cr );
 			
+			
 			if( stat )
 			{
+				adjustStatisticsForPerson(cmRecordDAO , cmStatisticsDAO , cmPersonDAO , Integer.valueOf( person_id ) );
 				saveMessageToLog("增加考核记录(已提交) id: " + cr.getId() + " 名字 " +cp.getTruename() + " 考核项目: " + target_id , request );
 			}
 			else
@@ -339,10 +353,14 @@ public class RecordAddAction extends ChengxinBaseAction {
 			saveMessageToLog("提交考核记录  id: " +id  , request );
 			
 			cmRecordDAO.update(cmRecord);
+			adjustStatisticsForPerson(cmRecordDAO , cmStatisticsDAO , cmPersonDAO , cmRecord.getPerson().getId() );
+			
 			
 			ajaxResponse( response , null );
 
 			return null;
 		}
+		
+		
 	
 }

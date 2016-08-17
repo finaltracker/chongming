@@ -32,11 +32,13 @@ import com.san.mxchengxin.form.target.TargetForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPersonAd;
+import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.part.CmPart;
 import com.san.mxchengxin.model.part.CmPartDAO;
 import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.statistics.CmStatisticsDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.model.target.CmTargetDAO;
 import com.san.mxchengxin.model.target.CmTargetEnhance;
@@ -49,6 +51,8 @@ public class RecordAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmRecordDAO cmRecordDAO;
 	private CmTargetDAO cmTargetDAO;
+	private CmPersonDAO 	cmPersonDAO;
+	private CmStatisticsDAO	cmStatisticsDAO;
 
 	String truename = "";
 	String ssid = "" ;
@@ -91,6 +95,24 @@ public class RecordAction extends ChengxinBaseAction {
 	public void setCmTargetDAO(CmTargetDAO cmTargetDAO) {
 		this.cmTargetDAO = cmTargetDAO;
 	}
+	
+	public CmPersonDAO getCmPersonDAO() {
+		return cmPersonDAO;
+	}
+
+	public void setCmPersonDAO(CmPersonDAO cmPersonDAO) {
+		this.cmPersonDAO = cmPersonDAO;
+	}
+
+	public CmStatisticsDAO getCmStatisticsDAO() {
+		return cmStatisticsDAO;
+	}
+
+	public void setCmStatisticsDAO(CmStatisticsDAO cmStatisticsDAO) {
+		this.cmStatisticsDAO = cmStatisticsDAO;
+	}
+
+
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -152,9 +174,13 @@ public class RecordAction extends ChengxinBaseAction {
 			{
 				cr = list.get( 0 );
 			}
+			
+			int personId = cr.getPerson().getId();
 			saveMessageToLog("删除考核记录: 名字" + cr.getPerson().getTruename() + " 考核项目: " + cr.getTargetId() , request );
 			
 			cmRecordDAO.delete( cr );
+			
+			adjustStatisticsForPerson(cmRecordDAO , cmStatisticsDAO , cmPersonDAO , personId );
 
 		}
 		

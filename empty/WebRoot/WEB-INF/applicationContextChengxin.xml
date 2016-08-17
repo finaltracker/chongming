@@ -45,10 +45,14 @@
 	<bean name="/home/person" class="com.san.mxchengxin.action.person.PersonAction" parent ="mxBase">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />
+		<property name="cmStatisticsDAO" ref="cmStatisticsDAO" />
 	</bean>
+	
 	<bean name="/home/person/add" class="com.san.mxchengxin.action.person.PersonAddAction" parent ="mxBase">
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />	
+		<property name="cmRecordDAO" ref="cmRecordDAO" />
+		<property name="cmStatisticsDAO" ref="cmStatisticsDAO" />
 	</bean>	
 	
 	<import resource="applicationContext-resources.xml"/>
@@ -69,6 +73,9 @@
 		<property name="cmCountryDAO" ref="cmCountryDAO" />
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmTargetDAO" ref="cmTargetDAO" />
+		<property name="cmPersonDAO" ref="cmPersonDAO" />
+		<property name="cmStatisticsDAO" ref="cmStatisticsDAO" />
+		
 	</bean>
 	
 	
@@ -77,6 +84,7 @@
 		<property name="cmPersonDAO" ref="cmPersonDAO" />
 		<property name="cmCountryDAO" ref="cmCountryDAO"/>
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
+		<property name="cmStatisticsDAO" ref="cmStatisticsDAO" />	
 	</bean>
 	
 	<bean name="/home/statistics" class="com.san.mxchengxin.action.StatisticsAction" parent ="mxBase">
@@ -84,6 +92,7 @@
 		<property name="cmRecordDAO" ref="cmRecordDAO" />
 		<property name="cmLevelDAO" ref="cmLevelDAO" />
 		<property name="cmPersonDAO" ref="cmPersonDAO" />	
+		<property name="cmStatisticsDAO" ref="cmStatisticsDAO" />	
 	</bean>	
 		
 	<bean id="sessionFactory"
@@ -102,6 +111,7 @@
 				<value>com/san/mxchengxin/model/country/CmCountry.hbm.xml</value>
 				<value>com/san/mxchengxin/model/country/CmPerson.hbm.xml</value>
 				<value>com/san/mxchengxin/model/log/CmLog.hbm.xml</value>
+				<value>com/san/mxchengxin/model/statistics/CmStatistics.hbm.xml</value>
 			</list>
 		</property>
 
@@ -229,6 +239,13 @@
 			<ref bean="sessionFactory" />
 		</property>
 	</bean>
+	
+	<bean id="cmStatisticsDAO"
+		class="com.san.mxchengxin.model.statistics.CmStatisticsDAO">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
 
 	<bean id="cmLogDAO"
 		class="com.san.mxchengxin.model.log.CmLogDAO">
@@ -237,4 +254,29 @@
 		</property>
 	</bean>
 
+	<!-- 配置定时任务 -->
+	<bean id="DayGuardTask" class="org.springframework.scheduling.quartz.JobDetailBean">
+	  	<property name="jobClass">
+	   		<value>com.san.mxchengxin.DayGuardJobBean</value>
+	  	</property>
+ 	</bean>
+ 	
+ 	<!-- 配置定时时间 -->
+ 	<bean id="DayGuardTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+  		<property name="jobDetail" ref="DayGuardTask" />
+  		<property name="cronExpression">
+   			<value> 0 34 19 * * ? </value>
+  		</property>
+ 	</bean>
+ 	
+ 	<!-- 开启定时任务 -->
+ 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+  		<property name="triggers">
+	   		<list>
+				<ref bean="DayGuardTaskTrigger" />
+	   
+	   		</list>
+  		</property>
+ 	</bean>
+ 	
 </beans>

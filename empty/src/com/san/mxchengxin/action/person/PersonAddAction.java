@@ -20,12 +20,17 @@ import com.san.mxchengxin.model.country.CmCountryDAO;
 import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.mxchengxin.model.record.CmRecord;
+import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.statistics.CmStatisticsDAO;
 import com.san.share.pmi.dto.LoginUserInfo;
 import com.san.share.pmi.service.LoginUserInfoDelegate;
 
 public class PersonAddAction extends ChengxinBaseAction {
 	private CmCountryDAO cmCountryDAO;
 	private CmPersonDAO cmPersonDAO;
+	private CmRecordDAO cmRecordDAO;
+	private CmStatisticsDAO	cmStatisticsDAO;
+	
 	List<CmCountry> countryList;
 	String trueName;
 	String personSsid;
@@ -54,6 +59,23 @@ public class PersonAddAction extends ChengxinBaseAction {
 		this.cmPersonDAO = cmPersonDAO;
 	}
 	
+	
+	public CmRecordDAO getCmRecordDAO() {
+		return cmRecordDAO;
+	}
+
+	public void setCmRecordDAO(CmRecordDAO cmRecordDAO) {
+		this.cmRecordDAO = cmRecordDAO;
+	}
+
+	public CmStatisticsDAO getCmStatisticsDAO() {
+		return cmStatisticsDAO;
+	}
+
+	public void setCmStatisticsDAO(CmStatisticsDAO cmStatisticsDAO) {
+		this.cmStatisticsDAO = cmStatisticsDAO;
+	}
+
 	private void passFormToVar(ActionForm form) {
 		PersonAddForm addF = (PersonAddForm)form;
 		trueName = addF.getTruename();
@@ -313,7 +335,12 @@ public class PersonAddAction extends ChengxinBaseAction {
 			{
 				
 				saveMessageToLog("新增人员: " + cp.getTruename() , request );
+				
 				cmPersonDAO.save(cp);
+				if( isAdmin )
+				{
+					adjustStatisticsForPerson(cmRecordDAO , cmStatisticsDAO , cmPersonDAO , cp.getId() );
+				}
 			}
 			else if( actionMethod == 3 )
 			{
@@ -363,7 +390,8 @@ public class PersonAddAction extends ChengxinBaseAction {
 		cmPersonDAO.update(updateCc);
 		
 		ajaxResponse( response , null );
-
+		
+		adjustStatisticsForPerson(cmRecordDAO , cmStatisticsDAO , cmPersonDAO , Integer.valueOf( personId ) );
 		return null;
 	}
 

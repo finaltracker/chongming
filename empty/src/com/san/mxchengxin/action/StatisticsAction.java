@@ -2,6 +2,7 @@ package com.san.mxchengxin.action;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,7 +25,10 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -33,15 +37,19 @@ import org.hibernate.criterion.Restrictions;
 import com.san.mxchengxin.form.statistics.StatisticsForm;
 import com.san.mxchengxin.model.country.CmCountry;
 import com.san.mxchengxin.model.country.CmCountryDAO;
+import com.san.mxchengxin.model.country.CmPerson;
 import com.san.mxchengxin.model.country.CmPersonDAO;
 import com.san.mxchengxin.model.level.CmLevel;
 import com.san.mxchengxin.model.level.CmLevelDAO;
 import com.san.mxchengxin.model.record.CmRecord;
 import com.san.mxchengxin.model.record.CmRecordDAO;
+import com.san.mxchengxin.model.statistics.CmStatistics;
+import com.san.mxchengxin.model.statistics.CmStatisticsDAO;
 import com.san.mxchengxin.model.target.CmTarget;
 import com.san.mxchengxin.objects.RecordListObj;
 import com.san.mxchengxin.objects.StatisticsChengxinObj;
 import com.san.mxchengxin.utils.ComparatorCmLevel;
+import com.san.mxchengxin.utils.ComparatorTownChengxinObj;
 import com.san.mxchengxin.utils.util;
 
 public class StatisticsAction extends ChengxinBaseAction {
@@ -49,6 +57,8 @@ public class StatisticsAction extends ChengxinBaseAction {
 	private CmRecordDAO cmRecordDAO;
 	private CmLevelDAO cmLevelDAO;
 	private CmPersonDAO	cmPersonDAO;
+	CmStatisticsDAO	cmStatisticsDAO;
+
 	
 	int MAX_PAGE_SIZE_9999 = 9999;
 	final int MACRO_TOWN_VALID	= 2;
@@ -70,7 +80,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 	//for pagination
 	int page = 1;
 	int recordsPerPage = 20;
-	int noOfPages = 0;
+	
 	
 	public CmCountryDAO getCmCountryDAO() {
 		return cmCountryDAO;
@@ -104,6 +114,15 @@ public class StatisticsAction extends ChengxinBaseAction {
 		this.cmPersonDAO = cmPersonDAO;
 	}
 	
+
+	public CmStatisticsDAO getCmStatisticsDAO() {
+		return cmStatisticsDAO;
+	}
+
+	public void setCmStatisticsDAO(CmStatisticsDAO cmStatisticsDAO) {
+		this.cmStatisticsDAO = cmStatisticsDAO;
+	}
+
 	
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -152,7 +171,14 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 		if( ( country_idShort == -1 ) || ( country_idShort == 0 ) )
 		{//根据登陆的用户名来确定
-			countryList = userSeenCountryList;
+			if( this.isAllVisiable() )
+			{
+				countryList = null; // 不做限定
+			}
+			else
+			{
+				countryList = userSeenCountryList;
+			}
 		}
 		else
 		{//用户指定(村或镇)
@@ -197,17 +223,17 @@ public class StatisticsAction extends ChengxinBaseAction {
 		 Short[] VisiableContryLimit = countryList ; 
 		 if( catSelectInt == MACRO_TOWN_VALID )
 		 { // 县级权限，town列表显示
-			 statisticsChengxinOjbList = getTownChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 , 100 );
+			 statisticsChengxinOjbList = getTownChengxinObjList( cmCountryDAO, VisiableContryLimit , page ,recordsPerPage );
 		 }
 		 else if(catSelectInt == MACRO_COUNTRY_VALID )
 		 {
-			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO , VisiableContryLimit , 1 ,MAX_PAGE_SIZE_9999);
+			 statisticsChengxinOjbList = getCountryChengxinObjList( cmCountryDAO,VisiableContryLimit , page ,recordsPerPage);
 		 }
 		 else if(catSelectInt == MACRO_PEOPLE_VALID )
 		 {  
-			 statisticsChengxinOjbList = getPeopleChengxinObjList( cmCountryDAO ,VisiableContryLimit , truename , ssid , 1 , MAX_PAGE_SIZE_9999 );
+			 statisticsChengxinOjbList = getPeopleChengxinObjList( VisiableContryLimit , truename , ssid , page , recordsPerPage );
 		 }
-		 //else
+		 else
 		 {
 			 
 		 }
@@ -219,7 +245,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		{
 			noOfRecords = statisticsChengxinOjbList.size();
 		}
-		noOfPages = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
+		noOfPagesForStatistics = ( noOfRecords + (recordsPerPage-1))/ recordsPerPage;
 		
 		int listSize = recordsPerPage;
 		
@@ -283,7 +309,7 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 		request.setAttribute("ssidEnable", ssidEnable);
 		request.setAttribute("exportAllow", exportAllow);
-		request.setAttribute("noOfPages", noOfPages);
+		request.setAttribute("noOfPages", noOfPagesForStatistics);
 		request.setAttribute("noOfRecords", noOfRecords);
 		request.setAttribute("currentPage", page);
 		request.setAttribute("person_truename", truename);
@@ -459,5 +485,5 @@ public class StatisticsAction extends ChengxinBaseAction {
 		
 		return ret;
 	}
-
+	
 }

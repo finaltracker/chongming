@@ -194,7 +194,10 @@ public class PersonAction extends ChengxinBaseAction {
 					countryIds[i] = cc.getId();
 					System.out.println("country id :"+countryIds[i]);
 				}
-				searDc.add(Restrictions.in("countryId", countryIds));
+				if( countryIds.length > 0 )
+				{
+					searDc.add(Restrictions.in("countryId", countryIds));
+				}
 			} 
 			if(isAllVisiable())
 				countryId = 0;

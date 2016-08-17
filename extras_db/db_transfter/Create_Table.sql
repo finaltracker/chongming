@@ -325,7 +325,7 @@ prompt
 create sequence SEQ_CM_PERSON
 minvalue 1
 maxvalue 9999999999999999999999999999
-start with 45
+start with 100
 increment by 1
 nocache;
 

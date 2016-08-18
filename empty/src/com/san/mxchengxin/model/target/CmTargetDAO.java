@@ -211,7 +211,7 @@ public class CmTargetDAO extends HibernateDaoSupport {
 			 String s;
 			 CmTarget ct = all.get(i);
 			 
-			 if( ( selectId != null ) && ( selectId == ct.getId() ) )
+			 if( ( selectId != null ) && ( selectId == ct.getId().shortValue() ) )
 			 {
 				 s = String.format("<option value='%d'  target_score='%d' selected >%s</option>", ct.getId() , ct.getTargetScore() , ct.getTargetName() );
 			 }

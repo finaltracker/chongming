@@ -201,7 +201,7 @@ public class RecordAction extends ChengxinBaseAction {
 		{//用户指定(村或帧)
 			countryList = getVisiableCountryForShortAsCountryId( cmCountryDAO , country_id );
 		}
-		if( countryList != null )
+		if( ( countryList != null )&& ( countryList.length != 0 ))
 		{
 			//country
 			searDc.add(Restrictions.in("person.countryId", countryList ));

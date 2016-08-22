@@ -3,6 +3,12 @@ declare
 	  V_NUM number;
 	  T_NUM number;
 begin 
+      select count(*) into cnt from user_tables where TABLE_NAME = 'CM_STATISTICS'; 
+      if   cnt>0   then 
+          execute immediate 'drop table CM_STATISTICS';
+		  commit;
+      end   if; 
+      
       select count(*) into cnt from user_tables where TABLE_NAME = 'CM_COUNTRY'; 
       if   cnt>0   then 
           execute immediate 'drop table CM_COUNTRY';
@@ -51,6 +57,15 @@ begin
           commit;
       end   if; 
 
+    
+    V_NUM := 0;  
+    
+    select count(0) into V_NUM from user_sequences where sequence_name = 'SEQ_CM_STATISTICS'; 
+    
+    if V_NUM > 0 then   
+		execute immediate 'DROP SEQUENCE  SEQ_CM_STATISTICS';
+		commit;	  
+    end if;
     
     V_NUM := 0;  
     
@@ -132,6 +147,15 @@ begin
     end if;    
 
 	
+    T_NUM := 0;  
+    
+    select count(0) into T_NUM from user_triggers where trigger_name = 'tig_cm_statistics'; 
+    
+    if T_NUM > 0 then   
+      execute immediate 'DROP TRIGGER  tig_cm_statistics'; 
+      commit;
+    end if;
+    
     T_NUM := 0;  
     
     select count(0) into T_NUM from user_triggers where trigger_name = 'tig_cm_country'; 

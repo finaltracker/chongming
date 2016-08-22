@@ -265,7 +265,7 @@
  	<bean id="DayGuardTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
   		<property name="jobDetail" ref="DayGuardTask" />
   		<property name="cronExpression">
-   			<value> 0 34 19 * * ? </value>
+   			<value> 0 0 0 * * ? </value>
   		</property>
  	</bean>
  	

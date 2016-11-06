@@ -45,19 +45,20 @@
 								data-action="form"
 								data-url="${pageContext.request.contextPath}/home/record.do?opt=21">导出</button -->
 							<div class="form-group">
-								<label class="control-label"> 姓名 </label> <input type="text"
-									class="form-control" name="truename"
-									value="${searchMap.truename}" /> <label class="control-label">
-									身份证号 </label> <input type="text" class="form-control" name="ssid"
-									value="${searchMap.ssid}" />
-								<if condition="$userInfo.role_id neq 3"> <label
-									class="control-label"> 所属乡镇 </label> <select
-									class="select2 form-control" name="country_id">
-									<option value="">请选择</option> ${countrySelect}
-								</select> 
+								<label class="control-label"> 姓名 </label> 
+								<input type="text" class="form-control" name="truename"	value="${searchMap.truename}" /> &nbsp;&nbsp;&nbsp;&nbsp;
+								<label class="control-label">身份证号 </label> 
+								<input type="text" class="form-control" name="ssid"	value="${searchMap.ssid}" />&nbsp;&nbsp;&nbsp;&nbsp;
+								<if condition="$userInfo.role_id neq 3"> 
+									<label	class="control-label"> 所属乡镇 </label> 
+									<select
+										class="select2 form-control" name="country_id">
+										<option value="">请选择&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option> ${countrySelect}
+									</select> &nbsp;&nbsp;&nbsp;&nbsp;
 								</if>
-								<br />
-								<label class="control-label"> 考核指标 </label> <select
+
+								<label class="control-label"> 考核指标 </label> 
+								<select
 									class="select2 form-control" name="target_id">
 									<option value="">请选择</option> ${targetSelect}
 								</select>&nbsp;&nbsp;

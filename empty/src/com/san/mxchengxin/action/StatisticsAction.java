@@ -371,7 +371,7 @@ public class StatisticsAction extends ChengxinBaseAction {
         
         for (short i = 0; i < excelHeader.length; i++) {    
             HSSFCell cell = row.createCell(i);  
-            cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell.setCellValue(excelHeader[i]);    
             cell.setCellStyle(style);    
             //sheet.autoSizeColumn(i);    
@@ -382,29 +382,29 @@ public class StatisticsAction extends ChengxinBaseAction {
             StatisticsChengxinObj scx = list.get(i);    
             //csCell.setEncoding(HSSFCell.ENCODING_UTF_16);
             HSSFCell cell0 = row.createCell((short)0);
-            cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell0.setCellValue(i+1);  
             HSSFCell cell1 = row.createCell((short)1);
-            cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell1.setCellValue(scx.getName());  
             HSSFCell cell2 = row.createCell((short)2);
-            cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell2.setCellValue(scx.getBaseScore());  
             
             HSSFCell cell3 = row.createCell((short)3);
-            cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell3.setCellValue(scx.getSubScore());  
             
             HSSFCell cell4 = row.createCell((short)4);
-            cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell4.setCellValue(scx.getAddScore());  
             
             HSSFCell cell5 = row.createCell((short)5);
-            cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell5.setCellValue(scx.getTotalScore()); 
             
             HSSFCell cell6 = row.createCell((short)6);
-            cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell6.setCellValue(scx.getRank()); 
             
         }        

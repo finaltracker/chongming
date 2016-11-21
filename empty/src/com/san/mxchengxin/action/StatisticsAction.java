@@ -393,11 +393,11 @@ public class StatisticsAction extends ChengxinBaseAction {
             
             HSSFCell cell3 = row.createCell((short)3);
             //cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
-            cell3.setCellValue(scx.getSubScore());  
+            cell3.setCellValue(scx.getAddScore());  
             
             HSSFCell cell4 = row.createCell((short)4);
             //cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
-            cell4.setCellValue(scx.getAddScore());  
+            cell4.setCellValue(scx.getSubScore());  
             
             HSSFCell cell5 = row.createCell((short)5);
             //cell5.setEncoding(HSSFCell.ENCODING_UTF_16);

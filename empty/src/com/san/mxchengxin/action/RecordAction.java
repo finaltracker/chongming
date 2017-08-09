@@ -370,7 +370,7 @@ public class RecordAction extends ChengxinBaseAction {
     
         for (short i = 0; i < excelHeader.length; i++) {    
             HSSFCell cell = row.createCell(i);  
-            cell.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell.setCellValue(excelHeader[i]);    
             cell.setCellStyle(style);    
             //sheet.autoSizeColumn(i);    

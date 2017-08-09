@@ -381,43 +381,43 @@ public class RecordAction extends ChengxinBaseAction {
             RecordListObj cp = list.get(i);    
             //csCell.setEncoding(HSSFCell.ENCODING_UTF_16);
             HSSFCell cell0 = row.createCell((short)0);
-            cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell0.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell0.setCellValue(i+1);  
             
             HSSFCell cell1 = row.createCell((short)1);
-            cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell1.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell1.setCellValue(cp.getTruename());  
             
             HSSFCell cell2 = row.createCell((short)2);
-            cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell2.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell2.setCellValue(cp.getSsid());  
             
             HSSFCell cell3 = row.createCell((short)3);
-            cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell3.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell3.setCellValue(cp.getCountryName());  
             
             HSSFCell cell4 = row.createCell((short)4);
-            cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell4.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell4.setCellValue(cp.getTarget_name());  
             
             HSSFCell cell5 = row.createCell((short)5);
-            cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell5.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell5.setCellValue(cp.getScore());  
             
             HSSFCell cell6 = row.createCell((short)6);
-            cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell6.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell6.setCellValue(cp.getAuthor()); 
             
             HSSFCell cell7 = row.createCell((short)7);
-            cell7.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell7.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell7.setCellValue(cp.getPart_name());  
             
             HSSFCell cell8 = row.createCell((short)8);
-            cell8.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell8.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell8.setCellValue(cp.getPubdate());  
             
             HSSFCell cell9 = row.createCell((short)9);
-            cell9.setEncoding(HSSFCell.ENCODING_UTF_16);
+            //cell9.setEncoding(HSSFCell.ENCODING_UTF_16);
             cell9.setCellValue(cp.getDateline());  
             
         }        

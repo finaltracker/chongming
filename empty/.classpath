@@ -92,8 +92,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/oscache-2.1.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/oscache-2.3.2.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/page.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-2.5.1-final-20040804.jar"/>
-	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.11-20141221.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-contrib-2.5.1-final-20040804.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-examples-3.11-20141221.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-excelant-3.11-20141221.jar"/>
@@ -131,5 +129,6 @@
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xml-apis.jar"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/Sun JDK 1.6.0_13"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/poi-3.14-20160307.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
